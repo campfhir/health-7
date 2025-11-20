@@ -4,7 +4,7 @@ A modular TypeScript library for building and parsing HL7v2 messages. No third-p
 
 ## Features
 
-- **Builder Pattern**: Type-safe segment builders with fluent API
+- **Fluent Interface**: Type-safe segment construction with fluent API
 - **Parser**: Parse HL7v2 message strings back into structured data
 - **Round-trip Support**: Build messages and parse them back with full fidelity
 - **Modular Architecture**: Organized by HL7 version for easy extension
@@ -84,7 +84,7 @@ import {
 } from './src';
 
 // Create MSH (Message Header)
-const msh = MSH.builder()
+const msh = new MSH()
   .sendingApplication('LAB')
   .sendingFacility('General Hospital')
   .receivingApplication('EMR')
@@ -93,46 +93,41 @@ const msh = MSH.builder()
   .messageType('ORU', 'R01', 'ORU_R01')
   .messageControlId('MSG00001')
   .processingId('P')
-  .versionId('2.5.1')
-  .build();
+  .versionId('2.5.1');
 
 // Create PID (Patient Identification)
-const pid = PID.builder()
+const pid = new PID()
   .setId('1')
   .patientIdentifierList('12345', '', '', 'MRN', 'MR')
   .patientName('Doe', 'John', 'Q')
   .dateTimeOfBirth('19800115')
-  .administrativeSex('M')
-  .build();
+  .administrativeSex('M');
 
 // Create PV1 (Patient Visit) - Optional
-const pv1 = PV1.builder()
+const pv1 = new PV1()
   .setId('1')
   .patientClass('I')
   .assignedPatientLocation('ICU', '101', 'A', 'Main')
-  .attendingDoctor('1234', 'Smith', 'Jane')
-  .build();
+  .attendingDoctor('1234', 'Smith', 'Jane');
 
 // Create OBR (Observation Request)
-const obr = OBR.builder()
+const obr = new OBR()
   .setId('1')
   .placerOrderNumber('ORD123456')
   .fillerOrderNumber('LAB987654')
   .universalServiceIdentifier('CBC', 'Complete Blood Count', 'LN')
   .observationDateTime('20250119120000')
-  .resultStatus('F')
-  .build();
+  .resultStatus('F');
 
 // Create OBX (Observation Results)
-const obx1 = OBX.builder()
+const obx1 = new OBX()
   .setId('1')
   .valueType('NM')
   .observationIdentifier('718-7', 'Hemoglobin', 'LN')
   .observationValue('15.5')
   .units('g/dL', 'grams per deciliter', 'UCUM')
   .referenceRange('13.5-17.5')
-  .observationResultStatus('F')
-  .build();
+  .observationResultStatus('F');
 
 // Compose the message
 const patientResult: PatientResult = {
@@ -146,10 +141,7 @@ const patientResult: PatientResult = {
   ],
 };
 
-const message = createORU_R01()
-  .setMSH(msh)
-  .addPatientResult(patientResult)
-  .build();
+const message = createORU_R01(msh, [patientResult]);
 
 // Encode to HL7 format
 const encodedMessage = message.encode();
@@ -243,15 +235,14 @@ node dist/examples/value-extractor-example.js  # Value extraction examples
 
 ## Architecture
 
-### Builder Pattern
+### Fluent Interface Pattern
 
-Each segment has a dedicated builder class that provides a fluent API:
+Each segment uses a fluent interface pattern for easy construction:
 
 ```typescript
-const msh = MSH.builder()
+const msh = new MSH()
   .sendingApplication('APP')
-  .receivingApplication('SYS')
-  .build();
+  .receivingApplication('SYS');
 ```
 
 ### Message Schemas
