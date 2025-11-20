@@ -1,0 +1,8 @@
+MSH|^~\&|LIS|M|||20090518161040||ORU^R01|91380000033|P|2.3|
+PID|||15161516^^^^M||TEST^EMR SAMPLE^||19651015|M||||||||||46456|
+PV1||O|XOP||||14516^TEST^PHYSICIAN||LAB||||||||^|||||||||||||||||||||||||||||
+ORC|RE|||||||||||||||^|
+OBR|||E2905966|^^^HA1C^HemoglobinA1C|||200905041213|||||||200905041223|^|14516^TEST^PHYSICIAN||||M3017||||RL|F|HA1C^HA1C|^^^^^R|^^~^^~^^||||^^|^^|^^||200905041213|
+OBX|1|NM|HA1C^Hemoglobin A1C|1|2.8|%|4.0-6.0|L|||F|||200905041232|C^LAB IT|
+OBX|1|TX|HA1C^Hemoglobin A1C|2|Note: Values <7% meet the treatment goal for patients with diabetes|||||||||200905041232|C^LAB IT|
+OBX|1|TX|HA1C^Hemoglobin A1C|3| mellitus.|||||||||200905041232|C^LAB IT|

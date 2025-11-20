@@ -1,0 +1,38 @@
+MSH|^~\&|LIS|M|||20090518161041||ORU^R01|91380000035|P|2.3|
+PID|||15161516^^^^M||TEST^EMR SAMPLE^||19651015|M||||||||||46456|
+PV1||O|XOP||||14516^TEST^PHYSICIAN||LAB||||||||^|||||||||||||||||||||||||||||
+ORC|RE|||||||||||||||^|
+OBR|||E2905967|^^^ZZ01^Wound Cult, Aero|||200905041213|||||||200905041223|^Leg|14516^TEST^PHYSICIAN||||M3018||||MC|F|WNDAE^ZZ01|^^^^^R|^^~^^~^^||||^^|^^|^^||200905041213|
+OBX|1|TX|SDES^Specimen Description|1|Leg||||||F|||200905041228|C^LAB IT|
+OBX|2|TX|SREQ^Special Requests|1|None||||||F|||200905041228|C^LAB IT|
+OBX|3|TX|CULT^Culture|1|Many (4+) Proteus mirabilis||||||F|||200905050758|C^LAB IT|
+OBX|3|TX|CULT^Culture|2|Mod (3+) **Corrected Micro Report** Rhodotorula glutinis (Previously|||||||||200905050758|C^LAB IT|
+OBX|3|TX|CULT^Culture|3| reported as: Rhodotorula rubra|||||||||200905050758|C^LAB IT|
+OBX|3|TX|CULT^Culture|4|Mod (3+) Pseudomonas aeruginosa|||||||||200905050758|C^LAB IT|
+OBX|3|ST|CULT^Culture|5|. . . . . . . . . . . . COMMENT . . . . . . . . . .|||||||||200905050758|C^LAB IT|
+OBX|3|ST|CULT^Culture|6|Called to: Dr office and XOP/Ruth @ 05/05/2009 07:58AM By: SG2515|||||||||200905050758|C^LAB IT|
+OBX|3|ST|CULT^Culture|7|Read back done and verified as correct.|||||||||200905050758|C^LAB IT|
+OBX|4|TX|RPT^Report Status|1|Final 05/05/2009||||||F|||200905050758|C^LAB IT|
+OBX|5|TX|ORG^Organism|1|Many (4+) Proteus mirabilis||||||F|||200905041245|C^LAB IT|
+OBX|6|TX|MTYP^Method|1|Kirby Bauer||||||F|||200905041245|C^LAB IT|
+OBX|7|TX|AUG^Amox/k Clav'ate|1|Susceptible|||SS^|||F|||200905041245|C^LAB IT|
+OBX|8|TX|AMPI^Ampicillin|1|Susceptible|||SS^|||F|||200905041245|C^LAB IT|
+OBX|9|TX|CFZ^Cefazolin|1|Susceptible|||SS^|||F|||200905041245|C^LAB IT|
+OBX|10|TX|CTN^Cefotetan|1|Susceptible|||SS^|||F|||200905041245|C^LAB IT|
+OBX|11|TX|CAX^Ceftriaxone|1|Susceptible|||SS^|||F|||200905041245|C^LAB IT|
+OBX|12|TX|CIP^Ciprofloxacin|1|Susceptible|||SS^|||F|||200905041245|C^LAB IT|
+OBX|13|TX|GM^Gentamicin|1|Intermediate|||I^|||F|||200905041245|C^LAB IT|
+OBX|14|TX|TE^Tetracycline|1|Resistant|||R^|||F|||200905041245|C^LAB IT|
+OBX|15|TX|TS^Trimeth/sulfa|1|Susceptible|||SS^|||F|||200905041245|C^LAB IT|
+OBX|16|TX|ORG^Organism|1|Mod (3+) Pseudomonas aeruginosa||||||F|||200905050758|C^LAB IT|
+OBX|17|TX|MTYP^Method|1|MIC (ug/mL)||||||F|||200905050758|C^LAB IT|
+OBX|18|TX|AK^Amikacin|1|2 Susceptible|||SS^|||F|||200905050758|C^LAB IT|
+OBX|19|TX|AZT^Aztreonam|1|14 Intermediate|||I^|||F|||200905050758|C^LAB IT|
+OBX|20|TX|CAZ^Ceftazidime|1|1 Susceptible|||SS^|||F|||200905050758|C^LAB IT|
+OBX|21|TX|CAX^Ceftriaxone|1|1 Susceptible|||SS^|||F|||200905050758|C^LAB IT|
+OBX|22|TX|CIP^Ciprofloxacin|1|<1 Susceptible|||SS^|||F|||200905050758|C^LAB IT|
+OBX|23|TX|GM^Gentamicin|1|10 Resistant|||R^|||F|||200905050758|C^LAB IT|
+OBX|24|TX|IMP^Imipenem|1|2 Susceptible|||SS^|||F|||200905050758|C^LAB IT|
+OBX|25|TX|TZP^Piperacillin/Tazo|1|1 Susceptible|||SS^|||F|||200905050758|C^LAB IT|
+OBX|26|TX|TIM^Ticar/k Clav'ate|1|2 Susceptible|||SS^|||F|||200905050758|C^LAB IT|
+OBX|27|TX|TO^Tobramycin|1|6 Intermediate|||I^|||F|||200905050758|C^LAB IT|

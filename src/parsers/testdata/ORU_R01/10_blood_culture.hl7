@@ -1,0 +1,16 @@
+MSH|^~\&|LAB|Hospital|EMR|Clinic|20231119113000||ORU^R01|MSG00127|P|2.5|||AL||
+PID|1||234567890^^^MRN||GARCIA^CARLOS^M||19450630|M|||654 MAPLE DR^^CITY^ST^24680||555-2468|555-1357||M||ACC234567|234-56-7890|
+PV1|1|I|ICU^205^B^Main||||654^MARTINEZ^LISA^G^MD^^MD|||||||||||ADM654|||||||||||||||||||||||||20231117|
+ORC|RE|ORD654|LAB303|||||||||654^MARTINEZ^LISA^G^MD^^MD|
+OBR|1|ORD654|LAB303|BLOODCX^Blood Culture^L|||20231117180000|||||||20231117182000|^Blood|654^MARTINEZ^LISA^G^MD^^MD||||||20231119113000|||F|
+OBX|1|TX|SITE^Collection Site|1|Right Antecubital Fossa||||||F|||20231117182000|LAB^Microbiology|
+OBX|2|TX|CULT^Culture|1|Staphylococcus aureus||||||F|||20231119080000|LAB^Microbiology|
+OBX|3|TX|GRAM^Gram Stain|1|Gram Positive Cocci in Clusters||||||F|||20231118060000|LAB^Microbiology|
+OBX|4|TX|ORG^Organism|1|Staphylococcus aureus - Heavy Growth||||||F|||20231119080000|LAB^Microbiology|
+OBX|5|TX|MTYP^Method|1|MIC (mcg/mL)||||||F|||20231119080000|LAB^Microbiology|
+OBX|6|TX|OXAC^Oxacillin|1|>4 Resistant||>2|R^|||F|||20231119080000|LAB^Microbiology|
+OBX|7|TX|VAN^Vancomycin|1|1 Susceptible||<=2|S^|||F|||20231119080000|LAB^Microbiology|
+OBX|8|TX|LEVO^Levofloxacin|1|0.5 Susceptible||<=1|S^|||F|||20231119080000|LAB^Microbiology|
+OBX|9|TX|LINZ^Linezolid|1|2 Susceptible||<=4|S^|||F|||20231119080000|LAB^Microbiology|
+OBX|10|TX|DAPT^Daptomycin|1|0.5 Susceptible||<=1|S^|||F|||20231119080000|LAB^Microbiology|
+OBX|11|TX|COMMENT^Comment|1|MRSA DETECTED - CONTACT PRECAUTIONS RECOMMENDED||||||F|||20231119080000|LAB^Microbiology|
