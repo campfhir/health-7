@@ -54,7 +54,11 @@ const CONFIGS: Record<string, VersionConfig> = {
       // Insurance / Finance
       "IN1",
       "IN2",
+      "IN3",
       "ACC",
+      "DRG",
+      "UB1",
+      "UB2",
       // Messaging
       "MSA",
       "ERR",
