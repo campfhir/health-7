@@ -26,6 +26,8 @@ import { generateSegment } from "./generators/segment.ts";
 import { generateBaseParser } from "./generators/baseParser.ts";
 import { generateParser } from "./generators/parser.ts";
 import { generateBuilder } from "./generators/builder.ts";
+import { generateWrapperParser } from "./generators/wrapperParser.ts";
+import { generateWrapperBuilder } from "./generators/wrapperBuilder.ts";
 
 const ROOT = join(fileURLToPath(import.meta.url), "../..");
 const DRY_RUN = process.argv.includes("--dry-run");
@@ -86,6 +88,7 @@ function schemaToParserConfig(schema: MessageSchema): ParserConfig {
     parseFn: `parse${msgName}`,
     exportTypes: deriveExportTypes(schema),
     segments,
+    baseMessage: schema.baseMessage,
   };
 }
 
@@ -95,6 +98,7 @@ function schemaToBuilderConfig(schema: MessageSchema): BuilderConfig {
   return {
     name: msgName,
     segments: allSegs.filter((s) => s !== "MSH"),
+    baseMessage: schema.baseMessage,
   };
 }
 
@@ -141,7 +145,11 @@ function generate(config: VersionConfig, baseSchema?: VersionSchema) {
         console.log(`skip   ${parserPath.replace(ROOT + "/", "")}  (already exists)`);
         continue;
       }
-      write(parserPath, generateBaseParser(parser, version));
+      if (parser.baseMessage) {
+        write(parserPath, generateWrapperParser(parser, parser.baseMessage));
+      } else {
+        write(parserPath, generateBaseParser(parser, version));
+      }
     }
     for (const builder of builders ?? []) {
       const builderPath = join(ROOT, "src/builders", version, `${builder.name}.ts`);
@@ -149,7 +157,11 @@ function generate(config: VersionConfig, baseSchema?: VersionSchema) {
         console.log(`skip   ${builderPath.replace(ROOT + "/", "")}  (already exists)`);
         continue;
       }
-      write(builderPath, generateBuilder(builder, version, version));
+      if (builder.baseMessage) {
+        write(builderPath, generateWrapperBuilder(builder, builder.baseMessage));
+      } else {
+        write(builderPath, generateBuilder(builder, version, version));
+      }
     }
   } else {
     // Derived version — generate segment wrappers, parser overrides, builder stubs.
@@ -173,7 +185,11 @@ function generate(config: VersionConfig, baseSchema?: VersionSchema) {
         continue;
       }
       const msgName = parser.name.replace(/_Parser$/, "");
-      if (baseMessages.has(msgName)) {
+      if (parser.baseMessage) {
+        // Wrapper: extend the same-version base parser
+        write(parserPath, generateWrapperParser(parser, parser.baseMessage));
+      } else if (baseMessages.has(msgName)) {
+        // Standard derived override: override parse methods to use this version's segments
         write(parserPath, generateParser(parser, version, baseVersion));
       } else {
         console.log(`note   ${parser.name} is new in ${version} — generating base stub`);
@@ -187,7 +203,9 @@ function generate(config: VersionConfig, baseSchema?: VersionSchema) {
         console.log(`skip   ${builderPath.replace(ROOT + "/", "")}  (already exists)`);
         continue;
       }
-      if (baseMessages.has(builder.name)) {
+      if (builder.baseMessage) {
+        write(builderPath, generateWrapperBuilder(builder, builder.baseMessage));
+      } else if (baseMessages.has(builder.name)) {
         write(builderPath, generateBuilder(builder, version, baseVersion));
       } else {
         console.log(`note   ${builder.name} is new in ${version} — generating base stub`);

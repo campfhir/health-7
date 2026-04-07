@@ -6,6 +6,11 @@ export interface BuilderConfig {
    * Each becomes a generic type parameter `T{Seg}`.
    */
   segments: string[];
+  /**
+   * When set, generate a thin re-export wrapper instead of a full stub.
+   * Value is the base message name, e.g. "ADT_A01".
+   */
+  baseMessage?: string;
 }
 
 export interface ParserConfig {
@@ -21,6 +26,11 @@ export interface ParserConfig {
    * All others receive (s, encoding).
    */
   segments: string[];
+  /**
+   * When set, generate a thin wrapper subclass instead of a full stub.
+   * Value is the base message name, e.g. "ADT_A01".
+   */
+  baseMessage?: string;
 }
 
 export interface VersionConfig {

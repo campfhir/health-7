@@ -19,6 +19,11 @@ export interface MessageSchema {
   triggerEvent: string;
   version: string;
   structure: (SegmentDefinition | SegmentGroup)[];
+  /**
+   * When set, codegen generates a thin wrapper (parser subclass + builder re-export)
+   * instead of a full stub. Value is the base message name, e.g. "ADT_A01".
+   */
+  baseMessage?: string;
 }
 
 /**
