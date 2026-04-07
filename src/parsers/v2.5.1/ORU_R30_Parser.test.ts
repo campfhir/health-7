@@ -2,11 +2,9 @@ import { describe, it, expect } from "vitest";
 import { readFileSync, readdirSync } from "fs";
 import { join } from "path";
 import { ORU_R30_Parser, parseORU_R30 } from "./ORU_R30_Parser.js";
-import {
-  createORU_R30,
-  createORU_R31,
-  createORU_R32,
-} from "../../builders/v2.5.1/ORU_R30.js";
+import { createORU_R30 } from "../../builders/v2.5.1/ORU_R30.js";
+import { createORU_R31 } from "../../builders/v2.5.1/ORU_R31.js";
+import { createORU_R32 } from "../../builders/v2.5.1/ORU_R32.js";
 import { MSH } from "../../segments/v2.5.1/MSH.js";
 import { PID } from "../../segments/v2.5.1/PID.js";
 import { PV1 } from "../../segments/v2.5.1/PV1.js";

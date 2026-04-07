@@ -26,8 +26,8 @@ export interface ParserConfig {
 export interface VersionConfig {
   /** Directory name used in paths e.g. "v2.8" */
   version: string;
-  /** Base version to inherit from e.g. "v2.5.1" */
-  baseVersion: string;
+  /** Base version to inherit from e.g. "v2.5.1". Omit for base versions. */
+  baseVersion?: string;
   /** Segment class names to generate wrappers for */
   segments: string[];
   /** Parser configurations */

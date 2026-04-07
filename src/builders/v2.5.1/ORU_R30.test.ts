@@ -1,5 +1,7 @@
 import { describe, it, expect } from "vitest";
-import { createORU_R30, createORU_R31, createORU_R32 } from "./ORU_R30.js";
+import { createORU_R30 } from "./ORU_R30.js";
+import { createORU_R31 } from "./ORU_R31.js";
+import { createORU_R32 } from "./ORU_R32.js";
 import { PID } from "../../segments/v2.5.1/PID.js";
 import { ORC } from "../../segments/v2.5.1/ORC.js";
 import { OBX } from "../../segments/v2.5.1/OBX.js";

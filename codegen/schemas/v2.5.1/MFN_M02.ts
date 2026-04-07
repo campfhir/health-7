@@ -1,9 +1,9 @@
-import { MessageSchema } from "../../types/schema";
+import { MessageSchema } from "../../../src/types/schema";
 
 export const MFN_M02_SCHEMA: MessageSchema = {
   messageType: "MFN",
   triggerEvent: "M02",
-  version: "2.3",
+  version: "2.5.1",
   structure: [
     {
       name: "MSH",

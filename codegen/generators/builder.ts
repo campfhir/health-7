@@ -47,7 +47,7 @@ export function generateBuilder(
   const typeArgs = ["TMSH", ...segments.map((s) => `T${s}`)].join(", ");
 
   return `// ⚠ GENERATED STUB — complete before use
-// Re-run \`pnpm codegen --version=${version}\` to regenerate from scratch.
+// Re-run \`pnpm codegen\` to regenerate from scratch.
 //
 // Steps to complete:
 //   1. Define data-shape interfaces for this message's groups (see TODO below).

@@ -17,6 +17,8 @@ import { ORC as ORC_251 } from "../../segments/v2.5.1/ORC";
 import { OBR as OBR_251 } from "../../segments/v2.5.1/OBR";
 import { OBX as OBX_251 } from "../../segments/v2.5.1/OBX";
 import { MSH as MSH_251 } from "../../segments/v2.5.1/MSH";
+import { CTI } from "../../segments/v2.3/CTI";
+import { CTI as CTI_251 } from "../../segments/v2.5.1/CTI";
 import { EncodingCharacters, DEFAULT_ENCODING } from "../../types/encoding";
 
 export interface OBXWithNotes<TOBX extends OBX = OBX_251, TNTE extends NTE = NTE_251> {
@@ -29,12 +31,14 @@ export interface OrderObservation<
   TOBR extends OBR = OBR_251,
   TOBX extends OBX = OBX_251,
   TNTE extends NTE = NTE_251,
+  TCTI extends CTI = CTI_251,
 > {
   orc?: TORC;
   obr: TOBR;
   obrNteList?: TNTE[];
   obxList: TOBX[] | OBXWithNotes<TOBX, TNTE>[];
   obxNteMap?: Map<number, TNTE[]>; // Alternative way to associate NTE with OBX
+  ctiList?: TCTI[];
 }
 
 export interface PatientResult<
@@ -196,6 +200,12 @@ export class ORU_R01<
                 }
               }
             }
+          }
+        }
+
+        if (orderObs.ctiList) {
+          for (const cti of orderObs.ctiList) {
+            segments.push(cti.encode(this.encoding));
           }
         }
       }

@@ -9,6 +9,7 @@ import { OBX } from "../../segments/v2.3/OBX";
 import { NTE } from "../../segments/v2.3/NTE";
 import { NK1 } from "../../segments/v2.3/NK1";
 import { PD1 } from "../../segments/v2.3/PD1";
+import { CTI } from "../../segments/v2.3/CTI";
 import { HL7Message } from "../../types/message";
 import { EncodingCharacters } from "../../types/encoding";
 
@@ -18,6 +19,7 @@ export interface ParsedOrderObservation {
   obrNteList?: NTE[];
   obxList: OBX[];
   obxNteMap?: Map<number, NTE[]>;
+  ctiList?: CTI[];
 }
 
 export interface ParsedPatientResult {
@@ -62,6 +64,10 @@ export class ORU_R01_Parser {
   }
   protected parseOBX(s: string, e: EncodingCharacters): Result<OBX> {
     return OBX.parse(s, e);
+  }
+
+  protected parseCTI(s: string, e: EncodingCharacters): Result<CTI> {
+    return CTI.parse(s, e);
   }
 
   parse(messageString: string): Result<ParsedORU_R01> {
@@ -297,6 +303,24 @@ export class ORU_R01_Parser {
             }
             currentOrderObservation.obxList.push(obxResult.val);
             message.addSegment(obxResult.val);
+            break;
+          }
+
+          case "CTI": {
+            const ctiResult = this.parseCTI(segmentStr, encoding);
+            if (!ctiResult.ok || !ctiResult.val) {
+              return {
+                ok: false,
+                err: new Err(
+                  `Failed to parse CTI segment at line ${i + 1}: ${ctiResult.err.message}`,
+                ),
+              };
+            }
+            if (currentOrderObservation) {
+              if (!currentOrderObservation.ctiList) currentOrderObservation.ctiList = [];
+              currentOrderObservation.ctiList.push(ctiResult.val);
+            }
+            message.addSegment(ctiResult.val);
             break;
           }
 

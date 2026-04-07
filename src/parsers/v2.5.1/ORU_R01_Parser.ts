@@ -8,6 +8,7 @@ import { OBX } from "../../segments/v2.5.1/OBX";
 import { NTE } from "../../segments/v2.5.1/NTE";
 import { NK1 } from "../../segments/v2.5.1/NK1";
 import { PD1 } from "../../segments/v2.5.1/PD1";
+import { CTI } from "../../segments/v2.5.1/CTI";
 import { EncodingCharacters } from "../../types/encoding";
 import {
   ORU_R01_Parser as ORU_R01_Parser_v23,
@@ -45,6 +46,9 @@ export class ORU_R01_Parser extends ORU_R01_Parser_v23 {
   }
   protected override parseOBX(s: string, e: EncodingCharacters): Result<OBX> {
     return OBX.parse(s, e);
+  }
+  protected override parseCTI(s: string, e: EncodingCharacters): Result<CTI> {
+    return CTI.parse(s, e);
   }
 }
 

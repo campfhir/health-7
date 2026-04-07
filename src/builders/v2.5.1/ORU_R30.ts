@@ -33,6 +33,8 @@ export interface SimplePatientResultR30 {
 }
 
 export class ORU_R30 {
+  protected readonly messageName: string = "ORU_R30";
+
   constructor(
     public msh: MSH,
     public patientResults: PatientResultR30[] = [],
@@ -43,12 +45,12 @@ export class ORU_R30 {
     const errors: string[] = [];
 
     if (!this.msh) {
-      errors.push("MSH segment is required for ORU_R30 message");
+      errors.push(`MSH segment is required for ${this.messageName} message`);
     }
 
     if (this.patientResults.length === 0) {
       errors.push(
-        "At least one patient result is required for ORU_R30 message",
+        `At least one patient result is required for ${this.messageName} message`,
       );
     }
 
@@ -134,47 +136,6 @@ export class ORU_R30 {
   }
 }
 
-// R31 uses the same structure as R30
-export class ORU_R31 extends ORU_R30 {
-  verify(): { valid: boolean; errors: string[] } {
-    const result = super.verify();
-    // Change error messages to R31
-    result.errors = result.errors.map((e) => e.replace("ORU_R30", "ORU_R31"));
-    return result;
-  }
-
-  encode(options?: { renumberSetIds?: boolean }): string {
-    const verification = this.verify();
-    if (!verification.valid) {
-      throw new Error(
-        `Cannot encode invalid ORU_R31 message:\n${verification.errors.join("\n")}`,
-      );
-    }
-    return super.encode(options);
-  }
-}
-
-// R32 uses the same structure as R30
-export class ORU_R32 extends ORU_R30 {
-  verify(): { valid: boolean; errors: string[] } {
-    const result = super.verify();
-    // Change error messages to R32
-    result.errors = result.errors.map((e) => e.replace("ORU_R30", "ORU_R32"));
-    return result;
-  }
-
-  encode(options?: { renumberSetIds?: boolean }): string {
-    const verification = this.verify();
-    if (!verification.valid) {
-      throw new Error(
-        `Cannot encode invalid ORU_R32 message:\n${verification.errors.join("\n")}`,
-      );
-    }
-    return super.encode(options);
-  }
-}
-
-// Convenience functions
 export function createORU_R30(
   msh: MSH,
   patientResults: SimplePatientResultR30[] = [],
@@ -193,38 +154,4 @@ export function createORU_R30(
   return new ORU_R30(msh, convertedResults);
 }
 
-export function createORU_R31(
-  msh: MSH,
-  patientResults: SimplePatientResultR30[] = [],
-): ORU_R31 {
-  // Convert SimplePatientResultR30 to PatientResultR30
-  const convertedResults: PatientResultR30[] = patientResults.map((pr) => ({
-    pid: pr.pid,
-    pv1: pr.pv1,
-    orderObservations: pr.orderObservations.map((oo) => ({
-      orc: oo.orc,
-      obr: oo.obr,
-      obxList: oo.observations,
-    })),
-  }));
 
-  return new ORU_R31(msh, convertedResults);
-}
-
-export function createORU_R32(
-  msh: MSH,
-  patientResults: SimplePatientResultR30[] = [],
-): ORU_R32 {
-  // Convert SimplePatientResultR30 to PatientResultR30
-  const convertedResults: PatientResultR30[] = patientResults.map((pr) => ({
-    pid: pr.pid,
-    pv1: pr.pv1,
-    orderObservations: pr.orderObservations.map((oo) => ({
-      orc: oo.orc,
-      obr: oo.obr,
-      obxList: oo.observations,
-    })),
-  }));
-
-  return new ORU_R32(msh, convertedResults);
-}

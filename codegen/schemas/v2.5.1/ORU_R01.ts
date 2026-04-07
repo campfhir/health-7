@@ -1,16 +1,8 @@
-import { MessageSchema } from '../../types/schema';
+import { MessageSchema } from '../../../src/types/schema';
 
-/**
- * ORU^R30 - Unsolicited Point-Of-Care Observation Message Without Existing Order
- * Also used for R31 and R32 trigger events (same structure, different business rules)
- *
- * R30: Place an order based on observation
- * R31: Search for an order
- * R32: Pre-ordered observation
- */
-export const ORU_R30_SCHEMA: MessageSchema = {
+export const ORU_R01_SCHEMA: MessageSchema = {
   messageType: 'ORU',
-  triggerEvent: 'R30',
+  triggerEvent: 'R01',
   version: '2.5.1',
   structure: [
     {
@@ -46,11 +38,6 @@ export const ORU_R30_SCHEMA: MessageSchema = {
           repeating: true,
           segments: [
             {
-              name: 'ORC',
-              required: true,
-              repeating: false,
-            },
-            {
               name: 'OBR',
               required: true,
               repeating: false,
@@ -65,15 +52,4 @@ export const ORU_R30_SCHEMA: MessageSchema = {
       ],
     },
   ],
-};
-
-// R31 and R32 use the same structure as R30
-export const ORU_R31_SCHEMA: MessageSchema = {
-  ...ORU_R30_SCHEMA,
-  triggerEvent: 'R31',
-};
-
-export const ORU_R32_SCHEMA: MessageSchema = {
-  ...ORU_R30_SCHEMA,
-  triggerEvent: 'R32',
 };

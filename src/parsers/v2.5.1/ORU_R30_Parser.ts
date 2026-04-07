@@ -246,11 +246,3 @@ export function parseORU_R30(messageString: string): Result<ParsedORU_R30> {
   return parser.parse(messageString);
 }
 
-// R31 and R32 use the same parser
-export function parseORU_R31(messageString: string): Result<ParsedORU_R30> {
-  return parseORU_R30(messageString);
-}
-
-export function parseORU_R32(messageString: string): Result<ParsedORU_R30> {
-  return parseORU_R30(messageString);
-}
