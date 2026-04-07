@@ -240,7 +240,7 @@ describe("ORU_R01 Integration Tests - Parse validated example messages", () => {
 
       expect(
         result.ok,
-        `Failed to parse ${testFile}: ${result.err!.message}`,
+        `Failed to parse ${testFile}: ${result.err?.message}`,
       ).toBe(true);
       expect(result.val, `No data returned for ${testFile}`).toBeTruthy();
       expect(result.val!.msh, `No MSH segment in ${testFile}`).toBeTruthy();
@@ -344,7 +344,7 @@ describe("ORU_R01 Integration Tests - Round-trip encoding", () => {
       const result2 = parseORU_R01(result.val!.message.encode());
       expect(
         result2.ok,
-        `Round-trip failed for ${testFile}: ${result2.err!.message}`,
+        `Round-trip failed for ${testFile}: ${result2.err?.message}`,
       ).toBe(true);
       expect(
         result2.val!.patientResults.length,
