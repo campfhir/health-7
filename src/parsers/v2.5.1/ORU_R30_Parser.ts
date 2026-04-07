@@ -1,13 +1,7 @@
+import { Err } from "../../utils/err";
+import { Result } from "../../types/result";
 import { HL7Message } from "../../types/message";
-import { EncodingCharacters } from "../../types/encoding";
-import { ParseResult, ParserUtils } from "../../types/parser";
 import { MSH, PID, PV1, ORC, OBR, OBX } from "../../segments/v2.5.1";
-import { MSHParser } from "./MSHParser";
-import { PIDParser } from "./PIDParser";
-import { PV1Parser } from "./PV1Parser";
-import { ORCParser } from "./ORCParser";
-import { OBRParser } from "./OBRParser";
-import { OBXParser } from "./OBXParser";
 
 export interface ParsedORU_R30 {
   message: HL7Message;
@@ -28,43 +22,33 @@ export interface ParsedOrderObservationR30 {
 }
 
 export class ORU_R30_Parser {
-  private mshParser = new MSHParser();
-  private pidParser = new PIDParser();
-  private pv1Parser = new PV1Parser();
-  private orcParser = new ORCParser();
-  private obrParser = new OBRParser();
-  private obxParser = new OBXParser();
-
-  parse(messageString: string): ParseResult<ParsedORU_R30> {
+  parse(messageString: string): Result<ParsedORU_R30> {
     try {
       const segments = messageString
         .split(/\r\n|\r|\n/)
         .filter((s) => s.trim().length > 0);
 
       if (segments.length === 0) {
-        return {
-          success: false,
-          error: "Empty message",
-        };
+        return { ok: false, err: new Err("Empty message") };
       }
 
       const mshSegment = segments[0];
       if (!mshSegment.startsWith("MSH")) {
         return {
-          success: false,
-          error: "Message must start with MSH segment",
+          ok: false,
+          err: new Err("Message must start with MSH segment"),
         };
       }
 
-      const mshResult = this.mshParser.parse(mshSegment);
-      if (!mshResult.success || !mshResult.data) {
+      const mshResult = MSH.parse(mshSegment);
+      if (!mshResult.ok || !mshResult.val) {
         return {
-          success: false,
-          error: mshResult.error || "Failed to parse MSH segment",
+          ok: false,
+          err: new Err(mshResult.err.message || "Failed to parse MSH segment"),
         };
       }
 
-      const msh = mshResult.data;
+      const msh = mshResult.val;
       // Get encoding from the parsed MSH segment
       const encoding = msh.getEncoding();
       const message = new HL7Message(encoding);
@@ -90,35 +74,39 @@ export class ORU_R30_Parser {
               patientResults.push(currentPatientResult);
             }
 
-            const pidResult = this.pidParser.parse(segmentStr, encoding);
-            if (!pidResult.success || !pidResult.data) {
+            const pidResult = PID.parse(segmentStr, encoding);
+            if (!pidResult.ok || !pidResult.val) {
               return {
-                success: false,
-                error: `Failed to parse PID segment at line ${i + 1}: ${pidResult.error}`,
+                ok: false,
+                err: new Err(
+                  `Failed to parse PID segment at line ${i + 1}: ${pidResult.err.message}`,
+                ),
               };
             }
 
             currentPatientResult = {
-              pid: pidResult.data,
+              pid: pidResult.val,
               orderObservations: [],
             };
-            message.addSegment(pidResult.data);
+            message.addSegment(pidResult.val);
             break;
           }
 
           case "PV1": {
-            const pv1Result = this.pv1Parser.parse(segmentStr, encoding);
-            if (!pv1Result.success || !pv1Result.data) {
+            const pv1Result = PV1.parse(segmentStr, encoding);
+            if (!pv1Result.ok || !pv1Result.val) {
               return {
-                success: false,
-                error: `Failed to parse PV1 segment at line ${i + 1}: ${pv1Result.error}`,
+                ok: false,
+                err: new Err(
+                  `Failed to parse PV1 segment at line ${i + 1}: ${pv1Result.err.message}`,
+                ),
               };
             }
 
             if (currentPatientResult) {
-              currentPatientResult.pv1 = pv1Result.data;
+              currentPatientResult.pv1 = pv1Result.val;
             }
-            message.addSegment(pv1Result.data);
+            message.addSegment(pv1Result.val);
             break;
           }
 
@@ -129,11 +117,13 @@ export class ORU_R30_Parser {
               );
             }
 
-            const orcResult = this.orcParser.parse(segmentStr, encoding);
-            if (!orcResult.success || !orcResult.data) {
+            const orcResult = ORC.parse(segmentStr, encoding);
+            if (!orcResult.ok || !orcResult.val) {
               return {
-                success: false,
-                error: `Failed to parse ORC segment at line ${i + 1}: ${orcResult.error}`,
+                ok: false,
+                err: new Err(
+                  `Failed to parse ORC segment at line ${i + 1}: ${orcResult.err.message}`,
+                ),
               };
             }
 
@@ -144,60 +134,70 @@ export class ORU_R30_Parser {
             }
 
             currentOrderObservation = {
-              orc: orcResult.data,
+              orc: orcResult.val,
               obr: null as any,
               obxList: [],
             };
-            message.addSegment(orcResult.data);
+            message.addSegment(orcResult.val);
             break;
           }
 
           case "OBR": {
-            const obrResult = this.obrParser.parse(segmentStr, encoding);
-            if (!obrResult.success || !obrResult.data) {
+            const obrResult = OBR.parse(segmentStr, encoding);
+            if (!obrResult.ok || !obrResult.val) {
               return {
-                success: false,
-                error: `Failed to parse OBR segment at line ${i + 1}: ${obrResult.error}`,
+                ok: false,
+                err: new Err(
+                  `Failed to parse OBR segment at line ${i + 1}: ${obrResult.err.message}`,
+                ),
               };
             }
 
             if (!currentOrderObservation) {
               return {
-                success: false,
-                error: `OBR segment at line ${i + 1} found without preceding ORC segment`,
+                ok: false,
+                err: new Err(
+                  `OBR segment at line ${i + 1} found without preceding ORC segment`,
+                ),
               };
             }
 
-            currentOrderObservation.obr = obrResult.data;
-            message.addSegment(obrResult.data);
+            currentOrderObservation.obr = obrResult.val;
+            message.addSegment(obrResult.val);
             break;
           }
 
           case "OBX": {
-            const obxResult = this.obxParser.parse(segmentStr, encoding);
-            if (!obxResult.success || !obxResult.data) {
+            const obxResult = OBX.parse(segmentStr, encoding);
+            if (!obxResult.ok || !obxResult.val) {
               return {
-                success: false,
-                error: `Failed to parse OBX segment at line ${i + 1}: ${obxResult.error}`,
+                ok: false,
+                err: new Err(
+                  `Failed to parse OBX segment at line ${i + 1}: ${obxResult.err.message}`,
+                ),
               };
             }
 
             if (!currentOrderObservation || !currentOrderObservation.obr) {
               return {
-                success: false,
-                error: `OBX segment at line ${i + 1} found without preceding OBR segment`,
+                ok: false,
+                err: new Err(
+                  `OBX segment at line ${i + 1} found without preceding OBR segment`,
+                ),
               };
             }
 
-            currentOrderObservation.obxList.push(obxResult.data);
-            message.addSegment(obxResult.data);
+            currentOrderObservation.obxList.push(obxResult.val);
+            message.addSegment(obxResult.val);
             break;
           }
 
           default:
             return {
-              success: false,
-              error: `Unsupported segment type '${segmentType}' at line ${i + 1}`,
+              ok: false,
+              err: new Err(
+                `Unsupported segment type '${segmentType}' at line ${i + 1}`,
+              ),
             };
         }
       }
@@ -212,14 +212,16 @@ export class ORU_R30_Parser {
 
       if (patientResults.length === 0) {
         return {
-          success: false,
-          error: "ORU_R30 message must contain at least one patient result",
+          ok: false,
+          err: new Err(
+            "ORU_R30 message must contain at least one patient result",
+          ),
         };
       }
 
       return {
-        success: true,
-        data: {
+        ok: true,
+        val: {
           message,
           msh,
           patientResults,
@@ -227,29 +229,23 @@ export class ORU_R30_Parser {
       };
     } catch (error) {
       return {
-        success: false,
-        error: `Failed to parse ORU_R30 message: ${error}`,
+        ok: false,
+        err: new Err(`Failed to parse ORU_R30 message: ${error}`),
       };
     }
   }
 }
 
-export function parseORU_R30(
-  messageString: string,
-): ParseResult<ParsedORU_R30> {
+export function parseORU_R30(messageString: string): Result<ParsedORU_R30> {
   const parser = new ORU_R30_Parser();
   return parser.parse(messageString);
 }
 
 // R31 and R32 use the same parser
-export function parseORU_R31(
-  messageString: string,
-): ParseResult<ParsedORU_R30> {
+export function parseORU_R31(messageString: string): Result<ParsedORU_R30> {
   return parseORU_R30(messageString);
 }
 
-export function parseORU_R32(
-  messageString: string,
-): ParseResult<ParsedORU_R30> {
+export function parseORU_R32(messageString: string): Result<ParsedORU_R30> {
   return parseORU_R30(messageString);
 }

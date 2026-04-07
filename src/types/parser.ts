@@ -1,17 +1,6 @@
+import { Result } from "../types/result";
 import { EncodingCharacters } from "./encoding";
 import { Segment, Field, Component } from "./segment";
-
-export type ParseResult<T> =
-  | {
-      success: true;
-      data: T;
-      error?: never;
-    }
-  | {
-      success: false;
-      data?: never;
-      error: string;
-    };
 
 export class ParserUtils {
   static parseField(fieldStr: string, encoding: EncodingCharacters): Field {
@@ -67,5 +56,5 @@ export class ParserUtils {
 }
 
 export interface SegmentParser<T extends Segment> {
-  parse(segmentString: string, encoding?: EncodingCharacters): ParseResult<T>;
+  parse(segmentString: string, encoding?: EncodingCharacters): Result<T>;
 }

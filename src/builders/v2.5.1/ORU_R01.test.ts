@@ -1,4 +1,4 @@
-import { test } from "node:test";
+import { test, expect } from "vitest";
 import assert from "node:assert";
 import { createORU_R01, ORU_R01 } from "./ORU_R01";
 import { MSH, PID, PV1, OBR, OBX } from "../../segments/v2.5.1";
@@ -7,15 +7,15 @@ test("createORU_R01 returns ORU_R01 instance", () => {
   const msh = new MSH().sendingApplication("APP").messageType("ORU", "R01");
   const message = createORU_R01(msh);
 
-  assert.ok(message instanceof ORU_R01);
+  expect(message instanceof ORU_R01).toBeTruthy();
 });
 
 test("ORU_R01 verify() detects missing MSH segment", () => {
   const message = new ORU_R01(null as any);
   const result = message.verify();
 
-  assert.strictEqual(result.valid, false);
-  assert.ok(result.errors.some((e) => e.includes("MSH segment is required")));
+  expect(result.valid).toBe(false);
+  expect(result.errors.some((e) => e.includes("MSH segment is required"))).toBeTruthy();
 });
 
 test("ORU_R01 verify() detects missing patient results", () => {
@@ -24,12 +24,10 @@ test("ORU_R01 verify() detects missing patient results", () => {
 
   const result = message.verify();
 
-  assert.strictEqual(result.valid, false);
-  assert.ok(
-    result.errors.some((e) =>
+  expect(result.valid).toBe(false);
+  expect(result.errors.some((e) =>
       e.includes("At least one patient result is required"),
-    ),
-  );
+    ), ).toBeTruthy();
 });
 
 test("ORU_R01 verify() detects missing order observations", () => {
@@ -45,12 +43,10 @@ test("ORU_R01 verify() detects missing order observations", () => {
 
   const result = message.verify();
 
-  assert.strictEqual(result.valid, false);
-  assert.ok(
-    result.errors.some((e) =>
+  expect(result.valid).toBe(false);
+  expect(result.errors.some((e) =>
       e.includes("At least one order observation is required"),
-    ),
-  );
+    ), ).toBeTruthy();
 });
 
 test("ORU_R01 encodes valid message with minimal data", () => {
@@ -70,11 +66,11 @@ test("ORU_R01 encodes valid message with minimal data", () => {
   const encoded = message.encode();
   const segments = encoded.split("\r");
 
-  assert.strictEqual(segments.length, 4);
-  assert.ok(segments[0].startsWith("MSH|"));
-  assert.ok(segments[1].startsWith("PID|"));
-  assert.ok(segments[2].startsWith("OBR|"));
-  assert.ok(segments[3].startsWith("OBX|"));
+  expect(segments.length).toBe(4);
+  expect(segments[0].startsWith("MSH|")).toBeTruthy();
+  expect(segments[1].startsWith("PID|")).toBeTruthy();
+  expect(segments[2].startsWith("OBR|")).toBeTruthy();
+  expect(segments[3].startsWith("OBX|")).toBeTruthy();
 });
 
 test("ORU_R01 encodes message with PV1", () => {
@@ -96,8 +92,8 @@ test("ORU_R01 encodes message with PV1", () => {
   const encoded = message.encode();
   const segments = encoded.split("\r");
 
-  assert.strictEqual(segments.length, 5);
-  assert.strictEqual(segments[2].substring(0, 3), "PV1");
+  expect(segments.length).toBe(5);
+  expect(segments[2].substring(0, 3)).toBe("PV1");
 });
 
 test("ORU_R01 handles multiple OBX segments", () => {
@@ -119,7 +115,7 @@ test("ORU_R01 handles multiple OBX segments", () => {
   const encoded = message.encode();
   const segments = encoded.split("\r");
 
-  assert.strictEqual(segments.length, 6);
+  expect(segments.length).toBe(6);
 });
 
 test("ORU_R01 handles multiple order observations", () => {
@@ -146,7 +142,7 @@ test("ORU_R01 handles multiple order observations", () => {
   const encoded = message.encode();
   const segments = encoded.split("\r");
 
-  assert.strictEqual(segments.length, 6);
+  expect(segments.length).toBe(6);
 });
 
 test("ORU_R01 handles multiple patient results", () => {
@@ -174,7 +170,7 @@ test("ORU_R01 handles multiple patient results", () => {
   const encoded = message.encode();
   const segments = encoded.split("\r");
 
-  assert.strictEqual(segments.length, 7);
+  expect(segments.length).toBe(7);
 });
 
 test("ORU_R01 encodes to valid HL7 string", () => {
@@ -210,10 +206,10 @@ test("ORU_R01 encodes to valid HL7 string", () => {
 
   const encoded = message.encode();
 
-  assert.ok(encoded.startsWith("MSH|"));
-  assert.ok(encoded.includes("\rPID|"));
-  assert.ok(encoded.includes("\rOBR|"));
-  assert.ok(encoded.includes("\rOBX|"));
+  expect(encoded.startsWith("MSH|")).toBeTruthy();
+  expect(encoded.includes("\rPID|")).toBeTruthy();
+  expect(encoded.includes("\rOBR|")).toBeTruthy();
+  expect(encoded.includes("\rOBX|")).toBeTruthy();
 });
 
 test("ORU_R01 handles patient result without PID", () => {
@@ -231,8 +227,8 @@ test("ORU_R01 handles patient result without PID", () => {
   const encoded = message.encode();
   const segments = encoded.split("\r");
 
-  assert.strictEqual(segments.length, 3);
-  assert.strictEqual(segments[0].substring(0, 3), "MSH");
-  assert.strictEqual(segments[1].substring(0, 3), "OBR");
-  assert.strictEqual(segments[2].substring(0, 3), "OBX");
+  expect(segments.length).toBe(3);
+  expect(segments[0].substring(0, 3)).toBe("MSH");
+  expect(segments[1].substring(0, 3)).toBe("OBR");
+  expect(segments[2].substring(0, 3)).toBe("OBX");
 });

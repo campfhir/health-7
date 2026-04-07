@@ -1,106 +1,29 @@
-import { BaseSegment } from "../../types/segment";
+import { Err } from "../../utils/err";
+import { Result } from "../../types/result";
+import { EncodingCharacters } from "../../types/encoding";
+import { ParserUtils } from "../../types/parser";
+import { PV1 as PV1_v23 } from "../v2.3/PV1";
 
-export class PV1 extends BaseSegment {
-  name = "PV1";
-
-  constructor() {
-    super();
-    this.fields = [];
-  }
-
-  setId(value: string): this {
-    this.fields[0] = this.createField(value);
-    return this;
-  }
-  patientClass(value: string): this {
-    this.fields[1] = this.createField(value);
-    return this;
-  }
-  assignedPatientLocation(
-    pointOfCare?: string,
-    room?: string,
-    bed?: string,
-    facility?: string,
-    locationStatus?: string,
-    personLocationType?: string,
-  ): this {
-    const components = [];
-    if (pointOfCare) components.push(pointOfCare);
-    if (room) components.push(room);
-    if (bed) components.push(bed);
-    if (facility) components.push(facility);
-    if (locationStatus) components.push(locationStatus);
-    if (personLocationType) components.push(personLocationType);
-
-    this.fields[2] = this.createField(components);
-    return this;
-  }
-  admissionType(value: string): this {
-    this.fields[3] = this.createField(value);
-    return this;
-  }
-  preadmitNumber(value: string): this {
-    this.fields[4] = this.createField(value);
-    return this;
-  }
-  priorPatientLocation(
-    pointOfCare?: string,
-    room?: string,
-    bed?: string,
-    facility?: string,
-  ): this {
-    const components = [];
-    if (pointOfCare) components.push(pointOfCare);
-    if (room) components.push(room);
-    if (bed) components.push(bed);
-    if (facility) components.push(facility);
-
-    this.fields[5] = this.createField(components);
-    return this;
-  }
-  attendingDoctor(id: string, familyName?: string, givenName?: string): this {
-    const components = [id];
-    if (familyName) components.push(familyName);
-    if (givenName) components.push(givenName);
-
-    this.fields[6] = this.createField(components);
-    return this;
-  }
-  referringDoctor(id: string, familyName?: string, givenName?: string): this {
-    const components = [id];
-    if (familyName) components.push(familyName);
-    if (givenName) components.push(givenName);
-
-    this.fields[7] = this.createField(components);
-    return this;
-  }
-  consultingDoctor(id: string, familyName?: string, givenName?: string): this {
-    const components = [id];
-    if (familyName) components.push(familyName);
-    if (givenName) components.push(givenName);
-
-    this.fields[8] = this.createField(components);
-    return this;
-  }
-  hospitalService(value: string): this {
-    this.fields[9] = this.createField(value);
-    return this;
-  }
-  temporaryLocation(pointOfCare?: string, room?: string, bed?: string): this {
-    const components = [];
-    if (pointOfCare) components.push(pointOfCare);
-    if (room) components.push(room);
-    if (bed) components.push(bed);
-
-    this.fields[10] = this.createField(components);
-    return this;
-  }
-  admitDateTime(value: string): this {
-    this.fields[44] = this.createField(value);
-    return this;
-  }
-  dischargeDateTime(value: string): this {
-    this.fields[45] = this.createField(value);
-    return this;
+/**
+ * PV1 - Patient Visit Segment (HL7 v2.5.1)
+ * Extends v2.3 PV1. Add v2.5.1-specific fields here as needed.
+ */
+export class PV1 extends PV1_v23 {
+  static override parse(
+    segmentString: string,
+    encoding: EncodingCharacters,
+  ): Result<PV1> {
+    const parts = segmentString.split(encoding.fieldSeparator);
+    if (parts[0] !== "PV1") {
+      return {
+        ok: false,
+        err: new Err(`Expected PV1 segment, got ${parts[0]}`),
+      };
+    }
+    const pv1 = new PV1();
+    for (let i = 1; i < parts.length; i++) {
+      pv1.fields[i - 1] = ParserUtils.parseField(parts[i], encoding);
+    }
+    return { ok: true, val: pv1 };
   }
 }

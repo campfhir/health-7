@@ -1,6 +1,6 @@
-import { describe, it } from "node:test";
-import assert from "node:assert";
+import { describe, it, expect } from "vitest";
 import { ORC } from "./ORC.js";
+import { DEFAULT_ENCODING } from "../../types/encoding.js";
 
 describe("ORC Segment Builder", () => {
   describe("Builder Methods", () => {
@@ -8,13 +8,13 @@ describe("ORC Segment Builder", () => {
       const orc = new ORC().orderControl("NW");
 
       const encoded = orc.encode();
-      assert.match(encoded, /^ORC\|NW/);
+      expect(encoded).toMatch(/^ORC\|NW/);
     });
 
     it("should create ORC segment with placer order number", () => {
       const orc = new ORC().orderControl("NW").placerOrderNumber("ORDER123");
       const encoded = orc.encode();
-      assert.match(encoded, /^ORC\|NW\|ORDER123/);
+      expect(encoded).toMatch(/^ORC\|NW\|ORDER123/);
     });
 
     it("should create ORC segment with filler order number", () => {
@@ -24,7 +24,7 @@ describe("ORC Segment Builder", () => {
         .fillerOrderNumber("FILLER456");
       const encoded = orc.encode();
       const fields = encoded.split("|");
-      assert.strictEqual(fields[3], "FILLER456");
+      expect(fields[3]).toBe("FILLER456");
     });
 
     it("should create ORC segment with order status", () => {
@@ -32,7 +32,7 @@ describe("ORC Segment Builder", () => {
 
       const encoded = orc.encode();
       const fields = encoded.split("|");
-      assert.strictEqual(fields[5], "CM");
+      expect(fields[5]).toBe("CM");
     });
 
     it("should create ORC segment with quantity/timing", () => {
@@ -40,7 +40,7 @@ describe("ORC Segment Builder", () => {
 
       const encoded = orc.encode();
       const fields = encoded.split("|");
-      assert.strictEqual(fields[7], "BID");
+      expect(fields[7]).toBe("BID");
     });
 
     it("should create ORC segment with date/time of transaction", () => {
@@ -49,7 +49,7 @@ describe("ORC Segment Builder", () => {
         .dateTimeOfTransaction("20251119120000");
       const encoded = orc.encode();
       const fields = encoded.split("|");
-      assert.strictEqual(fields[9], "20251119120000");
+      expect(fields[9]).toBe("20251119120000");
     });
 
     it("should create ORC segment with entered by", () => {
@@ -58,7 +58,7 @@ describe("ORC Segment Builder", () => {
         .enteredBy("1234", "Smith", "John");
       const encoded = orc.encode();
       const fields = encoded.split("|");
-      assert.strictEqual(fields[10], "1234^Smith^John");
+      expect(fields[10]).toBe("1234^Smith^John");
     });
 
     it("should create ORC segment with ordering provider", () => {
@@ -67,7 +67,7 @@ describe("ORC Segment Builder", () => {
         .orderingProvider("5678", "Johnson", "Robert");
       const encoded = orc.encode();
       const fields = encoded.split("|");
-      assert.strictEqual(fields[12], "5678^Johnson^Robert");
+      expect(fields[12]).toBe("5678^Johnson^Robert");
     });
 
     it("should support fluent interface chaining", () => {
@@ -79,11 +79,11 @@ describe("ORC Segment Builder", () => {
         .dateTimeOfTransaction("20251119120000")
         .orderingProvider("5678", "Johnson", "Robert");
       const encoded = orc.encode();
-      assert.match(encoded, /^ORC\|NW\|ORDER123\|FILLER456/);
+      expect(encoded).toMatch(/^ORC\|NW\|ORDER123\|FILLER456/);
       const fields = encoded.split("|");
-      assert.strictEqual(fields[5], "CM");
-      assert.strictEqual(fields[9], "20251119120000");
-      assert.strictEqual(fields[12], "5678^Johnson^Robert");
+      expect(fields[5]).toBe("CM");
+      expect(fields[9]).toBe("20251119120000");
+      expect(fields[12]).toBe("5678^Johnson^Robert");
     });
   });
 
@@ -92,20 +92,20 @@ describe("ORC Segment Builder", () => {
       const orc = new ORC();
       const encoded = orc.encode();
       // Empty builder creates fields array with at least one empty element
-      assert.ok(encoded === "ORC" || encoded === "ORC|");
+      expect(encoded === "ORC" || encoded === "ORC|").toBeTruthy();
     });
 
     it("should encode components with component separator", () => {
       const orc = new ORC().orderControl("NW").placerOrderNumber("ORDER123");
       const encoded = orc.encode();
-      assert.ok(encoded.includes("ORDER123"));
+      expect(encoded.includes("ORDER123")).toBeTruthy();
     });
 
     it("should handle missing optional components", () => {
       const orc = new ORC().orderControl("NW").placerOrderNumber("ORDER123");
       const encoded = orc.encode();
       const fields = encoded.split("|");
-      assert.strictEqual(fields[2], "ORDER123");
+      expect(fields[2]).toBe("ORDER123");
     });
 
     it("should preserve field positions with empty fields", () => {
@@ -113,12 +113,12 @@ describe("ORC Segment Builder", () => {
 
       const encoded = orc.encode();
       const fields = encoded.split("|");
-      assert.strictEqual(fields[0], "ORC");
-      assert.strictEqual(fields[1], "NW");
-      assert.strictEqual(fields[2], "");
-      assert.strictEqual(fields[3], "");
-      assert.strictEqual(fields[4], "");
-      assert.strictEqual(fields[5], "CM");
+      expect(fields[0]).toBe("ORC");
+      expect(fields[1]).toBe("NW");
+      expect(fields[2]).toBe("");
+      expect(fields[3]).toBe("");
+      expect(fields[4]).toBe("");
+      expect(fields[5]).toBe("CM");
     });
   });
 
@@ -129,7 +129,7 @@ describe("ORC Segment Builder", () => {
       it(`should accept order control: ${control}`, () => {
         const orc = new ORC().orderControl(control);
         const encoded = orc.encode();
-        assert.match(encoded, new RegExp(`^ORC\\|${control}`));
+        expect(encoded).toMatch(new RegExp(`^ORC\\|${control}`));
       });
     });
   });
@@ -143,7 +143,7 @@ describe("ORC Segment Builder", () => {
 
         const encoded = orc.encode();
         const fields = encoded.split("|");
-        assert.strictEqual(fields[5], status);
+        expect(fields[5]).toBe(status);
       });
     });
   });
@@ -159,12 +159,12 @@ describe("ORC Segment Builder", () => {
       const encoded = orc.encode();
       const fields = encoded.split("|");
 
-      assert.strictEqual(fields[0], "ORC");
-      assert.strictEqual(fields[1], "NW");
-      assert.strictEqual(fields[2], "POC12345");
-      assert.strictEqual(fields[5], "CM");
-      assert.strictEqual(fields[9], "20251119120000");
-      assert.strictEqual(fields[12], "5678^Johnson^Robert");
+      expect(fields[0]).toBe("ORC");
+      expect(fields[1]).toBe("NW");
+      expect(fields[2]).toBe("POC12345");
+      expect(fields[5]).toBe("CM");
+      expect(fields[9]).toBe("20251119120000");
+      expect(fields[12]).toBe("5678^Johnson^Robert");
     });
 
     it("should handle multiple provider name components", () => {
@@ -173,7 +173,140 @@ describe("ORC Segment Builder", () => {
         .orderingProvider("5678", "Johnson", "Robert");
       const encoded = orc.encode();
       const fields = encoded.split("|");
-      assert.strictEqual(fields[12], "5678^Johnson^Robert");
+      expect(fields[12]).toBe("5678^Johnson^Robert");
+    });
+  });
+});
+
+// ---------------------------------------------------------------------------
+// ORC.parse
+// ---------------------------------------------------------------------------
+
+describe("ORC.parse", () => {
+  describe("Basic Parsing", () => {
+    it("should parse minimal ORC segment", () => {
+      const result = ORC.parse("ORC|NW", DEFAULT_ENCODING);
+      expect(result.ok).toBe(true);
+      if (result.ok && result.val) {
+        expect(result.val.encode()).toMatch(/^ORC\|NW/);
+      }
+    });
+
+    it("should parse ORC with placer order number", () => {
+      const result = ORC.parse("ORC|NW|ORDER123", DEFAULT_ENCODING);
+      expect(result.ok).toBe(true);
+      if (result.ok && result.val) {
+        expect(result.val.encode().includes("ORDER123")).toBeTruthy();
+      }
+    });
+
+    it("should parse ORC with placer order number components", () => {
+      const result = ORC.parse("ORC|NW|ORDER123^LAB^ISO", DEFAULT_ENCODING);
+      expect(result.ok).toBe(true);
+      if (result.ok && result.val) {
+        expect(result.val.encode().includes("ORDER123^LAB^ISO")).toBeTruthy();
+      }
+    });
+
+    it("should parse ORC with filler order number", () => {
+      const result = ORC.parse("ORC|NW|ORDER123|FILLER456", DEFAULT_ENCODING);
+      expect(result.ok).toBe(true);
+      if (result.ok && result.val) {
+        expect(result.val.encode().includes("FILLER456")).toBeTruthy();
+      }
+    });
+  });
+
+  describe("Order Status Parsing", () => {
+    it("should parse ORC with order status", () => {
+      const result = ORC.parse("ORC|NW||||CM", DEFAULT_ENCODING);
+      expect(result.ok).toBe(true);
+      if (result.ok && result.val) {
+        expect(result.val.encode().split("|")[5]).toBe("CM");
+      }
+    });
+
+    it("should parse various order statuses", () => {
+      for (const status of ["A", "CA", "CM", "DC", "ER", "HD", "IP", "RP", "SC"]) {
+        const result = ORC.parse(`ORC|NW||||${status}`, DEFAULT_ENCODING);
+        expect(result.ok).toBe(true);
+        if (result.ok && result.val) {
+          expect(result.val.encode().includes(status)).toBeTruthy();
+        }
+      }
+    });
+  });
+
+  describe("Provider Information Parsing", () => {
+    it("should parse entered by", () => {
+      const result = ORC.parse("ORC|NW|||||||||1234^Smith^John", DEFAULT_ENCODING);
+      expect(result.ok).toBe(true);
+      if (result.ok && result.val) {
+        expect(result.val.encode().includes("1234^Smith^John")).toBeTruthy();
+      }
+    });
+
+    it("should parse ordering provider", () => {
+      const result = ORC.parse("ORC|NW|||||||||||5678^Johnson^Robert", DEFAULT_ENCODING);
+      expect(result.ok).toBe(true);
+      if (result.ok && result.val) {
+        expect(result.val.encode().includes("5678^Johnson^Robert")).toBeTruthy();
+      }
+    });
+  });
+
+  describe("Round-trip Consistency", () => {
+    it("should maintain data through build->encode->parse->encode cycle", () => {
+      const original = new ORC()
+        .orderControl("NW").placerOrderNumber("ORDER123").orderStatus("CM")
+        .dateTimeOfTransaction("20251119120000").orderingProvider("5678", "Johnson", "Robert");
+      const encoded1 = original.encode();
+      const parseResult = ORC.parse(encoded1, DEFAULT_ENCODING);
+      expect(parseResult.ok).toBe(true);
+      if (parseResult.ok && parseResult.val) {
+        expect(parseResult.val.encode()).toBe(encoded1);
+      }
+    });
+
+    it("should handle complex ORC round-trip", () => {
+      const original = new ORC()
+        .orderControl("NW").placerOrderNumber("POC12345").fillerOrderNumber("FILLER456")
+        .orderStatus("CM").quantityTiming("BID").dateTimeOfTransaction("20251119120000")
+        .enteredBy("1234", "Smith", "John").orderingProvider("5678", "Johnson", "Robert");
+      const encoded1 = original.encode();
+      const parseResult = ORC.parse(encoded1, DEFAULT_ENCODING);
+      expect(parseResult.ok).toBe(true);
+      if (parseResult.ok && parseResult.val) {
+        expect(parseResult.val.encode()).toBe(encoded1);
+      }
+    });
+  });
+
+  describe("Error Handling", () => {
+    it("should return error for non-ORC segment", () => {
+      const result = ORC.parse("PID|1||12345", DEFAULT_ENCODING);
+      expect(result.ok).toBe(false);
+      if (!result.ok) {
+        expect(result.err.message?.includes("ORC")).toBeTruthy();
+      }
+    });
+
+    it("should return error for empty segment", () => {
+      expect(ORC.parse("", DEFAULT_ENCODING).ok).toBe(false);
+    });
+  });
+
+  describe("Empty Field Handling", () => {
+    it("should handle empty fields between populated fields", () => {
+      const result = ORC.parse("ORC|NW||||CM", DEFAULT_ENCODING);
+      expect(result.ok).toBe(true);
+      if (result.ok && result.val) {
+        const fields = result.val.encode().split("|");
+        expect(fields[2]).toBe("");
+        expect(fields[3]).toBe("");
+        expect(fields[4]).toBe("");
+        expect(fields[5]).toBe("CM");
+      }
     });
   });
 });

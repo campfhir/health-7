@@ -16,3 +16,4 @@ export {
   SimpleOrderObservationR30,
   SimplePatientResultR30,
 } from "./ORU_R30";
+export { MFN_M02, createMFN_M02, StaffEntry } from "./MFN_M02";

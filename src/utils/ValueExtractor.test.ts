@@ -1,4 +1,4 @@
-import { test } from 'node:test';
+import { test, expect } from "vitest";
 import assert from 'node:assert';
 import { ValueExtractor, extractValue } from './ValueExtractor';
 import { DEFAULT_ENCODING } from '../types/encoding';
@@ -14,36 +14,36 @@ test('ValueExtractor extracts entire segment', () => {
   const extractor = new ValueExtractor();
   const result = extractor.get('MSH', sampleMessage);
 
-  assert.ok(typeof result === 'string');
-  assert.ok(result.startsWith('MSH|'));
+  expect(typeof result === 'string').toBeTruthy();
+  expect(typeof result === 'string' && result.startsWith('MSH|')).toBeTruthy();
 });
 
 test('ValueExtractor extracts field from segment', () => {
   const extractor = new ValueExtractor();
   const result = extractor.get('PID-5', sampleMessage);
 
-  assert.strictEqual(result, 'Doe^John^Q^Jr^Dr');
+  expect(result).toBe('Doe^John^Q^Jr^Dr');
 });
 
 test('ValueExtractor extracts component from field', () => {
   const extractor = new ValueExtractor();
   const result = extractor.get('PID-5.1', sampleMessage);
 
-  assert.strictEqual(result, 'Doe');
+  expect(result).toBe('Doe');
 });
 
 test('ValueExtractor extracts second component', () => {
   const extractor = new ValueExtractor();
   const result = extractor.get('PID-5.2', sampleMessage);
 
-  assert.strictEqual(result, 'John');
+  expect(result).toBe('John');
 });
 
 test('ValueExtractor extracts subcomponent', () => {
   const extractor = new ValueExtractor();
   const result = extractor.get('PID-3.1.1', sampleMessage);
 
-  assert.strictEqual(result, '12345');
+  expect(result).toBe('12345');
 });
 
 test('ValueExtractor handles MSH field indexing correctly', () => {
@@ -51,91 +51,91 @@ test('ValueExtractor handles MSH field indexing correctly', () => {
 
   // MSH-3 should be the sending application (field 3 in the spec)
   const result = extractor.get('MSH-3', sampleMessage);
-  assert.strictEqual(result, 'LAB');
+  expect(result).toBe('LAB');
 });
 
 test('ValueExtractor extracts message type from MSH', () => {
   const extractor = new ValueExtractor();
   const result = extractor.get('MSH-9.1', sampleMessage);
 
-  assert.strictEqual(result, 'ORU');
+  expect(result).toBe('ORU');
 });
 
 test('ValueExtractor extracts version from MSH', () => {
   const extractor = new ValueExtractor();
   const result = extractor.get('MSH-12', sampleMessage);
 
-  assert.strictEqual(result, '2.5.1');
+  expect(result).toBe('2.5.1');
 });
 
 test('ValueExtractor returns array for repeating segments', () => {
   const extractor = new ValueExtractor();
   const result = extractor.get('OBX', sampleMessage);
 
-  assert.ok(Array.isArray(result));
-  assert.strictEqual(result.length, 2);
+  expect(Array.isArray(result)).toBeTruthy();
+  expect(result!.length).toBe(2);
 });
 
 test('ValueExtractor extracts from first repeating segment', () => {
   const extractor = new ValueExtractor();
   const result = extractor.get('OBX-3.2', sampleMessage);
 
-  assert.ok(Array.isArray(result));
-  assert.strictEqual(result[0], 'Hemoglobin');
-  assert.strictEqual(result[1], 'RBC');
+  expect(Array.isArray(result)).toBeTruthy();
+  expect(result![0]).toBe('Hemoglobin');
+  expect(result![1]).toBe('RBC');
 });
 
 test('ValueExtractor extracts observation values', () => {
   const extractor = new ValueExtractor();
   const result = extractor.get('OBX-5', sampleMessage);
 
-  assert.ok(Array.isArray(result));
-  assert.strictEqual(result[0], '15.5');
-  assert.strictEqual(result[1], '5.2');
+  expect(Array.isArray(result)).toBeTruthy();
+  expect(result![0]).toBe('15.5');
+  expect(result![1]).toBe('5.2');
 });
 
 test('ValueExtractor returns null for invalid segment', () => {
   const extractor = new ValueExtractor();
   const result = extractor.get('NTE', sampleMessage);
 
-  assert.strictEqual(result, null);
+  expect(result).toBe(null);
 });
 
 test('ValueExtractor returns null for invalid field index', () => {
   const extractor = new ValueExtractor();
   const result = extractor.get('PID-999', sampleMessage);
 
-  assert.strictEqual(result, null);
+  expect(result).toBe(null);
 });
 
 test('ValueExtractor returns null for invalid component index', () => {
   const extractor = new ValueExtractor();
   const result = extractor.get('PID-5.99', sampleMessage);
 
-  assert.strictEqual(result, null);
+  expect(result).toBe(null);
 });
 
 test('ValueExtractor returns null for invalid path format', () => {
   const extractor = new ValueExtractor();
 
-  assert.strictEqual(extractor.get('', sampleMessage), null);
-  assert.strictEqual(extractor.get('PID-', sampleMessage), null);
-  assert.strictEqual(extractor.get('PID-abc', sampleMessage), null);
-  assert.strictEqual(extractor.get('INVALID', sampleMessage), null);
+  expect(extractor.get('', sampleMessage)).toBe(null);
+  expect(extractor.get('PID-', sampleMessage)).toBe(null);
+  expect(extractor.get('PID-abc', sampleMessage)).toBe(null);
+  expect(extractor.get('INVALID', sampleMessage)).toBe(null);
 });
 
 test('ValueExtractor handles zero field index', () => {
   const extractor = new ValueExtractor();
   const result = extractor.get('PID-0', sampleMessage);
 
-  assert.strictEqual(result, null);
+  expect(result).toBe(null);
 });
 
 test('ValueExtractor handles negative field index', () => {
   const extractor = new ValueExtractor();
   const result = extractor.get('PID--1', sampleMessage);
 
-  assert.strictEqual(result, null);
+  expect(result).toBe(null);
 });
 
 test('ValueExtractor extracts address components', () => {
@@ -147,18 +147,18 @@ test('ValueExtractor extracts address components', () => {
   const state = extractor.get('PID-11.4', sampleMessage);
   const zip = extractor.get('PID-11.5', sampleMessage);
 
-  assert.strictEqual(street, '123 Main St');
-  assert.strictEqual(apt, 'Apt 4');
-  assert.strictEqual(city, 'Springfield');
-  assert.strictEqual(state, 'IL');
-  assert.strictEqual(zip, '62701');
+  expect(street).toBe('123 Main St');
+  expect(apt).toBe('Apt 4');
+  expect(city).toBe('Springfield');
+  expect(state).toBe('IL');
+  expect(zip).toBe('62701');
 });
 
 test('ValueExtractor extracts patient identifier type', () => {
   const extractor = new ValueExtractor();
   const result = extractor.get('PID-3.5', sampleMessage);
 
-  assert.strictEqual(result, 'MR');
+  expect(result).toBe('MR');
 });
 
 test('ValueExtractor case-insensitive segment names', () => {
@@ -167,13 +167,13 @@ test('ValueExtractor case-insensitive segment names', () => {
   const result1 = extractor.get('pid-5.1', sampleMessage);
   const result2 = extractor.get('PID-5.1', sampleMessage);
 
-  assert.strictEqual(result1, result2);
-  assert.strictEqual(result1, 'Doe');
+  expect(result1).toBe(result2);
+  expect(result1).toBe('Doe');
 });
 
 test('extractValue convenience function works', () => {
   const result = extractValue('PID-5.1', sampleMessage);
-  assert.strictEqual(result, 'Doe');
+  expect(result).toBe('Doe');
 });
 
 test('ValueExtractor with custom encoding', () => {
@@ -181,7 +181,7 @@ test('ValueExtractor with custom encoding', () => {
   const extractor = ValueExtractor.withEncoding(DEFAULT_ENCODING);
 
   const result = extractor.get('MSH-3', customMessage);
-  assert.strictEqual(result, 'LAB');
+  expect(result).toBe('LAB');
 });
 
 test('ValueExtractor handles empty components', () => {
@@ -189,7 +189,7 @@ test('ValueExtractor handles empty components', () => {
   const extractor = new ValueExtractor();
 
   const result = extractor.get('PID-2', messageWithEmpty);
-  assert.strictEqual(result, '');
+  expect(result).toBe('');
 });
 
 test('ValueExtractor extracts phone numbers', () => {
@@ -198,51 +198,51 @@ test('ValueExtractor extracts phone numbers', () => {
   const home = extractor.get('PID-13', sampleMessage);
   const work = extractor.get('PID-14', sampleMessage);
 
-  assert.strictEqual(home, '555-1234');
-  assert.strictEqual(work, '555-5678');
+  expect(home).toBe('555-1234');
+  expect(work).toBe('555-5678');
 });
 
 test('ValueExtractor extracts date of birth', () => {
   const extractor = new ValueExtractor();
   const result = extractor.get('PID-7', sampleMessage);
 
-  assert.strictEqual(result, '19800115');
+  expect(result).toBe('19800115');
 });
 
 test('ValueExtractor extracts administrative sex', () => {
   const extractor = new ValueExtractor();
   const result = extractor.get('PID-8', sampleMessage);
 
-  assert.strictEqual(result, 'M');
+  expect(result).toBe('M');
 });
 
 test('ValueExtractor extracts order number', () => {
   const extractor = new ValueExtractor();
   const result = extractor.get('OBR-2', sampleMessage);
 
-  assert.strictEqual(result, 'ORD123');
+  expect(result).toBe('ORD123');
 });
 
 test('ValueExtractor extracts observation identifier', () => {
   const extractor = new ValueExtractor();
   const result = extractor.get('OBX-3.1', sampleMessage);
 
-  assert.ok(Array.isArray(result));
-  assert.strictEqual(result[0], '718-7');
-  assert.strictEqual(result[1], '789-8');
+  expect(Array.isArray(result)).toBeTruthy();
+  expect(result![0]).toBe('718-7');
+  expect(result![1]).toBe('789-8');
 });
 
 test('ValueExtractor handles segment with no matching path', () => {
   const extractor = new ValueExtractor();
   const result = extractor.get('PV1-99', sampleMessage);
 
-  assert.strictEqual(result, null);
+  expect(result).toBe(null);
 });
 
 test('ValueExtractor path parser validates segment names', () => {
   const extractor = new ValueExtractor();
 
-  assert.strictEqual(extractor.get('P-1', sampleMessage), null); // Too short
-  assert.strictEqual(extractor.get('ABCD-1', sampleMessage), null); // Too long
-  assert.strictEqual(extractor.get('12-1', sampleMessage), null); // Numbers
+  expect(extractor.get('P-1', sampleMessage)).toBe(null); // Too short
+  expect(extractor.get('ABCD-1', sampleMessage)).toBe(null); // Too long
+  expect(extractor.get('12-1', sampleMessage)).toBe(null); // Numbers
 });

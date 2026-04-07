@@ -1,4 +1,4 @@
-import { describe, it } from "node:test";
+import { describe, it, expect } from "vitest";
 import { createORU_R30, createORU_R31, createORU_R32 } from "./ORU_R30.js";
 import { PID } from "../../segments/v2.5.1/PID.js";
 import { ORC } from "../../segments/v2.5.1/ORC.js";
@@ -33,8 +33,8 @@ describe("ORU_R30 Builder", () => {
       const encoded = message.encode();
       const segments = encoded.split("\r");
 
-      assert.strictEqual(segments[0].substring(0, 3), "MSH");
-      assert.strictEqual(segments[1].substring(0, 3), "ORC");
+      expect(segments[0].substring(0, 3)).toBe("MSH");
+      expect(segments[1].substring(0, 3)).toBe("ORC");
     });
     it("should create ORU^R30 message with patient demographics", () => {
       const msh = new MSH()
@@ -61,8 +61,8 @@ describe("ORU_R30 Builder", () => {
       const encoded = message.encode();
       const segments = encoded.split("\r");
 
-      assert.strictEqual(segments[0].substring(0, 3), "MSH");
-      assert.strictEqual(segments[2].substring(0, 3), "ORC");
+      expect(segments[0].substring(0, 3)).toBe("MSH");
+      expect(segments[2].substring(0, 3)).toBe("ORC");
     });
     it("should create ORU^R30 message with visit information", () => {
       const msh = new MSH()
@@ -92,9 +92,9 @@ describe("ORU_R30 Builder", () => {
       const encoded = message.encode();
       const segments = encoded.split("\r");
 
-      assert.strictEqual(segments[0].substring(0, 3), "MSH");
-      assert.strictEqual(segments[2].substring(0, 3), "PV1");
-      assert.strictEqual(segments[4].substring(0, 3), "OBR");
+      expect(segments[0].substring(0, 3)).toBe("MSH");
+      expect(segments[2].substring(0, 3)).toBe("PV1");
+      expect(segments[4].substring(0, 3)).toBe("OBR");
     });
 
     it("should create ORU^R30 message with observations", () => {
@@ -124,9 +124,9 @@ describe("ORU_R30 Builder", () => {
       const encoded = message.encode();
       const segments = encoded.split("\r");
 
-      assert.strictEqual(segments[0].substring(0, 3), "MSH");
-      assert.strictEqual(segments[2].substring(0, 3), "OBR");
-      assert.ok(segments[3].includes("185"));
+      expect(segments[0].substring(0, 3)).toBe("MSH");
+      expect(segments[2].substring(0, 3)).toBe("OBR");
+      expect(segments[3].includes("185")).toBeTruthy();
     });
     it("should create ORU^R30 message with multiple observations", () => {
       const msh = new MSH()
@@ -160,9 +160,9 @@ describe("ORU_R30 Builder", () => {
       const encoded = message.encode();
       const segments = encoded.split("\r");
 
-      assert.strictEqual(segments.length, 5);
-      assert.strictEqual(segments[4].substring(0, 3), "OBX");
-      assert.ok(segments[4].includes("Cholesterol"));
+      expect(segments.length).toBe(5);
+      expect(segments[4].substring(0, 3)).toBe("OBX");
+      expect(segments[4].includes("Cholesterol")).toBeTruthy();
     });
 
     it("should create ORU^R30 message with multiple order observations", () => {
@@ -204,10 +204,10 @@ describe("ORU_R30 Builder", () => {
       const encoded = message.encode();
       const segments = encoded.split("\r");
 
-      assert.strictEqual(segments[0].substring(0, 3), "MSH");
-      assert.strictEqual(segments[2].substring(0, 3), "OBR");
-      assert.strictEqual(segments[4].substring(0, 3), "ORC");
-      assert.strictEqual(segments[6].substring(0, 3), "OBX");
+      expect(segments[0].substring(0, 3)).toBe("MSH");
+      expect(segments[2].substring(0, 3)).toBe("OBR");
+      expect(segments[4].substring(0, 3)).toBe("ORC");
+      expect(segments[6].substring(0, 3)).toBe("OBX");
     });
 
     it("should create ORU^R30 message with multiple patients", () => {
@@ -249,11 +249,11 @@ describe("ORU_R30 Builder", () => {
       const encoded = message.encode();
       const segments = encoded.split("\r");
 
-      assert.strictEqual(segments[0].substring(0, 3), "MSH");
-      assert.ok(segments[1].includes("Smith"));
-      assert.strictEqual(segments[3].substring(0, 3), "OBR");
-      assert.ok(segments[4].includes("Doe"));
-      assert.strictEqual(segments[6].substring(0, 3), "OBR");
+      expect(segments[0].substring(0, 3)).toBe("MSH");
+      expect(segments[1].includes("Smith")).toBeTruthy();
+      expect(segments[3].substring(0, 3)).toBe("OBR");
+      expect(segments[4].includes("Doe")).toBeTruthy();
+      expect(segments[6].substring(0, 3)).toBe("OBR");
     });
 
     describe("createORU_R31", () => {
@@ -277,8 +277,8 @@ describe("ORU_R30 Builder", () => {
         const encoded = message.encode();
         const segments = encoded.split("\r");
 
-        assert.strictEqual(segments[0].substring(0, 3), "MSH");
-        assert.strictEqual(segments[1].substring(0, 3), "ORC");
+        expect(segments[0].substring(0, 3)).toBe("MSH");
+        expect(segments[1].substring(0, 3)).toBe("ORC");
       });
       it("should create ORU^R31 with complete patient data", () => {
         const msh = new MSH()
@@ -312,7 +312,7 @@ describe("ORU_R30 Builder", () => {
         const encoded = message.encode();
         const segments = encoded.split("\r");
 
-        assert.strictEqual(segments.length, 6);
+        expect(segments.length).toBe(6);
       });
     });
 
@@ -337,8 +337,8 @@ describe("ORU_R30 Builder", () => {
         const encoded = message.encode();
         const segments = encoded.split("\r");
 
-        assert.strictEqual(segments[0].substring(0, 3), "MSH");
-        assert.strictEqual(segments[1].substring(0, 3), "ORC");
+        expect(segments[0].substring(0, 3)).toBe("MSH");
+        expect(segments[1].substring(0, 3)).toBe("ORC");
       });
       it("should create ORU^R32 with complete patient data", () => {
         const msh = new MSH()
@@ -372,7 +372,7 @@ describe("ORU_R30 Builder", () => {
         const encoded = message.encode();
         const segments = encoded.split("\r");
 
-        assert.strictEqual(segments.length, 6);
+        expect(segments.length).toBe(6);
       });
 
       describe("Segment Ordering Validation", () => {
@@ -410,9 +410,9 @@ describe("ORU_R30 Builder", () => {
           const encoded = message.encode();
           const segments = encoded.split("\r");
 
-          assert.strictEqual(segments[0].substring(0, 3), "MSH");
-          assert.strictEqual(segments[2].substring(0, 3), "PV1");
-          assert.strictEqual(segments[4].substring(0, 3), "OBR");
+          expect(segments[0].substring(0, 3)).toBe("MSH");
+          expect(segments[2].substring(0, 3)).toBe("PV1");
+          expect(segments[4].substring(0, 3)).toBe("OBR");
         });
         it("should require ORC before OBR", () => {
           const msh = new MSH()
@@ -445,9 +445,9 @@ describe("ORU_R30 Builder", () => {
             if (seg.startsWith("ORC")) orcIndex = idx;
             if (seg.startsWith("OBR")) obrIndex = idx;
           });
-          assert.ok(orcIndex !== -1, "ORC segment should exist");
-          assert.ok(obrIndex !== -1, "OBR segment should exist");
-          assert.ok(orcIndex < obrIndex, "ORC should come before OBR");
+          expect(orcIndex !== -1, "ORC segment should exist").toBeTruthy();
+          expect(obrIndex !== -1, "OBR segment should exist").toBeTruthy();
+          expect(orcIndex < obrIndex, "ORC should come before OBR").toBeTruthy();
         });
       });
     });

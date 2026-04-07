@@ -1,47 +1,74 @@
-import {
-  MSH,
-  PID,
-  PV1,
-  OBR,
-  OBX,
-  ORC,
-  NTE,
-  NK1,
-  PD1,
-} from "../../segments/v2.5.1";
+import { MSH } from "../../segments/v2.3/MSH";
+import { PID } from "../../segments/v2.3/PID";
+import { PD1 } from "../../segments/v2.3/PD1";
+import { NK1 } from "../../segments/v2.3/NK1";
+import { NTE } from "../../segments/v2.3/NTE";
+import { PV1 } from "../../segments/v2.3/PV1";
+import { ORC } from "../../segments/v2.3/ORC";
+import { OBR } from "../../segments/v2.3/OBR";
+import { OBX } from "../../segments/v2.3/OBX";
+// v2.5.1 imports for defaults
+import { PID as PID_251 } from "../../segments/v2.5.1/PID";
+import { PD1 as PD1_251 } from "../../segments/v2.5.1/PD1";
+import { NK1 as NK1_251 } from "../../segments/v2.5.1/NK1";
+import { NTE as NTE_251 } from "../../segments/v2.5.1/NTE";
+import { PV1 as PV1_251 } from "../../segments/v2.5.1/PV1";
+import { ORC as ORC_251 } from "../../segments/v2.5.1/ORC";
+import { OBR as OBR_251 } from "../../segments/v2.5.1/OBR";
+import { OBX as OBX_251 } from "../../segments/v2.5.1/OBX";
+import { MSH as MSH_251 } from "../../segments/v2.5.1/MSH";
 import { EncodingCharacters, DEFAULT_ENCODING } from "../../types/encoding";
 
-export interface OBXWithNotes {
-  obx: OBX;
-  nteList?: NTE[];
+export interface OBXWithNotes<TOBX extends OBX = OBX_251, TNTE extends NTE = NTE_251> {
+  obx: TOBX;
+  nteList?: TNTE[];
 }
 
-export interface OrderObservation {
-  orc?: ORC;
-  obr: OBR;
-  obrNteList?: NTE[];
-  obxList: OBX[] | OBXWithNotes[];
-  obxNteMap?: Map<number, NTE[]>; // Alternative way to associate NTE with OBX
+export interface OrderObservation<
+  TORC extends ORC = ORC_251,
+  TOBR extends OBR = OBR_251,
+  TOBX extends OBX = OBX_251,
+  TNTE extends NTE = NTE_251,
+> {
+  orc?: TORC;
+  obr: TOBR;
+  obrNteList?: TNTE[];
+  obxList: TOBX[] | OBXWithNotes<TOBX, TNTE>[];
+  obxNteMap?: Map<number, TNTE[]>; // Alternative way to associate NTE with OBX
 }
 
-export interface PatientResult {
-  pid?: PID;
-  pd1?: PD1;
-  nk1List?: NK1[];
-  nteList?: NTE[];
-  pv1?: PV1;
-  orderObservations: OrderObservation[];
+export interface PatientResult<
+  TPID extends PID = PID_251,
+  TPD1 extends PD1 = PD1_251,
+  TNK1 extends NK1 = NK1_251,
+  TNTE extends NTE = NTE_251,
+  TPV1 extends PV1 = PV1_251,
+  TORC extends ORC = ORC_251,
+  TOBR extends OBR = OBR_251,
+  TOBX extends OBX = OBX_251,
+> {
+  pid?: TPID;
+  pd1?: TPD1;
+  nk1List?: TNK1[];
+  nteList?: TNTE[];
+  pv1?: TPV1;
+  orderObservations: OrderObservation<TORC, TOBR, TOBX, TNTE>[];
 }
 
-export interface ORU_R01_Message {
-  msh: MSH;
-  patientResults: PatientResult[];
-}
-
-export class ORU_R01 {
+export class ORU_R01<
+  TMSH extends MSH = MSH_251,
+  TPID extends PID = PID_251,
+  TPD1 extends PD1 = PD1_251,
+  TNK1 extends NK1 = NK1_251,
+  TNTE extends NTE = NTE_251,
+  TPV1 extends PV1 = PV1_251,
+  TORC extends ORC = ORC_251,
+  TOBR extends OBR = OBR_251,
+  TOBX extends OBX = OBX_251,
+> {
   constructor(
-    public msh: MSH,
-    public patientResults: PatientResult[] = [],
+    public msh: TMSH,
+    public patientResults: PatientResult<TPID, TPD1, TNK1, TNTE, TPV1, TORC, TOBR, TOBX>[] = [],
     private encoding: EncodingCharacters = DEFAULT_ENCODING,
   ) {}
 
@@ -178,9 +205,19 @@ export class ORU_R01 {
   }
 }
 
-export function createORU_R01(
-  msh: MSH,
-  patientResults: PatientResult[] = [],
-): ORU_R01 {
+export function createORU_R01<
+  TMSH extends MSH = MSH_251,
+  TPID extends PID = PID_251,
+  TPD1 extends PD1 = PD1_251,
+  TNK1 extends NK1 = NK1_251,
+  TNTE extends NTE = NTE_251,
+  TPV1 extends PV1 = PV1_251,
+  TORC extends ORC = ORC_251,
+  TOBR extends OBR = OBR_251,
+  TOBX extends OBX = OBX_251,
+>(
+  msh: TMSH,
+  patientResults: PatientResult<TPID, TPD1, TNK1, TNTE, TPV1, TORC, TOBR, TOBX>[] = [],
+): ORU_R01<TMSH, TPID, TPD1, TNK1, TNTE, TPV1, TORC, TOBR, TOBX> {
   return new ORU_R01(msh, patientResults);
 }

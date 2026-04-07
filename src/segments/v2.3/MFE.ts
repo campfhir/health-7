@@ -1,0 +1,85 @@
+import { Err } from "../../utils/err";
+import { Result } from "../../types/result";
+import { BaseSegment } from "../../types/segment";
+import { EncodingCharacters } from "../../types/encoding";
+import { ParserUtils } from "../../types/parser";
+
+/**
+ * MFE - Master File Entry Segment
+ *
+ * Contains one record-level entry in the master file update.
+ * Repeats for each staff record in an MFN^M02 message.
+ *
+ * HL7 v2.3 Specification
+ */
+export class MFE extends BaseSegment {
+  name = "MFE";
+
+  constructor() {
+    super();
+    this.fields = [];
+  }
+
+  /** MFE-1: Record-Level Event Code (ID) e.g., "MAD" (Add), "MDL" (Delete), "MUP" (Update), "MDC" (Deactivate) */
+  recordLevelEventCode(value: string): this {
+    this.fields[0] = this.createField(value);
+    return this;
+  }
+
+  /** MFE-2: MFN Control ID (ST) - unique identifier for this entry */
+  mfnControlId(value: string): this {
+    this.fields[1] = this.createField(value);
+    return this;
+  }
+
+  /** MFE-3: Effective Date/Time (TS) */
+  effectiveDateTime(value: string): this {
+    this.fields[2] = this.createField(value);
+    return this;
+  }
+
+  /** MFE-4: Primary Key Value - MFE (varies) - typically the staff ID */
+  primaryKeyValue(value: string): this {
+    this.fields[3] = this.createField(value);
+    return this;
+  }
+
+  /** MFE-5: Primary Key Value Type (ID) e.g., "CWE" */
+  primaryKeyValueType(value: string): this {
+    this.fields[4] = this.createField(value);
+    return this;
+  }
+
+  getRecordLevelEventCode(): string {
+    return this.fields[0]?.components[0]?.subComponents[0] ?? "";
+  }
+
+  getMfnControlId(): string {
+    return this.fields[1]?.components[0]?.subComponents[0] ?? "";
+  }
+
+  getPrimaryKeyValue(): string {
+    return this.fields[3]?.components[0]?.subComponents[0] ?? "";
+  }
+
+  static parse(
+    segmentString: string,
+    encoding: EncodingCharacters,
+  ): Result<MFE> {
+    const parts = segmentString.split(encoding.fieldSeparator);
+
+    if (parts[0] !== "MFE") {
+      return {
+        ok: false,
+        err: new Err(`Expected MFE segment, got ${parts[0]}`),
+      };
+    }
+
+    const mfe = new MFE();
+    for (let i = 1; i < parts.length; i++) {
+      mfe.fields[i - 1] = ParserUtils.parseField(parts[i], encoding);
+    }
+
+    return { ok: true, val: mfe };
+  }
+}

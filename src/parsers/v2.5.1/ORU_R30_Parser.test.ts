@@ -1,6 +1,7 @@
-import { describe, it } from "node:test";
-import assert from "node:assert";
-import { ORU_R30_Parser } from "./ORU_R30_Parser.js";
+import { describe, it, expect } from "vitest";
+import { readFileSync, readdirSync } from "fs";
+import { join } from "path";
+import { ORU_R30_Parser, parseORU_R30 } from "./ORU_R30_Parser.js";
 import {
   createORU_R30,
   createORU_R31,
@@ -27,15 +28,16 @@ describe("ORU_R30_Parser", () => {
 
       const result = parser.parse(message);
 
-      assert.strictEqual(result.success, true);
-      if (result.success) {
-        assert.strictEqual(result.data.patientResults.length, 1);
-        assert.strictEqual(
-          result.data.patientResults[0].orderObservations.length,
-          1,
-        );
-        assert.ok(result.data.patientResults[0].orderObservations[0].orc);
-        assert.ok(result.data.patientResults[0].orderObservations[0].obr);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.val.patientResults.length).toBe(1);
+        expect(result.val.patientResults[0].orderObservations.length).toBe(1);
+        expect(
+          result.val.patientResults[0].orderObservations[0].orc,
+        ).toBeTruthy();
+        expect(
+          result.val.patientResults[0].orderObservations[0].obr,
+        ).toBeTruthy();
       }
     });
 
@@ -49,14 +51,11 @@ describe("ORU_R30_Parser", () => {
 
       const result = parser.parse(message);
 
-      assert.strictEqual(result.success, true);
-      if (result.success) {
-        assert.strictEqual(result.data.patientResults.length, 1);
-        assert.ok(result.data.patientResults[0].pid);
-        assert.strictEqual(
-          result.data.patientResults[0].orderObservations.length,
-          1,
-        );
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.val.patientResults.length).toBe(1);
+        expect(result.val.patientResults[0].pid).toBeTruthy();
+        expect(result.val.patientResults[0].orderObservations.length).toBe(1);
       }
     });
 
@@ -71,15 +70,12 @@ describe("ORU_R30_Parser", () => {
 
       const result = parser.parse(message);
 
-      assert.strictEqual(result.success, true);
-      if (result.success) {
-        assert.strictEqual(result.data.patientResults.length, 1);
-        assert.ok(result.data.patientResults[0].pid);
-        assert.ok(result.data.patientResults[0].pv1);
-        assert.strictEqual(
-          result.data.patientResults[0].orderObservations.length,
-          1,
-        );
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.val.patientResults.length).toBe(1);
+        expect(result.val.patientResults[0].pid).toBeTruthy();
+        expect(result.val.patientResults[0].pv1).toBeTruthy();
+        expect(result.val.patientResults[0].orderObservations.length).toBe(1);
       }
     });
 
@@ -93,11 +89,11 @@ describe("ORU_R30_Parser", () => {
 
       const result = parser.parse(message);
 
-      assert.strictEqual(result.success, true);
-      if (result.success) {
-        assert.strictEqual(result.data.patientResults.length, 1);
-        const orderObs = result.data.patientResults[0].orderObservations[0];
-        assert.strictEqual(orderObs.obxList.length, 1);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.val.patientResults.length).toBe(1);
+        const orderObs = result.val.patientResults[0].orderObservations[0];
+        expect(orderObs.obxList.length).toBe(1);
       }
     });
 
@@ -112,10 +108,10 @@ describe("ORU_R30_Parser", () => {
 
       const result = parser.parse(message);
 
-      assert.strictEqual(result.success, true);
-      if (result.success) {
-        const orderObs = result.data.patientResults[0].orderObservations[0];
-        assert.strictEqual(orderObs.obxList.length, 2);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        const orderObs = result.val.patientResults[0].orderObservations[0];
+        expect(orderObs.obxList.length).toBe(2);
       }
     });
   });
@@ -134,21 +130,16 @@ describe("ORU_R30_Parser", () => {
 
       const result = parser.parse(message);
 
-      assert.strictEqual(result.success, true);
-      if (result.success) {
-        assert.strictEqual(result.data.patientResults.length, 1);
-        assert.strictEqual(
-          result.data.patientResults[0].orderObservations.length,
-          2,
-        );
-        assert.strictEqual(
-          result.data.patientResults[0].orderObservations[0].obxList.length,
-          1,
-        );
-        assert.strictEqual(
-          result.data.patientResults[0].orderObservations[1].obxList.length,
-          1,
-        );
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.val.patientResults.length).toBe(1);
+        expect(result.val.patientResults[0].orderObservations.length).toBe(2);
+        expect(
+          result.val.patientResults[0].orderObservations[0].obxList.length,
+        ).toBe(1);
+        expect(
+          result.val.patientResults[0].orderObservations[1].obxList.length,
+        ).toBe(1);
       }
     });
   });
@@ -167,9 +158,9 @@ describe("ORU_R30_Parser", () => {
 
       const result = parser.parse(message);
 
-      assert.strictEqual(result.success, true);
-      if (result.success) {
-        assert.strictEqual(result.data.patientResults.length, 2);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.val.patientResults.length).toBe(2);
       }
     });
   });
@@ -186,10 +177,10 @@ describe("ORU_R30_Parser", () => {
 
       const result = parser.parse(message);
 
-      assert.strictEqual(result.success, true);
-      if (result.success) {
-        assert.ok(result.data.msh.encode().includes("ORU^R31"));
-        assert.strictEqual(result.data.patientResults.length, 1);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.val.msh.encode().includes("ORU^R31")).toBeTruthy();
+        expect(result.val.patientResults.length).toBe(1);
       }
     });
   });
@@ -206,10 +197,10 @@ describe("ORU_R30_Parser", () => {
 
       const result = parser.parse(message);
 
-      assert.strictEqual(result.success, true);
-      if (result.success) {
-        assert.ok(result.data.msh.encode().includes("ORU^R32"));
-        assert.strictEqual(result.data.patientResults.length, 1);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.val.msh.encode().includes("ORU^R32")).toBeTruthy();
+        expect(result.val.patientResults.length).toBe(1);
       }
     });
   });
@@ -223,10 +214,10 @@ describe("ORU_R30_Parser", () => {
 
       const result = parser.parse(message);
 
-      assert.strictEqual(result.success, false);
-      if (!result.success) {
-        assert.ok(result.error.includes("OBR"));
-        assert.ok(result.error.includes("ORC"));
+      expect(result.ok).toBe(false);
+      if (!result.ok) {
+        expect(result.err.message.includes("OBR")).toBeTruthy();
+        expect(result.err.message.includes("ORC")).toBeTruthy();
       }
     });
 
@@ -239,9 +230,9 @@ describe("ORU_R30_Parser", () => {
 
       const result = parser.parse(message);
 
-      assert.strictEqual(result.success, false);
-      if (!result.success) {
-        assert.ok(result.error.includes("OBX"));
+      expect(result.ok).toBe(false);
+      if (!result.ok) {
+        expect(result.err.message.includes("OBX")).toBeTruthy();
       }
     });
 
@@ -253,16 +244,16 @@ describe("ORU_R30_Parser", () => {
 
       const result = parser.parse(message);
 
-      assert.strictEqual(result.success, false);
-      if (!result.success) {
-        assert.ok(result.error.includes("MSH"));
+      expect(result.ok).toBe(false);
+      if (!result.ok) {
+        expect(result.err.message.includes("MSH")).toBeTruthy();
       }
     });
 
     it("should fail on empty message", () => {
       const result = parser.parse("");
 
-      assert.strictEqual(result.success, false);
+      expect(result.ok).toBe(false);
     });
   });
 
@@ -273,7 +264,7 @@ describe("ORU_R30_Parser", () => {
 
       const result = parser.parse(message);
 
-      assert.strictEqual(result.success, true);
+      expect(result.ok).toBe(true);
     });
 
     it("should handle \\n line endings", () => {
@@ -282,7 +273,7 @@ describe("ORU_R30_Parser", () => {
 
       const result = parser.parse(message);
 
-      assert.strictEqual(result.success, true);
+      expect(result.ok).toBe(true);
     });
 
     it("should handle \\r\\n line endings", () => {
@@ -291,7 +282,7 @@ describe("ORU_R30_Parser", () => {
 
       const result = parser.parse(message);
 
-      assert.strictEqual(result.success, true);
+      expect(result.ok).toBe(true);
     });
   });
 
@@ -339,10 +330,10 @@ describe("ORU_R30_Parser", () => {
       const encoded1 = message.encode();
       const parseResult = parser.parse(encoded1);
 
-      assert.strictEqual(parseResult.success, true);
-      if (parseResult.success) {
-        const encoded2 = parseResult.data.message.encode();
-        assert.strictEqual(encoded1, encoded2);
+      expect(parseResult.ok).toBe(true);
+      if (parseResult.ok) {
+        const encoded2 = parseResult.val.message.encode();
+        expect(encoded1).toBe(encoded2);
       }
     });
 
@@ -376,10 +367,10 @@ describe("ORU_R30_Parser", () => {
       const encoded1 = message.encode();
       const parseResult = parser.parse(encoded1);
 
-      assert.strictEqual(parseResult.success, true);
-      if (parseResult.success) {
-        const encoded2 = parseResult.data.message.encode();
-        assert.strictEqual(encoded1, encoded2);
+      expect(parseResult.ok).toBe(true);
+      if (parseResult.ok) {
+        const encoded2 = parseResult.val.message.encode();
+        expect(encoded1).toBe(encoded2);
       }
     });
 
@@ -413,10 +404,10 @@ describe("ORU_R30_Parser", () => {
       const encoded1 = message.encode();
       const parseResult = parser.parse(encoded1);
 
-      assert.strictEqual(parseResult.success, true);
-      if (parseResult.success) {
-        const encoded2 = parseResult.data.message.encode();
-        assert.strictEqual(encoded1, encoded2);
+      expect(parseResult.ok).toBe(true);
+      if (parseResult.ok) {
+        const encoded2 = parseResult.val.message.encode();
+        expect(encoded1).toBe(encoded2);
       }
     });
 
@@ -458,11 +449,11 @@ describe("ORU_R30_Parser", () => {
       const encoded1 = message.encode();
       const parseResult = parser.parse(encoded1);
 
-      assert.strictEqual(parseResult.success, true);
-      if (parseResult.success) {
-        assert.strictEqual(parseResult.data.patientResults.length, 2);
-        const encoded2 = parseResult.data.message.encode();
-        assert.strictEqual(encoded1, encoded2);
+      expect(parseResult.ok).toBe(true);
+      if (parseResult.ok) {
+        expect(parseResult.val.patientResults.length).toBe(2);
+        const encoded2 = parseResult.val.message.encode();
+        expect(encoded1).toBe(encoded2);
       }
     });
   });
@@ -480,17 +471,155 @@ describe("ORU_R30_Parser", () => {
 
       const result = parser.parse(message);
 
-      assert.strictEqual(result.success, true);
-      if (result.success) {
-        assert.strictEqual(result.data.patientResults.length, 1);
-        const patient = result.data.patientResults[0];
-        assert.ok(patient.pid);
-        assert.ok(patient.pv1);
-        assert.strictEqual(patient.orderObservations.length, 1);
-        assert.ok(patient.orderObservations[0].orc);
-        assert.ok(patient.orderObservations[0].obr);
-        assert.strictEqual(patient.orderObservations[0].obxList.length, 1);
+      expect(result.ok).toBe(true);
+      if (result.ok) {
+        expect(result.val.patientResults.length).toBe(1);
+        const patient = result.val.patientResults[0];
+        expect(patient.pid).toBeTruthy();
+        expect(patient.pv1).toBeTruthy();
+        expect(patient.orderObservations.length).toBe(1);
+        expect(patient.orderObservations[0].orc).toBeTruthy();
+        expect(patient.orderObservations[0].obr).toBeTruthy();
+        expect(patient.orderObservations[0].obxList.length).toBe(1);
       }
     });
   });
+});
+
+// ---------------------------------------------------------------------------
+// Integration tests — parse validated example .hl7 files
+// ---------------------------------------------------------------------------
+
+const testDataDir = join(__dirname, "..", "testdata", "ORU_R30");
+const testFiles = readdirSync(testDataDir).filter((f) => f.endsWith(".hl7"));
+
+describe("ORU_R30 Integration Tests - Parse validated example messages", () => {
+  for (const testFile of testFiles) {
+    it(`Parse ${testFile}`, () => {
+      const messageContent = readFileSync(join(testDataDir, testFile), "utf-8");
+      const result = parseORU_R30(messageContent);
+
+      expect(
+        result.ok,
+        `Failed to parse ${testFile}: ${result.err!.message}`,
+      ).toBe(true);
+      expect(result.val, `No data returned for ${testFile}`).toBeTruthy();
+      expect(result.val!.msh, `No MSH segment in ${testFile}`).toBeTruthy();
+      expect(
+        result.val!.patientResults.length > 0,
+        `No patient results in ${testFile}`,
+      ).toBeTruthy();
+
+      for (const patientResult of result.val!.patientResults) {
+        expect(
+          patientResult.orderObservations.length > 0,
+          `No order observations in patient result for ${testFile}`,
+        ).toBeTruthy();
+      }
+    });
+  }
+});
+
+describe("ORU_R30 Integration Tests - Event type validation", () => {
+  it("R30 messages have ORC with NW or RE", () => {
+    for (const testFile of testFiles.filter((f) => f.includes("_r30"))) {
+      const result = parseORU_R30(
+        readFileSync(join(testDataDir, testFile), "utf-8"),
+      );
+      expect(result.ok).toBe(true);
+      expect(
+        result.val!.msh.getMessageType().messageCode,
+        `Expected ORU message code in ${testFile}`,
+      ).toBe("ORU");
+    }
+  });
+
+  it("R31 messages parse correctly", () => {
+    for (const testFile of testFiles.filter((f) => f.includes("_r31"))) {
+      const result = parseORU_R30(
+        readFileSync(join(testDataDir, testFile), "utf-8"),
+      );
+      expect(result.ok, `Failed to parse R31 message ${testFile}`).toBe(true);
+    }
+  });
+
+  it("R32 messages have existing order references", () => {
+    for (const testFile of testFiles.filter((f) => f.includes("_r32"))) {
+      const result = parseORU_R30(
+        readFileSync(join(testDataDir, testFile), "utf-8"),
+      );
+      expect(result.ok).toBe(true);
+      const firstOrc = result.val!.patientResults[0].orderObservations[0].orc;
+      expect(firstOrc, `Expected ORC segment in ${testFile}`).toBeTruthy();
+    }
+  });
+});
+
+describe("ORU_R30 Integration Tests - Point of Care validations", () => {
+  it("Glucose meter message has valid glucose reading", () => {
+    const result = parseORU_R30(
+      readFileSync(join(testDataDir, "01_glucose_meter_r30.hl7"), "utf-8"),
+    );
+    expect(result.ok).toBe(true);
+    expect(
+      result.val!.patientResults[0].orderObservations[0].obxList.length > 0,
+      "Expected at least one OBX",
+    ).toBeTruthy();
+  });
+
+  it("Blood pressure message has systolic and diastolic", () => {
+    const result = parseORU_R30(
+      readFileSync(join(testDataDir, "02_blood_pressure_r30.hl7"), "utf-8"),
+    );
+    expect(result.ok).toBe(true);
+    const obxList = result.val!.patientResults[0].orderObservations[0].obxList;
+    expect(
+      obxList.length >= 2,
+      "Expected at least 2 OBX segments (systolic and diastolic)",
+    ).toBeTruthy();
+  });
+
+  it("ABG message has multiple parameters", () => {
+    const result = parseORU_R30(
+      readFileSync(join(testDataDir, "06_arterial_blood_gas_r32.hl7"), "utf-8"),
+    );
+    expect(result.ok).toBe(true);
+    const obxList = result.val!.patientResults[0].orderObservations[0].obxList;
+    expect(
+      obxList.length >= 6,
+      `Expected at least 6 OBX segments for ABG, got ${obxList.length}`,
+    ).toBeTruthy();
+  });
+
+  it("Multiple vitals message has complete vital signs", () => {
+    const result = parseORU_R30(
+      readFileSync(join(testDataDir, "11_multiple_vitals_r30.hl7"), "utf-8"),
+    );
+    expect(result.ok).toBe(true);
+    const obxList = result.val!.patientResults[0].orderObservations[0].obxList;
+    expect(
+      obxList.length >= 7,
+      `Expected at least 7 OBX segments for complete vitals, got ${obxList.length}`,
+    ).toBeTruthy();
+  });
+});
+
+describe("ORU_R30 Integration Tests - Round-trip encoding", () => {
+  for (const testFile of testFiles) {
+    it(`Round-trip encode/decode ${testFile}`, () => {
+      const messageContent = readFileSync(join(testDataDir, testFile), "utf-8");
+      const result = parseORU_R30(messageContent);
+      expect(result.ok).toBe(true);
+
+      const result2 = parseORU_R30(result.val!.message.encode());
+      expect(
+        result2.ok,
+        `Round-trip failed for ${testFile}: ${result2.err!.message}`,
+      ).toBe(true);
+      expect(
+        result2.val!.patientResults.length,
+        `Patient result count mismatch in round-trip for ${testFile}`,
+      ).toBe(result.val!.patientResults.length);
+    });
+  }
 });

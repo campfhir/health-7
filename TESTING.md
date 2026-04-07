@@ -120,10 +120,9 @@ Current test coverage includes:
 ### Builder Tests
 ```typescript
 test('MSH builder creates valid segment', () => {
-  const msh = MSH.builder()
+  const msh = new MSH()
     .sendingApplication('LAB')
     .receivingApplication('EMR')
-    .build();
 
   assert.strictEqual(msh.name, 'MSH');
   assert.ok(msh.fields.length > 0);

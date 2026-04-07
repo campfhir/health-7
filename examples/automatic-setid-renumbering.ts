@@ -14,12 +14,12 @@ console.log("=== Automatic Set ID Renumbering Demo ===\n");
 
 // Parse the message
 const parseResult = parseORU_R01(originalMessage);
-if (!parseResult.success || !parseResult.data) {
+if (!parseResult.ok || !parseResult.val) {
   console.error("Parse failed");
   process.exit(1);
 }
 
-const patient = parseResult.data.patientResults[0];
+const patient = parseResult.val.patientResults[0];
 
 console.log("Original Set IDs:");
 patient.orderObservations.forEach((order, idx) => {
@@ -72,7 +72,7 @@ patient.orderObservations.forEach((order, idx) => {
 console.log();
 
 // Option 1: Encode WITHOUT automatic renumbering (preserves wrong IDs)
-const withoutRenumber = createORU_R01(parseResult.data.msh, [patient]);
+const withoutRenumber = createORU_R01(parseResult.val.msh, [patient]);
 const encodedWithout = withoutRenumber.encode(); // No renumberSetIds option
 
 console.log("Encoded WITHOUT renumberSetIds option:");
@@ -85,7 +85,7 @@ encodedWithout.split('\r').forEach((seg) => {
 console.log();
 
 // Option 2: Encode WITH automatic renumbering (fixes all Set IDs)
-const withRenumber = createORU_R01(parseResult.data.msh, [patient]);
+const withRenumber = createORU_R01(parseResult.val.msh, [patient]);
 const encodedWith = withRenumber.encode({ renumberSetIds: true }); // ✅ Automatic renumbering
 
 console.log("Encoded WITH renumberSetIds: true option:");
@@ -99,9 +99,9 @@ console.log();
 
 // Verify by re-parsing
 const verifyResult = parseORU_R01(encodedWith);
-if (verifyResult.success && verifyResult.data) {
+if (verifyResult.ok && verifyResult.val) {
   console.log("✅ Verification: All Set IDs are now sequential");
-  const verifyPatient = verifyResult.data.patientResults[0];
+  const verifyPatient = verifyResult.val.patientResults[0];
   verifyPatient.orderObservations.forEach((order, idx) => {
     const obrId = order.obr.fields[0]?.components[0]?.subComponents[0];
     console.log(`  OBR[${idx}] Set ID: ${obrId} ${obrId === String(idx + 1) ? "✓" : "✗"}`);

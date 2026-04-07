@@ -1,4 +1,4 @@
-import { test } from "node:test";
+import { test, expect } from "vitest";
 import assert from "node:assert";
 import { parseORU_R01 } from "./ORU_R01_Parser";
 import { createORU_R01 } from "../../builders/v2.5.1/ORU_R01";
@@ -21,10 +21,10 @@ OBX|1|NM|2345-7^Glucose^LN|1|95|mg/dL|70-100|N|||F`;
 
 test("Parse and modify - Add OBX to beginning of order", () => {
   const parseResult = parseORU_R01(sampleMessage);
-  assert.strictEqual(parseResult.success, true);
-  assert.ok(parseResult.data);
+  expect(parseResult.ok).toBe(true);
+  expect(parseResult.val).toBeTruthy();
 
-  const patientResult = parseResult.data.patientResults[0];
+  const patientResult = parseResult.val!.patientResults[0];
   const originalObxCount = patientResult.orderObservations[0].obxList.length;
 
   // Add OBX to beginning
@@ -42,30 +42,24 @@ test("Parse and modify - Add OBX to beginning of order", () => {
   patientResult.orderObservations[0].obxList.unshift(newObx);
 
   // Verify modification
-  assert.strictEqual(
-    patientResult.orderObservations[0].obxList.length,
-    originalObxCount + 1,
-  );
+  expect(patientResult.orderObservations[0].obxList.length, ).toBe(originalObxCount + 1);
 
   // Re-encode and verify
-  const rebuilt = createORU_R01(parseResult.data.msh, [patientResult]);
+  const rebuilt = createORU_R01(parseResult.val!.msh, [patientResult]);
   const reencoded = rebuilt.encode();
 
   const reParseResult = parseORU_R01(reencoded);
-  assert.strictEqual(reParseResult.success, true);
-  assert.ok(reParseResult.data);
-  assert.strictEqual(
-    reParseResult.data.patientResults[0].orderObservations[0].obxList.length,
-    originalObxCount + 1,
-  );
+  expect(reParseResult.ok).toBe(true);
+  expect(reParseResult.val).toBeTruthy();
+  expect(reParseResult.val!.patientResults[0].orderObservations[0].obxList.length, ).toBe(originalObxCount + 1);
 });
 
 test("Parse and modify - Add OBX to middle of order", () => {
   const parseResult = parseORU_R01(sampleMessage);
-  assert.strictEqual(parseResult.success, true);
-  assert.ok(parseResult.data);
+  expect(parseResult.ok).toBe(true);
+  expect(parseResult.val).toBeTruthy();
 
-  const patientResult = parseResult.data.patientResults[0];
+  const patientResult = parseResult.val!.patientResults[0];
   const originalObxCount = patientResult.orderObservations[0].obxList.length;
 
   // Add OBX to middle (after first item)
@@ -83,30 +77,24 @@ test("Parse and modify - Add OBX to middle of order", () => {
   patientResult.orderObservations[0].obxList.splice(1, 0, newObx);
 
   // Verify modification
-  assert.strictEqual(
-    patientResult.orderObservations[0].obxList.length,
-    originalObxCount + 1,
-  );
+  expect(patientResult.orderObservations[0].obxList.length, ).toBe(originalObxCount + 1);
 
   // Re-encode and verify
-  const rebuilt = createORU_R01(parseResult.data.msh, [patientResult]);
+  const rebuilt = createORU_R01(parseResult.val!.msh, [patientResult]);
   const reencoded = rebuilt.encode();
 
   const reParseResult = parseORU_R01(reencoded);
-  assert.strictEqual(reParseResult.success, true);
-  assert.ok(reParseResult.data);
-  assert.strictEqual(
-    reParseResult.data.patientResults[0].orderObservations[0].obxList.length,
-    originalObxCount + 1,
-  );
+  expect(reParseResult.ok).toBe(true);
+  expect(reParseResult.val).toBeTruthy();
+  expect(reParseResult.val!.patientResults[0].orderObservations[0].obxList.length, ).toBe(originalObxCount + 1);
 });
 
 test("Parse and modify - Add OBX to end of order", () => {
   const parseResult = parseORU_R01(sampleMessage);
-  assert.strictEqual(parseResult.success, true);
-  assert.ok(parseResult.data);
+  expect(parseResult.ok).toBe(true);
+  expect(parseResult.val).toBeTruthy();
 
-  const patientResult = parseResult.data.patientResults[0];
+  const patientResult = parseResult.val!.patientResults[0];
   const originalObxCount = patientResult.orderObservations[0].obxList.length;
 
   // Add OBX to end
@@ -124,30 +112,24 @@ test("Parse and modify - Add OBX to end of order", () => {
   patientResult.orderObservations[0].obxList.push(newObx);
 
   // Verify modification
-  assert.strictEqual(
-    patientResult.orderObservations[0].obxList.length,
-    originalObxCount + 1,
-  );
+  expect(patientResult.orderObservations[0].obxList.length, ).toBe(originalObxCount + 1);
 
   // Re-encode and verify
-  const rebuilt = createORU_R01(parseResult.data.msh, [patientResult]);
+  const rebuilt = createORU_R01(parseResult.val!.msh, [patientResult]);
   const reencoded = rebuilt.encode();
 
   const reParseResult = parseORU_R01(reencoded);
-  assert.strictEqual(reParseResult.success, true);
-  assert.ok(reParseResult.data);
-  assert.strictEqual(
-    reParseResult.data.patientResults[0].orderObservations[0].obxList.length,
-    originalObxCount + 1,
-  );
+  expect(reParseResult.ok).toBe(true);
+  expect(reParseResult.val).toBeTruthy();
+  expect(reParseResult.val!.patientResults[0].orderObservations[0].obxList.length, ).toBe(originalObxCount + 1);
 });
 
 test("Parse and modify - Add OBR to beginning", () => {
   const parseResult = parseORU_R01(sampleMessage);
-  assert.strictEqual(parseResult.success, true);
-  assert.ok(parseResult.data);
+  expect(parseResult.ok).toBe(true);
+  expect(parseResult.val).toBeTruthy();
 
-  const patientResult = parseResult.data.patientResults[0];
+  const patientResult = parseResult.val!.patientResults[0];
   const originalOrderCount = patientResult.orderObservations.length;
 
   // Add new OBR/OBX to beginning
@@ -176,30 +158,24 @@ test("Parse and modify - Add OBR to beginning", () => {
   });
 
   // Verify modification
-  assert.strictEqual(
-    patientResult.orderObservations.length,
-    originalOrderCount + 1,
-  );
+  expect(patientResult.orderObservations.length, ).toBe(originalOrderCount + 1);
 
   // Re-encode and verify
-  const rebuilt = createORU_R01(parseResult.data.msh, [patientResult]);
+  const rebuilt = createORU_R01(parseResult.val!.msh, [patientResult]);
   const reencoded = rebuilt.encode();
 
   const reParseResult = parseORU_R01(reencoded);
-  assert.strictEqual(reParseResult.success, true);
-  assert.ok(reParseResult.data);
-  assert.strictEqual(
-    reParseResult.data.patientResults[0].orderObservations.length,
-    originalOrderCount + 1,
-  );
+  expect(reParseResult.ok).toBe(true);
+  expect(reParseResult.val).toBeTruthy();
+  expect(reParseResult.val!.patientResults[0].orderObservations.length, ).toBe(originalOrderCount + 1);
 });
 
 test("Parse and modify - Add OBR to middle", () => {
   const parseResult = parseORU_R01(sampleMessage);
-  assert.strictEqual(parseResult.success, true);
-  assert.ok(parseResult.data);
+  expect(parseResult.ok).toBe(true);
+  expect(parseResult.val).toBeTruthy();
 
-  const patientResult = parseResult.data.patientResults[0];
+  const patientResult = parseResult.val!.patientResults[0];
   const originalOrderCount = patientResult.orderObservations.length;
 
   // Add new OBR/OBX to middle (between CBC and Glucose)
@@ -228,30 +204,24 @@ test("Parse and modify - Add OBR to middle", () => {
   });
 
   // Verify modification
-  assert.strictEqual(
-    patientResult.orderObservations.length,
-    originalOrderCount + 1,
-  );
+  expect(patientResult.orderObservations.length, ).toBe(originalOrderCount + 1);
 
   // Re-encode and verify
-  const rebuilt = createORU_R01(parseResult.data.msh, [patientResult]);
+  const rebuilt = createORU_R01(parseResult.val!.msh, [patientResult]);
   const reencoded = rebuilt.encode();
 
   const reParseResult = parseORU_R01(reencoded);
-  assert.strictEqual(reParseResult.success, true);
-  assert.ok(reParseResult.data);
-  assert.strictEqual(
-    reParseResult.data.patientResults[0].orderObservations.length,
-    originalOrderCount + 1,
-  );
+  expect(reParseResult.ok).toBe(true);
+  expect(reParseResult.val).toBeTruthy();
+  expect(reParseResult.val!.patientResults[0].orderObservations.length, ).toBe(originalOrderCount + 1);
 });
 
 test("Parse and modify - Add OBR to end", () => {
   const parseResult = parseORU_R01(sampleMessage);
-  assert.strictEqual(parseResult.success, true);
-  assert.ok(parseResult.data);
+  expect(parseResult.ok).toBe(true);
+  expect(parseResult.val).toBeTruthy();
 
-  const patientResult = parseResult.data.patientResults[0];
+  const patientResult = parseResult.val!.patientResults[0];
   const originalOrderCount = patientResult.orderObservations.length;
 
   // Add new OBR/OBX to end
@@ -280,30 +250,24 @@ test("Parse and modify - Add OBR to end", () => {
   });
 
   // Verify modification
-  assert.strictEqual(
-    patientResult.orderObservations.length,
-    originalOrderCount + 1,
-  );
+  expect(patientResult.orderObservations.length, ).toBe(originalOrderCount + 1);
 
   // Re-encode and verify
-  const rebuilt = createORU_R01(parseResult.data.msh, [patientResult]);
+  const rebuilt = createORU_R01(parseResult.val!.msh, [patientResult]);
   const reencoded = rebuilt.encode();
 
   const reParseResult = parseORU_R01(reencoded);
-  assert.strictEqual(reParseResult.success, true);
-  assert.ok(reParseResult.data);
-  assert.strictEqual(
-    reParseResult.data.patientResults[0].orderObservations.length,
-    originalOrderCount + 1,
-  );
+  expect(reParseResult.ok).toBe(true);
+  expect(reParseResult.val).toBeTruthy();
+  expect(reParseResult.val!.patientResults[0].orderObservations.length, ).toBe(originalOrderCount + 1);
 });
 
 test("Parse and modify - Add OBR with ORC", () => {
   const parseResult = parseORU_R01(sampleMessage);
-  assert.strictEqual(parseResult.success, true);
-  assert.ok(parseResult.data);
+  expect(parseResult.ok).toBe(true);
+  expect(parseResult.val).toBeTruthy();
 
-  const patientResult = parseResult.data.patientResults[0];
+  const patientResult = parseResult.val!.patientResults[0];
 
   // Add new ORC/OBR/OBX
   const newOrc = new ORC()
@@ -338,26 +302,26 @@ test("Parse and modify - Add OBR with ORC", () => {
   });
 
   // Re-encode and verify ORC is preserved
-  const rebuilt = createORU_R01(parseResult.data.msh, [patientResult]);
+  const rebuilt = createORU_R01(parseResult.val!.msh, [patientResult]);
   const reencoded = rebuilt.encode();
 
   const reParseResult = parseORU_R01(reencoded);
-  assert.strictEqual(reParseResult.success, true);
-  assert.ok(reParseResult.data);
+  expect(reParseResult.ok).toBe(true);
+  expect(reParseResult.val).toBeTruthy();
 
   const lastOrder =
-    reParseResult.data.patientResults[0].orderObservations[
-      reParseResult.data.patientResults[0].orderObservations.length - 1
+    reParseResult.val!.patientResults[0].orderObservations[
+      reParseResult.val!.patientResults[0].orderObservations.length - 1
     ];
-  assert.ok(lastOrder.orc, "ORC should be preserved");
+  expect(lastOrder.orc, "ORC should be preserved").toBeTruthy();
 });
 
 test("Parse and modify - Multiple operations", () => {
   const parseResult = parseORU_R01(sampleMessage);
-  assert.strictEqual(parseResult.success, true);
-  assert.ok(parseResult.data);
+  expect(parseResult.ok).toBe(true);
+  expect(parseResult.val).toBeTruthy();
 
-  const patientResult = parseResult.data.patientResults[0];
+  const patientResult = parseResult.val!.patientResults[0];
 
   // Track original counts
   const originalOrderCount = patientResult.orderObservations.length;
@@ -428,60 +392,40 @@ test("Parse and modify - Multiple operations", () => {
   });
 
   // Verify all modifications
-  assert.strictEqual(
-    patientResult.orderObservations.length,
-    originalOrderCount + 2,
-    "Should have 2 more orders",
-  );
-  assert.strictEqual(
-    patientResult.orderObservations[1].obxList.length,
-    originalCbcObxCount + 1,
-    "CBC should have 1 more OBX",
-  );
+  expect(patientResult.orderObservations.length, "Should have 2 more orders").toBe(originalOrderCount + 2);
+  expect(patientResult.orderObservations[1].obxList.length, "CBC should have 1 more OBX").toBe(originalCbcObxCount + 1);
 
   // Re-encode and verify
-  const rebuilt = createORU_R01(parseResult.data.msh, [patientResult]);
+  const rebuilt = createORU_R01(parseResult.val!.msh, [patientResult]);
   const reencoded = rebuilt.encode();
 
   const reParseResult = parseORU_R01(reencoded);
-  assert.strictEqual(reParseResult.success, true);
-  assert.ok(reParseResult.data);
-  assert.strictEqual(
-    reParseResult.data.patientResults[0].orderObservations.length,
-    originalOrderCount + 2,
-  );
-  assert.strictEqual(
-    reParseResult.data.patientResults[0].orderObservations[1].obxList.length,
-    originalCbcObxCount + 1,
-  );
+  expect(reParseResult.ok).toBe(true);
+  expect(reParseResult.val).toBeTruthy();
+  expect(reParseResult.val!.patientResults[0].orderObservations.length, ).toBe(originalOrderCount + 2);
+  expect(reParseResult.val!.patientResults[0].orderObservations[1].obxList.length, ).toBe(originalCbcObxCount + 1);
 });
 
 test("Parse and modify - Preserve all ORCs in round-trip", () => {
   const parseResult = parseORU_R01(sampleMessage);
-  assert.strictEqual(parseResult.success, true);
-  assert.ok(parseResult.data);
+  expect(parseResult.ok).toBe(true);
+  expect(parseResult.val).toBeTruthy();
 
   // Verify original ORCs are present
-  assert.ok(parseResult.data.patientResults[0].orderObservations[0].orc);
-  assert.ok(parseResult.data.patientResults[0].orderObservations[1].orc);
+  expect(parseResult.val!.patientResults[0].orderObservations[0].orc).toBeTruthy();
+  expect(parseResult.val!.patientResults[0].orderObservations[1].orc).toBeTruthy();
 
   // Re-encode
   const rebuilt = createORU_R01(
-    parseResult.data.msh,
-    parseResult.data.patientResults,
+    parseResult.val!.msh,
+    parseResult.val!.patientResults,
   );
   const reencoded = rebuilt.encode();
 
   // Re-parse and verify ORCs preserved
   const reParseResult = parseORU_R01(reencoded);
-  assert.strictEqual(reParseResult.success, true);
-  assert.ok(reParseResult.data);
-  assert.ok(
-    reParseResult.data.patientResults[0].orderObservations[0].orc,
-    "First ORC should be preserved",
-  );
-  assert.ok(
-    reParseResult.data.patientResults[0].orderObservations[1].orc,
-    "Second ORC should be preserved",
-  );
+  expect(reParseResult.ok).toBe(true);
+  expect(reParseResult.val).toBeTruthy();
+  expect(reParseResult.val!.patientResults[0].orderObservations[0].orc, "First ORC should be preserved").toBeTruthy();
+  expect(reParseResult.val!.patientResults[0].orderObservations[1].orc, "Second ORC should be preserved").toBeTruthy();
 });

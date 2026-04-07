@@ -1,4 +1,4 @@
-import { test } from "node:test";
+import { test, expect } from "vitest";
 import assert from "node:assert";
 import { HL7Message } from "./message";
 import { BaseSegment } from "./segment";
@@ -11,8 +11,8 @@ class TestSegment extends BaseSegment {
 test("HL7Message constructor with default encoding", () => {
   const message = new HL7Message();
 
-  assert.deepStrictEqual(message.encoding, DEFAULT_ENCODING);
-  assert.strictEqual(message.segments.length, 0);
+  expect(message.encoding).toEqual(DEFAULT_ENCODING);
+  expect(message.segments.length).toBe(0);
 });
 
 test("HL7Message constructor with custom encoding", () => {
@@ -26,7 +26,7 @@ test("HL7Message constructor with custom encoding", () => {
 
   const message = new HL7Message(customEncoding);
 
-  assert.strictEqual(message.encoding.escapeCharacter, "/");
+  expect(message.encoding.escapeCharacter).toBe("/");
 });
 
 test("HL7Message addSegment", () => {
@@ -40,9 +40,9 @@ test("HL7Message addSegment", () => {
   message.addSegment(segment1);
   message.addSegment(segment2);
 
-  assert.strictEqual(message.segments.length, 2);
-  assert.strictEqual(message.segments[0], segment1);
-  assert.strictEqual(message.segments[1], segment2);
+  expect(message.segments.length).toBe(2);
+  expect(message.segments[0]).toBe(segment1);
+  expect(message.segments[1]).toBe(segment2);
 });
 
 test("HL7Message encode with single segment", () => {
@@ -53,7 +53,7 @@ test("HL7Message encode with single segment", () => {
   message.addSegment(segment);
   const encoded = message.encode();
 
-  assert.strictEqual(encoded, "TST|value1");
+  expect(encoded).toBe("TST|value1");
 });
 
 test("HL7Message encode with multiple segments", () => {
@@ -70,7 +70,7 @@ test("HL7Message encode with multiple segments", () => {
 
   const encoded = message.encode();
 
-  assert.strictEqual(encoded, "TST|value1\rTST|value2");
+  expect(encoded).toBe("TST|value1\rTST|value2");
 });
 
 test("HL7Message encode separates segments with carriage return", () => {
@@ -85,8 +85,8 @@ test("HL7Message encode separates segments with carriage return", () => {
   const encoded = message.encode();
   const segments = encoded.split("\r");
 
-  assert.strictEqual(segments.length, 3);
-  assert.strictEqual(segments[0], "TST|value0");
-  assert.strictEqual(segments[1], "TST|value1");
-  assert.strictEqual(segments[2], "TST|value2");
+  expect(segments.length).toBe(3);
+  expect(segments[0]).toBe("TST|value0");
+  expect(segments[1]).toBe("TST|value1");
+  expect(segments[2]).toBe("TST|value2");
 });
