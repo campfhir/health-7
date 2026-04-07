@@ -2,7 +2,9 @@ import { test, expect } from "vitest";
 import assert from "node:assert";
 import { parseORU_R01 } from "./ORU_R01_Parser";
 import { createORU_R01 } from "../../builders/v2.5.1/ORU_R01";
-import { OBX, OBR, ORC } from "../../segments/v2.5.1";
+import { OBX } from "../../segments/v2.5.1/OBX";
+import { OBR } from "../../segments/v2.5.1/OBR";
+import { ORC } from "../../segments/v2.5.1/ORC";
 
 /**
  * Tests for parsing, modifying, and re-encoding ORU_R01 messages

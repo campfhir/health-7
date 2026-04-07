@@ -1,0 +1,110 @@
+import { Err } from "../../utils/err";
+import { Result } from "../../types/result";
+import { BaseSegment } from "../../types/segment";
+import { EncodingCharacters } from "../../types/encoding";
+import { ParserUtils } from "../../types/parser";
+
+/**
+ * MRG - Merge Patient Information Segment (HL7 v2.3)
+ * Used in patient merge/move events (A34–A40) to identify the prior patient.
+ */
+export class MRG extends BaseSegment {
+  name = "MRG";
+
+  constructor() {
+    super();
+    this.fields = [];
+  }
+
+  /**
+   * MRG-1: Prior Patient Identifier List (CX, required)
+   * Prior patient identifier(s) to be merged.
+   */
+  priorPatientId(
+    id: string,
+    assigningAuthority?: string,
+    identifierTypeCode?: string,
+  ): this {
+    this.fields[0] = this.createField([
+      id,
+      "",
+      "",
+      assigningAuthority || "",
+      "",
+      identifierTypeCode || "",
+    ]);
+    return this;
+  }
+
+  /**
+   * MRG-2: Prior Alternate Patient ID (CX, optional)
+   * Prior alternate patient identifier.
+   */
+  priorAlternatePatientId(value: string): this {
+    this.fields[1] = this.createField(value);
+    return this;
+  }
+
+  /**
+   * MRG-3: Prior Patient Account Number (CX, optional)
+   * Prior patient account number.
+   */
+  priorPatientAccountNumber(value: string): this {
+    this.fields[2] = this.createField(value);
+    return this;
+  }
+
+  /**
+   * MRG-4: Prior Patient ID (CX, optional, deprecated)
+   * Retained for backward compatibility only.
+   */
+  priorPatientIdDeprecated(value: string): this {
+    this.fields[3] = this.createField(value);
+    return this;
+  }
+
+  /**
+   * MRG-5: Prior Visit Number (CX, optional)
+   * Prior visit number.
+   */
+  priorVisitNumber(value: string): this {
+    this.fields[4] = this.createField(value);
+    return this;
+  }
+
+  /**
+   * MRG-6: Prior Alternate Visit ID (CX, optional)
+   * Prior alternate visit identifier.
+   */
+  priorAlternateVisitId(value: string): this {
+    this.fields[5] = this.createField(value);
+    return this;
+  }
+
+  /**
+   * MRG-7: Prior Patient Name (XPN, optional)
+   * Prior patient name.
+   */
+  priorPatientName(familyName: string, givenName?: string): this {
+    this.fields[6] = this.createField([familyName, givenName || ""]);
+    return this;
+  }
+
+  static parse(
+    segmentString: string,
+    encoding: EncodingCharacters,
+  ): Result<MRG> {
+    const parts = segmentString.split(encoding.fieldSeparator);
+    if (parts[0] !== "MRG") {
+      return {
+        ok: false,
+        err: new Err(`Expected MRG segment, got ${parts[0]}`),
+      };
+    }
+    const seg = new MRG();
+    for (let i = 1; i < parts.length; i++) {
+      seg.fields[i - 1] = ParserUtils.parseField(parts[i], encoding);
+    }
+    return { ok: true, val: seg };
+  }
+}

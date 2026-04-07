@@ -1,4 +1,9 @@
-import { MSH, PID, PV1, ORC, OBR, OBX } from "../../segments/v2.5.1";
+import { MSH } from "../../segments/v2.5.1/MSH";
+import { PID } from "../../segments/v2.5.1/PID";
+import { PV1 } from "../../segments/v2.5.1/PV1";
+import { ORC } from "../../segments/v2.5.1/ORC";
+import { OBR } from "../../segments/v2.5.1/OBR";
+import { OBX } from "../../segments/v2.5.1/OBX";
 import { EncodingCharacters, DEFAULT_ENCODING } from "../../types/encoding";
 
 export interface OrderObservationR30 {

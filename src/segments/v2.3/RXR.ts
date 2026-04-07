@@ -1,0 +1,71 @@
+import { Err } from "../../utils/err";
+import { Result } from "../../types/result";
+import { BaseSegment } from "../../types/segment";
+import { EncodingCharacters } from "../../types/encoding";
+import { ParserUtils } from "../../types/parser";
+
+/**
+ * RXR - Pharmacy/Treatment Route Segment (HL7 v2.3)
+ */
+export class RXR extends BaseSegment {
+  name = "RXR";
+
+  constructor() {
+    super();
+    this.fields = [];
+  }
+
+  /** RXR-1: Route (CE, required) e.g. IM=Intramuscular, IV=Intravenous, PO=Oral, SC=Subcutaneous, ID=Intradermal */
+  route(code: string, text?: string, codingSystem?: string): this {
+    this.fields[0] = this.createField([[code, text || "", codingSystem || ""]]);
+    return this;
+  }
+
+  /** RXR-2: Administration Site (CWE) e.g. LA=Left Arm, RA=Right Arm, LT=Left Thigh, RT=Right Thigh */
+  administrationSite(code: string, text?: string): this {
+    this.fields[1] = this.createField([[code, text || ""]]);
+    return this;
+  }
+
+  /** RXR-3: Administration Device (CE) */
+  administrationDevice(code: string, text?: string): this {
+    this.fields[2] = this.createField([[code, text || ""]]);
+    return this;
+  }
+
+  /** RXR-4: Administration Method (CWE) */
+  administrationMethod(code: string, text?: string): this {
+    this.fields[3] = this.createField([[code, text || ""]]);
+    return this;
+  }
+
+  /** RXR-5: Routing Instruction (CE) */
+  routingInstruction(code: string, text?: string): this {
+    this.fields[4] = this.createField([[code, text || ""]]);
+    return this;
+  }
+
+  /** RXR-6: Administration Site Modifier (CWE) */
+  administrationSiteModifier(code: string, text?: string): this {
+    this.fields[5] = this.createField([[code, text || ""]]);
+    return this;
+  }
+
+  static parse(
+    segmentString: string,
+    encoding: EncodingCharacters,
+  ): Result<RXR> {
+    const parts = segmentString.split(encoding.fieldSeparator);
+    if (parts[0] !== "RXR") {
+      return {
+        ok: false,
+        err: new Err(`Expected RXR segment, got ${parts[0]}`),
+      };
+    }
+    const seg = new RXR();
+    for (let i = 1; i < parts.length; i++) {
+      seg.fields[i - 1] = ParserUtils.parseField(parts[i], encoding);
+    }
+    return { ok: true, val: seg };
+  }
+}

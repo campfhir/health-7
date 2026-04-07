@@ -3,7 +3,8 @@ import { readFileSync, readdirSync } from "fs";
 import { join } from "path";
 import { parseORU_R01, ORU_R01_Parser } from "./ORU_R01_Parser";
 import { createORU_R01 } from "../../builders/v2.5.1/ORU_R01";
-import { OBX, OBR } from "../../segments/v2.5.1";
+import { OBX } from "../../segments/v2.5.1/OBX";
+import { OBR } from "../../segments/v2.5.1/OBR";
 import { DEFAULT_ENCODING } from "../../types/encoding";
 import { ParserUtils } from "../../types/parser";
 

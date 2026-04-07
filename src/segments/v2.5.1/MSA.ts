@@ -1,0 +1,26 @@
+import { Err } from "../../utils/err";
+import { Result } from "../../types/result";
+import { EncodingCharacters } from "../../types/encoding";
+import { ParserUtils } from "../../types/parser";
+import { MSA as MSA_base } from "../v2.3/MSA";
+
+/**
+ * MSA segment (HL7 v2.5.1)
+ * Extends v2.3 MSA. Add v2.5.1-specific fields here as needed.
+ */
+export class MSA extends MSA_base {
+  static override parse(
+    segmentString: string,
+    encoding: EncodingCharacters,
+  ): Result<MSA> {
+    const parts = segmentString.split(encoding.fieldSeparator);
+    if (parts[0] !== "MSA") {
+      return { ok: false, err: new Err(`Expected MSA segment, got ${parts[0]}`) };
+    }
+    const seg = new MSA();
+    for (let i = 1; i < parts.length; i++) {
+      seg.fields[i - 1] = ParserUtils.parseField(parts[i], encoding);
+    }
+    return { ok: true, val: seg };
+  }
+}
