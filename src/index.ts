@@ -6,6 +6,8 @@ export { MessageSchema, SegmentDefinition, SegmentGroup } from "./types/schema";
 export { ParserUtils, SegmentParser } from "./types/parser";
 
 export * from "./utils/ValueExtractor";
+export { CustomSegment } from "./utils/CustomSegment";
+export { MessageEditor, InsertionBuilder, PositionedInsertionBuilder } from "./utils/MessageEditor";
 
 // Versioned segments, schemas, parsers, and builders must be imported directly:
 //   import { OBX } from "@nems.org/hl7/segments/v2.5.1"

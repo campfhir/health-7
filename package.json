@@ -1,15 +1,89 @@
 {
   "name": "@nems.org/hl7",
   "version": "0.1.0",
-  "description": "TypeScript library for building HL7v2 messages",
+  "description": "TypeScript library for building and parsing HL7v2 messages",
   "main": "dist/index.js",
+  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./segments/v2.3": {
+      "require": "./dist/segments/v2.3/index.js",
+      "import": "./dist/segments/v2.3/index.mjs",
+      "types": "./dist/segments/v2.3/index.d.ts"
+    },
+    "./segments/v2.3/*": {
+      "require": "./dist/segments/v2.3/*.js",
+      "import": "./dist/segments/v2.3/*.mjs",
+      "types": "./dist/segments/v2.3/*.d.ts"
+    },
+    "./segments/v2.5.1": {
+      "require": "./dist/segments/v2.5.1/index.js",
+      "import": "./dist/segments/v2.5.1/index.mjs",
+      "types": "./dist/segments/v2.5.1/index.d.ts"
+    },
+    "./segments/v2.5.1/*": {
+      "require": "./dist/segments/v2.5.1/*.js",
+      "import": "./dist/segments/v2.5.1/*.mjs",
+      "types": "./dist/segments/v2.5.1/*.d.ts"
+    },
+    "./parsers/v2.3": {
+      "require": "./dist/parsers/v2.3/index.js",
+      "import": "./dist/parsers/v2.3/index.mjs",
+      "types": "./dist/parsers/v2.3/index.d.ts"
+    },
+    "./parsers/v2.3/*": {
+      "require": "./dist/parsers/v2.3/*.js",
+      "import": "./dist/parsers/v2.3/*.mjs",
+      "types": "./dist/parsers/v2.3/*.d.ts"
+    },
+    "./parsers/v2.5.1": {
+      "require": "./dist/parsers/v2.5.1/index.js",
+      "import": "./dist/parsers/v2.5.1/index.mjs",
+      "types": "./dist/parsers/v2.5.1/index.d.ts"
+    },
+    "./parsers/v2.5.1/*": {
+      "require": "./dist/parsers/v2.5.1/*.js",
+      "import": "./dist/parsers/v2.5.1/*.mjs",
+      "types": "./dist/parsers/v2.5.1/*.d.ts"
+    },
+    "./builders/v2.3": {
+      "require": "./dist/builders/v2.3/index.js",
+      "import": "./dist/builders/v2.3/index.mjs",
+      "types": "./dist/builders/v2.3/index.d.ts"
+    },
+    "./builders/v2.3/*": {
+      "require": "./dist/builders/v2.3/*.js",
+      "import": "./dist/builders/v2.3/*.mjs",
+      "types": "./dist/builders/v2.3/*.d.ts"
+    },
+    "./builders/v2.5.1": {
+      "require": "./dist/builders/v2.5.1/index.js",
+      "import": "./dist/builders/v2.5.1/index.mjs",
+      "types": "./dist/builders/v2.5.1/index.d.ts"
+    },
+    "./builders/v2.5.1/*": {
+      "require": "./dist/builders/v2.5.1/*.js",
+      "import": "./dist/builders/v2.5.1/*.mjs",
+      "types": "./dist/builders/v2.5.1/*.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc --watch",
+    "barrels": "tsx codegen/generate-barrels.ts",
+    "prebuild": "tsx codegen/generate-barrels.ts",
+    "build": "tsup",
+    "watch": "tsup --watch",
     "clean": "rm -rf dist",
     "test": "vitest run",
     "test:watch": "vitest",
+    "prepublishOnly": "pnpm run build && pnpm test",
     "convert": "node excel-to-hl7/dist/index.js convert",
     "verify": "node excel-to-hl7/dist/index.js verify",
     "codegen": "tsx codegen/generate.ts"
@@ -18,12 +92,18 @@
     "hl7",
     "hl7v2",
     "healthcare",
-    "message-builder"
+    "message-builder",
+    "message-parser",
+    "adt",
+    "oru",
+    "siu",
+    "mfn"
   ],
   "author": "",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.10.0",
+    "tsup": "^8.5.1",
     "tsx": "^4.21.0",
     "typescript": "^5.3.0",
     "vitest": "^4.1.3"
