@@ -10,7 +10,9 @@ A modular TypeScript library for building and parsing HL7v2 messages.
 - **Modular Architecture**: Organized by HL7 version for easy extension
 - **Version Support**: HL7v2.3 and HL7v2.5.1
 - **Value Extraction**: Path-based field/component extraction utility
-- **Comprehensive Tests**: 428 tests across 22 test files, co-located with source (Go style)
+- **Custom Segments**: Build Z-segments and other custom segments with a simple field-setter API
+- **Message Editor**: Fluent API for inserting segments into any built message by position
+- **Comprehensive Tests**: 441 tests across 23 test files, co-located with source (Go style)
 
 ## Project Structure
 
@@ -24,7 +26,9 @@ src/
 │   ├── schema.ts             # Message schema definitions
 │   └── parser.ts             # Parser utilities and interfaces
 ├── utils/
-│   └── ValueExtractor.ts     # Path-based value extraction utility
+│   ├── ValueExtractor.ts     # Path-based value extraction utility
+│   ├── CustomSegment.ts      # Generic segment for Z-segments and custom use
+│   └── MessageEditor.ts      # Fluent segment insertion API
 ├── segments/                 # Segment definitions by version
 │   ├── v2.3/                 # 46 segments (ACC, AIG, AIL, ..., UB2)
 │   └── v2.5.1/               # 50 segments (ACC, AIG, AIL, ..., UB2)
@@ -56,19 +60,32 @@ Tests use [Vitest](https://vitest.dev/) and run directly against TypeScript sour
 
 ## Imports
 
-Core types are exported from the package root:
+Core types, utilities, and the message editor are exported from the package root:
 
 ```typescript
-import { BaseSegment, HL7Message, ParserUtils, extractValue } from '@nems.org/hl7';
+import { BaseSegment, HL7Message, ParserUtils, extractValue, CustomSegment, MessageEditor } from '@campfhir/hl7';
 ```
 
-Versioned segments, builders, and parsers are imported from their specific files:
+Versioned segments can be imported as a group or individually:
 
 ```typescript
-import { MSH } from '@nems.org/hl7/src/segments/v2.5.1/MSH';
-import { PID } from '@nems.org/hl7/src/segments/v2.5.1/PID';
-import { createORU_R01, PatientResult } from '@nems.org/hl7/src/builders/v2.5.1/ORU_R01';
-import { parseORU_R01 } from '@nems.org/hl7/src/parsers/v2.5.1/ORU_R01_Parser';
+// All segments for a version
+import { MSH, PID, OBX } from '@campfhir/hl7/segments/v2.5.1';
+
+// Individual segment (also gives access to types)
+import { MSH } from '@campfhir/hl7/segments/v2.5.1/MSH';
+```
+
+Builders and parsers are imported individually or via the barrel (create*/parse* functions only):
+
+```typescript
+// Barrel — create*/parse* functions only
+import { createORU_R01 } from '@campfhir/hl7/builders/v2.5.1';
+import { parseORU_R01 } from '@campfhir/hl7/parsers/v2.5.1';
+
+// Per-file — includes types like PatientResult, OrderObservation
+import { createORU_R01, PatientResult } from '@campfhir/hl7/builders/v2.5.1/ORU_R01';
+import { parseORU_R01 } from '@campfhir/hl7/parsers/v2.5.1/ORU_R01_Parser';
 ```
 
 ## Usage Examples
@@ -76,12 +93,12 @@ import { parseORU_R01 } from '@nems.org/hl7/src/parsers/v2.5.1/ORU_R01_Parser';
 ### Building an ORU^R01 Message
 
 ```typescript
-import { MSH } from './src/segments/v2.5.1/MSH';
-import { PID } from './src/segments/v2.5.1/PID';
-import { PV1 } from './src/segments/v2.5.1/PV1';
-import { OBR } from './src/segments/v2.5.1/OBR';
-import { OBX } from './src/segments/v2.5.1/OBX';
-import { createORU_R01, PatientResult } from './src/builders/v2.5.1/ORU_R01';
+import { MSH } from '@campfhir/hl7/segments/v2.5.1/MSH';
+import { PID } from '@campfhir/hl7/segments/v2.5.1/PID';
+import { PV1 } from '@campfhir/hl7/segments/v2.5.1/PV1';
+import { OBR } from '@campfhir/hl7/segments/v2.5.1/OBR';
+import { OBX } from '@campfhir/hl7/segments/v2.5.1/OBX';
+import { createORU_R01, PatientResult } from '@campfhir/hl7/builders/v2.5.1/ORU_R01';
 
 const msh = new MSH()
   .sendingApplication('LAB')
@@ -137,8 +154,8 @@ console.log(message.encode());
 ### Parsing an ORU^R01 Message
 
 ```typescript
-import { parseORU_R01 } from './src/parsers/v2.5.1/ORU_R01_Parser';
-import { ParserUtils } from './src';
+import { parseORU_R01 } from '@campfhir/hl7/parsers/v2.5.1/ORU_R01_Parser';
+import { ParserUtils } from '@campfhir/hl7';
 
 const hl7String = `MSH|^~\\&|LAB|General Hospital|EMR|Main Campus|20250119120000||ORU^R01^ORU_R01|MSG00001|P|2.5.1
 PID|1||12345^^^MRN^MR||Doe^John^Q||19800115|M|||123 Main St^^Springfield^IL^62701^USA||555-1234
@@ -177,7 +194,7 @@ if (result.success) {
 Extract field values using a simple path syntax without fully parsing the message:
 
 ```typescript
-import { extractValue } from './src';
+import { extractValue } from '@campfhir/hl7';
 
 const message = `MSH|^~\\&|LAB|Hospital|EMR|Clinic|20250119120000||ORU^R01|MSG001|P|2.5.1
 PID|1||12345^^^MRN^MR||Doe^John^Q||19800115|M|||123 Main St^Apt 4^Springfield^IL^62701^USA`;
@@ -190,6 +207,56 @@ extractValue('OBX-5', message);      // string[] — all OBX-5 values
 ```
 
 **Path syntax**: `Segment[-FieldIndex[.ComponentIndex[.SubcomponentIndex]]]`
+
+### Custom Segments
+
+`CustomSegment` lets you build Z-segments or any non-standard segment without type safety restrictions. Fields use 1-based HL7 numbering.
+
+```typescript
+import { CustomSegment } from '@campfhir/hl7';
+
+const zpd = new CustomSegment('ZPD')
+  .setField(1, 'extra-patient-data')
+  .setField(2, ['comp1', 'comp2'])             // components
+  .setField(3, [['sub1a', 'sub1b'], ['sub2']]); // subcomponents
+
+zpd.encode(); // ZPD|extra-patient-data|comp1^comp2|sub1a&sub1b^sub2
+```
+
+### Message Editor
+
+`MessageEditor` lets you insert segments into any built message without modifying the builder. It works with both custom segments and standard typed segments.
+
+```typescript
+import { MessageEditor, CustomSegment } from '@campfhir/hl7';
+import { NTE } from '@campfhir/hl7/segments/v2.5.1';
+import { createORU_R01 } from '@campfhir/hl7/builders/v2.5.1/ORU_R01';
+
+const message = createORU_R01(msh, patientResults);
+
+const encoded = new MessageEditor(message)
+  // insert after last PID (default)
+  .insert(new CustomSegment('ZPD').setField(1, 'patient-extra'))
+  .after('PID').commit()
+
+  // insert a typed NTE after every OBX
+  .insert(new NTE().setId('1').comment('auto-note'))
+  .after('OBX').each().commit()
+
+  // insert before the 2nd OBR
+  .insert(new CustomSegment('ZOR').setField(1, 'order-extra'))
+  .before('OBR').nth(2).commit()
+
+  // append at end of message
+  .append(new CustomSegment('ZMH').setField(1, 'message-footer'))
+
+  .encode();
+```
+
+**Insertion modes** — chain before calling `commit()`:
+- `.last()` — target the last matching segment (default)
+- `.each()` — insert relative to every matching segment
+- `.nth(n)` — insert relative to the Nth matching segment
 
 ### Examples
 
