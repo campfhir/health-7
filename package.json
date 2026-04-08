@@ -1,5 +1,5 @@
 {
-  "name": "@nems.org/hl7",
+  "name": "@campfhir/hl7",
   "version": "0.1.0",
   "description": "TypeScript library for building and parsing HL7v2 messages",
   "main": "dist/index.js",
@@ -99,7 +99,7 @@
     "siu",
     "mfn"
   ],
-  "author": "",
+  "author": "Scott Eremia-Roden",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.10.0",
