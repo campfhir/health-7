@@ -3,6 +3,11 @@ import { Result } from "../../types/result";
 import { BaseSegment } from "../../types/segment";
 import { EncodingCharacters } from "../../types/encoding";
 import { ParserUtils } from "../../types/parser";
+import {
+  formatHL7Date,
+  DateTimeLayout,
+  HL7DateTimeLayout,
+} from "../../utils/hl7DateUtils";
 
 /**
  * DG1 - Diagnosis Segment (HL7 v2.3)
@@ -57,8 +62,12 @@ export class DG1 extends BaseSegment {
    * DG1-5: Diagnosis Date/Time (TS, optional)
    * The date/time the diagnosis was determined.
    */
-  diagnosisDateTime(value: string): this {
-    this.fields[4] = this.createField(value);
+  diagnosisDateTime(value: string, format?: never): this;
+  diagnosisDateTime(value: Date, format?: HL7DateTimeLayout): this;
+  diagnosisDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
+    this.fields[4] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
 
@@ -188,8 +197,12 @@ export class DG1 extends BaseSegment {
    * DG1-19: Attestation Date/Time (TS, optional)
    * The date/time the diagnosis was attested.
    */
-  attestationDateTime(value: string): this {
-    this.fields[18] = this.createField(value);
+  attestationDateTime(value: string, format?: never): this;
+  attestationDateTime(value: Date, format?: HL7DateTimeLayout): this;
+  attestationDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
+    this.fields[18] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
 

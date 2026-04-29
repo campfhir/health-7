@@ -3,6 +3,11 @@ import { Result } from "../../types/result";
 import { BaseSegment } from "../../types/segment";
 import { EncodingCharacters } from "../../types/encoding";
 import { ParserUtils } from "../../types/parser";
+import {
+  formatHL7Date,
+  DateTimeLayout,
+  HL7DateTimeLayout,
+} from "../../utils/hl7DateUtils";
 
 /**
  * MFE - Master File Entry Segment
@@ -33,8 +38,12 @@ export class MFE extends BaseSegment {
   }
 
   /** MFE-3: Effective Date/Time (TS) */
-  effectiveDateTime(value: string): this {
-    this.fields[2] = this.createField(value);
+  effectiveDateTime(value: string, format?: never): this;
+  effectiveDateTime(value: Date, format?: HL7DateTimeLayout): this;
+  effectiveDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
+    this.fields[2] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
 

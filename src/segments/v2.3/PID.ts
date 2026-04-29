@@ -3,6 +3,11 @@ import { Result } from "../../types/result";
 import { BaseSegment } from "../../types/segment";
 import { EncodingCharacters } from "../../types/encoding";
 import { ParserUtils } from "../../types/parser";
+import {
+  DateLayout,
+  formatHL7Date,
+  HL7DateLayout,
+} from "../../utils/hl7DateUtils";
 
 /**
  * PID - Patient Identification Segment (HL7 v2.3)
@@ -65,8 +70,12 @@ export class PID extends BaseSegment {
     this.fields[5] = this.createField(components);
     return this;
   }
-  dateTimeOfBirth(value: string): this {
-    this.fields[6] = this.createField(value);
+  dateTimeOfBirth(value: string, format?: never): this;
+  dateTimeOfBirth(value: Date, format?: HL7DateLayout): this;
+  dateTimeOfBirth(value: string | Date, format?: HL7DateLayout): this {
+    this.fields[6] = this.createField(
+      formatHL7Date(value, format ?? DateLayout),
+    );
     return this;
   }
   administrativeSex(value: string): this {

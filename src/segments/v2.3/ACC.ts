@@ -3,6 +3,11 @@ import { Result } from "../../types/result";
 import { BaseSegment } from "../../types/segment";
 import { EncodingCharacters } from "../../types/encoding";
 import { ParserUtils } from "../../types/parser";
+import {
+  formatHL7Date,
+  DateTimeLayout,
+  HL7DateTimeLayout,
+} from "../../utils/hl7DateUtils";
 
 /**
  * ACC - Accident Segment (HL7 v2.3)
@@ -17,8 +22,12 @@ export class ACC extends BaseSegment {
   }
 
   /** ACC-1: Accident Date/Time (TS) */
-  accidentDateTime(value: string): this {
-    this.fields[0] = this.createField(value);
+  accidentDateTime(value: string, format?: never): this;
+  accidentDateTime(value: Date, format?: HL7DateTimeLayout): this;
+  accidentDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
+    this.fields[0] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
 
@@ -77,15 +86,28 @@ export class ACC extends BaseSegment {
   }
 
   /** ACC-11: Accident Address (XAD) - Address where the accident occurred */
-  accidentAddress(street: string, city?: string, state?: string, zip?: string): this {
-    this.fields[10] = this.createField([[street, "", city || "", state || "", zip || ""]]);
+  accidentAddress(
+    street: string,
+    city?: string,
+    state?: string,
+    zip?: string,
+  ): this {
+    this.fields[10] = this.createField([
+      [street, "", city || "", state || "", zip || ""],
+    ]);
     return this;
   }
 
-  static parse(segmentString: string, encoding: EncodingCharacters): Result<ACC> {
+  static parse(
+    segmentString: string,
+    encoding: EncodingCharacters,
+  ): Result<ACC> {
     const parts = segmentString.split(encoding.fieldSeparator);
     if (parts[0] !== "ACC") {
-      return { ok: false, err: new Err(`Expected ACC segment, got ${parts[0]}`) };
+      return {
+        ok: false,
+        err: new Err(`Expected ACC segment, got ${parts[0]}`),
+      };
     }
     const seg = new ACC();
     for (let i = 1; i < parts.length; i++) {

@@ -3,6 +3,11 @@ import { Result } from "../../types/result";
 import { BaseSegment } from "../../types/segment";
 import { EncodingCharacters } from "../../types/encoding";
 import { ParserUtils } from "../../types/parser";
+import {
+  formatHL7Date,
+  DateLayout,
+  HL7DateLayout,
+} from "../../utils/hl7DateUtils";
 
 /**
  * SFT - Software Segment (HL7 v2.3)
@@ -46,8 +51,12 @@ export class SFT extends BaseSegment {
   }
 
   /** SFT-6: Software Install Date (TS) */
-  softwareInstallDate(value: string): this {
-    this.fields[5] = this.createField(value);
+  softwareInstallDate(value: string, format?: never): this;
+  softwareInstallDate(value: Date, format?: HL7DateLayout): this;
+  softwareInstallDate(value: string | Date, format?: HL7DateLayout): this {
+    this.fields[5] = this.createField(
+      formatHL7Date(value, format ?? DateLayout),
+    );
     return this;
   }
 

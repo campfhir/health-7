@@ -3,6 +3,11 @@ import { Result } from "../../types/result";
 import { BaseSegment } from "../../types/segment";
 import { EncodingCharacters } from "../../types/encoding";
 import { ParserUtils } from "../../types/parser";
+import {
+  DateLayout,
+  formatHL7Date,
+  HL7DateLayout,
+} from "../../utils/hl7DateUtils";
 
 /**
  * AL1 - Patient Allergy Information Segment (HL7 v2.3)
@@ -66,8 +71,12 @@ export class AL1 extends BaseSegment {
    * AL1-6: Identification Date (DT, optional)
    * The date the allergy was identified.
    */
-  identificationDate(value: string): this {
-    this.fields[5] = this.createField(value);
+  identificationDate(value: string, format?: never): this;
+  identificationDate(value: Date, format?: HL7DateLayout): this;
+  identificationDate(value: string | Date, format?: HL7DateLayout): this {
+    this.fields[5] = this.createField(
+      formatHL7Date(value, format ?? DateLayout),
+    );
     return this;
   }
 

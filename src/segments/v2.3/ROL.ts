@@ -3,6 +3,11 @@ import { Result } from "../../types/result";
 import { BaseSegment } from "../../types/segment";
 import { EncodingCharacters } from "../../types/encoding";
 import { ParserUtils } from "../../types/parser";
+import {
+  formatHL7Date,
+  DateTimeLayout,
+  HL7DateTimeLayout,
+} from "../../utils/hl7DateUtils";
 
 /**
  * ROL - Role Segment (HL7 v2.3)
@@ -36,9 +41,7 @@ export class ROL extends BaseSegment {
 
   /** ROL-3: Role-ROL (CE) */
   role(code: string, text?: string, codingSystem?: string): this {
-    this.fields[2] = this.createField([
-      [code, text || "", codingSystem || ""],
-    ]);
+    this.fields[2] = this.createField([[code, text || "", codingSystem || ""]]);
     return this;
   }
 
@@ -56,14 +59,22 @@ export class ROL extends BaseSegment {
   }
 
   /** ROL-5: Role Begin Date/Time (TS) */
-  roleBeginDateTime(value: string): this {
-    this.fields[4] = this.createField(value);
+  roleBeginDateTime(value: string, format?: never): this;
+  roleBeginDateTime(value: Date, format?: HL7DateTimeLayout): this;
+  roleBeginDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
+    this.fields[4] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
 
   /** ROL-6: Role End Date/Time (TS) */
-  roleEndDateTime(value: string): this {
-    this.fields[5] = this.createField(value);
+  roleEndDateTime(value: string, format?: never): this;
+  roleEndDateTime(value: Date, format?: HL7DateTimeLayout): this;
+  roleEndDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
+    this.fields[5] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
 

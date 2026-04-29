@@ -3,6 +3,11 @@ import { Result } from "../../types/result";
 import { BaseSegment } from "../../types/segment";
 import { EncodingCharacters } from "../../types/encoding";
 import { ParserUtils } from "../../types/parser";
+import {
+  formatHL7Date,
+  DateTimeLayout,
+  HL7DateTimeLayout,
+} from "../../utils/hl7DateUtils";
 
 /**
  * AIG - Appointment Information - General Resource Segment (HL7 v2.3)
@@ -30,7 +35,9 @@ export class AIG extends BaseSegment {
   /** AIG-3: Resource ID (CE) */
   resourceId(code: string, text?: string, codingSystem?: string): this {
     if (text || codingSystem) {
-      this.fields[2] = this.createField([[code, text || "", codingSystem || ""]]);
+      this.fields[2] = this.createField([
+        [code, text || "", codingSystem || ""],
+      ]);
     } else {
       this.fields[2] = this.createField(code);
     }
@@ -40,7 +47,9 @@ export class AIG extends BaseSegment {
   /** AIG-4: Resource Type (CE, required) */
   resourceType(code: string, text?: string, codingSystem?: string): this {
     if (text || codingSystem) {
-      this.fields[3] = this.createField([[code, text || "", codingSystem || ""]]);
+      this.fields[3] = this.createField([
+        [code, text || "", codingSystem || ""],
+      ]);
     } else {
       this.fields[3] = this.createField(code);
     }
@@ -74,8 +83,12 @@ export class AIG extends BaseSegment {
   }
 
   /** AIG-8: Start Date/Time (TS) */
-  startDateTime(value: string): this {
-    this.fields[7] = this.createField(value);
+  startDateTime(value: string, format?: never): this;
+  startDateTime(value: Date, format?: HL7DateTimeLayout): this;
+  startDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
+    this.fields[7] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
 
@@ -127,10 +140,16 @@ export class AIG extends BaseSegment {
     return this;
   }
 
-  static parse(segmentString: string, encoding: EncodingCharacters): Result<AIG> {
+  static parse(
+    segmentString: string,
+    encoding: EncodingCharacters,
+  ): Result<AIG> {
     const parts = segmentString.split(encoding.fieldSeparator);
     if (parts[0] !== "AIG") {
-      return { ok: false, err: new Err(`Expected AIG segment, got ${parts[0]}`) };
+      return {
+        ok: false,
+        err: new Err(`Expected AIG segment, got ${parts[0]}`),
+      };
     }
     const seg = new AIG();
     for (let i = 1; i < parts.length; i++) {

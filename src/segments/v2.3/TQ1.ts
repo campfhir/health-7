@@ -3,6 +3,11 @@ import { Result } from "../../types/result";
 import { BaseSegment } from "../../types/segment";
 import { EncodingCharacters } from "../../types/encoding";
 import { ParserUtils } from "../../types/parser";
+import {
+  formatHL7Date,
+  DateTimeLayout,
+  HL7DateTimeLayout,
+} from "../../utils/hl7DateUtils";
 
 /**
  * TQ1 - Timing/Quantity Segment (HL7 v2.3)
@@ -52,14 +57,22 @@ export class TQ1 extends BaseSegment {
   }
 
   /** TQ1-7: Start Date/Time (TS) */
-  startDateTime(value: string): this {
-    this.fields[6] = this.createField(value);
+  startDateTime(value: string, format?: never): this;
+  startDateTime(value: Date, format?: HL7DateTimeLayout): this;
+  startDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
+    this.fields[6] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
 
   /** TQ1-8: End Date/Time (TS) */
-  endDateTime(value: string): this {
-    this.fields[7] = this.createField(value);
+  endDateTime(value: string, format?: never): this;
+  endDateTime(value: Date, format?: HL7DateTimeLayout): this;
+  endDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
+    this.fields[7] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
 

@@ -9,10 +9,11 @@ A modular TypeScript library for building and parsing HL7v2 messages.
 - **Round-trip Support**: Build messages and parse them back with full fidelity
 - **Modular Architecture**: Organized by HL7 version for easy extension
 - **Version Support**: HL7v2.3 and HL7v2.5.1
+- **Date Input**: Segment date methods accept `Date` objects with optional HL7 layout format, in addition to pre-formatted strings
 - **Value Extraction**: Path-based field/component extraction utility
 - **Custom Segments**: Build Z-segments and other custom segments with a simple field-setter API
 - **Message Editor**: Fluent API for inserting segments into any built message by position
-- **Comprehensive Tests**: 441 tests across 23 test files, co-located with source (Go style)
+- **Comprehensive Tests**: 598 tests across 25 test files, co-located with source (Go style)
 
 ## Project Structure
 
@@ -26,6 +27,8 @@ src/
 │   ├── schema.ts             # Message schema definitions
 │   └── parser.ts             # Parser utilities and interfaces
 ├── utils/
+│   ├── dateUtils.ts          # Go-style date formatting utility (standalone, publishable)
+│   ├── hl7DateUtils.ts       # HL7-specific date formatting wrapper and layout constants
 │   ├── ValueExtractor.ts     # Path-based value extraction utility
 │   ├── CustomSegment.ts      # Generic segment for Z-segments and custom use
 │   └── MessageEditor.ts      # Fluent segment insertion API
@@ -64,6 +67,15 @@ Core types, utilities, and the message editor are exported from the package root
 
 ```typescript
 import { BaseSegment, HL7Message, ParserUtils, extractValue, CustomSegment, MessageEditor } from '@campfhir/hl7';
+
+// Date formatting utility (Go-style layout strings)
+import { dateUtils, DateOnly, DateTime } from '@campfhir/hl7';
+```
+
+HL7-specific date helpers are imported directly:
+
+```typescript
+import { formatHL7Date, DateLayout, DateTimeLayout, TimeLayout } from '@campfhir/hl7/utils/hl7DateUtils';
 ```
 
 Versioned segments can be imported as a group or individually:
@@ -115,7 +127,8 @@ const pid = new PID()
   .setId('1')
   .patientIdentifierList('12345', '', '', 'MRN', 'MR')
   .patientName('Doe', 'John', 'Q')
-  .dateTimeOfBirth('19800115')
+  .dateTimeOfBirth(new Date(1980, 0, 15))   // Date object — formatted as YYYYMMDD
+  // .dateTimeOfBirth('19800115')            // pre-formatted string also accepted
   .administrativeSex('M');
 
 const pv1 = new PV1()
@@ -207,6 +220,34 @@ extractValue('OBX-5', message);      // string[] — all OBX-5 values
 ```
 
 **Path syntax**: `Segment[-FieldIndex[.ComponentIndex[.SubcomponentIndex]]]`
+
+### Date Formatting
+
+All segment methods that accept date/time values support both pre-formatted strings and `Date` objects. Strings pass through unchanged for backwards compatibility.
+
+```typescript
+import { DateLayout, DateTimeLayout, TimeLayout } from '@campfhir/hl7/utils/hl7DateUtils';
+
+// Date object — use layout aliases or Go-style layout strings
+pid.dateTimeOfBirth(new Date(1980, 0, 15));                  // default: YYYYMMDD → '19800115'
+pid.dateTimeOfBirth(new Date(1980, 0, 15), 'Date');          // alias → '19800115'
+pid.dateTimeOfBirth(new Date(1980, 0, 15), 'DateTime');      // alias → '19800115090503'
+obr.observationDateTime(new Date(), DateTimeLayout);         // constant → 'YYYYMMDDHHmmss'
+
+// Pre-formatted string — passes through unchanged
+pid.dateTimeOfBirth('19800115');
+```
+
+Layout aliases: `"Date"` → `YYYYMMDD`, `"DateTime"` → `YYYYMMDDHHmmss`, `"Time"` → `HHmmss`, `"TimeWithSeconds"` → `HHmmss.SSS`
+
+`dateUtils` (exported from package root) is a standalone Go-style date utility usable independently of the HL7 layer:
+
+```typescript
+import { dateUtils, DateOnly } from '@campfhir/hl7';
+
+dateUtils.format(new Date(), DateOnly);       // { ok: true, val: '20250119' }
+dateUtils.parse('20250119', DateOnly);        // { ok: true, val: Date }
+```
 
 ### Custom Segments
 

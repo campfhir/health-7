@@ -3,6 +3,11 @@ import { Result } from "../../types/result";
 import { BaseSegment } from "../../types/segment";
 import { EncodingCharacters } from "../../types/encoding";
 import { ParserUtils } from "../../types/parser";
+import {
+  DateLayout,
+  formatHL7Date,
+  HL7DateLayout,
+} from "../../utils/hl7DateUtils";
 
 /**
  * GT1 - Guarantor Segment (HL7 v2.3)
@@ -29,8 +34,14 @@ export class GT1 extends BaseSegment {
   }
 
   /** GT1-3: Guarantor Name (XPN) - Name of the guarantor */
-  guarantorName(familyName: string, givenName?: string, middleName?: string): this {
-    this.fields[2] = this.createField([[familyName, givenName || "", middleName || ""]]);
+  guarantorName(
+    familyName: string,
+    givenName?: string,
+    middleName?: string,
+  ): this {
+    this.fields[2] = this.createField([
+      [familyName, givenName || "", middleName || ""],
+    ]);
     return this;
   }
 
@@ -41,8 +52,16 @@ export class GT1 extends BaseSegment {
   }
 
   /** GT1-5: Guarantor Address (XAD) - Address of the guarantor */
-  guarantorAddress(street: string, city?: string, state?: string, zip?: string, country?: string): this {
-    this.fields[4] = this.createField([[street, "", city || "", state || "", zip || "", country || ""]]);
+  guarantorAddress(
+    street: string,
+    city?: string,
+    state?: string,
+    zip?: string,
+    country?: string,
+  ): this {
+    this.fields[4] = this.createField([
+      [street, "", city || "", state || "", zip || "", country || ""],
+    ]);
     return this;
   }
 
@@ -59,8 +78,12 @@ export class GT1 extends BaseSegment {
   }
 
   /** GT1-8: Guarantor Date/Time Of Birth (TS) */
-  guarantorDateOfBirth(value: string): this {
-    this.fields[7] = this.createField(value);
+  guarantorDateOfBirth(value: string, format?: never): this;
+  guarantorDateOfBirth(value: Date, format?: HL7DateLayout): this;
+  guarantorDateOfBirth(value: string | Date, format?: HL7DateLayout): this {
+    this.fields[7] = this.createField(
+      formatHL7Date(value, format ?? DateLayout),
+    );
     return this;
   }
 
@@ -89,14 +112,22 @@ export class GT1 extends BaseSegment {
   }
 
   /** GT1-13: Guarantor Date - Begin (DT) */
-  guarantorDateBegin(value: string): this {
-    this.fields[12] = this.createField(value);
+  guarantorDateBegin(value: string, format?: never): this;
+  guarantorDateBegin(value: Date, format?: HL7DateLayout): this;
+  guarantorDateBegin(value: string | Date, format?: HL7DateLayout): this {
+    this.fields[12] = this.createField(
+      formatHL7Date(value, format ?? DateLayout),
+    );
     return this;
   }
 
   /** GT1-14: Guarantor Date - End (DT) */
-  guarantorDateEnd(value: string): this {
-    this.fields[13] = this.createField(value);
+  guarantorDateEnd(value: string, format?: never): this;
+  guarantorDateEnd(value: Date, format?: HL7DateLayout): this;
+  guarantorDateEnd(value: string | Date, format?: HL7DateLayout): this {
+    this.fields[13] = this.createField(
+      formatHL7Date(value, format ?? DateLayout),
+    );
     return this;
   }
 
@@ -113,8 +144,15 @@ export class GT1 extends BaseSegment {
   }
 
   /** GT1-17: Guarantor Employer Address (XAD) */
-  guarantorEmployerAddress(street: string, city?: string, state?: string, zip?: string): this {
-    this.fields[16] = this.createField([[street, "", city || "", state || "", zip || ""]]);
+  guarantorEmployerAddress(
+    street: string,
+    city?: string,
+    state?: string,
+    zip?: string,
+  ): this {
+    this.fields[16] = this.createField([
+      [street, "", city || "", state || "", zip || ""],
+    ]);
     return this;
   }
 
@@ -136,10 +174,16 @@ export class GT1 extends BaseSegment {
     return this;
   }
 
-  static parse(segmentString: string, encoding: EncodingCharacters): Result<GT1> {
+  static parse(
+    segmentString: string,
+    encoding: EncodingCharacters,
+  ): Result<GT1> {
     const parts = segmentString.split(encoding.fieldSeparator);
     if (parts[0] !== "GT1") {
-      return { ok: false, err: new Err(`Expected GT1 segment, got ${parts[0]}`) };
+      return {
+        ok: false,
+        err: new Err(`Expected GT1 segment, got ${parts[0]}`),
+      };
     }
     const seg = new GT1();
     for (let i = 1; i < parts.length; i++) {

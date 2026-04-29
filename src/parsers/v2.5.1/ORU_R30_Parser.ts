@@ -59,9 +59,17 @@ export class ORU_R30_Parser {
       const message = new HL7Message(encoding);
       message.addSegment(msh);
 
+      type InProgressOrderObservationR30 = Omit<ParsedOrderObservationR30, "obr"> & {
+        obr: OBR | null;
+      };
+
+      function isComplete(obs: InProgressOrderObservationR30): obs is ParsedOrderObservationR30 {
+        return obs.obr !== null;
+      }
+
       const patientResults: ParsedPatientResultR30[] = [];
       let currentPatientResult: ParsedPatientResultR30 | null = null;
-      let currentOrderObservation: ParsedOrderObservationR30 | null = null;
+      let currentOrderObservation: InProgressOrderObservationR30 | null = null;
 
       for (let i = 1; i < segments.length; i++) {
         const segmentStr = segments[i];
@@ -69,10 +77,10 @@ export class ORU_R30_Parser {
 
         switch (segmentType) {
           case "PID": {
-            if (currentPatientResult && currentOrderObservation) {
-              currentPatientResult.orderObservations.push(
-                currentOrderObservation,
-              );
+            if (currentPatientResult && currentOrderObservation && isComplete(currentOrderObservation)) {
+              currentPatientResult.orderObservations.push(currentOrderObservation);
+            }
+            if (currentOrderObservation) {
               currentOrderObservation = null;
             }
             if (currentPatientResult) {
@@ -117,9 +125,10 @@ export class ORU_R30_Parser {
 
           case "ORC": {
             if (currentOrderObservation) {
-              currentPatientResult?.orderObservations.push(
-                currentOrderObservation,
-              );
+              if (isComplete(currentOrderObservation)) {
+                currentPatientResult?.orderObservations.push(currentOrderObservation);
+              }
+              currentOrderObservation = null;
             }
 
             const orcResult = ORC.parse(segmentStr, encoding);
@@ -140,7 +149,7 @@ export class ORU_R30_Parser {
 
             currentOrderObservation = {
               orc: orcResult.val,
-              obr: null as any,
+              obr: null,
               obxList: [],
             };
             message.addSegment(orcResult.val);
@@ -207,7 +216,7 @@ export class ORU_R30_Parser {
         }
       }
 
-      if (currentOrderObservation) {
+      if (currentOrderObservation && isComplete(currentOrderObservation)) {
         currentPatientResult?.orderObservations.push(currentOrderObservation);
       }
 

@@ -3,6 +3,11 @@ import { Result } from "../../types/result";
 import { BaseSegment } from "../../types/segment";
 import { EncodingCharacters } from "../../types/encoding";
 import { ParserUtils } from "../../types/parser";
+import {
+  formatHL7Date,
+  DateTimeLayout,
+  HL7DateTimeLayout,
+} from "../../utils/hl7DateUtils";
 
 /**
  * EVN - Event Type Segment (HL7 v2.3)
@@ -29,8 +34,12 @@ export class EVN extends BaseSegment {
    * EVN-2: Recorded Date/Time (TS, required)
    * The date/time the event was recorded.
    */
-  recordedDateTime(value: string): this {
-    this.fields[1] = this.createField(value);
+  recordedDateTime(value: string, format?: never): this;
+  recordedDateTime(value: Date, format?: HL7DateTimeLayout): this;
+  recordedDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
+    this.fields[1] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
 
@@ -38,8 +47,12 @@ export class EVN extends BaseSegment {
    * EVN-3: Date/Time Planned Event (TS, optional)
    * The date/time the event was planned.
    */
-  dateTimePlannedEvent(value: string): this {
-    this.fields[2] = this.createField(value);
+  dateTimePlannedEvent(value: string, format?: never): this;
+  dateTimePlannedEvent(value: Date, format?: HL7DateTimeLayout): this;
+  dateTimePlannedEvent(value: string | Date, format?: HL7DateTimeLayout): this {
+    this.fields[2] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
 
@@ -66,8 +79,12 @@ export class EVN extends BaseSegment {
    * EVN-6: Event Occurred (TS, optional)
    * The date/time the event actually occurred.
    */
-  eventOccurred(value: string): this {
-    this.fields[5] = this.createField(value);
+  eventOccurred(value: string, format?: never): this;
+  eventOccurred(value: Date, format?: HL7DateTimeLayout): this;
+  eventOccurred(value: string | Date, format?: HL7DateTimeLayout): this {
+    this.fields[5] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
 

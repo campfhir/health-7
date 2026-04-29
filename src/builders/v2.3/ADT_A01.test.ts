@@ -199,18 +199,12 @@ test("round-trip: build → encode → parse", () => {
   const nk1 = new NK1().setId("1");
   const al1 = new AL1().setId("1");
 
-  const msg = createADT_A01(
-    makeMSH(),
-    makeEVN(),
-    makePID(),
-    makePV1(),
-    {
-      nk1List: [nk1],
-      al1List: [al1],
-      procedures: [{ pr1 }],
-      insuranceGroups: [{ in1 }],
-    },
-  );
+  const msg = createADT_A01(makeMSH(), makeEVN(), makePID(), makePV1(), {
+    nk1List: [nk1],
+    al1List: [al1],
+    procedures: [{ pr1 }],
+    insuranceGroups: [{ in1 }],
+  });
 
   const encoded = msg.encode();
   const parsed = parseADT_A01(encoded);

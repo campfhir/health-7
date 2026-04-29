@@ -3,6 +3,11 @@ import { Result } from "../../types/result";
 import { BaseSegment } from "../../types/segment";
 import { EncodingCharacters } from "../../types/encoding";
 import { ParserUtils } from "../../types/parser";
+import {
+  DateLayout,
+  formatHL7Date,
+  HL7DateLayout,
+} from "../../utils/hl7DateUtils";
 
 /**
  * STF - Staff Identification Segment
@@ -77,8 +82,12 @@ export class STF extends BaseSegment {
   }
 
   /** STF-6: Date/Time of Birth (TS) */
-  dateTimeOfBirth(value: string): this {
-    this.fields[5] = this.createField(value);
+  dateTimeOfBirth(value: string, format?: never): this;
+  dateTimeOfBirth(value: Date, format?: HL7DateLayout): this;
+  dateTimeOfBirth(value: string | Date, format?: HL7DateLayout): this {
+    this.fields[5] = this.createField(
+      formatHL7Date(value, format ?? DateLayout),
+    );
     return this;
   }
 

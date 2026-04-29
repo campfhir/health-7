@@ -3,6 +3,13 @@ import { Result } from "../../types/result";
 import { BaseSegment } from "../../types/segment";
 import { EncodingCharacters } from "../../types/encoding";
 import { ParserUtils } from "../../types/parser";
+import {
+  formatHL7Date,
+  HL7DateLayout,
+  DateTimeLayout,
+  DateLayout,
+  HL7DateTimeLayout,
+} from "../../utils/hl7DateUtils";
 
 /**
  * OBX - Observation/Result Segment (HL7 v2.3)
@@ -72,16 +79,30 @@ export class OBX extends BaseSegment {
     this.fields[10] = this.createField(value);
     return this;
   }
-  effectiveDateOfReferenceRange(value: string): this {
-    this.fields[11] = this.createField(value);
+  effectiveDateOfReferenceRange(value: string, format?: never): this;
+  effectiveDateOfReferenceRange(value: Date, format?: HL7DateLayout): this;
+  effectiveDateOfReferenceRange(
+    value: string | Date,
+    format?: HL7DateLayout,
+  ): this {
+    this.fields[11] = this.createField(
+      formatHL7Date(value, format ?? DateLayout),
+    );
     return this;
   }
   userDefinedAccessChecks(value: string): this {
     this.fields[12] = this.createField(value);
     return this;
   }
-  dateTimeOfObservation(value: string): this {
-    this.fields[13] = this.createField(value);
+  dateTimeOfObservation(value: string, format?: never): this;
+  dateTimeOfObservation(value: Date, format?: HL7DateTimeLayout): this;
+  dateTimeOfObservation(
+    value: string | Date,
+    format?: HL7DateTimeLayout,
+  ): this {
+    this.fields[13] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
   producersId(value: string): this {

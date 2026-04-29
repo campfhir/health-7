@@ -101,9 +101,17 @@ export class ORU_R01_Parser {
       const message = new HL7Message(encoding);
       message.addSegment(msh);
 
+      type InProgressOrderObservation = Omit<ParsedOrderObservation, "obr"> & {
+        obr: OBR | null;
+      };
+
+      function isComplete(obs: InProgressOrderObservation): obs is ParsedOrderObservation {
+        return obs.obr !== null;
+      }
+
       const patientResults: ParsedPatientResult[] = [];
       let currentPatientResult: ParsedPatientResult | null = null;
-      let currentOrderObservation: ParsedOrderObservation | null = null;
+      let currentOrderObservation: InProgressOrderObservation | null = null;
 
       for (let i = 1; i < segments.length; i++) {
         const segmentStr = segments[i];
@@ -111,10 +119,8 @@ export class ORU_R01_Parser {
 
         switch (segmentType) {
           case "PID": {
-            if (currentPatientResult && currentOrderObservation) {
-              currentPatientResult.orderObservations.push(
-                currentOrderObservation,
-              );
+            if (currentPatientResult && currentOrderObservation && isComplete(currentOrderObservation)) {
+              currentPatientResult.orderObservations.push(currentOrderObservation);
               currentOrderObservation = null;
             }
             if (currentPatientResult) {
@@ -226,9 +232,9 @@ export class ORU_R01_Parser {
 
           case "ORC": {
             if (currentOrderObservation) {
-              currentPatientResult?.orderObservations.push(
-                currentOrderObservation,
-              );
+              if (isComplete(currentOrderObservation)) {
+                currentPatientResult?.orderObservations.push(currentOrderObservation);
+              }
               currentOrderObservation = null;
             }
             const orcResult = this.parseORC(segmentStr, encoding);
@@ -245,7 +251,7 @@ export class ORU_R01_Parser {
             }
             currentOrderObservation = {
               orc: orcResult.val,
-              obr: null as any,
+              obr: null,
               obxList: [],
             };
             message.addSegment(orcResult.val);
@@ -272,10 +278,8 @@ export class ORU_R01_Parser {
             ) {
               currentOrderObservation.obr = obrResult.val;
             } else {
-              if (currentOrderObservation) {
-                currentPatientResult.orderObservations.push(
-                  currentOrderObservation,
-                );
+              if (currentOrderObservation && isComplete(currentOrderObservation)) {
+                currentPatientResult.orderObservations.push(currentOrderObservation);
               }
               currentOrderObservation = { obr: obrResult.val, obxList: [] };
             }
@@ -332,7 +336,7 @@ export class ORU_R01_Parser {
         }
       }
 
-      if (currentOrderObservation) {
+      if (currentOrderObservation && isComplete(currentOrderObservation)) {
         currentPatientResult?.orderObservations.push(currentOrderObservation);
       }
       if (currentPatientResult) {

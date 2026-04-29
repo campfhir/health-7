@@ -3,6 +3,11 @@ import { Result } from "../../types/result";
 import { BaseSegment } from "../../types/segment";
 import { EncodingCharacters } from "../../types/encoding";
 import { ParserUtils } from "../../types/parser";
+import {
+  DateLayout,
+  formatHL7Date,
+  HL7DateLayout,
+} from "../../utils/hl7DateUtils";
 
 /**
  * DB1 - Disability Information Segment (HL7 v2.3)
@@ -41,33 +46,61 @@ export class DB1 extends BaseSegment {
   }
 
   /** DB1-5: Disability Start Date (DT) */
-  disabilityStartDate(value: string): this {
-    this.fields[4] = this.createField(value);
+  disabilityStartDate(value: string, format?: never): this;
+  disabilityStartDate(value: Date, format?: HL7DateLayout): this;
+  disabilityStartDate(value: string | Date, format?: HL7DateLayout): this {
+    this.fields[4] = this.createField(
+      formatHL7Date(value, format ?? DateLayout),
+    );
     return this;
   }
 
   /** DB1-6: Disability End Date (DT) */
-  disabilityEndDate(value: string): this {
-    this.fields[5] = this.createField(value);
+  disabilityEndDate(value: string, format?: never): this;
+  disabilityEndDate(value: Date, format?: HL7DateLayout): this;
+  disabilityEndDate(value: string | Date, format?: HL7DateLayout): this {
+    this.fields[5] = this.createField(
+      formatHL7Date(value, format ?? DateLayout),
+    );
     return this;
   }
 
   /** DB1-7: Disability Return to Work Date (DT) */
-  disabilityReturnToWorkDate(value: string): this {
-    this.fields[6] = this.createField(value);
+  disabilityReturnToWorkDate(value: string, format?: never): this;
+  disabilityReturnToWorkDate(value: Date, format?: HL7DateLayout): this;
+  disabilityReturnToWorkDate(
+    value: string | Date,
+    format?: HL7DateLayout,
+  ): this {
+    this.fields[6] = this.createField(
+      formatHL7Date(value, format ?? DateLayout),
+    );
     return this;
   }
 
   /** DB1-8: Disability Unable to Work Date (DT) */
-  disabilityUnableToWorkDate(value: string): this {
-    this.fields[7] = this.createField(value);
+  disabilityUnableToWorkDate(value: string, format?: never): this;
+  disabilityUnableToWorkDate(value: Date, format?: HL7DateLayout): this;
+  disabilityUnableToWorkDate(
+    value: string | Date,
+    format?: HL7DateLayout,
+  ): this {
+    this.fields[7] = this.createField(
+      formatHL7Date(value, format ?? DateLayout),
+    );
     return this;
   }
 
-  static parse(segmentString: string, encoding: EncodingCharacters): Result<DB1> {
+  static parse(
+    segmentString: string,
+    encoding: EncodingCharacters,
+  ): Result<DB1> {
     const parts = segmentString.split(encoding.fieldSeparator);
     if (parts[0] !== "DB1") {
-      return { ok: false, err: new Err(`Expected DB1 segment, got ${parts[0]}`) };
+      return {
+        ok: false,
+        err: new Err(`Expected DB1 segment, got ${parts[0]}`),
+      };
     }
     const seg = new DB1();
     for (let i = 1; i < parts.length; i++) {

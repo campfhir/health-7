@@ -3,6 +3,13 @@ import { Result } from "../../types/result";
 import { BaseSegment } from "../../types/segment";
 import { EncodingCharacters } from "../../types/encoding";
 import { ParserUtils } from "../../types/parser";
+import {
+  formatHL7Date,
+  DateLayout,
+  HL7DateLayout,
+  DateTimeLayout,
+  HL7DateTimeLayout,
+} from "../../utils/hl7DateUtils";
 
 /**
  * RXD - Pharmacy/Treatment Dispense Segment (HL7 v2.3)
@@ -24,7 +31,9 @@ export class RXD extends BaseSegment {
   /** RXD-2: Dispense/Give Code (CE, required) */
   dispenseGiveCode(code: string, text?: string, codingSystem?: string): this {
     if (text || codingSystem) {
-      this.fields[1] = this.createField([[code, text || "", codingSystem || ""]]);
+      this.fields[1] = this.createField([
+        [code, text || "", codingSystem || ""],
+      ]);
     } else {
       this.fields[1] = this.createField(code);
     }
@@ -32,8 +41,12 @@ export class RXD extends BaseSegment {
   }
 
   /** RXD-3: Date/Time Dispensed (TS, required) */
-  dateTimeDispensed(value: string): this {
-    this.fields[2] = this.createField(value);
+  dateTimeDispensed(value: string, format?: never): this;
+  dateTimeDispensed(value: Date, format?: HL7DateTimeLayout): this;
+  dateTimeDispensed(value: string | Date, format?: HL7DateTimeLayout): this {
+    this.fields[2] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
 
@@ -82,9 +95,15 @@ export class RXD extends BaseSegment {
   }
 
   /** RXD-10: Dispensing Provider (XCN) */
-  dispensingProvider(id: string, familyName?: string, givenName?: string): this {
+  dispensingProvider(
+    id: string,
+    familyName?: string,
+    givenName?: string,
+  ): this {
     if (familyName || givenName) {
-      this.fields[9] = this.createField([[id, familyName || "", givenName || ""]]);
+      this.fields[9] = this.createField([
+        [id, familyName || "", givenName || ""],
+      ]);
     } else {
       this.fields[9] = this.createField(id);
     }
@@ -104,8 +123,12 @@ export class RXD extends BaseSegment {
   }
 
   /** RXD-16: Substance Expiration Date (TS) */
-  substanceExpirationDate(value: string): this {
-    this.fields[15] = this.createField(value);
+  substanceExpirationDate(value: string, format?: never): this;
+  substanceExpirationDate(value: Date, format?: HL7DateLayout): this;
+  substanceExpirationDate(value: string | Date, format?: HL7DateLayout): this {
+    this.fields[15] = this.createField(
+      formatHL7Date(value, format ?? DateLayout),
+    );
     return this;
   }
 
@@ -119,10 +142,16 @@ export class RXD extends BaseSegment {
     return this;
   }
 
-  static parse(segmentString: string, encoding: EncodingCharacters): Result<RXD> {
+  static parse(
+    segmentString: string,
+    encoding: EncodingCharacters,
+  ): Result<RXD> {
     const parts = segmentString.split(encoding.fieldSeparator);
     if (parts[0] !== "RXD") {
-      return { ok: false, err: new Err(`Expected RXD segment, got ${parts[0]}`) };
+      return {
+        ok: false,
+        err: new Err(`Expected RXD segment, got ${parts[0]}`),
+      };
     }
     const seg = new RXD();
     for (let i = 1; i < parts.length; i++) {

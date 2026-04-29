@@ -3,6 +3,13 @@ import { Result } from "../../types/result";
 import { BaseSegment } from "../../types/segment";
 import { EncodingCharacters } from "../../types/encoding";
 import { ParserUtils } from "../../types/parser";
+import {
+  formatHL7Date,
+  DateLayout,
+  HL7DateLayout,
+  DateTimeLayout,
+  HL7DateTimeLayout,
+} from "../../utils/hl7DateUtils";
 
 /**
  * RXA - Pharmacy/Treatment Administration Segment (HL7 v2.3)
@@ -28,14 +35,28 @@ export class RXA extends BaseSegment {
   }
 
   /** RXA-3: Date/Time Start of Administration (TS) */
-  dateTimeStartOfAdministration(value: string): this {
-    this.fields[2] = this.createField(value);
+  dateTimeStartOfAdministration(value: string, format?: never): this;
+  dateTimeStartOfAdministration(value: Date, format?: HL7DateTimeLayout): this;
+  dateTimeStartOfAdministration(
+    value: string | Date,
+    format?: HL7DateTimeLayout,
+  ): this {
+    this.fields[2] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
 
   /** RXA-4: Date/Time End of Administration (TS) */
-  dateTimeEndOfAdministration(value: string): this {
-    this.fields[3] = this.createField(value);
+  dateTimeEndOfAdministration(value: string, format?: never): this;
+  dateTimeEndOfAdministration(value: Date, format?: HL7DateTimeLayout): this;
+  dateTimeEndOfAdministration(
+    value: string | Date,
+    format?: HL7DateTimeLayout,
+  ): this {
+    this.fields[3] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
 
@@ -70,8 +91,14 @@ export class RXA extends BaseSegment {
   }
 
   /** RXA-10: Administering Provider (XCN) */
-  administeringProvider(id: string, familyName?: string, givenName?: string): this {
-    this.fields[9] = this.createField([[id, familyName || "", givenName || ""]]);
+  administeringProvider(
+    id: string,
+    familyName?: string,
+    givenName?: string,
+  ): this {
+    this.fields[9] = this.createField([
+      [id, familyName || "", givenName || ""],
+    ]);
     return this;
   }
 
@@ -106,8 +133,12 @@ export class RXA extends BaseSegment {
   }
 
   /** RXA-16: Substance Expiration Date (TS) */
-  substanceExpirationDate(value: string): this {
-    this.fields[15] = this.createField(value);
+  substanceExpirationDate(value: string, format?: never): this;
+  substanceExpirationDate(value: Date, format?: HL7DateLayout): this;
+  substanceExpirationDate(value: string | Date, format?: HL7DateLayout): this {
+    this.fields[15] = this.createField(
+      formatHL7Date(value, format ?? DateLayout),
+    );
     return this;
   }
 
@@ -142,8 +173,12 @@ export class RXA extends BaseSegment {
   }
 
   /** RXA-22: System Entry Date/Time (TS) */
-  systemEntryDateTime(value: string): this {
-    this.fields[21] = this.createField(value);
+  systemEntryDateTime(value: string, format?: never): this;
+  systemEntryDateTime(value: Date, format?: HL7DateTimeLayout): this;
+  systemEntryDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
+    this.fields[21] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
 

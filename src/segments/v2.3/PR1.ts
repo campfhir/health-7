@@ -3,6 +3,11 @@ import { Result } from "../../types/result";
 import { BaseSegment } from "../../types/segment";
 import { EncodingCharacters } from "../../types/encoding";
 import { ParserUtils } from "../../types/parser";
+import {
+  formatHL7Date,
+  DateTimeLayout,
+  HL7DateTimeLayout,
+} from "../../utils/hl7DateUtils";
 
 /**
  * PR1 - Procedures Segment (HL7 v2.3)
@@ -57,8 +62,12 @@ export class PR1 extends BaseSegment {
    * PR1-5: Procedure Date/Time (TS, required)
    * The date/time the procedure was performed.
    */
-  procedureDateTime(value: string): this {
-    this.fields[4] = this.createField(value);
+  procedureDateTime(value: string, format?: never): this;
+  procedureDateTime(value: Date, format?: HL7DateTimeLayout): this;
+  procedureDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
+    this.fields[4] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
 

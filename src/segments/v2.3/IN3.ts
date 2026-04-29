@@ -3,6 +3,13 @@ import { Result } from "../../types/result";
 import { BaseSegment } from "../../types/segment";
 import { EncodingCharacters } from "../../types/encoding";
 import { ParserUtils } from "../../types/parser";
+import {
+  formatHL7Date,
+  HL7DateLayout,
+  DateTimeLayout,
+  HL7DateTimeLayout,
+  DateLayout,
+} from "../../utils/hl7DateUtils";
 
 /**
  * IN3 - Insurance Additional Information, Certification Segment (HL7 v2.3)
@@ -47,14 +54,28 @@ export class IN3 extends BaseSegment {
   }
 
   /** IN3-6: Certification Date/Time (TS) */
-  certificationDateTime(value: string): this {
-    this.fields[5] = this.createField(value);
+  certificationDateTime(value: string, format?: never): this;
+  certificationDateTime(value: Date, format?: HL7DateTimeLayout): this;
+  certificationDateTime(
+    value: string | Date,
+    format?: HL7DateTimeLayout,
+  ): this {
+    this.fields[5] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
 
   /** IN3-7: Certification Modify Date/Time (TS) */
-  certificationModifyDateTime(value: string): this {
-    this.fields[6] = this.createField(value);
+  certificationModifyDateTime(value: string, format?: never): this;
+  certificationModifyDateTime(value: Date, format?: HL7DateTimeLayout): this;
+  certificationModifyDateTime(
+    value: string | Date,
+    format?: HL7DateTimeLayout,
+  ): this {
+    this.fields[6] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
 
@@ -65,14 +86,22 @@ export class IN3 extends BaseSegment {
   }
 
   /** IN3-9: Certification Begin Date (DT) */
-  certificationBeginDate(value: string): this {
-    this.fields[8] = this.createField(value);
+  certificationBeginDate(value: string, format?: never): this;
+  certificationBeginDate(value: Date, format?: HL7DateLayout): this;
+  certificationBeginDate(value: string | Date, format?: HL7DateLayout): this {
+    this.fields[8] = this.createField(
+      formatHL7Date(value, format ?? DateLayout),
+    );
     return this;
   }
 
   /** IN3-10: Certification End Date (DT) */
-  certificationEndDate(value: string): this {
-    this.fields[9] = this.createField(value);
+  certificationEndDate(value: string, format?: never): this;
+  certificationEndDate(value: Date, format?: HL7DateLayout): this;
+  certificationEndDate(value: string | Date, format?: HL7DateLayout): this {
+    this.fields[9] = this.createField(
+      formatHL7Date(value, format ?? DateLayout),
+    );
     return this;
   }
 
@@ -89,8 +118,15 @@ export class IN3 extends BaseSegment {
   }
 
   /** IN3-13: Non-Concur Effective Date/Time (TS) */
-  nonConcurEffectiveDateTime(value: string): this {
-    this.fields[12] = this.createField(value);
+  nonConcurEffectiveDateTime(value: string, format?: never): this;
+  nonConcurEffectiveDateTime(value: Date, format?: HL7DateTimeLayout): this;
+  nonConcurEffectiveDateTime(
+    value: string | Date,
+    format?: HL7DateTimeLayout,
+  ): this {
+    this.fields[12] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
 
@@ -143,8 +179,12 @@ export class IN3 extends BaseSegment {
   }
 
   /** IN3-22: Second Opinion Date (DT) */
-  secondOpinionDate(value: string): this {
-    this.fields[21] = this.createField(value);
+  secondOpinionDate(value: string, format?: never): this;
+  secondOpinionDate(value: Date, format?: HL7DateLayout): this;
+  secondOpinionDate(value: string | Date, format?: HL7DateLayout): this {
+    this.fields[21] = this.createField(
+      formatHL7Date(value, format ?? DateLayout),
+    );
     return this;
   }
 
@@ -161,15 +201,25 @@ export class IN3 extends BaseSegment {
   }
 
   /** IN3-25: Second Opinion Physician (XCN) */
-  secondOpinionPhysician(id: string, familyName?: string, givenName?: string): this {
+  secondOpinionPhysician(
+    id: string,
+    familyName?: string,
+    givenName?: string,
+  ): this {
     this.fields[24] = this.createField([id, familyName || "", givenName || ""]);
     return this;
   }
 
-  static parse(segmentString: string, encoding: EncodingCharacters): Result<IN3> {
+  static parse(
+    segmentString: string,
+    encoding: EncodingCharacters,
+  ): Result<IN3> {
     const parts = segmentString.split(encoding.fieldSeparator);
     if (parts[0] !== "IN3") {
-      return { ok: false, err: new Err(`Expected IN3 segment, got ${parts[0]}`) };
+      return {
+        ok: false,
+        err: new Err(`Expected IN3 segment, got ${parts[0]}`),
+      };
     }
     const seg = new IN3();
     for (let i = 1; i < parts.length; i++) {

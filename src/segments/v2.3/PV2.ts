@@ -3,6 +3,13 @@ import { Result } from "../../types/result";
 import { BaseSegment } from "../../types/segment";
 import { EncodingCharacters } from "../../types/encoding";
 import { ParserUtils } from "../../types/parser";
+import {
+  formatHL7Date,
+  HL7DateLayout,
+  DateTimeLayout,
+  HL7DateTimeLayout,
+  DateLayout,
+} from "../../utils/hl7DateUtils";
 
 /**
  * PV2 - Patient Visit - Additional Information Segment (HL7 v2.3)
@@ -30,25 +37,19 @@ export class PV2 extends BaseSegment {
 
   /** PV2-2: Accommodation Code (CE) */
   accommodationCode(code: string, text?: string, codingSystem?: string): this {
-    this.fields[1] = this.createField([
-      [code, text || "", codingSystem || ""],
-    ]);
+    this.fields[1] = this.createField([[code, text || "", codingSystem || ""]]);
     return this;
   }
 
   /** PV2-3: Admit Reason (CE) */
   admitReason(code: string, text?: string, codingSystem?: string): this {
-    this.fields[2] = this.createField([
-      [code, text || "", codingSystem || ""],
-    ]);
+    this.fields[2] = this.createField([[code, text || "", codingSystem || ""]]);
     return this;
   }
 
   /** PV2-4: Transfer Reason (CE) */
   transferReason(code: string, text?: string, codingSystem?: string): this {
-    this.fields[3] = this.createField([
-      [code, text || "", codingSystem || ""],
-    ]);
+    this.fields[3] = this.createField([[code, text || "", codingSystem || ""]]);
     return this;
   }
 
@@ -71,14 +72,28 @@ export class PV2 extends BaseSegment {
   }
 
   /** PV2-8: Expected Admit Date/Time (TS) */
-  expectedAdmitDateTime(value: string): this {
-    this.fields[7] = this.createField(value);
+  expectedAdmitDateTime(value: string, format?: never): this;
+  expectedAdmitDateTime(value: Date, format?: HL7DateTimeLayout): this;
+  expectedAdmitDateTime(
+    value: string | Date,
+    format?: HL7DateTimeLayout,
+  ): this {
+    this.fields[7] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
 
   /** PV2-9: Expected Discharge Date/Time (TS) */
-  expectedDischargeDateTime(value: string): this {
-    this.fields[8] = this.createField(value);
+  expectedDischargeDateTime(value: string, format?: never): this;
+  expectedDischargeDateTime(value: Date, format?: HL7DateTimeLayout): this;
+  expectedDischargeDateTime(
+    value: string | Date,
+    format?: HL7DateTimeLayout,
+  ): this {
+    this.fields[8] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
 
@@ -113,8 +128,12 @@ export class PV2 extends BaseSegment {
   }
 
   /** PV2-14: Previous Service Date (DT) */
-  previousServiceDate(value: string): this {
-    this.fields[13] = this.createField(value);
+  previousServiceDate(value: string, format?: never): this;
+  previousServiceDate(value: Date, format?: HL7DateLayout): this;
+  previousServiceDate(value: string | Date, format?: HL7DateLayout): this {
+    this.fields[13] = this.createField(
+      formatHL7Date(value, format ?? DateLayout),
+    );
     return this;
   }
 
@@ -131,8 +150,12 @@ export class PV2 extends BaseSegment {
   }
 
   /** PV2-17: Purge Status Date (DT) */
-  purgeStatusDate(value: string): this {
-    this.fields[16] = this.createField(value);
+  purgeStatusDate(value: string, format?: never): this;
+  purgeStatusDate(value: Date, format?: HL7DateLayout): this;
+  purgeStatusDate(value: string | Date, format?: HL7DateLayout): this {
+    this.fields[16] = this.createField(
+      formatHL7Date(value, format ?? DateLayout),
+    );
     return this;
   }
 

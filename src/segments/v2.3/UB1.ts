@@ -3,6 +3,11 @@ import { Result } from "../../types/result";
 import { BaseSegment } from "../../types/segment";
 import { EncodingCharacters } from "../../types/encoding";
 import { ParserUtils } from "../../types/parser";
+import {
+  DateLayout,
+  formatHL7Date,
+  HL7DateLayout,
+} from "../../utils/hl7DateUtils";
 
 /**
  * UB1 - UB82 Data Segment (HL7 v2.3)
@@ -119,14 +124,22 @@ export class UB1 extends BaseSegment {
   }
 
   /** UB1-18: Occur Span Start Date (DT) - UB82 field 36 */
-  occurSpanStartDate(value: string): this {
-    this.fields[17] = this.createField(value);
+  occurSpanStartDate(value: string, format?: never): this;
+  occurSpanStartDate(value: Date, format?: HL7DateLayout): this;
+  occurSpanStartDate(value: string | Date, format?: HL7DateLayout): this {
+    this.fields[17] = this.createField(
+      formatHL7Date(value, format ?? DateLayout),
+    );
     return this;
   }
 
   /** UB1-19: Occur Span End Date (DT) - UB82 field 36 */
-  occurSpanEndDate(value: string): this {
-    this.fields[18] = this.createField(value);
+  occurSpanEndDate(value: string, format?: never): this;
+  occurSpanEndDate(value: Date, format?: HL7DateLayout): this;
+  occurSpanEndDate(value: string | Date, format?: HL7DateLayout): this {
+    this.fields[18] = this.createField(
+      formatHL7Date(value, format ?? DateLayout),
+    );
     return this;
   }
 
@@ -154,10 +167,16 @@ export class UB1 extends BaseSegment {
     return this;
   }
 
-  static parse(segmentString: string, encoding: EncodingCharacters): Result<UB1> {
+  static parse(
+    segmentString: string,
+    encoding: EncodingCharacters,
+  ): Result<UB1> {
     const parts = segmentString.split(encoding.fieldSeparator);
     if (parts[0] !== "UB1") {
-      return { ok: false, err: new Err(`Expected UB1 segment, got ${parts[0]}`) };
+      return {
+        ok: false,
+        err: new Err(`Expected UB1 segment, got ${parts[0]}`),
+      };
     }
     const seg = new UB1();
     for (let i = 1; i < parts.length; i++) {

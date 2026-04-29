@@ -3,6 +3,7 @@ import { Result } from "../../types/result";
 import { BaseSegment } from "../../types/segment";
 import { EncodingCharacters } from "../../types/encoding";
 import { ParserUtils } from "../../types/parser";
+import { formatHL7Date, DateTimeLayout, HL7DateTimeLayout } from "../../utils/hl7DateUtils";
 
 /**
  * ORC - Common Order Segment (HL7 v2.3)
@@ -55,8 +56,12 @@ export class ORC extends BaseSegment {
     return this;
   }
 
-  dateTimeOfTransaction(value: string): this {
-    this.fields[8] = this.createField(value);
+  dateTimeOfTransaction(value: string, format?: never): this;
+  dateTimeOfTransaction(value: Date, format?: HL7DateTimeLayout): this;
+  dateTimeOfTransaction(value: string | Date, format?: HL7DateTimeLayout): this {
+    this.fields[8] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
 
@@ -97,8 +102,12 @@ export class ORC extends BaseSegment {
     return this;
   }
 
-  orderEffectiveDateTime(value: string): this {
-    this.fields[14] = this.createField(value);
+  orderEffectiveDateTime(value: string, format?: never): this;
+  orderEffectiveDateTime(value: Date, format?: HL7DateTimeLayout): this;
+  orderEffectiveDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
+    this.fields[14] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
 

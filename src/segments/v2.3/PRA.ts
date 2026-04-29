@@ -3,6 +3,11 @@ import { Result } from "../../types/result";
 import { BaseSegment } from "../../types/segment";
 import { EncodingCharacters } from "../../types/encoding";
 import { ParserUtils } from "../../types/parser";
+import {
+  DateLayout,
+  formatHL7Date,
+  HL7DateLayout,
+} from "../../utils/hl7DateUtils";
 
 /**
  * PRA - Practitioner Detail Segment
@@ -99,8 +104,12 @@ export class PRA extends BaseSegment {
   }
 
   /** PRA-8: Date Entered Practice (DT) */
-  dateEnteredPractice(value: string): this {
-    this.fields[7] = this.createField(value);
+  dateEnteredPractice(value: string, format?: never): this;
+  dateEnteredPractice(value: Date, format?: HL7DateLayout): this;
+  dateEnteredPractice(value: string | Date, format?: HL7DateLayout): this {
+    this.fields[7] = this.createField(
+      formatHL7Date(value, format ?? DateLayout),
+    );
     return this;
   }
 

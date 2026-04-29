@@ -3,6 +3,11 @@ import { Result } from "../../types/result";
 import { BaseSegment } from "../../types/segment";
 import { EncodingCharacters } from "../../types/encoding";
 import { ParserUtils } from "../../types/parser";
+import {
+  formatHL7Date,
+  DateTimeLayout,
+  HL7DateTimeLayout,
+} from "../../utils/hl7DateUtils";
 
 /**
  * DRG - Diagnosis Related Group Segment (HL7 v2.3)
@@ -17,14 +22,22 @@ export class DRG extends BaseSegment {
   }
 
   /** DRG-1: Diagnostic Related Group (CE) */
-  diagnosticRelatedGroup(code: string, text?: string, codingSystem?: string): this {
+  diagnosticRelatedGroup(
+    code: string,
+    text?: string,
+    codingSystem?: string,
+  ): this {
     this.fields[0] = this.createField([code, text || "", codingSystem || ""]);
     return this;
   }
 
   /** DRG-2: DRG Assigned Date/Time (TS) */
-  drgAssignedDateTime(value: string): this {
-    this.fields[1] = this.createField(value);
+  drgAssignedDateTime(value: string, format?: never): this;
+  drgAssignedDateTime(value: Date, format?: HL7DateTimeLayout): this;
+  drgAssignedDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
+    this.fields[1] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
 
@@ -82,10 +95,16 @@ export class DRG extends BaseSegment {
     return this;
   }
 
-  static parse(segmentString: string, encoding: EncodingCharacters): Result<DRG> {
+  static parse(
+    segmentString: string,
+    encoding: EncodingCharacters,
+  ): Result<DRG> {
     const parts = segmentString.split(encoding.fieldSeparator);
     if (parts[0] !== "DRG") {
-      return { ok: false, err: new Err(`Expected DRG segment, got ${parts[0]}`) };
+      return {
+        ok: false,
+        err: new Err(`Expected DRG segment, got ${parts[0]}`),
+      };
     }
     const seg = new DRG();
     for (let i = 1; i < parts.length; i++) {

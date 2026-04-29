@@ -3,6 +3,11 @@ import { Result } from "../../types/result";
 import { BaseSegment } from "../../types/segment";
 import { EncodingCharacters } from "../../types/encoding";
 import { ParserUtils } from "../../types/parser";
+import {
+  formatHL7Date,
+  DateTimeLayout,
+  HL7DateTimeLayout,
+} from "../../utils/hl7DateUtils";
 
 /**
  * MFI - Master File Identification Segment
@@ -49,14 +54,22 @@ export class MFI extends BaseSegment {
   }
 
   /** MFI-4: Entered Date/Time (TS) */
-  enteredDateTime(value: string): this {
-    this.fields[3] = this.createField(value);
+  enteredDateTime(value: string, format?: never): this;
+  enteredDateTime(value: Date, format?: HL7DateTimeLayout): this;
+  enteredDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
+    this.fields[3] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
 
   /** MFI-5: Effective Date/Time (TS) */
-  effectiveDateTime(value: string): this {
-    this.fields[4] = this.createField(value);
+  effectiveDateTime(value: string, format?: never): this;
+  effectiveDateTime(value: Date, format?: HL7DateTimeLayout): this;
+  effectiveDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
+    this.fields[4] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
 

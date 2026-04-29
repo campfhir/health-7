@@ -3,6 +3,11 @@ import { Result } from "../../types/result";
 import { BaseSegment } from "../../types/segment";
 import { EncodingCharacters } from "../../types/encoding";
 import { ParserUtils } from "../../types/parser";
+import {
+  DateLayout,
+  formatHL7Date,
+  HL7DateLayout,
+} from "../../utils/hl7DateUtils";
 
 /**
  * IN2 - Insurance Additional Information Segment (HL7 v2.3)
@@ -29,7 +34,11 @@ export class IN2 extends BaseSegment {
   }
 
   /** IN2-3: Insured's Employer's Name and ID (XCN) */
-  insuredEmployerName(id: string, familyName?: string, givenName?: string): this {
+  insuredEmployerName(
+    id: string,
+    familyName?: string,
+    givenName?: string,
+  ): this {
     this.fields[2] = this.createField([id, familyName || "", givenName || ""]);
     return this;
   }
@@ -59,14 +68,22 @@ export class IN2 extends BaseSegment {
   }
 
   /** IN2-26: Relationship to the Patient Start Date (DT) */
-  relationshipStartDate(value: string): this {
-    this.fields[25] = this.createField(value);
+  relationshipStartDate(value: string, format?: never): this;
+  relationshipStartDate(value: Date, format?: HL7DateLayout): this;
+  relationshipStartDate(value: string | Date, format?: HL7DateLayout): this {
+    this.fields[25] = this.createField(
+      formatHL7Date(value, format ?? DateLayout),
+    );
     return this;
   }
 
   /** IN2-27: Relationship to the Patient Stop Date (DT) */
-  relationshipStopDate(value: string): this {
-    this.fields[26] = this.createField(value);
+  relationshipStopDate(value: string, format?: never): this;
+  relationshipStopDate(value: Date, format?: HL7DateLayout): this;
+  relationshipStopDate(value: string | Date, format?: HL7DateLayout): this {
+    this.fields[26] = this.createField(
+      formatHL7Date(value, format ?? DateLayout),
+    );
     return this;
   }
 
@@ -94,10 +111,16 @@ export class IN2 extends BaseSegment {
     return this;
   }
 
-  static parse(segmentString: string, encoding: EncodingCharacters): Result<IN2> {
+  static parse(
+    segmentString: string,
+    encoding: EncodingCharacters,
+  ): Result<IN2> {
     const parts = segmentString.split(encoding.fieldSeparator);
     if (parts[0] !== "IN2") {
-      return { ok: false, err: new Err(`Expected IN2 segment, got ${parts[0]}`) };
+      return {
+        ok: false,
+        err: new Err(`Expected IN2 segment, got ${parts[0]}`),
+      };
     }
     const seg = new IN2();
     for (let i = 1; i < parts.length; i++) {

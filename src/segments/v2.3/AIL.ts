@@ -3,6 +3,11 @@ import { Result } from "../../types/result";
 import { BaseSegment } from "../../types/segment";
 import { EncodingCharacters } from "../../types/encoding";
 import { ParserUtils } from "../../types/parser";
+import {
+  formatHL7Date,
+  DateTimeLayout,
+  HL7DateTimeLayout,
+} from "../../utils/hl7DateUtils";
 
 /**
  * AIL - Appointment Information - Location Resource Segment (HL7 v2.3)
@@ -61,8 +66,12 @@ export class AIL extends BaseSegment {
   }
 
   /** AIL-6: Start Date/Time (TS) */
-  startDateTime(value: string): this {
-    this.fields[5] = this.createField(value);
+  startDateTime(value: string, format?: never): this;
+  startDateTime(value: Date, format?: HL7DateTimeLayout): this;
+  startDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
+    this.fields[5] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
 
@@ -114,10 +123,16 @@ export class AIL extends BaseSegment {
     return this;
   }
 
-  static parse(segmentString: string, encoding: EncodingCharacters): Result<AIL> {
+  static parse(
+    segmentString: string,
+    encoding: EncodingCharacters,
+  ): Result<AIL> {
     const parts = segmentString.split(encoding.fieldSeparator);
     if (parts[0] !== "AIL") {
-      return { ok: false, err: new Err(`Expected AIL segment, got ${parts[0]}`) };
+      return {
+        ok: false,
+        err: new Err(`Expected AIL segment, got ${parts[0]}`),
+      };
     }
     const seg = new AIL();
     for (let i = 1; i < parts.length; i++) {

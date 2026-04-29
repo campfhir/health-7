@@ -3,6 +3,11 @@ import { Result } from "../../types/result";
 import { BaseSegment } from "../../types/segment";
 import { EncodingCharacters } from "../../types/encoding";
 import { ParserUtils } from "../../types/parser";
+import {
+  formatHL7Date,
+  DateTimeLayout,
+  HL7DateTimeLayout,
+} from "../../utils/hl7DateUtils";
 
 /**
  * AIS - Appointment Information - Service Segment (HL7 v2.3)
@@ -30,7 +35,9 @@ export class AIS extends BaseSegment {
   /** AIS-3: Universal Service Identifier (CE, required) */
   universalServiceId(code: string, text?: string, codingSystem?: string): this {
     if (text || codingSystem) {
-      this.fields[2] = this.createField([[code, text || "", codingSystem || ""]]);
+      this.fields[2] = this.createField([
+        [code, text || "", codingSystem || ""],
+      ]);
     } else {
       this.fields[2] = this.createField(code);
     }
@@ -38,8 +45,12 @@ export class AIS extends BaseSegment {
   }
 
   /** AIS-4: Start Date/Time (TS) */
-  startDateTime(value: string): this {
-    this.fields[3] = this.createField(value);
+  startDateTime(value: string, format?: never): this;
+  startDateTime(value: Date, format?: HL7DateTimeLayout): this;
+  startDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
+    this.fields[3] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
 
@@ -111,10 +122,16 @@ export class AIS extends BaseSegment {
     return this;
   }
 
-  static parse(segmentString: string, encoding: EncodingCharacters): Result<AIS> {
+  static parse(
+    segmentString: string,
+    encoding: EncodingCharacters,
+  ): Result<AIS> {
     const parts = segmentString.split(encoding.fieldSeparator);
     if (parts[0] !== "AIS") {
-      return { ok: false, err: new Err(`Expected AIS segment, got ${parts[0]}`) };
+      return {
+        ok: false,
+        err: new Err(`Expected AIS segment, got ${parts[0]}`),
+      };
     }
     const seg = new AIS();
     for (let i = 1; i < parts.length; i++) {

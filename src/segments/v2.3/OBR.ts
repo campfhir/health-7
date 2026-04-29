@@ -3,6 +3,11 @@ import { Result } from "../../types/result";
 import { BaseSegment } from "../../types/segment";
 import { EncodingCharacters } from "../../types/encoding";
 import { ParserUtils } from "../../types/parser";
+import {
+  formatHL7Date,
+  DateTimeLayout,
+  HL7DateTimeLayout,
+} from "../../utils/hl7DateUtils";
 
 /**
  * OBR - Observation Request Segment (HL7 v2.3)
@@ -43,16 +48,31 @@ export class OBR extends BaseSegment {
     this.fields[4] = this.createField(value);
     return this;
   }
-  requestedDateTime(value: string): this {
-    this.fields[5] = this.createField(value);
+  requestedDateTime(value: string, format?: never): this;
+  requestedDateTime(value: Date, format?: HL7DateTimeLayout): this;
+  requestedDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
+    this.fields[5] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
-  observationDateTime(value: string): this {
-    this.fields[6] = this.createField(value);
+  observationDateTime(value: string, format?: never): this;
+  observationDateTime(value: Date, format?: HL7DateTimeLayout): this;
+  observationDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
+    this.fields[6] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
-  observationEndDateTime(value: string): this {
-    this.fields[7] = this.createField(value);
+  observationEndDateTime(value: string, format?: never): this;
+  observationEndDateTime(value: Date, format?: HL7DateTimeLayout): this;
+  observationEndDateTime(
+    value: string | Date,
+    format?: HL7DateTimeLayout,
+  ): this {
+    this.fields[7] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
   collectionVolume(value: string): this {
@@ -83,8 +103,15 @@ export class OBR extends BaseSegment {
     this.fields[12] = this.createField(value);
     return this;
   }
-  specimenReceivedDateTime(value: string): this {
-    this.fields[13] = this.createField(value);
+  specimenReceivedDateTime(value: string, format?: never): this;
+  specimenReceivedDateTime(value: Date, format?: HL7DateTimeLayout): this;
+  specimenReceivedDateTime(
+    value: string | Date,
+    format?: HL7DateTimeLayout,
+  ): this {
+    this.fields[13] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
   specimenSource(value: string): this {
@@ -119,8 +146,15 @@ export class OBR extends BaseSegment {
     this.fields[20] = this.createField(value);
     return this;
   }
-  resultsRptStatusChngDateTime(value: string): this {
-    this.fields[21] = this.createField(value);
+  resultsRptStatusChngDateTime(value: string, format?: never): this;
+  resultsRptStatusChngDateTime(value: Date, format?: HL7DateTimeLayout): this;
+  resultsRptStatusChngDateTime(
+    value: string | Date,
+    format?: HL7DateTimeLayout,
+  ): this {
+    this.fields[21] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
   chargeToPractice(value: string): this {

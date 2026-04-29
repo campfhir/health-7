@@ -3,6 +3,11 @@ import { Result } from "../../types/result";
 import { BaseSegment } from "../../types/segment";
 import { EncodingCharacters } from "../../types/encoding";
 import { ParserUtils } from "../../types/parser";
+import {
+  formatHL7Date,
+  DateTimeLayout,
+  HL7DateTimeLayout,
+} from "../../utils/hl7DateUtils";
 
 /**
  * SPM - Specimen Segment (HL7 v2.3)
@@ -23,7 +28,9 @@ export class SPM extends BaseSegment {
 
   /** SPM-2: Specimen ID (EIP) */
   specimenId(placerAssignedId: string, fillerAssignedId?: string): this {
-    this.fields[1] = this.createField([[placerAssignedId, fillerAssignedId || ""]]);
+    this.fields[1] = this.createField([
+      [placerAssignedId, fillerAssignedId || ""],
+    ]);
     return this;
   }
 
@@ -106,8 +113,15 @@ export class SPM extends BaseSegment {
   }
 
   /** SPM-18: Specimen Received Date/Time (TS) */
-  specimenReceivedDateTime(value: string): this {
-    this.fields[17] = this.createField(value);
+  specimenReceivedDateTime(value: string, format?: never): this;
+  specimenReceivedDateTime(value: Date, format?: HL7DateTimeLayout): this;
+  specimenReceivedDateTime(
+    value: string | Date,
+    format?: HL7DateTimeLayout,
+  ): this {
+    this.fields[17] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
 

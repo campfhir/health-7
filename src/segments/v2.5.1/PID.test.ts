@@ -1,7 +1,8 @@
-import { test, expect } from "vitest";
+import { test, expect, describe } from "vitest";
 import { PID } from "./PID";
 import { ParserUtils } from "../../types/parser";
 import { DEFAULT_ENCODING } from "../../types/encoding";
+import { DateTimeLayout, DateLayout } from "../../utils/hl7DateUtils";
 
 test("PID builder creates valid segment", () => {
   const pid = new PID()
@@ -229,4 +230,36 @@ test("PID.parse extracts phone numbers", () => {
 
   expect(homePhone).toBe("555-1234");
   expect(workPhone).toBe("555-5678");
+});
+
+// ─── dateTimeOfBirth with Date object ────────────────────────────────────────
+
+describe("PID.dateTimeOfBirth: Date input", () => {
+  const dob = new Date(1980, 0, 15); // Jan 15 1980 local
+
+  test("Date formats as YYYYMMDD by default", () => {
+    const pid = new PID().dateTimeOfBirth(dob);
+    expect(pid.encode()).toContain("19800115");
+  });
+
+  test("Date with explicit HL7Date layout", () => {
+    const pid = new PID().dateTimeOfBirth(dob, DateLayout);
+    expect(pid.encode()).toContain("19800115");
+  });
+
+  test("Date with HL7LayoutDate alias", () => {
+    const pid = new PID().dateTimeOfBirth(dob, "Date");
+    expect(pid.encode()).toContain("19800115");
+  });
+
+  test("Date with HL7DateTime layout includes time", () => {
+    const dobWithTime = new Date(1980, 0, 15, 9, 5, 3);
+    const pid = new PID().dateTimeOfBirth(dobWithTime, DateTimeLayout);
+    expect(pid.encode()).toContain("19800115090503");
+  });
+
+  test("string still passes through unchanged", () => {
+    const pid = new PID().dateTimeOfBirth("19800115");
+    expect(pid.encode()).toContain("19800115");
+  });
 });

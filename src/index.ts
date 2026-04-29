@@ -6,6 +6,7 @@ export { MessageSchema, SegmentDefinition, SegmentGroup } from "./types/schema";
 export { ParserUtils, SegmentParser } from "./types/parser";
 
 export * from "./utils/ValueExtractor";
+export { dateUtils, type LayoutName, type FormatOptions, Layout, ANSIC, UnixDate, RubyDate, RFC822, RFC822Z, RFC850, RFC1123, RFC1123Z, RFC3339, RFC3339Nano, Kitchen, Stamp, StampMilli, StampMicro, StampNano, DateTime, DateOnly, TimeOnly } from "./utils/dateUtils";
 export { CustomSegment } from "./utils/CustomSegment";
 export { MessageEditor, InsertionBuilder, PositionedInsertionBuilder } from "./utils/MessageEditor";
 

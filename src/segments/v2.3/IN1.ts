@@ -3,6 +3,11 @@ import { Result } from "../../types/result";
 import { BaseSegment } from "../../types/segment";
 import { EncodingCharacters } from "../../types/encoding";
 import { ParserUtils } from "../../types/parser";
+import {
+  DateLayout,
+  formatHL7Date,
+  HL7DateLayout,
+} from "../../utils/hl7DateUtils";
 
 /**
  * IN1 - Insurance Segment (HL7 v2.3)
@@ -41,8 +46,15 @@ export class IN1 extends BaseSegment {
   }
 
   /** IN1-5: Insurance Company Address (XAD) */
-  insuranceCompanyAddress(street: string, city?: string, state?: string, zip?: string): this {
-    this.fields[4] = this.createField([[street, "", city || "", state || "", zip || ""]]);
+  insuranceCompanyAddress(
+    street: string,
+    city?: string,
+    state?: string,
+    zip?: string,
+  ): this {
+    this.fields[4] = this.createField([
+      [street, "", city || "", state || "", zip || ""],
+    ]);
     return this;
   }
 
@@ -83,20 +95,34 @@ export class IN1 extends BaseSegment {
   }
 
   /** IN1-12: Plan Effective Date (DT) */
-  planEffectiveDate(value: string): this {
-    this.fields[11] = this.createField(value);
+  planEffectiveDate(value: string, format?: never): this;
+  planEffectiveDate(value: Date, format?: HL7DateLayout): this;
+  planEffectiveDate(value: string | Date, format?: HL7DateLayout): this {
+    this.fields[11] = this.createField(
+      formatHL7Date(value, format ?? DateLayout),
+    );
     return this;
   }
 
   /** IN1-13: Plan Expiration Date (DT) */
-  planExpirationDate(value: string): this {
-    this.fields[12] = this.createField(value);
+  planExpirationDate(value: string, format?: never): this;
+  planExpirationDate(value: Date, format?: HL7DateLayout): this;
+  planExpirationDate(value: string | Date, format?: HL7DateLayout): this {
+    this.fields[12] = this.createField(
+      formatHL7Date(value, format ?? DateLayout),
+    );
     return this;
   }
 
   /** IN1-14: Authorization Information (AUI) */
-  authorizationInfo(authorizationNumber: string, date?: string, source?: string): this {
-    this.fields[13] = this.createField([[authorizationNumber, date || "", source || ""]]);
+  authorizationInfo(
+    authorizationNumber: string,
+    date?: string,
+    source?: string,
+  ): this {
+    this.fields[13] = this.createField([
+      [authorizationNumber, date || "", source || ""],
+    ]);
     return this;
   }
 
@@ -107,8 +133,14 @@ export class IN1 extends BaseSegment {
   }
 
   /** IN1-16: Name Of Insured (XPN) */
-  nameOfInsured(familyName: string, givenName?: string, middleName?: string): this {
-    this.fields[15] = this.createField([[familyName, givenName || "", middleName || ""]]);
+  nameOfInsured(
+    familyName: string,
+    givenName?: string,
+    middleName?: string,
+  ): this {
+    this.fields[15] = this.createField([
+      [familyName, givenName || "", middleName || ""],
+    ]);
     return this;
   }
 
@@ -119,14 +151,25 @@ export class IN1 extends BaseSegment {
   }
 
   /** IN1-18: Insured's Date Of Birth (TS) */
-  insuredDateOfBirth(value: string): this {
-    this.fields[17] = this.createField(value);
+  insuredDateOfBirth(value: string, format?: never): this;
+  insuredDateOfBirth(value: Date, format?: HL7DateLayout): this;
+  insuredDateOfBirth(value: string | Date, format?: HL7DateLayout): this {
+    this.fields[17] = this.createField(
+      formatHL7Date(value, format ?? DateLayout),
+    );
     return this;
   }
 
   /** IN1-19: Insured's Address (XAD) */
-  insuredAddress(street: string, city?: string, state?: string, zip?: string): this {
-    this.fields[18] = this.createField([[street, "", city || "", state || "", zip || ""]]);
+  insuredAddress(
+    street: string,
+    city?: string,
+    state?: string,
+    zip?: string,
+  ): this {
+    this.fields[18] = this.createField([
+      [street, "", city || "", state || "", zip || ""],
+    ]);
     return this;
   }
 
@@ -184,10 +227,16 @@ export class IN1 extends BaseSegment {
     return this;
   }
 
-  static parse(segmentString: string, encoding: EncodingCharacters): Result<IN1> {
+  static parse(
+    segmentString: string,
+    encoding: EncodingCharacters,
+  ): Result<IN1> {
     const parts = segmentString.split(encoding.fieldSeparator);
     if (parts[0] !== "IN1") {
-      return { ok: false, err: new Err(`Expected IN1 segment, got ${parts[0]}`) };
+      return {
+        ok: false,
+        err: new Err(`Expected IN1 segment, got ${parts[0]}`),
+      };
     }
     const seg = new IN1();
     for (let i = 1; i < parts.length; i++) {

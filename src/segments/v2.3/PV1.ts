@@ -3,6 +3,11 @@ import { Result } from "../../types/result";
 import { BaseSegment } from "../../types/segment";
 import { EncodingCharacters } from "../../types/encoding";
 import { ParserUtils } from "../../types/parser";
+import {
+  formatHL7Date,
+  DateTimeLayout,
+  HL7DateTimeLayout,
+} from "../../utils/hl7DateUtils";
 
 /**
  * PV1 - Patient Visit Segment (HL7 v2.3)
@@ -114,12 +119,20 @@ export class PV1 extends BaseSegment {
     this.fields[18] = this.createField(components);
     return this;
   }
-  admitDateTime(value: string): this {
-    this.fields[44] = this.createField(value);
+  admitDateTime(value: string, format?: never): this;
+  admitDateTime(value: Date, format?: HL7DateTimeLayout): this;
+  admitDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
+    this.fields[44] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
-  dischargeDateTime(value: string): this {
-    this.fields[45] = this.createField(value);
+  dischargeDateTime(value: string, format?: never): this;
+  dischargeDateTime(value: Date, format?: HL7DateTimeLayout): this;
+  dischargeDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
+    this.fields[45] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
 

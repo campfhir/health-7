@@ -3,6 +3,11 @@ import { Result } from "../../types/result";
 import { BaseSegment } from "../../types/segment";
 import { DEFAULT_ENCODING, EncodingCharacters } from "../../types/encoding";
 import { ParserUtils } from "../../types/parser";
+import {
+  formatHL7Date,
+  DateTimeLayout,
+  HL7DateTimeLayout,
+} from "../../utils/hl7DateUtils";
 
 /**
  * MSH - Message Header Segment (HL7 v2.3)
@@ -53,8 +58,12 @@ export class MSH extends BaseSegment {
     return this;
   }
 
-  dateTimeOfMessage(value: string): this {
-    this.fields[5] = this.createField(value);
+  dateTimeOfMessage(value: string, format?: never): this;
+  dateTimeOfMessage(value: Date, format?: HL7DateTimeLayout): this;
+  dateTimeOfMessage(value: string | Date, format?: HL7DateTimeLayout): this {
+    this.fields[5] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
     return this;
   }
 
