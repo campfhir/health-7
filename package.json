@@ -1,6 +1,6 @@
 {
   "name": "@campfhir/hl7",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "TypeScript library for building and parsing HL7v2 messages",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
