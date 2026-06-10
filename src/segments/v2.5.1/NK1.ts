@@ -1,8 +1,8 @@
-import { Err } from "../../utils/err";
-import { Result } from "../../types/result";
-import { EncodingCharacters } from "../../types/encoding";
-import { ParserUtils } from "../../types/parser";
-import { NK1 as NK1_base } from "../v2.3/NK1";
+import { Err } from "../../utils/err.ts";
+import type { Result } from "../../types/result.ts";
+import type { EncodingCharacters } from "../../types/encoding.ts";
+import { ParserUtils } from "../../types/parser.ts";
+import { NK1 as NK1_base } from "../v2.3/NK1.ts";
 
 /**
  * NK1 segment (HL7 v2.5.1)

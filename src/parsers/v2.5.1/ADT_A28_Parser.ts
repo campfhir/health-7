@@ -1,32 +1,32 @@
-import { Result } from "../../types/result";
-import { EncodingCharacters } from "../../types/encoding";
-import { MSH } from "../../segments/v2.5.1/MSH";
-import { EVN } from "../../segments/v2.5.1/EVN";
-import { PID } from "../../segments/v2.5.1/PID";
-import { PD1 } from "../../segments/v2.5.1/PD1";
-import { ROL } from "../../segments/v2.5.1/ROL";
-import { NK1 } from "../../segments/v2.5.1/NK1";
-import { PV1 } from "../../segments/v2.5.1/PV1";
-import { PV2 } from "../../segments/v2.5.1/PV2";
-import { DB1 } from "../../segments/v2.5.1/DB1";
-import { OBX } from "../../segments/v2.5.1/OBX";
-import { AL1 } from "../../segments/v2.5.1/AL1";
-import { DG1 } from "../../segments/v2.5.1/DG1";
-import { DRG } from "../../segments/v2.5.1/DRG";
-import { PR1 } from "../../segments/v2.5.1/PR1";
-import { GT1 } from "../../segments/v2.5.1/GT1";
-import { IN1 } from "../../segments/v2.5.1/IN1";
-import { IN2 } from "../../segments/v2.5.1/IN2";
-import { IN3 } from "../../segments/v2.5.1/IN3";
-import { ACC } from "../../segments/v2.5.1/ACC";
-import { UB1 } from "../../segments/v2.5.1/UB1";
-import { UB2 } from "../../segments/v2.5.1/UB2";
+import type { Result } from "../../types/result.ts";
+import type { EncodingCharacters } from "../../types/encoding.ts";
+import { MSH } from "../../segments/v2.5.1/MSH.ts";
+import { EVN } from "../../segments/v2.5.1/EVN.ts";
+import { PID } from "../../segments/v2.5.1/PID.ts";
+import { PD1 } from "../../segments/v2.5.1/PD1.ts";
+import { ROL } from "../../segments/v2.5.1/ROL.ts";
+import { NK1 } from "../../segments/v2.5.1/NK1.ts";
+import { PV1 } from "../../segments/v2.5.1/PV1.ts";
+import { PV2 } from "../../segments/v2.5.1/PV2.ts";
+import { DB1 } from "../../segments/v2.5.1/DB1.ts";
+import { OBX } from "../../segments/v2.5.1/OBX.ts";
+import { AL1 } from "../../segments/v2.5.1/AL1.ts";
+import { DG1 } from "../../segments/v2.5.1/DG1.ts";
+import { DRG } from "../../segments/v2.5.1/DRG.ts";
+import { PR1 } from "../../segments/v2.5.1/PR1.ts";
+import { GT1 } from "../../segments/v2.5.1/GT1.ts";
+import { IN1 } from "../../segments/v2.5.1/IN1.ts";
+import { IN2 } from "../../segments/v2.5.1/IN2.ts";
+import { IN3 } from "../../segments/v2.5.1/IN3.ts";
+import { ACC } from "../../segments/v2.5.1/ACC.ts";
+import { UB1 } from "../../segments/v2.5.1/UB1.ts";
+import { UB2 } from "../../segments/v2.5.1/UB2.ts";
 import {
   ADT_A28_Parser as ADT_A28_Parser_base,
-  ParsedADT_A28,
-  ParsedProcedure,
-  ParsedInsuranceGroup,
-} from "../v2.3/ADT_A28_Parser";
+  type ParsedADT_A28,
+  type ParsedProcedure,
+  type ParsedInsuranceGroup,
+} from "../v2.3/ADT_A28_Parser.ts";
 
 export type { ParsedADT_A28, ParsedProcedure, ParsedInsuranceGroup };
 

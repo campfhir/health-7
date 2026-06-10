@@ -1,17 +1,17 @@
 import { describe, it, expect } from "vitest";
-import { readFileSync, readdirSync } from "fs";
-import { join } from "path";
-import { ORU_R30_Parser, parseORU_R30 } from "./ORU_R30_Parser.js";
-import { createORU_R30 } from "../../builders/v2.5.1/ORU_R30.js";
-import { createORU_R31 } from "../../builders/v2.5.1/ORU_R31.js";
-import { createORU_R32 } from "../../builders/v2.5.1/ORU_R32.js";
-import { MSH } from "../../segments/v2.5.1/MSH.js";
-import { PID } from "../../segments/v2.5.1/PID.js";
-import { PV1 } from "../../segments/v2.5.1/PV1.js";
-import { ORC } from "../../segments/v2.5.1/ORC.js";
-import { OBR } from "../../segments/v2.5.1/OBR.js";
-import { OBX } from "../../segments/v2.5.1/OBX.js";
-import { DEFAULT_ENCODING } from "../../types/encoding.js";
+import { readFileSync, readdirSync } from "node:fs";
+import { join } from "node:path";
+import { ORU_R30_Parser, parseORU_R30 } from "./ORU_R30_Parser.ts";
+import { createORU_R30 } from "../../builders/v2.5.1/ORU_R30.ts";
+import { createORU_R31 } from "../../builders/v2.5.1/ORU_R31.ts";
+import { createORU_R32 } from "../../builders/v2.5.1/ORU_R32.ts";
+import { MSH } from "../../segments/v2.5.1/MSH.ts";
+import { PID } from "../../segments/v2.5.1/PID.ts";
+import { PV1 } from "../../segments/v2.5.1/PV1.ts";
+import { ORC } from "../../segments/v2.5.1/ORC.ts";
+import { OBR } from "../../segments/v2.5.1/OBR.ts";
+import { OBX } from "../../segments/v2.5.1/OBX.ts";
+import type { DEFAULT_ENCODING } from "../../types/encoding.ts";
 
 describe("ORU_R30_Parser", () => {
   const parser = new ORU_R30_Parser();

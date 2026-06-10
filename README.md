@@ -12,8 +12,8 @@ A modular TypeScript library for building and parsing HL7v2 messages.
 - **Date Input**: Segment date methods accept `Date` objects with optional HL7 layout format, in addition to pre-formatted strings
 - **Value Extraction**: Path-based field/component extraction utility
 - **Custom Segments**: Build Z-segments and other custom segments with a simple field-setter API
-- **Message Editor**: Fluent API for inserting segments into any built message by position
-- **Comprehensive Tests**: 598 tests across 25 test files, co-located with source (Go style)
+- **Message Editor**: Fluent API for inserting segments into, or updating field values in, any built message without modifying the builder
+- **Comprehensive Tests**: 609 tests across 25 test files, co-located with source (Go style)
 
 ## Project Structure
 
@@ -60,6 +60,52 @@ npm test
 ```
 
 Tests use [Vitest](https://vitest.dev/) and run directly against TypeScript source via `tsx`.
+
+## Runtime support
+
+The package ships dual CJS/ESM builds with fully-specified import paths, so it
+runs on Node.js (CommonJS `require` and native ESM `import`) and on
+[Deno](https://deno.com/) via the `npm:` specifier. There are no Node-only
+runtime dependencies.
+
+### Deno
+
+Import any entry point with the `npm:` specifier and the same subpaths used on
+Node:
+
+```typescript
+import { ParserUtils, MessageEditor } from "npm:@campfhir/hl7";
+import { parseADT_A01 } from "npm:@campfhir/hl7/parsers/v2.5.1";
+import { MSH, PID } from "npm:@campfhir/hl7/segments/v2.5.1";
+
+const result = parseADT_A01(messageString);
+```
+
+The package is also published to [JSR](https://jsr.io/), which serves the
+TypeScript sources directly — no build step, native types:
+
+```bash
+deno add jsr:@campfhir/hl7
+```
+
+```typescript
+import { ParserUtils } from "@campfhir/hl7";
+import { parseADT_A01 } from "@campfhir/hl7/parsers/v2.5.1";
+import { MSH, PID } from "@campfhir/hl7/segments/v2.5.1";
+```
+
+Either source (the `npm:` specifier or JSR) exposes the same entry points; pick
+whichever fits your project. To pin the npm build via an import map instead, add
+to `deno.json`:
+
+```json
+{
+  "imports": {
+    "@campfhir/hl7": "npm:@campfhir/hl7@^0.2.0",
+    "@campfhir/hl7/": "npm:/@campfhir/hl7/"
+  }
+}
+```
 
 ## Imports
 
@@ -266,7 +312,9 @@ zpd.encode(); // ZPD|extra-patient-data|comp1^comp2|sub1a&sub1b^sub2
 
 ### Message Editor
 
-`MessageEditor` lets you insert segments into any built message without modifying the builder. It works with both custom segments and standard typed segments.
+`MessageEditor` lets you insert segments into, or update field values in, any built message without modifying the builder. All operations are applied at `encode()` time and can be freely chained.
+
+#### Inserting segments
 
 ```typescript
 import { MessageEditor, CustomSegment } from '@campfhir/hl7';
@@ -298,6 +346,35 @@ const encoded = new MessageEditor(message)
 - `.last()` — target the last matching segment (default)
 - `.each()` — insert relative to every matching segment
 - `.nth(n)` — insert relative to the Nth matching segment
+
+#### Updating field values
+
+`update()` uses the same path syntax as `extractValue` to set a field, component, or subcomponent value. All occurrences of a repeating segment are updated. Invalid paths are silently ignored.
+
+```typescript
+// single update
+new MessageEditor(message)
+  .update('PID-5.1', 'Smith')
+  .encode();
+
+// bulk update
+new MessageEditor(message)
+  .update({
+    'MSH-3': 'NEW_LAB',
+    'PID-5.1': 'Smith',
+    'PID-3.4.1': 'GEN',   // subcomponent — assigning authority namespace
+  })
+  .encode();
+
+// chain updates with insertions
+new MessageEditor(message)
+  .update('PID-5.1', 'Smith')
+  .insert(new CustomSegment('ZPD').setField(1, 'extra'))
+  .after('PID').commit()
+  .encode();
+```
+
+**Path syntax**: `Segment-FieldIndex[.ComponentIndex[.SubcomponentIndex]]` — same as `extractValue`.
 
 ### Examples
 

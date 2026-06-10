@@ -1,13 +1,13 @@
-import { Err } from "../../utils/err";
-import { Result } from "../../types/result";
-import { BaseSegment } from "../../types/segment";
-import { EncodingCharacters } from "../../types/encoding";
-import { ParserUtils } from "../../types/parser";
+import { Err } from "../../utils/err.ts";
+import type { Result } from "../../types/result.ts";
+import { BaseSegment } from "../../types/segment.ts";
+import type { EncodingCharacters } from "../../types/encoding.ts";
+import { ParserUtils } from "../../types/parser.ts";
 import {
   DateLayout,
   formatHL7Date,
-  HL7DateLayout,
-} from "../../utils/hl7DateUtils";
+  type HL7DateLayout,
+} from "../../utils/hl7DateUtils.ts";
 
 /**
  * IN1 - Insurance Segment (HL7 v2.3)

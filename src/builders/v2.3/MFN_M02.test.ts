@@ -1,11 +1,11 @@
 import { describe, test, expect } from "vitest";
-import { createMFN_M02, MFN_M02 } from "./MFN_M02";
-import { MSH } from "../../segments/v2.5.1/MSH";
-import { MFI } from "../../segments/v2.3/MFI";
-import { MFE } from "../../segments/v2.3/MFE";
-import { STF } from "../../segments/v2.3/STF";
-import { PRA } from "../../segments/v2.3/PRA";
-import { parseMFN_M02 } from "../../parsers/v2.3/MFN_M02_Parser";
+import { createMFN_M02, MFN_M02 } from "./MFN_M02.ts";
+import { MSH } from "../../segments/v2.5.1/MSH.ts";
+import { MFI } from "../../segments/v2.3/MFI.ts";
+import { MFE } from "../../segments/v2.3/MFE.ts";
+import { STF } from "../../segments/v2.3/STF.ts";
+import { PRA } from "../../segments/v2.3/PRA.ts";
+import { parseMFN_M02 } from "../../parsers/v2.3/MFN_M02_Parser.ts";
 
 function buildBasicMessage() {
   const msh = new MSH()

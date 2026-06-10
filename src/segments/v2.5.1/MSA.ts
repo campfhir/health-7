@@ -1,8 +1,8 @@
-import { Err } from "../../utils/err";
-import { Result } from "../../types/result";
-import { EncodingCharacters } from "../../types/encoding";
-import { ParserUtils } from "../../types/parser";
-import { MSA as MSA_base } from "../v2.3/MSA";
+import { Err } from "../../utils/err.ts";
+import type { Result } from "../../types/result.ts";
+import type { EncodingCharacters } from "../../types/encoding.ts";
+import { ParserUtils } from "../../types/parser.ts";
+import { MSA as MSA_base } from "../v2.3/MSA.ts";
 
 /**
  * MSA segment (HL7 v2.5.1)

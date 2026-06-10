@@ -1,8 +1,8 @@
-import { Err } from "../../utils/err";
-import { Result } from "../../types/result";
-import { BaseSegment } from "../../types/segment";
-import { EncodingCharacters } from "../../types/encoding";
-import { ParserUtils } from "../../types/parser";
+import { Err } from "../../utils/err.ts";
+import type { Result } from "../../types/result.ts";
+import { BaseSegment } from "../../types/segment.ts";
+import type { EncodingCharacters } from "../../types/encoding.ts";
+import { ParserUtils } from "../../types/parser.ts";
 
 /**
  * RXE - Pharmacy/Treatment Encoded Order Segment (HL7 v2.3)

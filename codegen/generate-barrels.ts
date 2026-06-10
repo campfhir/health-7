@@ -11,9 +11,9 @@
  * Parsers:   export { parse* } only (same reason)
  */
 
-import { readdirSync, writeFileSync } from "fs";
-import { join, basename } from "path";
-import { fileURLToPath } from "url";
+import { readdirSync, writeFileSync } from "node:fs";
+import { join, basename } from "node:path";
+import { fileURLToPath } from "node:url";
 
 const ROOT = join(fileURLToPath(import.meta.url), "../..");
 const DRY_RUN = process.argv.includes("--dry-run");
@@ -32,15 +32,17 @@ function sourceFiles(absDir: string): string[] {
     .sort();
 }
 
+// Relative specifiers carry explicit `.ts` extensions so the barrels resolve
+// under Deno / JSR (and Node's native ESM loader), not just bundlers.
 function segmentBarrel(absDir: string): string {
   return sourceFiles(absDir)
-    .map((name) => `export * from "./${name}";`)
+    .map((name) => `export * from "./${name}.ts";`)
     .join("\n") + "\n";
 }
 
 function builderBarrel(absDir: string): string {
   return sourceFiles(absDir)
-    .map((name) => `export { create${name} } from "./${name}";`)
+    .map((name) => `export { create${name} } from "./${name}.ts";`)
     .join("\n") + "\n";
 }
 
@@ -49,7 +51,7 @@ function parserBarrel(absDir: string): string {
     .map((name) => {
       // ADT_A01_Parser → parseADT_A01
       const fnName = "parse" + name.replace(/_Parser$/, "");
-      return `export { ${fnName} } from "./${name}";`;
+      return `export { ${fnName} } from "./${name}.ts";`;
     })
     .join("\n") + "\n";
 }

@@ -14,7 +14,7 @@ import {
   Kitchen,
   Stamp,
   StampMilli,
-} from "./dateUtils";
+} from "./dateUtils.ts";
 
 // Fixed local-time date used for format tests.
 // Tests assert on local-time components (year/month/day/time) which are stable
@@ -311,8 +311,6 @@ describe("format: timezone", () => {
   });
 
   test("Z07:00 → Z or ±hh:mm (ISO 8601)", () => {
-    // UTC date should produce "Z"
-    const utcDate = new Date(Date.UTC(2026, 3, 28, 19, 9, 52));
     // We can't assume the runner is in UTC, but we can assert the format
     const res = dateUtils.format(D, "Z07:00");
     if (!res.ok) throw res.err;

@@ -1,6 +1,6 @@
 import { test, expect, describe } from "vitest";
-import { MessageEditor } from "./MessageEditor";
-import { CustomSegment } from "./CustomSegment";
+import { MessageEditor } from "./MessageEditor.ts";
+import { CustomSegment } from "./CustomSegment.ts";
 
 // Minimal encodable stub — returns a fixed HL7 string
 function makeMessage(raw: string) {
@@ -159,6 +159,70 @@ describe("MessageEditor.insert.before", () => {
       .filter((i) => i !== -1);
     expect(result[obrIndices[1] - 1]).toBe("ZOB|before-second-obr");
     expect(result[obrIndices[0] - 1]).not.toBe("ZOB|before-second-obr");
+  });
+});
+
+describe("MessageEditor.update", () => {
+  test("updates an entire field", () => {
+    const result = new MessageEditor(makeMessage(BASE))
+      .update("PID-5", "Smith^Jane")
+      .encode();
+    expect(lines(result)[1]).toBe("PID|1||12345^^^MRN^MR||Smith^Jane");
+  });
+
+  test("updates a single component", () => {
+    const result = new MessageEditor(makeMessage(BASE))
+      .update("PID-5.1", "Smith")
+      .encode();
+    expect(lines(result)[1]).toBe("PID|1||12345^^^MRN^MR||Smith^John");
+  });
+
+  test("updates a subcomponent", () => {
+    // BASE has PID-3 = 12345^^^MRN^MR; update assigning authority namespace (CX.4.1)
+    const result = new MessageEditor(makeMessage(BASE))
+      .update("PID-3.4.1", "GEN")
+      .encode();
+    expect(lines(result)[1]).toContain("GEN^MR");
+  });
+
+  test("updates all occurrences of a repeating segment", () => {
+    const result = new MessageEditor(makeMessage(BASE))
+      .update("OBX-6", "unit")
+      .encode();
+    const obxLines = lines(result).filter((l) => l.startsWith("OBX|"));
+    expect(obxLines.every((l) => l.endsWith("|unit"))).toBe(true);
+  });
+
+  test("bulk update via object", () => {
+    const result = new MessageEditor(makeMessage(BASE))
+      .update({
+        "MSH-3": "NEW_LAB",
+        "PID-5.1": "Smith",
+      })
+      .encode();
+    const ls = lines(result);
+    expect(ls[0]).toContain("|NEW_LAB|");
+    expect(ls[1]).toContain("Smith^John");
+  });
+
+  test("ignores invalid paths silently", () => {
+    const result = new MessageEditor(makeMessage(BASE))
+      .update("BADPATH", "x")
+      .encode();
+    expect(result).toBe(BASE);
+  });
+
+  test("update chains with insert", () => {
+    const zseg = new CustomSegment("ZPD").setField(1, "extra");
+    const result = lines(
+      new MessageEditor(makeMessage(BASE))
+        .update("PID-5.1", "Smith")
+        .insert(zseg).after("PID").commit()
+        .encode(),
+    );
+    const pidIdx = result.findIndex((l) => l.startsWith("PID|"));
+    expect(result[pidIdx]).toContain("Smith^John");
+    expect(result[pidIdx + 1]).toBe("ZPD|extra");
   });
 });
 

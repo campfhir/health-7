@@ -1,12 +1,12 @@
 import { test, expect } from "vitest";
-import { createADT_A34, ADT_A34 } from "./ADT_A34";
-import { MSH } from "../../segments/v2.3/MSH";
-import { EVN } from "../../segments/v2.3/EVN";
-import { PID } from "../../segments/v2.3/PID";
-import { PD1 } from "../../segments/v2.3/PD1";
-import { MRG } from "../../segments/v2.3/MRG";
-import { PV1 } from "../../segments/v2.3/PV1";
-import { parseADT_A34 } from "../../parsers/v2.5.1/ADT_A34_Parser";
+import { createADT_A34, ADT_A34 } from "./ADT_A34.ts";
+import { MSH } from "../../segments/v2.3/MSH.ts";
+import { EVN } from "../../segments/v2.3/EVN.ts";
+import { PID } from "../../segments/v2.3/PID.ts";
+import { PD1 } from "../../segments/v2.3/PD1.ts";
+import { MRG } from "../../segments/v2.3/MRG.ts";
+import { PV1 } from "../../segments/v2.3/PV1.ts";
+import { parseADT_A34 } from "../../parsers/v2.5.1/ADT_A34_Parser.ts";
 
 function makeMSH() {
   return new MSH().sendingApplication("TEST").messageType("ADT", "A34");

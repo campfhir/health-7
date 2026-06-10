@@ -1,5 +1,5 @@
-import { ErrResult } from "./err";
-import { OkResult } from "./okResult";
+import type { ErrResult } from "./err.ts";
+import type { OkResult } from "./okResult.ts";
 
 export type Result<T = unknown, S extends string | unknown = unknown> =
   | OkResult<T>

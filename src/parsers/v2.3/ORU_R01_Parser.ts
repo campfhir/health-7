@@ -1,17 +1,17 @@
-import { Err } from "../../utils/err";
-import { Result } from "../../types/result";
-import { MSH } from "../../segments/v2.3/MSH";
-import { PID } from "../../segments/v2.3/PID";
-import { PV1 } from "../../segments/v2.3/PV1";
-import { ORC } from "../../segments/v2.3/ORC";
-import { OBR } from "../../segments/v2.3/OBR";
-import { OBX } from "../../segments/v2.3/OBX";
-import { NTE } from "../../segments/v2.3/NTE";
-import { NK1 } from "../../segments/v2.3/NK1";
-import { PD1 } from "../../segments/v2.3/PD1";
-import { CTI } from "../../segments/v2.3/CTI";
-import { HL7Message } from "../../types/message";
-import { EncodingCharacters } from "../../types/encoding";
+import { Err } from "../../utils/err.ts";
+import type { Result } from "../../types/result.ts";
+import { MSH } from "../../segments/v2.3/MSH.ts";
+import { PID } from "../../segments/v2.3/PID.ts";
+import { PV1 } from "../../segments/v2.3/PV1.ts";
+import { ORC } from "../../segments/v2.3/ORC.ts";
+import { OBR } from "../../segments/v2.3/OBR.ts";
+import { OBX } from "../../segments/v2.3/OBX.ts";
+import { NTE } from "../../segments/v2.3/NTE.ts";
+import { NK1 } from "../../segments/v2.3/NK1.ts";
+import { PD1 } from "../../segments/v2.3/PD1.ts";
+import { CTI } from "../../segments/v2.3/CTI.ts";
+import { HL7Message } from "../../types/message.ts";
+import type { EncodingCharacters } from "../../types/encoding.ts";
 
 export interface ParsedOrderObservation {
   orc?: ORC;
@@ -105,9 +105,9 @@ export class ORU_R01_Parser {
         obr: OBR | null;
       };
 
-      function isComplete(obs: InProgressOrderObservation): obs is ParsedOrderObservation {
-        return obs.obr !== null;
-      }
+      const isComplete = (
+        obs: InProgressOrderObservation,
+      ): obs is ParsedOrderObservation => obs.obr !== null;
 
       const patientResults: ParsedPatientResult[] = [];
       let currentPatientResult: ParsedPatientResult | null = null;

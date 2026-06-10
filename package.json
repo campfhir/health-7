@@ -77,7 +77,8 @@
   ],
   "scripts": {
     "barrels": "tsx codegen/generate-barrels.ts",
-    "prebuild": "tsx codegen/generate-barrels.ts",
+    "deno-json": "node codegen/generate-deno-json.mjs",
+    "prebuild": "tsx codegen/generate-barrels.ts && node codegen/generate-deno-json.mjs",
     "build": "tsup",
     "watch": "tsup --watch",
     "clean": "rm -rf dist",

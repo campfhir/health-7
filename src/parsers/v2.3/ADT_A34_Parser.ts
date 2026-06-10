@@ -1,13 +1,13 @@
-import { Err } from "../../utils/err";
-import { Result } from "../../types/result";
-import { MSH } from "../../segments/v2.3/MSH";
-import { EVN } from "../../segments/v2.3/EVN";
-import { PID } from "../../segments/v2.3/PID";
-import { PD1 } from "../../segments/v2.3/PD1";
-import { MRG } from "../../segments/v2.3/MRG";
-import { PV1 } from "../../segments/v2.3/PV1";
-import { HL7Message } from "../../types/message";
-import { EncodingCharacters } from "../../types/encoding";
+import { Err } from "../../utils/err.ts";
+import type { Result } from "../../types/result.ts";
+import { MSH } from "../../segments/v2.3/MSH.ts";
+import { EVN } from "../../segments/v2.3/EVN.ts";
+import { PID } from "../../segments/v2.3/PID.ts";
+import { PD1 } from "../../segments/v2.3/PD1.ts";
+import { MRG } from "../../segments/v2.3/MRG.ts";
+import { PV1 } from "../../segments/v2.3/PV1.ts";
+import { HL7Message } from "../../types/message.ts";
+import type { EncodingCharacters } from "../../types/encoding.ts";
 
 export interface ParsedADT_A34 {
   message: HL7Message;

@@ -1,20 +1,20 @@
 import { test, expect } from "vitest";
-import { createADT_A28, ADT_A28 } from "./ADT_A28";
-import { MSH } from "../../segments/v2.3/MSH";
-import { EVN } from "../../segments/v2.3/EVN";
-import { PID } from "../../segments/v2.3/PID";
-import { PV1 } from "../../segments/v2.3/PV1";
-import { PD1 } from "../../segments/v2.3/PD1";
-import { NK1 } from "../../segments/v2.3/NK1";
-import { PR1 } from "../../segments/v2.3/PR1";
-import { ROL } from "../../segments/v2.3/ROL";
-import { IN1 } from "../../segments/v2.3/IN1";
-import { IN2 } from "../../segments/v2.3/IN2";
-import { IN3 } from "../../segments/v2.3/IN3";
-import { AL1 } from "../../segments/v2.3/AL1";
-import { DG1 } from "../../segments/v2.3/DG1";
-import { GT1 } from "../../segments/v2.3/GT1";
-import { parseADT_A28 } from "../../parsers/v2.5.1/ADT_A28_Parser";
+import { createADT_A28, ADT_A28 } from "./ADT_A28.ts";
+import { MSH } from "../../segments/v2.3/MSH.ts";
+import { EVN } from "../../segments/v2.3/EVN.ts";
+import { PID } from "../../segments/v2.3/PID.ts";
+import { PV1 } from "../../segments/v2.3/PV1.ts";
+import { PD1 } from "../../segments/v2.3/PD1.ts";
+import { NK1 } from "../../segments/v2.3/NK1.ts";
+import { PR1 } from "../../segments/v2.3/PR1.ts";
+import { ROL } from "../../segments/v2.3/ROL.ts";
+import { IN1 } from "../../segments/v2.3/IN1.ts";
+import { IN2 } from "../../segments/v2.3/IN2.ts";
+import { IN3 } from "../../segments/v2.3/IN3.ts";
+import { AL1 } from "../../segments/v2.3/AL1.ts";
+import { DG1 } from "../../segments/v2.3/DG1.ts";
+import { GT1 } from "../../segments/v2.3/GT1.ts";
+import { parseADT_A28 } from "../../parsers/v2.5.1/ADT_A28_Parser.ts";
 
 function makeMSH() {
   return new MSH().sendingApplication("TEST").messageType("ADT", "A28");

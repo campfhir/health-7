@@ -1,8 +1,8 @@
-import { Err } from "../../utils/err";
-import { BaseSegment } from "../../types/segment";
-import { EncodingCharacters } from "../../types/encoding";
-import { ParserUtils } from "../../types/parser";
-import { Result } from "../../types/result";
+import { Err } from "../../utils/err.ts";
+import { BaseSegment } from "../../types/segment.ts";
+import type { EncodingCharacters } from "../../types/encoding.ts";
+import { ParserUtils } from "../../types/parser.ts";
+import type { Result } from "../../types/result.ts";
 
 /**
  * NK1 - Next of Kin / Associated Parties Segment (HL7 v2.3)

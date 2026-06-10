@@ -1,7 +1,7 @@
 import { test, expect } from "vitest";
-import assert from 'node:assert';
-import { ParserUtils } from './parser';
-import { DEFAULT_ENCODING } from './encoding';
+import type assert from 'node:assert';
+import { ParserUtils } from './parser.ts';
+import { DEFAULT_ENCODING } from './encoding.ts';
 
 test('ParserUtils parseField with simple string', () => {
   const field = ParserUtils.parseField('simple value', DEFAULT_ENCODING);

@@ -1,6 +1,6 @@
-import { Result } from "../types/result";
-import { EncodingCharacters } from "./encoding";
-import { Segment, Field, Component } from "./segment";
+import type { Result } from "../types/result.ts";
+import type { EncodingCharacters } from "./encoding.ts";
+import type { Segment, Field, Component } from "./segment.ts";
 
 export class ParserUtils {
   static parseField(fieldStr: string, encoding: EncodingCharacters): Field {

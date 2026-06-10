@@ -9,9 +9,9 @@
  *   pnpm codegen --dry-run # print files without writing
  */
 
-import { writeFileSync, mkdirSync, existsSync } from "fs";
-import { join, dirname } from "path";
-import { fileURLToPath } from "url";
+import { writeFileSync, mkdirSync, existsSync } from "node:fs";
+import { join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 import type { VersionConfig, ParserConfig, BuilderConfig } from "./types.ts";
 import type {
   VersionSchema,

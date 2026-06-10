@@ -1,6 +1,6 @@
 import { test, expect } from "vitest";
-import assert from "node:assert";
-import { OBX } from "./OBX";
+import type assert from "node:assert";
+import { OBX } from "./OBX.ts";
 
 test("OBX builder creates valid segment", () => {
   const obx = new OBX()

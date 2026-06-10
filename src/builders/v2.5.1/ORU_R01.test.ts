@@ -1,11 +1,11 @@
 import { test, expect } from "vitest";
-import assert from "node:assert";
-import { createORU_R01, ORU_R01 } from "./ORU_R01";
-import { MSH } from "../../segments/v2.5.1/MSH";
-import { PID } from "../../segments/v2.5.1/PID";
-import { PV1 } from "../../segments/v2.5.1/PV1";
-import { OBR } from "../../segments/v2.5.1/OBR";
-import { OBX } from "../../segments/v2.5.1/OBX";
+import type assert from "node:assert";
+import { createORU_R01, ORU_R01 } from "./ORU_R01.ts";
+import { MSH } from "../../segments/v2.5.1/MSH.ts";
+import { PID } from "../../segments/v2.5.1/PID.ts";
+import { PV1 } from "../../segments/v2.5.1/PV1.ts";
+import { OBR } from "../../segments/v2.5.1/OBR.ts";
+import { OBX } from "../../segments/v2.5.1/OBX.ts";
 
 test("createORU_R01 returns ORU_R01 instance", () => {
   const msh = new MSH().sendingApplication("APP").messageType("ORU", "R01");

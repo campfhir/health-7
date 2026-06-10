@@ -1,8 +1,67 @@
-import { Segment } from "../types/segment";
-import { EncodingCharacters, DEFAULT_ENCODING } from "../types/encoding";
+import type { Segment } from "../types/segment.ts";
+import { type EncodingCharacters, DEFAULT_ENCODING } from "../types/encoding.ts";
+import { type PathComponents, parsePath } from "./ValueExtractor.ts";
 
 type Position = "before" | "after";
 type Mode = { type: "last" } | { type: "each" } | { type: "nth"; n: number };
+
+interface Update {
+  path: PathComponents;
+  value: string;
+}
+
+function updateSegmentLine(
+  line: string,
+  path: PathComponents,
+  value: string,
+  encoding: EncodingCharacters,
+): string {
+  const fields = line.split(encoding.fieldSeparator);
+
+  const fieldIndex =
+    path.segmentName === "MSH" ? path.fieldIndex! - 1 : path.fieldIndex!;
+
+  while (fields.length <= fieldIndex) fields.push("");
+
+  if (path.componentIndex === undefined) {
+    fields[fieldIndex] = value;
+  } else {
+    const components = fields[fieldIndex].split(encoding.componentSeparator);
+    const compIdx = path.componentIndex - 1;
+    while (components.length <= compIdx) components.push("");
+
+    if (path.subComponentIndex === undefined) {
+      components[compIdx] = value;
+    } else {
+      const subComps = components[compIdx].split(encoding.subComponentSeparator);
+      const subIdx = path.subComponentIndex - 1;
+      while (subComps.length <= subIdx) subComps.push("");
+      subComps[subIdx] = value;
+      components[compIdx] = subComps.join(encoding.subComponentSeparator);
+    }
+
+    fields[fieldIndex] = components.join(encoding.componentSeparator);
+  }
+
+  return fields.join(encoding.fieldSeparator);
+}
+
+function applyUpdates(
+  lines: string[],
+  updates: Update[],
+  encoding: EncodingCharacters,
+): string[] {
+  const result = [...lines];
+  for (const { path, value } of updates) {
+    const prefix = path.segmentName + encoding.fieldSeparator;
+    for (let i = 0; i < result.length; i++) {
+      if (result[i].startsWith(prefix)) {
+        result[i] = updateSegmentLine(result[i], path, value, encoding);
+      }
+    }
+  }
+  return result;
+}
 
 interface Insertion {
   segment: Segment;
@@ -54,11 +113,31 @@ function applyInsertion(
 
 export class MessageEditor {
   private insertions: Insertion[] = [];
+  private updates: Update[] = [];
 
   constructor(
     private message: Encodable,
     private encoding: EncodingCharacters = DEFAULT_ENCODING,
   ) {}
+
+  update(path: string, value: string): this;
+  update(updates: Record<string, string>): this;
+  update(pathOrMap: string | Record<string, string>, value?: string): this {
+    if (typeof pathOrMap === "string") {
+      const parsed = parsePath(pathOrMap);
+      if (parsed?.fieldIndex !== undefined) {
+        this.updates.push({ path: parsed, value: value! });
+      }
+    } else {
+      for (const [p, v] of Object.entries(pathOrMap)) {
+        const parsed = parsePath(p);
+        if (parsed?.fieldIndex !== undefined) {
+          this.updates.push({ path: parsed, value: v });
+        }
+      }
+    }
+    return this;
+  }
 
   insert(segment: Segment): InsertionBuilder {
     return new InsertionBuilder(segment, this);
@@ -82,6 +161,7 @@ export class MessageEditor {
 
   encode(...args: unknown[]): string {
     let lines = this.message.encode(...args).split("\r");
+    lines = applyUpdates(lines, this.updates, this.encoding);
     for (const insertion of this.insertions) {
       lines = applyInsertion(lines, insertion, this.encoding);
     }

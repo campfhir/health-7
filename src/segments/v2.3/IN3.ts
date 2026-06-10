@@ -1,15 +1,15 @@
-import { Err } from "../../utils/err";
-import { Result } from "../../types/result";
-import { BaseSegment } from "../../types/segment";
-import { EncodingCharacters } from "../../types/encoding";
-import { ParserUtils } from "../../types/parser";
+import { Err } from "../../utils/err.ts";
+import type { Result } from "../../types/result.ts";
+import { BaseSegment } from "../../types/segment.ts";
+import type { EncodingCharacters } from "../../types/encoding.ts";
+import { ParserUtils } from "../../types/parser.ts";
 import {
   formatHL7Date,
-  HL7DateLayout,
+  type HL7DateLayout,
   DateTimeLayout,
-  HL7DateTimeLayout,
+  type HL7DateTimeLayout,
   DateLayout,
-} from "../../utils/hl7DateUtils";
+} from "../../utils/hl7DateUtils.ts";
 
 /**
  * IN3 - Insurance Additional Information, Certification Segment (HL7 v2.3)

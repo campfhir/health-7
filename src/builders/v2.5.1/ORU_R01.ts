@@ -1,25 +1,25 @@
-import { MSH } from "../../segments/v2.3/MSH";
-import { PID } from "../../segments/v2.3/PID";
-import { PD1 } from "../../segments/v2.3/PD1";
-import { NK1 } from "../../segments/v2.3/NK1";
-import { NTE } from "../../segments/v2.3/NTE";
-import { PV1 } from "../../segments/v2.3/PV1";
-import { ORC } from "../../segments/v2.3/ORC";
-import { OBR } from "../../segments/v2.3/OBR";
-import { OBX } from "../../segments/v2.3/OBX";
+import type { MSH } from "../../segments/v2.3/MSH.ts";
+import type { PID } from "../../segments/v2.3/PID.ts";
+import type { PD1 } from "../../segments/v2.3/PD1.ts";
+import type { NK1 } from "../../segments/v2.3/NK1.ts";
+import type { NTE } from "../../segments/v2.3/NTE.ts";
+import type { PV1 } from "../../segments/v2.3/PV1.ts";
+import type { ORC } from "../../segments/v2.3/ORC.ts";
+import type { OBR } from "../../segments/v2.3/OBR.ts";
+import type { OBX } from "../../segments/v2.3/OBX.ts";
 // v2.5.1 imports for defaults
-import { PID as PID_251 } from "../../segments/v2.5.1/PID";
-import { PD1 as PD1_251 } from "../../segments/v2.5.1/PD1";
-import { NK1 as NK1_251 } from "../../segments/v2.5.1/NK1";
-import { NTE as NTE_251 } from "../../segments/v2.5.1/NTE";
-import { PV1 as PV1_251 } from "../../segments/v2.5.1/PV1";
-import { ORC as ORC_251 } from "../../segments/v2.5.1/ORC";
-import { OBR as OBR_251 } from "../../segments/v2.5.1/OBR";
-import { OBX as OBX_251 } from "../../segments/v2.5.1/OBX";
-import { MSH as MSH_251 } from "../../segments/v2.5.1/MSH";
-import { CTI } from "../../segments/v2.3/CTI";
-import { CTI as CTI_251 } from "../../segments/v2.5.1/CTI";
-import { EncodingCharacters, DEFAULT_ENCODING } from "../../types/encoding";
+import type { PID as PID_251 } from "../../segments/v2.5.1/PID.ts";
+import type { PD1 as PD1_251 } from "../../segments/v2.5.1/PD1.ts";
+import type { NK1 as NK1_251 } from "../../segments/v2.5.1/NK1.ts";
+import type { NTE as NTE_251 } from "../../segments/v2.5.1/NTE.ts";
+import type { PV1 as PV1_251 } from "../../segments/v2.5.1/PV1.ts";
+import type { ORC as ORC_251 } from "../../segments/v2.5.1/ORC.ts";
+import type { OBR as OBR_251 } from "../../segments/v2.5.1/OBR.ts";
+import type { OBX as OBX_251 } from "../../segments/v2.5.1/OBX.ts";
+import type { MSH as MSH_251 } from "../../segments/v2.5.1/MSH.ts";
+import type { CTI } from "../../segments/v2.3/CTI.ts";
+import type { CTI as CTI_251 } from "../../segments/v2.5.1/CTI.ts";
+import { type EncodingCharacters, DEFAULT_ENCODING } from "../../types/encoding.ts";
 
 export interface OBXWithNotes<TOBX extends OBX = OBX_251, TNTE extends NTE = NTE_251> {
   obx: TOBX;

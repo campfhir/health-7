@@ -5,7 +5,7 @@ import {
   DateTimeLayout,
   TimeLayout,
   TimeWithSecondsLayout,
-} from "./hl7DateUtils";
+} from "./hl7DateUtils.ts";
 
 // Fixed local-time date for deterministic assertions.
 const D = new Date(1980, 0, 15, 9, 5, 3, 0); // Jan 15 1980 09:05:03 local

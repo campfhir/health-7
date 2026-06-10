@@ -1,7 +1,7 @@
 import { test, expect } from "vitest";
-import assert from "node:assert";
-import { BaseSegment, Field, Component } from "./segment";
-import { DEFAULT_ENCODING } from "./encoding";
+import type assert from "node:assert";
+import { BaseSegment, type Field, type Component } from "./segment.ts";
+import { DEFAULT_ENCODING } from "./encoding.ts";
 
 class TestSegment extends BaseSegment {
   name = "TST";

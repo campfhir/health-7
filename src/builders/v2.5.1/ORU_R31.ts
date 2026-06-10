@@ -1,16 +1,16 @@
 import {
   ORU_R30,
-  PatientResultR30,
-  SimplePatientResultR30,
-} from "./ORU_R30";
-import { MSH } from "../../segments/v2.5.1/MSH";
+  type PatientResultR30,
+  type SimplePatientResultR30,
+} from "./ORU_R30.ts";
+import type { MSH } from "../../segments/v2.5.1/MSH.ts";
 
 export type {
   PatientResultR30 as PatientResultR31,
   OrderObservationR30 as OrderObservationR31,
   SimplePatientResultR30 as SimplePatientResultR31,
   SimpleOrderObservationR30 as SimpleOrderObservationR31,
-} from "./ORU_R30";
+} from "./ORU_R30.ts";
 
 export class ORU_R31 extends ORU_R30 {
   protected override readonly messageName = "ORU_R31";

@@ -1,4 +1,4 @@
-import { BaseSegment } from "../types/segment";
+import { BaseSegment } from "../types/segment.ts";
 
 /**
  * A generic HL7 segment for custom or Z-segments not defined in the library.

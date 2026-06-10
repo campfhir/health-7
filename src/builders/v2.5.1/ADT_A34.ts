@@ -1,17 +1,17 @@
-import { MSH as MSH_base } from "../../segments/v2.3/MSH";
-import { EVN as EVN_base } from "../../segments/v2.3/EVN";
-import { PID as PID_base } from "../../segments/v2.3/PID";
-import { PD1 as PD1_base } from "../../segments/v2.3/PD1";
-import { MRG as MRG_base } from "../../segments/v2.3/MRG";
-import { PV1 as PV1_base } from "../../segments/v2.3/PV1";
+import type { MSH as MSH_base } from "../../segments/v2.3/MSH.ts";
+import type { EVN as EVN_base } from "../../segments/v2.3/EVN.ts";
+import type { PID as PID_base } from "../../segments/v2.3/PID.ts";
+import type { PD1 as PD1_base } from "../../segments/v2.3/PD1.ts";
+import type { MRG as MRG_base } from "../../segments/v2.3/MRG.ts";
+import type { PV1 as PV1_base } from "../../segments/v2.3/PV1.ts";
 
-import { MSH } from "../../segments/v2.5.1/MSH";
-import { EVN } from "../../segments/v2.5.1/EVN";
-import { PID } from "../../segments/v2.5.1/PID";
-import { PD1 } from "../../segments/v2.5.1/PD1";
-import { MRG } from "../../segments/v2.5.1/MRG";
-import { PV1 } from "../../segments/v2.5.1/PV1";
-import { EncodingCharacters, DEFAULT_ENCODING } from "../../types/encoding";
+import type { MSH } from "../../segments/v2.5.1/MSH.ts";
+import type { EVN } from "../../segments/v2.5.1/EVN.ts";
+import type { PID } from "../../segments/v2.5.1/PID.ts";
+import type { PD1 } from "../../segments/v2.5.1/PD1.ts";
+import type { MRG } from "../../segments/v2.5.1/MRG.ts";
+import type { PV1 } from "../../segments/v2.5.1/PV1.ts";
+import { type EncodingCharacters, DEFAULT_ENCODING } from "../../types/encoding.ts";
 
 export class ADT_A34<
   TMSH extends MSH_base = MSH,

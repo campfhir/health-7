@@ -1,5 +1,5 @@
-import { Segment } from './segment';
-import { EncodingCharacters, DEFAULT_ENCODING } from './encoding';
+import type { Segment } from './segment.ts';
+import { type EncodingCharacters, DEFAULT_ENCODING } from './encoding.ts';
 
 export interface Message {
   segments: Segment[];

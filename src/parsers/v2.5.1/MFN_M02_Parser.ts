@@ -1,15 +1,15 @@
-import { Result } from "../../types/result";
-import { MFI } from "../../segments/v2.5.1/MFI";
-import { MFE } from "../../segments/v2.5.1/MFE";
-import { STF } from "../../segments/v2.5.1/STF";
-import { PRA } from "../../segments/v2.5.1/PRA";
+import type { Result } from "../../types/result.ts";
+import { MFI } from "../../segments/v2.5.1/MFI.ts";
+import { MFE } from "../../segments/v2.5.1/MFE.ts";
+import { STF } from "../../segments/v2.5.1/STF.ts";
+import { PRA } from "../../segments/v2.5.1/PRA.ts";
 ;
-import { EncodingCharacters } from "../../types/encoding";
+import type { EncodingCharacters } from "../../types/encoding.ts";
 import {
   MFN_M02_Parser as MFN_M02_Parser_v23,
-  ParsedStaffEntry,
-  ParsedMFN_M02,
-} from "../v2.3/MFN_M02_Parser";
+  type ParsedStaffEntry,
+  type ParsedMFN_M02,
+} from "../v2.3/MFN_M02_Parser.ts";
 
 export type { ParsedStaffEntry, ParsedMFN_M02 };
 

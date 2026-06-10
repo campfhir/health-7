@@ -1,21 +1,21 @@
-import { Result } from "../../types/result";
-import { MSH } from "../../segments/v2.5.1/MSH";
-import { PID } from "../../segments/v2.5.1/PID";
-import { PV1 } from "../../segments/v2.5.1/PV1";
-import { ORC } from "../../segments/v2.5.1/ORC";
-import { OBR } from "../../segments/v2.5.1/OBR";
-import { OBX } from "../../segments/v2.5.1/OBX";
-import { NTE } from "../../segments/v2.5.1/NTE";
-import { NK1 } from "../../segments/v2.5.1/NK1";
-import { PD1 } from "../../segments/v2.5.1/PD1";
-import { CTI } from "../../segments/v2.5.1/CTI";
-import { EncodingCharacters } from "../../types/encoding";
+import type { Result } from "../../types/result.ts";
+import { MSH } from "../../segments/v2.5.1/MSH.ts";
+import { PID } from "../../segments/v2.5.1/PID.ts";
+import { PV1 } from "../../segments/v2.5.1/PV1.ts";
+import { ORC } from "../../segments/v2.5.1/ORC.ts";
+import { OBR } from "../../segments/v2.5.1/OBR.ts";
+import { OBX } from "../../segments/v2.5.1/OBX.ts";
+import { NTE } from "../../segments/v2.5.1/NTE.ts";
+import { NK1 } from "../../segments/v2.5.1/NK1.ts";
+import { PD1 } from "../../segments/v2.5.1/PD1.ts";
+import { CTI } from "../../segments/v2.5.1/CTI.ts";
+import type { EncodingCharacters } from "../../types/encoding.ts";
 import {
   ORU_R01_Parser as ORU_R01_Parser_v23,
-  ParsedOrderObservation,
-  ParsedPatientResult,
-  ParsedORU_R01,
-} from "../v2.3/ORU_R01_Parser";
+  type ParsedOrderObservation,
+  type ParsedPatientResult,
+  type ParsedORU_R01,
+} from "../v2.3/ORU_R01_Parser.ts";
 
 export type { ParsedOrderObservation, ParsedPatientResult, ParsedORU_R01 };
 

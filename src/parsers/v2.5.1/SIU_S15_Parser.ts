@@ -1,29 +1,29 @@
-import { Result } from "../../types/result";
-import { EncodingCharacters } from "../../types/encoding";
-import { MSH } from "../../segments/v2.5.1/MSH";
-import { SCH } from "../../segments/v2.5.1/SCH";
-import { NTE } from "../../segments/v2.5.1/NTE";
-import { PID } from "../../segments/v2.5.1/PID";
-import { PD1 } from "../../segments/v2.5.1/PD1";
-import { PV1 } from "../../segments/v2.5.1/PV1";
-import { PV2 } from "../../segments/v2.5.1/PV2";
-import { OBX } from "../../segments/v2.5.1/OBX";
-import { DG1 } from "../../segments/v2.5.1/DG1";
-import { RGS } from "../../segments/v2.5.1/RGS";
-import { AIS } from "../../segments/v2.5.1/AIS";
-import { AIG } from "../../segments/v2.5.1/AIG";
-import { AIL } from "../../segments/v2.5.1/AIL";
-import { AIP } from "../../segments/v2.5.1/AIP";
+import type { Result } from "../../types/result.ts";
+import type { EncodingCharacters } from "../../types/encoding.ts";
+import { MSH } from "../../segments/v2.5.1/MSH.ts";
+import { SCH } from "../../segments/v2.5.1/SCH.ts";
+import { NTE } from "../../segments/v2.5.1/NTE.ts";
+import { PID } from "../../segments/v2.5.1/PID.ts";
+import { PD1 } from "../../segments/v2.5.1/PD1.ts";
+import { PV1 } from "../../segments/v2.5.1/PV1.ts";
+import { PV2 } from "../../segments/v2.5.1/PV2.ts";
+import { OBX } from "../../segments/v2.5.1/OBX.ts";
+import { DG1 } from "../../segments/v2.5.1/DG1.ts";
+import { RGS } from "../../segments/v2.5.1/RGS.ts";
+import { AIS } from "../../segments/v2.5.1/AIS.ts";
+import { AIG } from "../../segments/v2.5.1/AIG.ts";
+import { AIL } from "../../segments/v2.5.1/AIL.ts";
+import { AIP } from "../../segments/v2.5.1/AIP.ts";
 import {
   SIU_S15_Parser as SIU_S15_Parser_base,
-  ParsedSIU_S15,
-  ParsedSIUPatient,
-  ParsedSIUResources,
-  ParsedSIUService,
-  ParsedSIUGeneralResource,
-  ParsedSIULocationResource,
-  ParsedSIUPersonnelResource,
-} from "../v2.3/SIU_S15_Parser";
+  type ParsedSIU_S15,
+  type ParsedSIUPatient,
+  type ParsedSIUResources,
+  type ParsedSIUService,
+  type ParsedSIUGeneralResource,
+  type ParsedSIULocationResource,
+  type ParsedSIUPersonnelResource,
+} from "../v2.3/SIU_S15_Parser.ts";
 
 export type { ParsedSIU_S15, ParsedSIUPatient, ParsedSIUResources, ParsedSIUService, ParsedSIUGeneralResource, ParsedSIULocationResource, ParsedSIUPersonnelResource };
 

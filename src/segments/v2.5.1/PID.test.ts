@@ -1,8 +1,8 @@
 import { test, expect, describe } from "vitest";
-import { PID } from "./PID";
-import { ParserUtils } from "../../types/parser";
-import { DEFAULT_ENCODING } from "../../types/encoding";
-import { DateTimeLayout, DateLayout } from "../../utils/hl7DateUtils";
+import { PID } from "./PID.ts";
+import { ParserUtils } from "../../types/parser.ts";
+import { DEFAULT_ENCODING } from "../../types/encoding.ts";
+import { DateTimeLayout, DateLayout } from "../../utils/hl7DateUtils.ts";
 
 test("PID builder creates valid segment", () => {
   const pid = new PID()

@@ -1,14 +1,14 @@
-import { Result } from "../../types/result";
+import type { Result } from "../../types/result.ts";
 import {
   SIU_S12_Parser,
-  ParsedSIU_S12,
-  ParsedSIUPatient,
-  ParsedSIUResources,
-  ParsedSIUService,
-  ParsedSIUGeneralResource,
-  ParsedSIULocationResource,
-  ParsedSIUPersonnelResource,
-} from "./SIU_S12_Parser";
+  type ParsedSIU_S12,
+  type ParsedSIUPatient,
+  type ParsedSIUResources,
+  type ParsedSIUService,
+  type ParsedSIUGeneralResource,
+  type ParsedSIULocationResource,
+  type ParsedSIUPersonnelResource,
+} from "./SIU_S12_Parser.ts";
 
 export type {
   ParsedSIUPatient,

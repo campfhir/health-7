@@ -1,4 +1,4 @@
-import { dateUtils } from "./dateUtils";
+import { dateUtils } from "./dateUtils.ts";
 
 export const DateLayout = "20060102";
 export const DateTimeLayout = "20060102150405";
@@ -9,19 +9,19 @@ const HL7LayoutDateTime = "DateTime";
 const HL7LayoutTime = "Time";
 const HL7LayoutTimeWithSeconds = "TimeWithSeconds";
 
-export type HL7DateLayout = "Date" | typeof DateLayout | (string & {});
+export type HL7DateLayout = "Date" | typeof DateLayout | (string & Record<never, never>);
 
 export type HL7TimeLayout =
   | "Time"
   | "TimeWithSeconds"
   | typeof TimeLayout
   | typeof TimeWithSecondsLayout
-  | (string & {});
+  | (string & Record<never, never>);
 
 export type HL7DateTimeLayout =
   | "DateTime"
   | typeof DateTimeLayout
-  | (string & {});
+  | (string & Record<never, never>);
 
 /**
  * Formats a date value for use in an HL7 field.

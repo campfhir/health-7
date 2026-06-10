@@ -1,8 +1,8 @@
 import { test, expect } from "vitest";
-import assert from "node:assert";
-import { HL7Message } from "./message";
-import { BaseSegment } from "./segment";
-import { DEFAULT_ENCODING, EncodingCharacters } from "./encoding";
+import type assert from "node:assert";
+import { HL7Message } from "./message.ts";
+import { BaseSegment } from "./segment.ts";
+import { DEFAULT_ENCODING, type EncodingCharacters } from "./encoding.ts";
 
 class TestSegment extends BaseSegment {
   name = "TST";

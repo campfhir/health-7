@@ -1,9 +1,9 @@
-import { MSH } from "../../segments/v2.5.1/MSH";
-import { MFI } from "../../segments/v2.3/MFI";
-import { MFE } from "../../segments/v2.3/MFE";
-import { STF } from "../../segments/v2.3/STF";
-import { PRA } from "../../segments/v2.3/PRA";
-import { EncodingCharacters, DEFAULT_ENCODING } from "../../types/encoding";
+import type { MSH } from "../../segments/v2.5.1/MSH.ts";
+import type { MFI } from "../../segments/v2.3/MFI.ts";
+import type { MFE } from "../../segments/v2.3/MFE.ts";
+import type { STF } from "../../segments/v2.3/STF.ts";
+import type { PRA } from "../../segments/v2.3/PRA.ts";
+import { type EncodingCharacters, DEFAULT_ENCODING } from "../../types/encoding.ts";
 
 export interface StaffEntry<
   TMfe extends MFE = MFE,

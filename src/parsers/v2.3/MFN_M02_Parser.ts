@@ -1,12 +1,12 @@
-import { Err } from "../../utils/err";
-import { Result } from "../../types/result";
-import { MSH } from "../../segments/v2.3/MSH";
-import { MFI } from "../../segments/v2.3/MFI";
-import { MFE } from "../../segments/v2.3/MFE";
-import { STF } from "../../segments/v2.3/STF";
-import { PRA } from "../../segments/v2.3/PRA";
-import { HL7Message } from "../../types/message";
-import { EncodingCharacters } from "../../types/encoding";
+import { Err } from "../../utils/err.ts";
+import type { Result } from "../../types/result.ts";
+import { MSH } from "../../segments/v2.3/MSH.ts";
+import { MFI } from "../../segments/v2.3/MFI.ts";
+import { MFE } from "../../segments/v2.3/MFE.ts";
+import { STF } from "../../segments/v2.3/STF.ts";
+import { PRA } from "../../segments/v2.3/PRA.ts";
+import { HL7Message } from "../../types/message.ts";
+import type { EncodingCharacters } from "../../types/encoding.ts";
 
 export interface ParsedStaffEntry {
   mfe: MFE;

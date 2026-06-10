@@ -1,10 +1,10 @@
-import { MSH } from "../../segments/v2.5.1/MSH";
-import { PID } from "../../segments/v2.5.1/PID";
-import { PV1 } from "../../segments/v2.5.1/PV1";
-import { ORC } from "../../segments/v2.5.1/ORC";
-import { OBR } from "../../segments/v2.5.1/OBR";
-import { OBX } from "../../segments/v2.5.1/OBX";
-import { EncodingCharacters, DEFAULT_ENCODING } from "../../types/encoding";
+import type { MSH } from "../../segments/v2.5.1/MSH.ts";
+import type { PID } from "../../segments/v2.5.1/PID.ts";
+import type { PV1 } from "../../segments/v2.5.1/PV1.ts";
+import type { ORC } from "../../segments/v2.5.1/ORC.ts";
+import type { OBR } from "../../segments/v2.5.1/OBR.ts";
+import type { OBX } from "../../segments/v2.5.1/OBX.ts";
+import { type EncodingCharacters, DEFAULT_ENCODING } from "../../types/encoding.ts";
 
 export interface OrderObservationR30 {
   orc: ORC;

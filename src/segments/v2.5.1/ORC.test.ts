@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { ORC } from "./ORC.js";
-import { DEFAULT_ENCODING } from "../../types/encoding.js";
+import { ORC } from "./ORC.ts";
+import { DEFAULT_ENCODING } from "../../types/encoding.ts";
 
 describe("ORC Segment Builder", () => {
   describe("Builder Methods", () => {

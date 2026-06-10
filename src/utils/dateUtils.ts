@@ -7,9 +7,9 @@
 // Adaptations: TypeScript types, millisecond precision (JS Date limitation),
 // and removal of IANA timezone database support.
 
-import { OkResult } from "../types/okResult";
-import { Result } from "../types/result";
-import { Err } from "./err";
+import type { OkResult } from "../types/okResult.ts";
+import type { Result } from "../types/result.ts";
+import { Err } from "./err.ts";
 
 export const Layout = "01/02 03:04:05PM '06 -0700";
 export const ANSIC = "Mon Jan _2 15:04:05 2006";
@@ -1259,7 +1259,22 @@ function isFormatOptions(v: unknown): v is FormatOptions {
   return typeof v === "object" && v !== null && "in" in v && "out" in v;
 }
 
-export const dateUtils = {
+/**
+ * Public surface of {@link dateUtils}. Declared explicitly so the symbol has a
+ * non-inferred type (required for JSR / fast type-checking).
+ */
+export interface DateUtils {
+  format(
+    dateOrOpts: Date | string | FormatOptions,
+    layout?: string,
+  ): Result<string, DateLayoutError>;
+  parse(
+    value: string,
+    layout: LayoutName | (string & Record<never, never>),
+  ): Result<Date, DateLayoutError>;
+}
+
+export const dateUtils: DateUtils = {
   /**
    * Formats a date using the specified layout.
    *
@@ -1299,7 +1314,7 @@ export const dateUtils = {
    */
   parse(
     value: string,
-    layout: LayoutName | (string & {}),
+    layout: LayoutName | (string & Record<never, never>),
   ): Result<Date, DateLayoutError> {
     return parseWithLayout(value, resolveLayout(layout));
   },

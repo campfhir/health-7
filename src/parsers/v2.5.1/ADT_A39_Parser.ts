@@ -1,8 +1,8 @@
-import { Result } from "../../types/result";
+import type { Result } from "../../types/result.ts";
 import {
   ADT_A34_Parser,
-  ParsedADT_A34,
-} from "./ADT_A34_Parser";
+  type ParsedADT_A34,
+} from "./ADT_A34_Parser.ts";
 
 export type ParsedADT_A39 = ParsedADT_A34;
 

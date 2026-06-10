@@ -1,4 +1,4 @@
-import { DEFAULT_ENCODING, EncodingCharacters } from "./encoding";
+import { DEFAULT_ENCODING, type EncodingCharacters } from "./encoding.ts";
 
 export interface Field {
   components: Component[];

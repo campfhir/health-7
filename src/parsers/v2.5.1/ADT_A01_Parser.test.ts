@@ -1,6 +1,6 @@
 import { describe, test, expect } from "vitest";
-import { parseADT_A01 } from "./ADT_A01_Parser";
-import { ParserUtils } from "../../types/parser";
+import { parseADT_A01 } from "./ADT_A01_Parser.ts";
+import { ParserUtils } from "../../types/parser.ts";
 
 const minimalMessage = [
   "MSH|^~\\&|SEND|SFAC|RECV|RFAC|20231015120000||ADT^A01^ADT_A01|MSG001|P|2.5.1",

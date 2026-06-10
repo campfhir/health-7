@@ -1,6 +1,6 @@
 import { test, expect } from "vitest";
-import assert from 'node:assert';
-import { DEFAULT_ENCODING, EncodingCharacters } from './encoding';
+import type assert from 'node:assert';
+import { DEFAULT_ENCODING, type EncodingCharacters } from './encoding.ts';
 
 test('DEFAULT_ENCODING has correct values', () => {
   expect(DEFAULT_ENCODING.fieldSeparator).toBe('|');

@@ -1,11 +1,57 @@
-import { ParserUtils } from "../types/parser";
-import { DEFAULT_ENCODING, EncodingCharacters } from "../types/encoding";
+import { ParserUtils } from "../types/parser.ts";
+import { DEFAULT_ENCODING, type EncodingCharacters } from "../types/encoding.ts";
 
 export interface PathComponents {
   segmentName: string;
   fieldIndex?: number;
   componentIndex?: number;
   subComponentIndex?: number;
+}
+
+export function parsePath(path: string): PathComponents | null {
+  if (!path || path.trim().length === 0) {
+    return null;
+  }
+
+  const parts = path.split("-");
+  const segmentName = parts[0].trim().toUpperCase();
+
+  if (!segmentName.match(/^[A-Z]{2,3}$/)) {
+    return null;
+  }
+
+  const result: PathComponents = { segmentName };
+
+  if (parts.length === 1) {
+    return result;
+  }
+
+  const fieldPath = parts[1];
+  const componentParts = fieldPath.split(".");
+
+  const fieldIndex = parseInt(componentParts[0], 10);
+  if (isNaN(fieldIndex) || fieldIndex < 1) {
+    return null;
+  }
+  result.fieldIndex = fieldIndex;
+
+  if (componentParts.length > 1) {
+    const componentIndex = parseInt(componentParts[1], 10);
+    if (isNaN(componentIndex) || componentIndex < 1) {
+      return null;
+    }
+    result.componentIndex = componentIndex;
+  }
+
+  if (componentParts.length > 2) {
+    const subComponentIndex = parseInt(componentParts[2], 10);
+    if (isNaN(subComponentIndex) || subComponentIndex < 1) {
+      return null;
+    }
+    result.subComponentIndex = subComponentIndex;
+  }
+
+  return result;
 }
 
 export class ValueExtractor {
@@ -15,23 +61,8 @@ export class ValueExtractor {
     this.encoding = encoding;
   }
 
-  /**
-   * Extract a value from an HL7 message using path syntax.
-   *
-   * Path syntax: Segment[-FieldIndex[.ComponentIndex[.SubcomponentIndex]]]
-   *
-   * Examples:
-   * - 'PID' - Returns entire PID segment
-   * - 'PID-2' - Returns field 2 from PID
-   * - 'PID-2.1' - Returns component 1 of field 2
-   * - 'PID-2.1.2' - Returns subcomponent 2 of component 1 of field 2
-   *
-   * @param path The path to extract
-   * @param message The HL7 message string (segments separated by \r)
-   * @returns string, string[] (for repeating segments), or null if path is invalid
-   */
   get(path: string, message: string): string | string[] | null {
-    const pathComponents = this.parsePath(path);
+    const pathComponents = parsePath(path);
     if (!pathComponents) {
       return null;
     }
@@ -60,63 +91,6 @@ export class ValueExtractor {
     }
 
     return values.length === 1 ? values[0] : values;
-  }
-
-  /**
-   * Parse a path string into components.
-   *
-   * @param path The path string to parse
-   * @returns PathComponents or null if invalid
-   */
-  private parsePath(path: string): PathComponents | null {
-    if (!path || path.trim().length === 0) {
-      return null;
-    }
-
-    // Split on '-' to separate segment from field path
-    const parts = path.split("-");
-    const segmentName = parts[0].trim().toUpperCase();
-
-    if (!segmentName.match(/^[A-Z]{2,3}$/)) {
-      return null;
-    }
-
-    const result: PathComponents = { segmentName };
-
-    if (parts.length === 1) {
-      return result;
-    }
-
-    // Parse field and component indices
-    const fieldPath = parts[1];
-    const componentParts = fieldPath.split(".");
-
-    // Parse field index
-    const fieldIndex = parseInt(componentParts[0], 10);
-    if (isNaN(fieldIndex) || fieldIndex < 1) {
-      return null;
-    }
-    result.fieldIndex = fieldIndex;
-
-    // Parse component index if present
-    if (componentParts.length > 1) {
-      const componentIndex = parseInt(componentParts[1], 10);
-      if (isNaN(componentIndex) || componentIndex < 1) {
-        return null;
-      }
-      result.componentIndex = componentIndex;
-    }
-
-    // Parse subcomponent index if present
-    if (componentParts.length > 2) {
-      const subComponentIndex = parseInt(componentParts[2], 10);
-      if (isNaN(subComponentIndex) || subComponentIndex < 1) {
-        return null;
-      }
-      result.subComponentIndex = subComponentIndex;
-    }
-
-    return result;
   }
 
   /**
@@ -216,7 +190,7 @@ export class ValueExtractor {
 /**
  * Default value extractor instance with standard HL7 encoding.
  */
-export const defaultExtractor = new ValueExtractor();
+export const defaultExtractor: ValueExtractor = new ValueExtractor();
 
 /**
  * Convenience function to extract a value from an HL7 message.
