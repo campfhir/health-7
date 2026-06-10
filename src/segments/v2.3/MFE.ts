@@ -1,3 +1,8 @@
+/**
+ * MFE segment definition for HL7 v2.3.
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import { BaseSegment } from "../../types/segment.ts";
@@ -18,6 +23,7 @@ import {
  * HL7 v2.3 Specification
  */
 export class MFE extends BaseSegment {
+  /** The HL7 segment identifier. */
   name = "MFE";
 
   constructor() {
@@ -39,6 +45,7 @@ export class MFE extends BaseSegment {
 
   /** MFE-3: Effective Date/Time (TS) */
   effectiveDateTime(value: string, format?: never): this;
+  /** Sets the effective date time field (chainable). */
   effectiveDateTime(value: Date, format?: HL7DateTimeLayout): this;
   effectiveDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
     this.fields[2] = this.createField(
@@ -59,18 +66,22 @@ export class MFE extends BaseSegment {
     return this;
   }
 
+  /** Get record level event code. */
   getRecordLevelEventCode(): string {
     return this.fields[0]?.components[0]?.subComponents[0] ?? "";
   }
 
+  /** Get mfn control id. */
   getMfnControlId(): string {
     return this.fields[1]?.components[0]?.subComponents[0] ?? "";
   }
 
+  /** Get primary key value. */
   getPrimaryKeyValue(): string {
     return this.fields[3]?.components[0]?.subComponents[0] ?? "";
   }
 
+  /** Parses the input string into a structured instance. */
   static parse(
     segmentString: string,
     encoding: EncodingCharacters,

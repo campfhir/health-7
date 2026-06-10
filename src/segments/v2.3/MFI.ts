@@ -1,3 +1,8 @@
+/**
+ * MFI segment definition for HL7 v2.3.
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import { BaseSegment } from "../../types/segment.ts";
@@ -18,6 +23,7 @@ import {
  * HL7 v2.3 Specification
  */
 export class MFI extends BaseSegment {
+  /** The HL7 segment identifier. */
   name = "MFI";
 
   constructor() {
@@ -55,6 +61,7 @@ export class MFI extends BaseSegment {
 
   /** MFI-4: Entered Date/Time (TS) */
   enteredDateTime(value: string, format?: never): this;
+  /** Sets the entered date time field (chainable). */
   enteredDateTime(value: Date, format?: HL7DateTimeLayout): this;
   enteredDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
     this.fields[3] = this.createField(
@@ -65,6 +72,7 @@ export class MFI extends BaseSegment {
 
   /** MFI-5: Effective Date/Time (TS) */
   effectiveDateTime(value: string, format?: never): this;
+  /** Sets the effective date time field (chainable). */
   effectiveDateTime(value: Date, format?: HL7DateTimeLayout): this;
   effectiveDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
     this.fields[4] = this.createField(
@@ -79,14 +87,17 @@ export class MFI extends BaseSegment {
     return this;
   }
 
+  /** Get master file identifier. */
   getMasterFileIdentifier(): string {
     return this.fields[0]?.components[0]?.subComponents[0] ?? "";
   }
 
+  /** Get file level event code. */
   getFileLevelEventCode(): string {
     return this.fields[2]?.components[0]?.subComponents[0] ?? "";
   }
 
+  /** Parses the input string into a structured instance. */
   static parse(
     segmentString: string,
     encoding: EncodingCharacters,

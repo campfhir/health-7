@@ -1,3 +1,8 @@
+/**
+ * RXA segment definition for HL7 v2.3.
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import { BaseSegment } from "../../types/segment.ts";
@@ -15,6 +20,7 @@ import {
  * RXA - Pharmacy/Treatment Administration Segment (HL7 v2.3)
  */
 export class RXA extends BaseSegment {
+  /** The HL7 segment identifier. */
   name = "RXA";
 
   constructor() {
@@ -36,6 +42,7 @@ export class RXA extends BaseSegment {
 
   /** RXA-3: Date/Time Start of Administration (TS) */
   dateTimeStartOfAdministration(value: string, format?: never): this;
+  /** Sets the date time start of administration field (chainable). */
   dateTimeStartOfAdministration(value: Date, format?: HL7DateTimeLayout): this;
   dateTimeStartOfAdministration(
     value: string | Date,
@@ -49,6 +56,7 @@ export class RXA extends BaseSegment {
 
   /** RXA-4: Date/Time End of Administration (TS) */
   dateTimeEndOfAdministration(value: string, format?: never): this;
+  /** Sets the date time end of administration field (chainable). */
   dateTimeEndOfAdministration(value: Date, format?: HL7DateTimeLayout): this;
   dateTimeEndOfAdministration(
     value: string | Date,
@@ -134,6 +142,7 @@ export class RXA extends BaseSegment {
 
   /** RXA-16: Substance Expiration Date (TS) */
   substanceExpirationDate(value: string, format?: never): this;
+  /** Sets the substance expiration date field (chainable). */
   substanceExpirationDate(value: Date, format?: HL7DateLayout): this;
   substanceExpirationDate(value: string | Date, format?: HL7DateLayout): this {
     this.fields[15] = this.createField(
@@ -174,6 +183,7 @@ export class RXA extends BaseSegment {
 
   /** RXA-22: System Entry Date/Time (TS) */
   systemEntryDateTime(value: string, format?: never): this;
+  /** Sets the system entry date time field (chainable). */
   systemEntryDateTime(value: Date, format?: HL7DateTimeLayout): this;
   systemEntryDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
     this.fields[21] = this.createField(
@@ -182,6 +192,7 @@ export class RXA extends BaseSegment {
     return this;
   }
 
+  /** Parses the input string into a structured instance. */
   static parse(
     segmentString: string,
     encoding: EncodingCharacters,

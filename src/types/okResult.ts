@@ -1,4 +1,5 @@
-export type OkResult<T extends any = unknown> = T extends void
+/** The OkResult type. */
+export type OkResult<T = unknown> = T extends void
   ? {
       ok: true;
       val?: never;

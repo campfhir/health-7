@@ -1,3 +1,8 @@
+/**
+ * Builder for ORU^R01 messages (HL7 v2.5.1).
+ *
+ * @module
+ */
 import type { MSH } from "../../segments/v2.3/MSH.ts";
 import type { PID } from "../../segments/v2.3/PID.ts";
 import type { PD1 } from "../../segments/v2.3/PD1.ts";
@@ -21,11 +26,15 @@ import type { CTI } from "../../segments/v2.3/CTI.ts";
 import type { CTI as CTI_251 } from "../../segments/v2.5.1/CTI.ts";
 import { type EncodingCharacters, DEFAULT_ENCODING } from "../../types/encoding.ts";
 
+/** OBXWithNotes — a data structure used to build an HL7 ORU^R01 (v2.5.1) message. */
 export interface OBXWithNotes<TOBX extends OBX = OBX_251, TNTE extends NTE = NTE_251> {
+  /** The obx value. */
   obx: TOBX;
+  /** The nte list value. */
   nteList?: TNTE[];
 }
 
+/** OrderObservation — a data structure used to build an HL7 ORU^R01 (v2.5.1) message. */
 export interface OrderObservation<
   TORC extends ORC = ORC_251,
   TOBR extends OBR = OBR_251,
@@ -33,14 +42,21 @@ export interface OrderObservation<
   TNTE extends NTE = NTE_251,
   TCTI extends CTI = CTI_251,
 > {
+  /** The orc value. */
   orc?: TORC;
+  /** The obr value. */
   obr: TOBR;
+  /** The obr nte list value. */
   obrNteList?: TNTE[];
+  /** The obx list value. */
   obxList: TOBX[] | OBXWithNotes<TOBX, TNTE>[];
+  /** The obx nte map value. */
   obxNteMap?: Map<number, TNTE[]>; // Alternative way to associate NTE with OBX
+  /** The cti list value. */
   ctiList?: TCTI[];
 }
 
+/** PatientResult — a data structure used to build an HL7 ORU^R01 (v2.5.1) message. */
 export interface PatientResult<
   TPID extends PID = PID_251,
   TPD1 extends PD1 = PD1_251,
@@ -51,14 +67,21 @@ export interface PatientResult<
   TOBR extends OBR = OBR_251,
   TOBX extends OBX = OBX_251,
 > {
+  /** The pid value. */
   pid?: TPID;
+  /** The pd1 value. */
   pd1?: TPD1;
+  /** The nk1 list value. */
   nk1List?: TNK1[];
+  /** The nte list value. */
   nteList?: TNTE[];
+  /** The pv1 value. */
   pv1?: TPV1;
+  /** The order observations value. */
   orderObservations: OrderObservation<TORC, TOBR, TOBX, TNTE>[];
 }
 
+/** Builder for HL7 ORU^R01 (v2.5.1) messages. */
 export class ORU_R01<
   TMSH extends MSH = MSH_251,
   TPID extends PID = PID_251,
@@ -70,12 +93,14 @@ export class ORU_R01<
   TOBR extends OBR = OBR_251,
   TOBX extends OBX = OBX_251,
 > {
+  /** Constructor. */
   constructor(
     public msh: TMSH,
     public patientResults: PatientResult<TPID, TPD1, TNK1, TNTE, TPV1, TORC, TOBR, TOBX>[] = [],
     private encoding: EncodingCharacters = DEFAULT_ENCODING,
   ) {}
 
+  /** Validates the message structure, returning a result. */
   verify(): { valid: boolean; errors: string[] } {
     const errors: string[] = [];
 
@@ -105,6 +130,7 @@ export class ORU_R01<
     };
   }
 
+  /** Encodes this message to its HL7 wire string. */
   encode(options?: { renumberSetIds?: boolean }): string {
     const verification = this.verify();
     if (!verification.valid) {
@@ -215,6 +241,7 @@ export class ORU_R01<
   }
 }
 
+/** Builds an HL7 ORU^R01 (v2.5.1) message. */
 export function createORU_R01<
   TMSH extends MSH = MSH_251,
   TPID extends PID = PID_251,

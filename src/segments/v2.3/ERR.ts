@@ -1,3 +1,8 @@
+/**
+ * ERR segment definition for HL7 v2.3.
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import { BaseSegment } from "../../types/segment.ts";
@@ -8,6 +13,7 @@ import { ParserUtils } from "../../types/parser.ts";
  * ERR - Error Segment (HL7 v2.3)
  */
 export class ERR extends BaseSegment {
+  /** The HL7 segment identifier. */
   name = "ERR";
 
   constructor() {
@@ -85,6 +91,7 @@ export class ERR extends BaseSegment {
     return this;
   }
 
+  /** Parses the input string into a structured instance. */
   static parse(
     segmentString: string,
     encoding: EncodingCharacters,

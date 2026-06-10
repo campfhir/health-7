@@ -1,3 +1,19 @@
+/**
+ * `@campfhir/hl7` — a zero-dependency TypeScript library for building and
+ * parsing HL7v2 messages (v2.3 & v2.5.1), runnable on Node.js, Deno, Bun,
+ * browsers, and Cloudflare Workers.
+ *
+ * This root entrypoint exposes the version-agnostic core: encoding, segment
+ * and message primitives, schema types, the parser utilities, value
+ * extraction, date formatting, custom segments, and the message editor.
+ *
+ * Versioned segments, parsers, and builders are imported from their own
+ * subpaths, e.g. `@campfhir/hl7/segments/v2.5.1` or
+ * `@campfhir/hl7/parsers/v2.5.1`.
+ *
+ * @module
+ */
+
 // Core types — version-agnostic
 export { type EncodingCharacters, DEFAULT_ENCODING } from "./types/encoding.ts";
 export { type Segment, type Field, type Component, BaseSegment } from "./types/segment.ts";

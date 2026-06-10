@@ -1,3 +1,8 @@
+/**
+ * GT1 segment definition for HL7 v2.5.1.
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
@@ -9,6 +14,7 @@ import { GT1 as GT1_base } from "../v2.3/GT1.ts";
  * Extends v2.3 GT1. Add v2.5.1-specific fields here as needed.
  */
 export class GT1 extends GT1_base {
+  /** Parses the input string into a structured instance. */
   static override parse(
     segmentString: string,
     encoding: EncodingCharacters,

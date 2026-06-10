@@ -1,3 +1,8 @@
+/**
+ * Builder for SIU^S14 messages (HL7 v2.3).
+ *
+ * @module
+ */
 export {
   type SIUPatientGroup,
   type SIUServiceGroup,

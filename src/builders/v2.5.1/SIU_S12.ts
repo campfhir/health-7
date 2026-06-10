@@ -1,3 +1,8 @@
+/**
+ * Builder for SIU^S12 messages (HL7 v2.5.1).
+ *
+ * @module
+ */
 import type { MSH as MSH_base } from "../../segments/v2.3/MSH.ts";
 import type { SCH as SCH_base } from "../../segments/v2.3/SCH.ts";
 import type { NTE as NTE_base } from "../../segments/v2.3/NTE.ts";
@@ -27,7 +32,7 @@ import type { AIS } from "../../segments/v2.5.1/AIS.ts";
 import type { AIG } from "../../segments/v2.5.1/AIG.ts";
 import type { AIL } from "../../segments/v2.5.1/AIL.ts";
 import type { AIP } from "../../segments/v2.5.1/AIP.ts";
-import type { EncodingCharacters, DEFAULT_ENCODING } from "../../types/encoding.ts";
+import type { EncodingCharacters } from "../../types/encoding.ts";
 import {
   type SIUPatientGroup,
   type SIUServiceGroup,
@@ -36,7 +41,6 @@ import {
   type SIUPersonnelResourceGroup,
   type SIUResourcesGroup,
   SIU_S12 as SIU_S12_base,
-  type createSIU_S12 as createSIU_S12_base,
 } from "../v2.3/SIU_S12.ts";
 
 export type {
@@ -48,6 +52,7 @@ export type {
   SIUResourcesGroup,
 };
 
+/** Builder for HL7 SIU^S12 (v2.5.1) messages. */
 export class SIU_S12<
   TMSH extends MSH_base = MSH,
   TSCH extends SCH_base = SCH,
@@ -65,6 +70,7 @@ export class SIU_S12<
   TAIP extends AIP_base = AIP,
 > extends SIU_S12_base<TMSH, TSCH, TNTE, TPID, TPD1, TPV1, TPV2, TOBX, TDG1, TRGS, TAIS, TAIG, TAIL, TAIP> {}
 
+/** Builds an HL7 SIU^S12 (v2.5.1) message. */
 export function createSIU_S12<
   TMSH extends MSH_base = MSH,
   TSCH extends SCH_base = SCH,

@@ -1,5 +1,4 @@
 import { test, expect } from "vitest";
-import type assert from "node:assert";
 import { HL7Message } from "./message.ts";
 import { BaseSegment } from "./segment.ts";
 import { DEFAULT_ENCODING, type EncodingCharacters } from "./encoding.ts";

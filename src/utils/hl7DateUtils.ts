@@ -1,16 +1,22 @@
 import { dateUtils } from "./dateUtils.ts";
 
+/** Date Layout — `20060102`. */
 export const DateLayout = "20060102";
+/** Date Time Layout — `20060102150405`. */
 export const DateTimeLayout = "20060102150405";
+/** Time Layout — `150405`. */
 export const TimeLayout = "150405";
+/** Time With Seconds Layout — `150405.000`. */
 export const TimeWithSecondsLayout = "150405.000";
 const HL7LayoutDate = "Date";
 const HL7LayoutDateTime = "DateTime";
 const HL7LayoutTime = "Time";
 const HL7LayoutTimeWithSeconds = "TimeWithSeconds";
 
+/** The HL7DateLayout type. */
 export type HL7DateLayout = "Date" | typeof DateLayout | (string & Record<never, never>);
 
+/** The HL7TimeLayout type. */
 export type HL7TimeLayout =
   | "Time"
   | "TimeWithSeconds"
@@ -18,6 +24,7 @@ export type HL7TimeLayout =
   | typeof TimeWithSecondsLayout
   | (string & Record<never, never>);
 
+/** The HL7DateTimeLayout type. */
 export type HL7DateTimeLayout =
   | "DateTime"
   | typeof DateTimeLayout

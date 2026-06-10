@@ -1,3 +1,8 @@
+/**
+ * CTI segment definition for HL7 v2.3.
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import { BaseSegment } from "../../types/segment.ts";
@@ -11,6 +16,7 @@ import { ParserUtils } from "../../types/parser.ts";
  * Appears after OBX segments within an ORDER_OBSERVATION group.
  */
 export class CTI extends BaseSegment {
+  /** The HL7 segment identifier. */
   name = "CTI";
 
   constructor() {
@@ -57,10 +63,12 @@ export class CTI extends BaseSegment {
     return this;
   }
 
+  /** Get sponsor study id. */
   getSponsorStudyId(): string {
     return this.fields[0]?.components?.[0]?.subComponents?.[0] ?? "";
   }
 
+  /** Parses the input string into a structured instance. */
   static parse(segmentString: string, encoding: EncodingCharacters): Result<CTI> {
     const parts = segmentString.split(encoding.fieldSeparator);
     if (parts[0] !== "CTI") {

@@ -1,3 +1,8 @@
+/**
+ * Builder for ADT^A01 messages (HL7 v2.5.1).
+ *
+ * @module
+ */
 import type { MSH as MSH_base } from "../../segments/v2.3/MSH.ts";
 import type { EVN as EVN_base } from "../../segments/v2.3/EVN.ts";
 import type { PID as PID_base } from "../../segments/v2.3/PID.ts";
@@ -43,24 +48,32 @@ import type { UB1 } from "../../segments/v2.5.1/UB1.ts";
 import type { UB2 } from "../../segments/v2.5.1/UB2.ts";
 import { type EncodingCharacters, DEFAULT_ENCODING } from "../../types/encoding.ts";
 
+/** ProcedureGroup — a data structure used to build an HL7 ADT^A01 (v2.5.1) message. */
 export interface ProcedureGroup<
   TPR1 extends PR1_base = PR1,
   TROL extends ROL_base = ROL,
 > {
+  /** The pr1 value. */
   pr1: TPR1;
+  /** The rol list value. */
   rolList?: TROL[];
 }
 
+/** InsuranceGroup — a data structure used to build an HL7 ADT^A01 (v2.5.1) message. */
 export interface InsuranceGroup<
   TIN1 extends IN1_base = IN1,
   TIN2 extends IN2_base = IN2,
   TIN3 extends IN3_base = IN3,
 > {
+  /** The in1 value. */
   in1: TIN1;
+  /** The in2 value. */
   in2?: TIN2;
+  /** The in3 list value. */
   in3List?: TIN3[];
 }
 
+/** Builder for HL7 ADT^A01 (v2.5.1) messages. */
 export class ADT_A01<
   TMSH extends MSH_base = MSH,
   TEVN extends EVN_base = EVN,
@@ -84,6 +97,7 @@ export class ADT_A01<
   TUB1 extends UB1_base = UB1,
   TUB2 extends UB2_base = UB2,
 > {
+  /** Constructor. */
   constructor(
     public msh: TMSH,
     public evn: TEVN,
@@ -109,6 +123,7 @@ export class ADT_A01<
     private encoding: EncodingCharacters = DEFAULT_ENCODING,
   ) {}
 
+  /** Validates the message structure, returning a result. */
   verify(): { valid: boolean; errors: string[] } {
     const errors: string[] = [];
 
@@ -120,6 +135,7 @@ export class ADT_A01<
     return { valid: errors.length === 0, errors };
   }
 
+  /** Encodes this message to its HL7 wire string. */
   encode(): string {
     const verification = this.verify();
     if (!verification.valid) {
@@ -173,6 +189,7 @@ export class ADT_A01<
   }
 }
 
+/** Builds an HL7 ADT^A01 (v2.5.1) message. */
 export function createADT_A01<
   TMSH extends MSH_base = MSH,
   TEVN extends EVN_base = EVN,

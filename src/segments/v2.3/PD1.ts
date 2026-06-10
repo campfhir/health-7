@@ -1,3 +1,8 @@
+/**
+ * PD1 segment definition for HL7 v2.3.
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import { BaseSegment } from "../../types/segment.ts";
@@ -11,6 +16,7 @@ import { ParserUtils } from "../../types/parser.ts";
  * Includes living arrangements, protection indicators, advance directives, etc.
  */
 export class PD1 extends BaseSegment {
+  /** The HL7 segment identifier. */
   name = "PD1";
   constructor() {
     super();

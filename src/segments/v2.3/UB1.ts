@@ -1,3 +1,8 @@
+/**
+ * UB1 segment definition for HL7 v2.3.
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import { BaseSegment } from "../../types/segment.ts";
@@ -14,6 +19,7 @@ import {
  * Contains UB82 uniform billing data for institutional claims. Largely superseded by UB2.
  */
 export class UB1 extends BaseSegment {
+  /** The HL7 segment identifier. */
   name = "UB1";
 
   constructor() {
@@ -125,6 +131,7 @@ export class UB1 extends BaseSegment {
 
   /** UB1-18: Occur Span Start Date (DT) - UB82 field 36 */
   occurSpanStartDate(value: string, format?: never): this;
+  /** Sets the occur span start date field (chainable). */
   occurSpanStartDate(value: Date, format?: HL7DateLayout): this;
   occurSpanStartDate(value: string | Date, format?: HL7DateLayout): this {
     this.fields[17] = this.createField(
@@ -135,6 +142,7 @@ export class UB1 extends BaseSegment {
 
   /** UB1-19: Occur Span End Date (DT) - UB82 field 36 */
   occurSpanEndDate(value: string, format?: never): this;
+  /** Sets the occur span end date field (chainable). */
   occurSpanEndDate(value: Date, format?: HL7DateLayout): this;
   occurSpanEndDate(value: string | Date, format?: HL7DateLayout): this {
     this.fields[18] = this.createField(
@@ -167,6 +175,7 @@ export class UB1 extends BaseSegment {
     return this;
   }
 
+  /** Parses the input string into a structured instance. */
   static parse(
     segmentString: string,
     encoding: EncodingCharacters,

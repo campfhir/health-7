@@ -1,3 +1,8 @@
+/**
+ * Parser for MFN^M02 messages (HL7 v2.3).
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import { MSH } from "../../segments/v2.3/MSH.ts";
@@ -8,33 +13,48 @@ import { PRA } from "../../segments/v2.3/PRA.ts";
 import { HL7Message } from "../../types/message.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 
+/** Structured result of parsing an HL7 MFN^M02 (v2.3) message. */
 export interface ParsedStaffEntry {
+  /** The mfe value. */
   mfe: MFE;
+  /** The stf value. */
   stf: STF;
+  /** The pra value. */
   pra?: PRA;
 }
 
+/** Structured result of parsing an HL7 MFN^M02 (v2.3) message. */
 export interface ParsedMFN_M02 {
+  /** The message value. */
   message: HL7Message;
+  /** The msh value. */
   msh: MSH;
+  /** The mfi value. */
   mfi: MFI;
+  /** The staff entries value. */
   staffEntries: ParsedStaffEntry[];
 }
 
+/** Parser for HL7 MFN^M02 (v2.3) messages. */
 export class MFN_M02_Parser {
+  /** Parse mfi. */
   protected parseMFI(s: string, e: EncodingCharacters): Result<MFI> {
     return MFI.parse(s, e);
   }
+  /** Parse mfe. */
   protected parseMFE(s: string, e: EncodingCharacters): Result<MFE> {
     return MFE.parse(s, e);
   }
+  /** Parse stf. */
   protected parseSTF(s: string, e: EncodingCharacters): Result<STF> {
     return STF.parse(s, e);
   }
+  /** Parse pra. */
   protected parsePRA(s: string, e: EncodingCharacters): Result<PRA> {
     return PRA.parse(s, e);
   }
 
+  /** Parses the input string into a structured instance. */
   parse(messageString: string): Result<ParsedMFN_M02> {
     try {
       const segments = messageString
@@ -192,6 +212,7 @@ export class MFN_M02_Parser {
   }
 }
 
+/** Parses an HL7 MFN^M02 (v2.3) message string into a structured result. */
 export function parseMFN_M02(messageString: string): Result<ParsedMFN_M02> {
   return new MFN_M02_Parser().parse(messageString);
 }

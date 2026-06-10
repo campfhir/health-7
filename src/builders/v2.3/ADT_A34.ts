@@ -1,3 +1,8 @@
+/**
+ * Builder for ADT^A34 messages (HL7 v2.3).
+ *
+ * @module
+ */
 import type { MSH } from "../../segments/v2.3/MSH.ts";
 import type { EVN } from "../../segments/v2.3/EVN.ts";
 import type { PID } from "../../segments/v2.3/PID.ts";
@@ -6,6 +11,7 @@ import type { MRG } from "../../segments/v2.3/MRG.ts";
 import type { PV1 } from "../../segments/v2.3/PV1.ts";
 import { type EncodingCharacters, DEFAULT_ENCODING } from "../../types/encoding.ts";
 
+/** Builder for HL7 ADT^A34 (v2.3) messages. */
 export class ADT_A34<
   TMSH extends MSH = MSH,
   TEVN extends EVN = EVN,
@@ -14,6 +20,7 @@ export class ADT_A34<
   TMRG extends MRG = MRG,
   TPV1 extends PV1 = PV1,
 > {
+  /** Constructor. */
   constructor(
     public msh: TMSH,
     public pid: TPID,
@@ -26,6 +33,7 @@ export class ADT_A34<
     private encoding: EncodingCharacters = DEFAULT_ENCODING,
   ) {}
 
+  /** Validates the message structure, returning a result. */
   verify(): { valid: boolean; errors: string[] } {
     const errors: string[] = [];
 
@@ -36,6 +44,7 @@ export class ADT_A34<
     return { valid: errors.length === 0, errors };
   }
 
+  /** Encodes this message to its HL7 wire string. */
   encode(): string {
     const verification = this.verify();
     if (!verification.valid) {
@@ -58,6 +67,7 @@ export class ADT_A34<
   }
 }
 
+/** Builds an HL7 ADT^A34 (v2.3) message. */
 export function createADT_A34<
   TMSH extends MSH = MSH,
   TEVN extends EVN = EVN,

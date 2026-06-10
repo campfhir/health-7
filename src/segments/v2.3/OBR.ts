@@ -1,3 +1,8 @@
+/**
+ * OBR segment definition for HL7 v2.3.
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import { BaseSegment } from "../../types/segment.ts";
@@ -13,6 +18,7 @@ import {
  * OBR - Observation Request Segment (HL7 v2.3)
  */
 export class OBR extends BaseSegment {
+  /** The HL7 segment identifier. */
   name = "OBR";
 
   constructor() {
@@ -20,18 +26,22 @@ export class OBR extends BaseSegment {
     this.fields = [];
   }
 
+  /** Sets the set id field (chainable). */
   setId(value: string): this {
     this.fields[0] = this.createField(value);
     return this;
   }
+  /** Sets the placer order number field (chainable). */
   placerOrderNumber(value: string): this {
     this.fields[1] = this.createField(value);
     return this;
   }
+  /** Sets the filler order number field (chainable). */
   fillerOrderNumber(value: string): this {
     this.fields[2] = this.createField(value);
     return this;
   }
+  /** Universal service identifier. */
   universalServiceIdentifier(
     identifier: string,
     text?: string,
@@ -44,11 +54,14 @@ export class OBR extends BaseSegment {
     this.fields[3] = this.createField(components);
     return this;
   }
+  /** Sets the priority field (chainable). */
   priority(value: string): this {
     this.fields[4] = this.createField(value);
     return this;
   }
+  /** Sets the requested date time field (chainable). */
   requestedDateTime(value: string, format?: never): this;
+  /** Sets the requested date time field (chainable). */
   requestedDateTime(value: Date, format?: HL7DateTimeLayout): this;
   requestedDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
     this.fields[5] = this.createField(
@@ -56,7 +69,9 @@ export class OBR extends BaseSegment {
     );
     return this;
   }
+  /** Sets the observation date time field (chainable). */
   observationDateTime(value: string, format?: never): this;
+  /** Sets the observation date time field (chainable). */
   observationDateTime(value: Date, format?: HL7DateTimeLayout): this;
   observationDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
     this.fields[6] = this.createField(
@@ -64,7 +79,9 @@ export class OBR extends BaseSegment {
     );
     return this;
   }
+  /** Sets the observation end date time field (chainable). */
   observationEndDateTime(value: string, format?: never): this;
+  /** Sets the observation end date time field (chainable). */
   observationEndDateTime(value: Date, format?: HL7DateTimeLayout): this;
   observationEndDateTime(
     value: string | Date,
@@ -75,10 +92,12 @@ export class OBR extends BaseSegment {
     );
     return this;
   }
+  /** Sets the collection volume field (chainable). */
   collectionVolume(value: string): this {
     this.fields[8] = this.createField(value);
     return this;
   }
+  /** Collector identifier. */
   collectorIdentifier(
     id: string,
     familyName?: string,
@@ -91,19 +110,24 @@ export class OBR extends BaseSegment {
     this.fields[9] = this.createField(components);
     return this;
   }
+  /** Sets the specimen action code field (chainable). */
   specimenActionCode(value: string): this {
     this.fields[10] = this.createField(value);
     return this;
   }
+  /** Sets the danger code field (chainable). */
   dangerCode(value: string): this {
     this.fields[11] = this.createField(value);
     return this;
   }
+  /** Sets the relevant clinical info field (chainable). */
   relevantClinicalInfo(value: string): this {
     this.fields[12] = this.createField(value);
     return this;
   }
+  /** Sets the specimen received date time field (chainable). */
   specimenReceivedDateTime(value: string, format?: never): this;
+  /** Sets the specimen received date time field (chainable). */
   specimenReceivedDateTime(value: Date, format?: HL7DateTimeLayout): this;
   specimenReceivedDateTime(
     value: string | Date,
@@ -114,10 +138,12 @@ export class OBR extends BaseSegment {
     );
     return this;
   }
+  /** Sets the specimen source field (chainable). */
   specimenSource(value: string): this {
     this.fields[14] = this.createField(value);
     return this;
   }
+  /** Sets the ordering provider field (chainable). */
   orderingProvider(id: string, familyName?: string, givenName?: string): this {
     const components = [id];
     if (familyName) components.push(familyName);
@@ -126,27 +152,34 @@ export class OBR extends BaseSegment {
     this.fields[15] = this.createField(components);
     return this;
   }
+  /** Sets the order callback phone number field (chainable). */
   orderCallbackPhoneNumber(value: string): this {
     this.fields[16] = this.createField(value);
     return this;
   }
+  /** Sets the placer field1 field (chainable). */
   placerField1(value: string): this {
     this.fields[17] = this.createField(value);
     return this;
   }
+  /** Sets the placer field2 field (chainable). */
   placerField2(value: string): this {
     this.fields[18] = this.createField(value);
     return this;
   }
+  /** Sets the filler field1 field (chainable). */
   fillerField1(value: string): this {
     this.fields[19] = this.createField(value);
     return this;
   }
+  /** Sets the filler field2 field (chainable). */
   fillerField2(value: string): this {
     this.fields[20] = this.createField(value);
     return this;
   }
+  /** Sets the results rpt status chng date time field (chainable). */
   resultsRptStatusChngDateTime(value: string, format?: never): this;
+  /** Sets the results rpt status chng date time field (chainable). */
   resultsRptStatusChngDateTime(value: Date, format?: HL7DateTimeLayout): this;
   resultsRptStatusChngDateTime(
     value: string | Date,
@@ -157,19 +190,23 @@ export class OBR extends BaseSegment {
     );
     return this;
   }
+  /** Sets the charge to practice field (chainable). */
   chargeToPractice(value: string): this {
     this.fields[22] = this.createField(value);
     return this;
   }
+  /** Sets the diagnostic serv sect id field (chainable). */
   diagnosticServSectId(value: string): this {
     this.fields[23] = this.createField(value);
     return this;
   }
+  /** Sets the result status field (chainable). */
   resultStatus(value: string): this {
     this.fields[24] = this.createField(value);
     return this;
   }
 
+  /** Parses the input string into a structured instance. */
   static parse(
     segmentString: string,
     encoding: EncodingCharacters,

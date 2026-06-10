@@ -1,13 +1,19 @@
 import { ParserUtils } from "../types/parser.ts";
 import { DEFAULT_ENCODING, type EncodingCharacters } from "../types/encoding.ts";
 
+/** Path Components. */
 export interface PathComponents {
+  /** The segment name value. */
   segmentName: string;
+  /** The field index value. */
   fieldIndex?: number;
+  /** The component index value. */
   componentIndex?: number;
+  /** The sub component index value. */
   subComponentIndex?: number;
 }
 
+/** Parse Path. */
 export function parsePath(path: string): PathComponents | null {
   if (!path || path.trim().length === 0) {
     return null;
@@ -54,13 +60,16 @@ export function parsePath(path: string): PathComponents | null {
   return result;
 }
 
+/** Value Extractor. */
 export class ValueExtractor {
   private encoding: EncodingCharacters;
 
+  /** Constructor. */
   constructor(encoding: EncodingCharacters = DEFAULT_ENCODING) {
     this.encoding = encoding;
   }
 
+  /** Get. */
   get(path: string, message: string): string | string[] | null {
     const pathComponents = parsePath(path);
     if (!pathComponents) {

@@ -1,3 +1,8 @@
+/**
+ * NTE segment definition for HL7 v2.3.
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import { BaseSegment } from "../../types/segment.ts";
@@ -11,6 +16,7 @@ import { ParserUtils } from "../../types/parser.ts";
  * Can appear after PID (patient notes), OBR (order notes), or OBX (observation notes).
  */
 export class NTE extends BaseSegment {
+  /** The HL7 segment identifier. */
   name = "NTE";
 
   constructor() {

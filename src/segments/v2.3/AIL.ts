@@ -1,3 +1,8 @@
+/**
+ * AIL segment definition for HL7 v2.3.
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import { BaseSegment } from "../../types/segment.ts";
@@ -13,6 +18,7 @@ import {
  * AIL - Appointment Information - Location Resource Segment (HL7 v2.3)
  */
 export class AIL extends BaseSegment {
+  /** The HL7 segment identifier. */
   name = "AIL";
 
   constructor() {
@@ -67,6 +73,7 @@ export class AIL extends BaseSegment {
 
   /** AIL-6: Start Date/Time (TS) */
   startDateTime(value: string, format?: never): this;
+  /** Sets the start date time field (chainable). */
   startDateTime(value: Date, format?: HL7DateTimeLayout): this;
   startDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
     this.fields[5] = this.createField(
@@ -123,6 +130,7 @@ export class AIL extends BaseSegment {
     return this;
   }
 
+  /** Parses the input string into a structured instance. */
   static parse(
     segmentString: string,
     encoding: EncodingCharacters,

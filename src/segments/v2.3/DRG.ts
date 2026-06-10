@@ -1,3 +1,8 @@
+/**
+ * DRG segment definition for HL7 v2.3.
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import { BaseSegment } from "../../types/segment.ts";
@@ -14,6 +19,7 @@ import {
  * Communicates the DRG assignment and associated financial information.
  */
 export class DRG extends BaseSegment {
+  /** The HL7 segment identifier. */
   name = "DRG";
 
   constructor() {
@@ -33,6 +39,7 @@ export class DRG extends BaseSegment {
 
   /** DRG-2: DRG Assigned Date/Time (TS) */
   drgAssignedDateTime(value: string, format?: never): this;
+  /** Sets the drg assigned date time field (chainable). */
   drgAssignedDateTime(value: Date, format?: HL7DateTimeLayout): this;
   drgAssignedDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
     this.fields[1] = this.createField(
@@ -95,6 +102,7 @@ export class DRG extends BaseSegment {
     return this;
   }
 
+  /** Parses the input string into a structured instance. */
   static parse(
     segmentString: string,
     encoding: EncodingCharacters,

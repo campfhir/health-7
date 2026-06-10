@@ -1,3 +1,8 @@
+/**
+ * UB2 segment definition for HL7 v2.5.1.
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
@@ -9,6 +14,7 @@ import { UB2 as UB2_base } from "../v2.3/UB2.ts";
  * Extends v2.3 UB2. Add v2.5.1-specific fields here as needed.
  */
 export class UB2 extends UB2_base {
+  /** Parses the input string into a structured instance. */
   static override parse(
     segmentString: string,
     encoding: EncodingCharacters,

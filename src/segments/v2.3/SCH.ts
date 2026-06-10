@@ -1,3 +1,8 @@
+/**
+ * SCH segment definition for HL7 v2.3.
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import { BaseSegment } from "../../types/segment.ts";
@@ -8,6 +13,7 @@ import { ParserUtils } from "../../types/parser.ts";
  * SCH - Scheduling Activity Information Segment (HL7 v2.3)
  */
 export class SCH extends BaseSegment {
+  /** The HL7 segment identifier. */
   name = "SCH";
 
   constructor() {
@@ -135,6 +141,7 @@ export class SCH extends BaseSegment {
     return this;
   }
 
+  /** Parses the input string into a structured instance. */
   static parse(segmentString: string, encoding: EncodingCharacters): Result<SCH> {
     const parts = segmentString.split(encoding.fieldSeparator);
     if (parts[0] !== "SCH") {

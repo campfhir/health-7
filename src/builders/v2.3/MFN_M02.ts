@@ -1,3 +1,8 @@
+/**
+ * Builder for MFN^M02 messages (HL7 v2.3).
+ *
+ * @module
+ */
 import type { MSH } from "../../segments/v2.5.1/MSH.ts";
 import type { MFI } from "../../segments/v2.3/MFI.ts";
 import type { MFE } from "../../segments/v2.3/MFE.ts";
@@ -5,22 +10,28 @@ import type { STF } from "../../segments/v2.3/STF.ts";
 import type { PRA } from "../../segments/v2.3/PRA.ts";
 import { type EncodingCharacters, DEFAULT_ENCODING } from "../../types/encoding.ts";
 
+/** StaffEntry — a data structure used to build an HL7 MFN^M02 (v2.3) message. */
 export interface StaffEntry<
   TMfe extends MFE = MFE,
   TStf extends STF = STF,
   TPra extends PRA = PRA,
 > {
+  /** The mfe value. */
   mfe: TMfe;
+  /** The stf value. */
   stf: TStf;
+  /** The pra value. */
   pra?: TPra;
 }
 
+/** Builder for HL7 MFN^M02 (v2.3) messages. */
 export class MFN_M02<
   TMfi extends MFI = MFI,
   TMfe extends MFE = MFE,
   TStf extends STF = STF,
   TPra extends PRA = PRA,
 > {
+  /** Constructor. */
   constructor(
     public msh: MSH,
     public mfi: TMfi,
@@ -28,6 +39,7 @@ export class MFN_M02<
     private encoding: EncodingCharacters = DEFAULT_ENCODING,
   ) {}
 
+  /** Validates the message structure, returning a result. */
   verify(): { valid: boolean; errors: string[] } {
     const errors: string[] = [];
 
@@ -56,6 +68,7 @@ export class MFN_M02<
     return { valid: errors.length === 0, errors };
   }
 
+  /** Encodes this message to its HL7 wire string. */
   encode(): string {
     const verification = this.verify();
     if (!verification.valid) {
@@ -81,6 +94,7 @@ export class MFN_M02<
   }
 }
 
+/** Builds an HL7 MFN^M02 (v2.3) message. */
 export function createMFN_M02<
   TMfi extends MFI = MFI,
   TMfe extends MFE = MFE,

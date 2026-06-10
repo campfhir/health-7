@@ -1,3 +1,8 @@
+/**
+ * Builder for ADT^A01 messages (HL7 v2.3).
+ *
+ * @module
+ */
 import type { MSH } from "../../segments/v2.3/MSH.ts";
 import type { EVN } from "../../segments/v2.3/EVN.ts";
 import type { PID } from "../../segments/v2.3/PID.ts";
@@ -21,17 +26,25 @@ import type { UB1 } from "../../segments/v2.3/UB1.ts";
 import type { UB2 } from "../../segments/v2.3/UB2.ts";
 import { type EncodingCharacters, DEFAULT_ENCODING } from "../../types/encoding.ts";
 
+/** ProcedureGroup — a data structure used to build an HL7 ADT^A01 (v2.3) message. */
 export interface ProcedureGroup<TPR1 extends PR1 = PR1> {
+  /** The pr1 value. */
   pr1: TPR1;
+  /** The rol list value. */
   rolList?: ROL[];
 }
 
+/** InsuranceGroup — a data structure used to build an HL7 ADT^A01 (v2.3) message. */
 export interface InsuranceGroup<TIN1 extends IN1 = IN1> {
+  /** The in1 value. */
   in1: TIN1;
+  /** The in2 value. */
   in2?: IN2;
+  /** The in3 list value. */
   in3List?: IN3[];
 }
 
+/** Builder for HL7 ADT^A01 (v2.3) messages. */
 export class ADT_A01<
   TMSH extends MSH = MSH,
   TEVN extends EVN = EVN,
@@ -40,6 +53,7 @@ export class ADT_A01<
   TPR1 extends PR1 = PR1,
   TIN1 extends IN1 = IN1,
 > {
+  /** Constructor. */
   constructor(
     public msh: TMSH,
     public evn: TEVN,
@@ -65,6 +79,7 @@ export class ADT_A01<
     private encoding: EncodingCharacters = DEFAULT_ENCODING,
   ) {}
 
+  /** Validates the message structure, returning a result. */
   verify(): { valid: boolean; errors: string[] } {
     const errors: string[] = [];
 
@@ -76,6 +91,7 @@ export class ADT_A01<
     return { valid: errors.length === 0, errors };
   }
 
+  /** Encodes this message to its HL7 wire string. */
   encode(): string {
     const verification = this.verify();
     if (!verification.valid) {
@@ -129,6 +145,7 @@ export class ADT_A01<
   }
 }
 
+/** Builds an HL7 ADT^A01 (v2.3) message. */
 export function createADT_A01<
   TMSH extends MSH = MSH,
   TEVN extends EVN = EVN,

@@ -1,3 +1,8 @@
+/**
+ * EVN segment definition for HL7 v2.3.
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import { BaseSegment } from "../../types/segment.ts";
@@ -14,6 +19,7 @@ import {
  * Communicates necessary trigger event information to receiving applications.
  */
 export class EVN extends BaseSegment {
+  /** The HL7 segment identifier. */
   name = "EVN";
 
   constructor() {
@@ -35,6 +41,7 @@ export class EVN extends BaseSegment {
    * The date/time the event was recorded.
    */
   recordedDateTime(value: string, format?: never): this;
+  /** Sets the recorded date time field (chainable). */
   recordedDateTime(value: Date, format?: HL7DateTimeLayout): this;
   recordedDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
     this.fields[1] = this.createField(
@@ -48,6 +55,7 @@ export class EVN extends BaseSegment {
    * The date/time the event was planned.
    */
   dateTimePlannedEvent(value: string, format?: never): this;
+  /** Sets the date time planned event field (chainable). */
   dateTimePlannedEvent(value: Date, format?: HL7DateTimeLayout): this;
   dateTimePlannedEvent(value: string | Date, format?: HL7DateTimeLayout): this {
     this.fields[2] = this.createField(
@@ -80,6 +88,7 @@ export class EVN extends BaseSegment {
    * The date/time the event actually occurred.
    */
   eventOccurred(value: string, format?: never): this;
+  /** Sets the event occurred field (chainable). */
   eventOccurred(value: Date, format?: HL7DateTimeLayout): this;
   eventOccurred(value: string | Date, format?: HL7DateTimeLayout): this {
     this.fields[5] = this.createField(
@@ -102,6 +111,7 @@ export class EVN extends BaseSegment {
     return this;
   }
 
+  /** Parses the input string into a structured instance. */
   static parse(
     segmentString: string,
     encoding: EncodingCharacters,

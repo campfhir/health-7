@@ -1,5 +1,4 @@
 import { test, expect } from "vitest";
-import type assert from "node:assert";
 import { parseORU_R01 } from "./ORU_R01_Parser.ts";
 import { createORU_R01 } from "../../builders/v2.5.1/ORU_R01.ts";
 import { OBX } from "../../segments/v2.5.1/OBX.ts";

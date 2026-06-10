@@ -1,11 +1,10 @@
 import { describe, test, it, expect } from "vitest";
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
-import { parseORU_R01, type ORU_R01_Parser } from "./ORU_R01_Parser.ts";
+import { parseORU_R01 } from "./ORU_R01_Parser.ts";
 import { createORU_R01 } from "../../builders/v2.5.1/ORU_R01.ts";
 import { OBX } from "../../segments/v2.5.1/OBX.ts";
 import { OBR } from "../../segments/v2.5.1/OBR.ts";
-import type { DEFAULT_ENCODING } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 
 const validORUMessage = `MSH|^~\\&|LAB|Hospital|EMR|Clinic|20250119120000||ORU^R01^ORU_R01|MSG001|P|2.5.1

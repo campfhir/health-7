@@ -7,7 +7,6 @@ import { ORC } from "../../segments/v2.5.1/ORC.ts";
 import { OBX } from "../../segments/v2.5.1/OBX.ts";
 import { MSH } from "../../segments/v2.5.1/MSH.ts";
 import { OBR } from "../../segments/v2.5.1/OBR.ts";
-import type assert from "node:assert";
 import { PV1 } from "../../segments/v2.5.1/PV1.ts";
 
 describe("ORU_R30 Builder", () => {

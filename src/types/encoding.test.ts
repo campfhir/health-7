@@ -1,5 +1,4 @@
 import { test, expect } from "vitest";
-import type assert from 'node:assert';
 import { DEFAULT_ENCODING, type EncodingCharacters } from './encoding.ts';
 
 test('DEFAULT_ENCODING has correct values', () => {

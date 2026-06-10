@@ -1,3 +1,8 @@
+/**
+ * CTI segment definition for HL7 v2.5.1.
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
@@ -9,6 +14,7 @@ import { CTI as CTI_base } from "../v2.3/CTI.ts";
  * Extends v2.3 CTI. Add v2.5.1-specific fields here as needed.
  */
 export class CTI extends CTI_base {
+  /** Parses the input string into a structured instance. */
   static override parse(segmentString: string, encoding: EncodingCharacters): Result<CTI> {
     const parts = segmentString.split(encoding.fieldSeparator);
     if (parts[0] !== "CTI") {

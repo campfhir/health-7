@@ -1,3 +1,8 @@
+/**
+ * Barrel re-exporting all HL7 v2.5.1 message parsers.
+ *
+ * @module
+ */
 export { parseADT_A01 } from "./ADT_A01_Parser.ts";
 export { parseADT_A02 } from "./ADT_A02_Parser.ts";
 export { parseADT_A03 } from "./ADT_A03_Parser.ts";

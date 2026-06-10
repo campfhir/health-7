@@ -1,3 +1,8 @@
+/**
+ * IN2 segment definition for HL7 v2.3.
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import { BaseSegment } from "../../types/segment.ts";
@@ -14,6 +19,7 @@ import {
  * Contains additional insurance policy coverage and insured information.
  */
 export class IN2 extends BaseSegment {
+  /** The HL7 segment identifier. */
   name = "IN2";
 
   constructor() {
@@ -69,6 +75,7 @@ export class IN2 extends BaseSegment {
 
   /** IN2-26: Relationship to the Patient Start Date (DT) */
   relationshipStartDate(value: string, format?: never): this;
+  /** Sets the relationship start date field (chainable). */
   relationshipStartDate(value: Date, format?: HL7DateLayout): this;
   relationshipStartDate(value: string | Date, format?: HL7DateLayout): this {
     this.fields[25] = this.createField(
@@ -79,6 +86,7 @@ export class IN2 extends BaseSegment {
 
   /** IN2-27: Relationship to the Patient Stop Date (DT) */
   relationshipStopDate(value: string, format?: never): this;
+  /** Sets the relationship stop date field (chainable). */
   relationshipStopDate(value: Date, format?: HL7DateLayout): this;
   relationshipStopDate(value: string | Date, format?: HL7DateLayout): this {
     this.fields[26] = this.createField(
@@ -111,6 +119,7 @@ export class IN2 extends BaseSegment {
     return this;
   }
 
+  /** Parses the input string into a structured instance. */
   static parse(
     segmentString: string,
     encoding: EncodingCharacters,

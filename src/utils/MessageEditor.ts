@@ -111,16 +111,20 @@ function applyInsertion(
   return result;
 }
 
+/** Message Editor. */
 export class MessageEditor {
   private insertions: Insertion[] = [];
   private updates: Update[] = [];
 
+  /** Constructor. */
   constructor(
     private message: Encodable,
     private encoding: EncodingCharacters = DEFAULT_ENCODING,
   ) {}
 
+  /** Sets the update field (chainable). */
   update(path: string, value: string): this;
+  /** Sets the update field (chainable). */
   update(updates: Record<string, string>): this;
   update(pathOrMap: string | Record<string, string>, value?: string): this {
     if (typeof pathOrMap === "string") {
@@ -139,10 +143,12 @@ export class MessageEditor {
     return this;
   }
 
+  /** Insert. */
   insert(segment: Segment): InsertionBuilder {
     return new InsertionBuilder(segment, this);
   }
 
+  /** Sets the append field (chainable). */
   append(segment: Segment): this {
     this.insertions.push({
       segment,
@@ -159,6 +165,7 @@ export class MessageEditor {
     return this;
   }
 
+  /** Encodes this message to its HL7 wire string. */
   encode(...args: unknown[]): string {
     let lines = this.message.encode(...args).split("\r");
     lines = applyUpdates(lines, this.updates, this.encoding);
@@ -169,12 +176,15 @@ export class MessageEditor {
   }
 }
 
+/** Insertion Builder. */
 export class InsertionBuilder {
+  /** Constructor. */
   constructor(
     private segment: Segment,
     private editor: MessageEditor,
   ) {}
 
+  /** After. */
   after(targetType: string): PositionedInsertionBuilder {
     return new PositionedInsertionBuilder(
       this.segment,
@@ -184,6 +194,7 @@ export class InsertionBuilder {
     );
   }
 
+  /** Before. */
   before(targetType: string): PositionedInsertionBuilder {
     return new PositionedInsertionBuilder(
       this.segment,
@@ -194,9 +205,11 @@ export class InsertionBuilder {
   }
 }
 
+/** Positioned Insertion Builder. */
 export class PositionedInsertionBuilder {
   private mode: Mode = { type: "last" };
 
+  /** Constructor. */
   constructor(
     private segment: Segment,
     private position: Position,
@@ -204,21 +217,25 @@ export class PositionedInsertionBuilder {
     private editor: MessageEditor,
   ) {}
 
+  /** Sets the last field (chainable). */
   last(): this {
     this.mode = { type: "last" };
     return this;
   }
 
+  /** Sets the each field (chainable). */
   each(): this {
     this.mode = { type: "each" };
     return this;
   }
 
+  /** Sets the nth field (chainable). */
   nth(n: number): this {
     this.mode = { type: "nth", n };
     return this;
   }
 
+  /** Commit. */
   commit(): MessageEditor {
     return this.editor._addInsertion({
       segment: this.segment,

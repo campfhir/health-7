@@ -1,3 +1,8 @@
+/**
+ * AL1 segment definition for HL7 v2.3.
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import { BaseSegment } from "../../types/segment.ts";
@@ -14,6 +19,7 @@ import {
  * Transmits patient allergy information as part of an ADT message.
  */
 export class AL1 extends BaseSegment {
+  /** The HL7 segment identifier. */
   name = "AL1";
 
   constructor() {
@@ -72,6 +78,7 @@ export class AL1 extends BaseSegment {
    * The date the allergy was identified.
    */
   identificationDate(value: string, format?: never): this;
+  /** Sets the identification date field (chainable). */
   identificationDate(value: Date, format?: HL7DateLayout): this;
   identificationDate(value: string | Date, format?: HL7DateLayout): this {
     this.fields[5] = this.createField(
@@ -80,6 +87,7 @@ export class AL1 extends BaseSegment {
     return this;
   }
 
+  /** Parses the input string into a structured instance. */
   static parse(
     segmentString: string,
     encoding: EncodingCharacters,

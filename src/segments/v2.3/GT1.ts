@@ -1,3 +1,8 @@
+/**
+ * GT1 segment definition for HL7 v2.3.
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import { BaseSegment } from "../../types/segment.ts";
@@ -14,6 +19,7 @@ import {
  * Contains guarantor (financial responsibility) data for a patient visit.
  */
 export class GT1 extends BaseSegment {
+  /** The HL7 segment identifier. */
   name = "GT1";
 
   constructor() {
@@ -79,6 +85,7 @@ export class GT1 extends BaseSegment {
 
   /** GT1-8: Guarantor Date/Time Of Birth (TS) */
   guarantorDateOfBirth(value: string, format?: never): this;
+  /** Sets the guarantor date of birth field (chainable). */
   guarantorDateOfBirth(value: Date, format?: HL7DateLayout): this;
   guarantorDateOfBirth(value: string | Date, format?: HL7DateLayout): this {
     this.fields[7] = this.createField(
@@ -113,6 +120,7 @@ export class GT1 extends BaseSegment {
 
   /** GT1-13: Guarantor Date - Begin (DT) */
   guarantorDateBegin(value: string, format?: never): this;
+  /** Sets the guarantor date begin field (chainable). */
   guarantorDateBegin(value: Date, format?: HL7DateLayout): this;
   guarantorDateBegin(value: string | Date, format?: HL7DateLayout): this {
     this.fields[12] = this.createField(
@@ -123,6 +131,7 @@ export class GT1 extends BaseSegment {
 
   /** GT1-14: Guarantor Date - End (DT) */
   guarantorDateEnd(value: string, format?: never): this;
+  /** Sets the guarantor date end field (chainable). */
   guarantorDateEnd(value: Date, format?: HL7DateLayout): this;
   guarantorDateEnd(value: string | Date, format?: HL7DateLayout): this {
     this.fields[13] = this.createField(
@@ -174,6 +183,7 @@ export class GT1 extends BaseSegment {
     return this;
   }
 
+  /** Parses the input string into a structured instance. */
   static parse(
     segmentString: string,
     encoding: EncodingCharacters,

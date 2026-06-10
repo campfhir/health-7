@@ -1,3 +1,8 @@
+/**
+ * DB1 segment definition for HL7 v2.3.
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import { BaseSegment } from "../../types/segment.ts";
@@ -14,6 +19,7 @@ import {
  * Contains information about a person's disability status and related dates.
  */
 export class DB1 extends BaseSegment {
+  /** The HL7 segment identifier. */
   name = "DB1";
 
   constructor() {
@@ -47,6 +53,7 @@ export class DB1 extends BaseSegment {
 
   /** DB1-5: Disability Start Date (DT) */
   disabilityStartDate(value: string, format?: never): this;
+  /** Sets the disability start date field (chainable). */
   disabilityStartDate(value: Date, format?: HL7DateLayout): this;
   disabilityStartDate(value: string | Date, format?: HL7DateLayout): this {
     this.fields[4] = this.createField(
@@ -57,6 +64,7 @@ export class DB1 extends BaseSegment {
 
   /** DB1-6: Disability End Date (DT) */
   disabilityEndDate(value: string, format?: never): this;
+  /** Sets the disability end date field (chainable). */
   disabilityEndDate(value: Date, format?: HL7DateLayout): this;
   disabilityEndDate(value: string | Date, format?: HL7DateLayout): this {
     this.fields[5] = this.createField(
@@ -67,6 +75,7 @@ export class DB1 extends BaseSegment {
 
   /** DB1-7: Disability Return to Work Date (DT) */
   disabilityReturnToWorkDate(value: string, format?: never): this;
+  /** Sets the disability return to work date field (chainable). */
   disabilityReturnToWorkDate(value: Date, format?: HL7DateLayout): this;
   disabilityReturnToWorkDate(
     value: string | Date,
@@ -80,6 +89,7 @@ export class DB1 extends BaseSegment {
 
   /** DB1-8: Disability Unable to Work Date (DT) */
   disabilityUnableToWorkDate(value: string, format?: never): this;
+  /** Sets the disability unable to work date field (chainable). */
   disabilityUnableToWorkDate(value: Date, format?: HL7DateLayout): this;
   disabilityUnableToWorkDate(
     value: string | Date,
@@ -91,6 +101,7 @@ export class DB1 extends BaseSegment {
     return this;
   }
 
+  /** Parses the input string into a structured instance. */
   static parse(
     segmentString: string,
     encoding: EncodingCharacters,

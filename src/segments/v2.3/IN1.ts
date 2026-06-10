@@ -1,3 +1,8 @@
+/**
+ * IN1 segment definition for HL7 v2.3.
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import { BaseSegment } from "../../types/segment.ts";
@@ -14,6 +19,7 @@ import {
  * Contains insurance policy coverage information necessary for billing.
  */
 export class IN1 extends BaseSegment {
+  /** The HL7 segment identifier. */
   name = "IN1";
 
   constructor() {
@@ -96,6 +102,7 @@ export class IN1 extends BaseSegment {
 
   /** IN1-12: Plan Effective Date (DT) */
   planEffectiveDate(value: string, format?: never): this;
+  /** Sets the plan effective date field (chainable). */
   planEffectiveDate(value: Date, format?: HL7DateLayout): this;
   planEffectiveDate(value: string | Date, format?: HL7DateLayout): this {
     this.fields[11] = this.createField(
@@ -106,6 +113,7 @@ export class IN1 extends BaseSegment {
 
   /** IN1-13: Plan Expiration Date (DT) */
   planExpirationDate(value: string, format?: never): this;
+  /** Sets the plan expiration date field (chainable). */
   planExpirationDate(value: Date, format?: HL7DateLayout): this;
   planExpirationDate(value: string | Date, format?: HL7DateLayout): this {
     this.fields[12] = this.createField(
@@ -152,6 +160,7 @@ export class IN1 extends BaseSegment {
 
   /** IN1-18: Insured's Date Of Birth (TS) */
   insuredDateOfBirth(value: string, format?: never): this;
+  /** Sets the insured date of birth field (chainable). */
   insuredDateOfBirth(value: Date, format?: HL7DateLayout): this;
   insuredDateOfBirth(value: string | Date, format?: HL7DateLayout): this {
     this.fields[17] = this.createField(
@@ -227,6 +236,7 @@ export class IN1 extends BaseSegment {
     return this;
   }
 
+  /** Parses the input string into a structured instance. */
   static parse(
     segmentString: string,
     encoding: EncodingCharacters,

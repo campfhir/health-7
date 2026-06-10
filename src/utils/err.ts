@@ -1,16 +1,17 @@
+/** Err. */
 export class Err<S extends string> extends Error {
   message: S;
-  cause?: Error | Err<any>;
-  meta?: Record<string, any>;
+  cause?: Error | Err<string>;
+  meta?: Record<string, unknown>;
   constructor(s: S, opt?: ErrorOptions) {
     super(s, opt);
     this.message = s;
   }
-  addCause(c: Error | Err<any> | string): Err<S> {
+  addCause(c: Error | Err<string> | string): Err<S> {
     this.cause = typeof c === "string" ? new Err(c) : c;
     return this;
   }
-  withMetadata(m: Record<string, any>): Err<S> {
+  withMetadata(m: Record<string, unknown>): Err<S> {
     this.meta = m;
     return this;
   }

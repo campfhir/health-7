@@ -42,6 +42,7 @@ test("verify() passes with all required segments", () => {
 });
 
 test("verify() fails when MSH is missing", () => {
+  // deno-lint-ignore no-explicit-any
   const msg = new ADT_A28(null as any, makeEVN(), makePID(), makePV1());
   const result = msg.verify();
   expect(result.valid).toBe(false);
@@ -49,6 +50,7 @@ test("verify() fails when MSH is missing", () => {
 });
 
 test("verify() fails when EVN is missing", () => {
+  // deno-lint-ignore no-explicit-any
   const msg = new ADT_A28(makeMSH(), null as any, makePID(), makePV1());
   const result = msg.verify();
   expect(result.valid).toBe(false);
@@ -56,6 +58,7 @@ test("verify() fails when EVN is missing", () => {
 });
 
 test("verify() fails when PID is missing", () => {
+  // deno-lint-ignore no-explicit-any
   const msg = new ADT_A28(makeMSH(), makeEVN(), null as any, makePV1());
   const result = msg.verify();
   expect(result.valid).toBe(false);
@@ -63,6 +66,7 @@ test("verify() fails when PID is missing", () => {
 });
 
 test("verify() fails when PV1 is missing", () => {
+  // deno-lint-ignore no-explicit-any
   const msg = new ADT_A28(makeMSH(), makeEVN(), makePID(), null as any);
   const result = msg.verify();
   expect(result.valid).toBe(false);
@@ -70,6 +74,7 @@ test("verify() fails when PV1 is missing", () => {
 });
 
 test("encode() throws when message is invalid", () => {
+  // deno-lint-ignore no-explicit-any
   const msg = new ADT_A28(null as any, makeEVN(), makePID(), makePV1());
   expect(() => msg.encode()).toThrow();
 });

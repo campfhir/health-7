@@ -11,14 +11,20 @@ export function generateSegment(
   baseVersion: string,
 ): string {
   if (segName === "MSH") {
-    return `import { Result } from "../../types/result";
-import { MSH as MSH_base } from "../${baseVersion}/MSH";
+    return `/**
+ * MSH segment definition for HL7 ${version}.
+ *
+ * @module
+ */
+import type { Result } from "../../types/result.ts";
+import { MSH as MSH_base } from "../${baseVersion}/MSH.ts";
 
 /**
  * MSH segment (HL7 ${version})
  * Extends ${baseVersion} MSH. Add ${version}-specific fields here as needed.
  */
 export class MSH extends MSH_base {
+  /** Parses the input string into a structured instance. */
   static override parse(segmentString: string): Result<MSH> {
     return MSH_base.parse(segmentString) as Result<MSH>;
   }
@@ -26,17 +32,23 @@ export class MSH extends MSH_base {
 `;
   }
 
-  return `import { Err } from "../../utils/err";
-import { Result } from "../../types/result";
-import { EncodingCharacters } from "../../types/encoding";
-import { ParserUtils } from "../../types/parser";
-import { ${segName} as ${segName}_base } from "../${baseVersion}/${segName}";
+  return `/**
+ * ${segName} segment definition for HL7 ${version}.
+ *
+ * @module
+ */
+import { Err } from "../../utils/err.ts";
+import type { Result } from "../../types/result.ts";
+import type { EncodingCharacters } from "../../types/encoding.ts";
+import { ParserUtils } from "../../types/parser.ts";
+import { ${segName} as ${segName}_base } from "../${baseVersion}/${segName}.ts";
 
 /**
  * ${segName} segment (HL7 ${version})
  * Extends ${baseVersion} ${segName}. Add ${version}-specific fields here as needed.
  */
 export class ${segName} extends ${segName}_base {
+  /** Parses the input string into a structured instance. */
   static override parse(
     segmentString: string,
     encoding: EncodingCharacters,

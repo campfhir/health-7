@@ -2,7 +2,9 @@ import type { Result } from "../types/result.ts";
 import type { EncodingCharacters } from "./encoding.ts";
 import type { Segment, Field, Component } from "./segment.ts";
 
+/** Parser Utils. */
 export class ParserUtils {
+  /** Parse field. */
   static parseField(fieldStr: string, encoding: EncodingCharacters): Field {
     if (!fieldStr) {
       return { components: [{ subComponents: [""] }] };
@@ -17,17 +19,20 @@ export class ParserUtils {
     return { components };
   }
 
+  /** Get field string. */
   static getFieldString(field: Field, encoding: EncodingCharacters): string {
     return field.components
       .map((comp) => comp.subComponents.join(encoding.subComponentSeparator))
       .join(encoding.componentSeparator);
   }
 
+  /** Get component. */
   static getComponent(field: Field, index: number): string {
     if (!field.components[index]) return "";
     return field.components[index].subComponents[0] || "";
   }
 
+  /** Get sub component. */
   static getSubComponent(
     field: Field,
     compIndex: number,
@@ -37,6 +42,7 @@ export class ParserUtils {
     return field.components[compIndex].subComponents[subCompIndex] || "";
   }
 
+  /** Extract encoding characters. */
   static extractEncodingCharacters(mshSegment: string): EncodingCharacters {
     if (!mshSegment.startsWith("MSH")) {
       throw new Error("Invalid MSH segment");
@@ -55,6 +61,8 @@ export class ParserUtils {
   }
 }
 
+/** Segment Parser. */
 export interface SegmentParser<T extends Segment> {
+  /** Parses the input string into a structured instance. */
   parse(segmentString: string, encoding?: EncodingCharacters): Result<T>;
 }

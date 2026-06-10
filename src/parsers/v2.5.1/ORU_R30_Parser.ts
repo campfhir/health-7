@@ -1,3 +1,8 @@
+/**
+ * Parser for ORU^R30 messages (HL7 v2.5.1).
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import { HL7Message } from "../../types/message.ts";
@@ -8,25 +13,39 @@ import { ORC } from "../../segments/v2.5.1/ORC.ts";
 import { OBR } from "../../segments/v2.5.1/OBR.ts";
 import { OBX } from "../../segments/v2.5.1/OBX.ts";
 
+/** Structured result of parsing an HL7 ORU^R30 (v2.5.1) message. */
 export interface ParsedORU_R30 {
+  /** The message value. */
   message: HL7Message;
+  /** The msh value. */
   msh: MSH;
+  /** The patient results value. */
   patientResults: ParsedPatientResultR30[];
 }
 
+/** Structured result of parsing an HL7 ORU^R30 (v2.5.1) message. */
 export interface ParsedPatientResultR30 {
+  /** The pid value. */
   pid?: PID;
+  /** The pv1 value. */
   pv1?: PV1;
+  /** The order observations value. */
   orderObservations: ParsedOrderObservationR30[];
 }
 
+/** Structured result of parsing an HL7 ORU^R30 (v2.5.1) message. */
 export interface ParsedOrderObservationR30 {
+  /** The orc value. */
   orc: ORC;
+  /** The obr value. */
   obr: OBR;
+  /** The obx list value. */
   obxList: OBX[];
 }
 
+/** Parser for HL7 ORU^R30 (v2.5.1) messages. */
 export class ORU_R30_Parser {
+  /** Parses the input string into a structured instance. */
   parse(messageString: string): Result<ParsedORU_R30> {
     try {
       const segments = messageString
@@ -250,6 +269,7 @@ export class ORU_R30_Parser {
   }
 }
 
+/** Parses an HL7 ORU^R30 (v2.5.1) message string into a structured result. */
 export function parseORU_R30(messageString: string): Result<ParsedORU_R30> {
   const parser = new ORU_R30_Parser();
   return parser.parse(messageString);

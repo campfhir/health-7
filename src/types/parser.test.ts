@@ -1,5 +1,4 @@
 import { test, expect } from "vitest";
-import type assert from 'node:assert';
 import { ParserUtils } from './parser.ts';
 import { DEFAULT_ENCODING } from './encoding.ts';
 

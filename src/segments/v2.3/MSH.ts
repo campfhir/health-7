@@ -1,3 +1,8 @@
+/**
+ * MSH segment definition for HL7 v2.3.
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import { BaseSegment } from "../../types/segment.ts";
@@ -13,6 +18,7 @@ import {
  * MSH - Message Header Segment (HL7 v2.3)
  */
 export class MSH extends BaseSegment {
+  /** The HL7 segment identifier. */
   name = "MSH";
   private _encoding?: EncodingCharacters;
 
@@ -38,27 +44,33 @@ export class MSH extends BaseSegment {
     this._encoding = encoding;
   }
 
+  /** Sets the sending application field (chainable). */
   sendingApplication(value: string): this {
     this.fields[1] = this.createField(value);
     return this;
   }
 
+  /** Sets the sending facility field (chainable). */
   sendingFacility(value: string): this {
     this.fields[2] = this.createField(value);
     return this;
   }
 
+  /** Sets the receiving application field (chainable). */
   receivingApplication(value: string): this {
     this.fields[3] = this.createField(value);
     return this;
   }
 
+  /** Sets the receiving facility field (chainable). */
   receivingFacility(value: string): this {
     this.fields[4] = this.createField(value);
     return this;
   }
 
+  /** Sets the date time of message field (chainable). */
   dateTimeOfMessage(value: string, format?: never): this;
+  /** Sets the date time of message field (chainable). */
   dateTimeOfMessage(value: Date, format?: HL7DateTimeLayout): this;
   dateTimeOfMessage(value: string | Date, format?: HL7DateTimeLayout): this {
     this.fields[5] = this.createField(
@@ -67,11 +79,13 @@ export class MSH extends BaseSegment {
     return this;
   }
 
+  /** Sets the security field (chainable). */
   security(value: string): this {
     this.fields[6] = this.createField(value);
     return this;
   }
 
+  /** Message type. */
   messageType(
     messageCode: string,
     triggerEvent: string,
@@ -84,41 +98,49 @@ export class MSH extends BaseSegment {
     return this;
   }
 
+  /** Sets the message control id field (chainable). */
   messageControlId(value: string): this {
     this.fields[8] = this.createField(value);
     return this;
   }
 
+  /** Sets the processing id field (chainable). */
   processingId(value: string): this {
     this.fields[9] = this.createField(value);
     return this;
   }
 
+  /** Sets the version id field (chainable). */
   versionId(value: string): this {
     this.fields[10] = this.createField(value);
     return this;
   }
 
+  /** Sets the sequence number field (chainable). */
   sequenceNumber(value: string): this {
     this.fields[11] = this.createField(value);
     return this;
   }
 
+  /** Sets the continuation pointer field (chainable). */
   continuationPointer(value: string): this {
     this.fields[12] = this.createField(value);
     return this;
   }
 
+  /** Sets the accept acknowledgment type field (chainable). */
   acceptAcknowledgmentType(value: string): this {
     this.fields[13] = this.createField(value);
     return this;
   }
 
+  /** Sets the application acknowledgment type field (chainable). */
   applicationAcknowledgmentType(value: string): this {
     this.fields[14] = this.createField(value);
     return this;
   }
 
+  /** Sets the country code field (chainable). */
   countryCode(value: string): this {
     this.fields[15] = this.createField(value);
     return this;
@@ -153,6 +175,7 @@ export class MSH extends BaseSegment {
     };
   }
 
+  /** Encodes this message to its HL7 wire string. */
   encode(_encoding?: EncodingCharacters): string {
     const encoding = _encoding ?? this._encoding ?? DEFAULT_ENCODING;
     const encodedFields = this.fields.slice(1).map((field) => {
@@ -170,6 +193,7 @@ export class MSH extends BaseSegment {
     return `${this.name}${encoding.fieldSeparator}${encodingChars}${encoding.fieldSeparator}${encodedFields.join(encoding.fieldSeparator)}`;
   }
 
+  /** Parses the input string into a structured instance. */
   static parse(segmentString: string): Result<MSH> {
     try {
       if (!segmentString.startsWith("MSH")) {

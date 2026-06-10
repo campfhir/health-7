@@ -1,3 +1,8 @@
+/**
+ * DG1 segment definition for HL7 v2.3.
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import { BaseSegment } from "../../types/segment.ts";
@@ -14,6 +19,7 @@ import {
  * Transmits patient diagnosis information for various uses including billing.
  */
 export class DG1 extends BaseSegment {
+  /** The HL7 segment identifier. */
   name = "DG1";
 
   constructor() {
@@ -63,6 +69,7 @@ export class DG1 extends BaseSegment {
    * The date/time the diagnosis was determined.
    */
   diagnosisDateTime(value: string, format?: never): this;
+  /** Sets the diagnosis date time field (chainable). */
   diagnosisDateTime(value: Date, format?: HL7DateTimeLayout): this;
   diagnosisDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
     this.fields[4] = this.createField(
@@ -198,6 +205,7 @@ export class DG1 extends BaseSegment {
    * The date/time the diagnosis was attested.
    */
   attestationDateTime(value: string, format?: never): this;
+  /** Sets the attestation date time field (chainable). */
   attestationDateTime(value: Date, format?: HL7DateTimeLayout): this;
   attestationDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
     this.fields[18] = this.createField(
@@ -206,6 +214,7 @@ export class DG1 extends BaseSegment {
     return this;
   }
 
+  /** Parses the input string into a structured instance. */
   static parse(
     segmentString: string,
     encoding: EncodingCharacters,

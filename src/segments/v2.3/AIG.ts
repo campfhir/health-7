@@ -1,3 +1,8 @@
+/**
+ * AIG segment definition for HL7 v2.3.
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import { BaseSegment } from "../../types/segment.ts";
@@ -13,6 +18,7 @@ import {
  * AIG - Appointment Information - General Resource Segment (HL7 v2.3)
  */
 export class AIG extends BaseSegment {
+  /** The HL7 segment identifier. */
   name = "AIG";
 
   constructor() {
@@ -84,6 +90,7 @@ export class AIG extends BaseSegment {
 
   /** AIG-8: Start Date/Time (TS) */
   startDateTime(value: string, format?: never): this;
+  /** Sets the start date time field (chainable). */
   startDateTime(value: Date, format?: HL7DateTimeLayout): this;
   startDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
     this.fields[7] = this.createField(
@@ -140,6 +147,7 @@ export class AIG extends BaseSegment {
     return this;
   }
 
+  /** Parses the input string into a structured instance. */
   static parse(
     segmentString: string,
     encoding: EncodingCharacters,

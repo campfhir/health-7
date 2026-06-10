@@ -1,3 +1,8 @@
+/**
+ * NK1 segment definition for HL7 v2.3.
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import { BaseSegment } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
@@ -11,6 +16,7 @@ import type { Result } from "../../types/result.ts";
  * or other associated parties.
  */
 export class NK1 extends BaseSegment {
+  /** The HL7 segment identifier. */
   name = "NK1";
 
   constructor() {

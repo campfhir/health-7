@@ -31,6 +31,7 @@ test("verify() passes with all required segments", () => {
 });
 
 test("verify() fails when MSH is missing", () => {
+  // deno-lint-ignore no-explicit-any
   const msg = new ADT_A34(null as any, makePID(), makeMRG());
   const result = msg.verify();
   expect(result.valid).toBe(false);
@@ -38,6 +39,7 @@ test("verify() fails when MSH is missing", () => {
 });
 
 test("verify() fails when PID is missing", () => {
+  // deno-lint-ignore no-explicit-any
   const msg = new ADT_A34(makeMSH(), null as any, makeMRG());
   const result = msg.verify();
   expect(result.valid).toBe(false);
@@ -45,6 +47,7 @@ test("verify() fails when PID is missing", () => {
 });
 
 test("verify() fails when MRG is missing", () => {
+  // deno-lint-ignore no-explicit-any
   const msg = new ADT_A34(makeMSH(), makePID(), null as any);
   const result = msg.verify();
   expect(result.valid).toBe(false);
@@ -52,6 +55,7 @@ test("verify() fails when MRG is missing", () => {
 });
 
 test("encode() throws when message is invalid", () => {
+  // deno-lint-ignore no-explicit-any
   const msg = new ADT_A34(null as any, makePID(), makeMRG());
   expect(() => msg.encode()).toThrow();
 });

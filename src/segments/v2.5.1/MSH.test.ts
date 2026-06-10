@@ -1,6 +1,5 @@
 import { test, expect } from "vitest";
 import { MSH } from "./MSH.ts";
-import type { DEFAULT_ENCODING } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 
 test("MSH builder creates valid segment", () => {

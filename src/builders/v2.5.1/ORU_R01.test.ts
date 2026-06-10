@@ -1,5 +1,4 @@
 import { test, expect } from "vitest";
-import type assert from "node:assert";
 import { createORU_R01, ORU_R01 } from "./ORU_R01.ts";
 import { MSH } from "../../segments/v2.5.1/MSH.ts";
 import { PID } from "../../segments/v2.5.1/PID.ts";
@@ -15,6 +14,7 @@ test("createORU_R01 returns ORU_R01 instance", () => {
 });
 
 test("ORU_R01 verify() detects missing MSH segment", () => {
+  // deno-lint-ignore no-explicit-any
   const message = new ORU_R01(null as any);
   const result = message.verify();
 

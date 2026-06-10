@@ -1,3 +1,8 @@
+/**
+ * Parser for ADT^A01 messages (HL7 v2.3).
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import { MSH } from "../../segments/v2.3/MSH.ts";
@@ -24,65 +29,117 @@ import { UB2 } from "../../segments/v2.3/UB2.ts";
 import { HL7Message } from "../../types/message.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 
+/** Structured result of parsing an HL7 ADT^A01 (v2.3) message. */
 export interface ParsedProcedure {
+  /** The pr1 value. */
   pr1: PR1;
+  /** The rol list value. */
   rolList?: ROL[];
 }
 
+/** Structured result of parsing an HL7 ADT^A01 (v2.3) message. */
 export interface ParsedInsuranceGroup {
+  /** The in1 value. */
   in1: IN1;
+  /** The in2 value. */
   in2?: IN2;
+  /** The in3 list value. */
   in3List?: IN3[];
 }
 
+/** Structured result of parsing an HL7 ADT^A01 (v2.3) message. */
 export interface ParsedADT_A01 {
+  /** The message value. */
   message: HL7Message;
+  /** The msh value. */
   msh: MSH;
+  /** The evn value. */
   evn?: EVN;
+  /** The pid value. */
   pid: PID;
+  /** The pd1 value. */
   pd1?: PD1;
+  /** The rol list value. */
   rolList?: ROL[];
+  /** The nk1 list value. */
   nk1List?: NK1[];
+  /** The pv1 value. */
   pv1?: PV1;
+  /** The pv2 value. */
   pv2?: PV2;
+  /** The db1 list value. */
   db1List?: DB1[];
+  /** The obx list value. */
   obxList?: OBX[];
+  /** The al1 list value. */
   al1List?: AL1[];
+  /** The dg1 list value. */
   dg1List?: DG1[];
+  /** The drg value. */
   drg?: DRG;
+  /** The procedures value. */
   procedures?: ParsedProcedure[];
+  /** The gt1 list value. */
   gt1List?: GT1[];
+  /** The insurance groups value. */
   insuranceGroups?: ParsedInsuranceGroup[];
+  /** The acc value. */
   acc?: ACC;
+  /** The ub1 value. */
   ub1?: UB1;
+  /** The ub2 value. */
   ub2?: UB2;
 }
 
+/** Parser for HL7 ADT^A01 (v2.3) messages. */
 export class ADT_A01_Parser {
+  /** The message name value. */
   protected readonly messageName: string = "ADT_A01";
 
+  /** Parse msh. */
   protected parseMSH(s: string): Result<MSH> { return MSH.parse(s); }
+  /** Parse evn. */
   protected parseEVN(s: string, e: EncodingCharacters): Result<EVN> { return EVN.parse(s, e); }
+  /** Parse pid. */
   protected parsePID(s: string, e: EncodingCharacters): Result<PID> { return PID.parse(s, e); }
+  /** Parse pd1. */
   protected parsePD1(s: string, e: EncodingCharacters): Result<PD1> { return PD1.parse(s, e); }
+  /** Parse rol. */
   protected parseROL(s: string, e: EncodingCharacters): Result<ROL> { return ROL.parse(s, e); }
+  /** Parse nk1. */
   protected parseNK1(s: string, e: EncodingCharacters): Result<NK1> { return NK1.parse(s, e); }
+  /** Parse pv1. */
   protected parsePV1(s: string, e: EncodingCharacters): Result<PV1> { return PV1.parse(s, e); }
+  /** Parse pv2. */
   protected parsePV2(s: string, e: EncodingCharacters): Result<PV2> { return PV2.parse(s, e); }
+  /** Parse db1. */
   protected parseDB1(s: string, e: EncodingCharacters): Result<DB1> { return DB1.parse(s, e); }
+  /** Parse obx. */
   protected parseOBX(s: string, e: EncodingCharacters): Result<OBX> { return OBX.parse(s, e); }
+  /** Parse al1. */
   protected parseAL1(s: string, e: EncodingCharacters): Result<AL1> { return AL1.parse(s, e); }
+  /** Parse dg1. */
   protected parseDG1(s: string, e: EncodingCharacters): Result<DG1> { return DG1.parse(s, e); }
+  /** Parse drg. */
   protected parseDRG(s: string, e: EncodingCharacters): Result<DRG> { return DRG.parse(s, e); }
+  /** Parse pr1. */
   protected parsePR1(s: string, e: EncodingCharacters): Result<PR1> { return PR1.parse(s, e); }
+  /** Parse gt1. */
   protected parseGT1(s: string, e: EncodingCharacters): Result<GT1> { return GT1.parse(s, e); }
+  /** Parse in1. */
   protected parseIN1(s: string, e: EncodingCharacters): Result<IN1> { return IN1.parse(s, e); }
+  /** Parse in2. */
   protected parseIN2(s: string, e: EncodingCharacters): Result<IN2> { return IN2.parse(s, e); }
+  /** Parse in3. */
   protected parseIN3(s: string, e: EncodingCharacters): Result<IN3> { return IN3.parse(s, e); }
+  /** Parse acc. */
   protected parseACC(s: string, e: EncodingCharacters): Result<ACC> { return ACC.parse(s, e); }
+  /** Parse ub1. */
   protected parseUB1(s: string, e: EncodingCharacters): Result<UB1> { return UB1.parse(s, e); }
+  /** Parse ub2. */
   protected parseUB2(s: string, e: EncodingCharacters): Result<UB2> { return UB2.parse(s, e); }
 
+  /** Parses the input string into a structured instance. */
   parse(messageString: string): Result<ParsedADT_A01> {
     try {
       const segments = messageString
@@ -295,6 +352,7 @@ export class ADT_A01_Parser {
   }
 }
 
+/** Parses an HL7 ADT^A01 (v2.3) message string into a structured result. */
 export function parseADT_A01(messageString: string): Result<ParsedADT_A01> {
   return new ADT_A01_Parser().parse(messageString);
 }

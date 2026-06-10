@@ -1,3 +1,8 @@
+/**
+ * UB2 segment definition for HL7 v2.3.
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import { BaseSegment } from "../../types/segment.ts";
@@ -9,6 +14,7 @@ import { ParserUtils } from "../../types/parser.ts";
  * Contains UB92 uniform billing data for institutional claims. Supersedes UB1.
  */
 export class UB2 extends BaseSegment {
+  /** The HL7 segment identifier. */
   name = "UB2";
 
   constructor() {
@@ -118,6 +124,7 @@ export class UB2 extends BaseSegment {
     return this;
   }
 
+  /** Parses the input string into a structured instance. */
   static parse(segmentString: string, encoding: EncodingCharacters): Result<UB2> {
     const parts = segmentString.split(encoding.fieldSeparator);
     if (parts[0] !== "UB2") {

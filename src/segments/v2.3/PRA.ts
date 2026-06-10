@@ -1,3 +1,8 @@
+/**
+ * PRA segment definition for HL7 v2.3.
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import { BaseSegment } from "../../types/segment.ts";
@@ -18,6 +23,7 @@ import {
  * HL7 v2.3 Specification
  */
 export class PRA extends BaseSegment {
+  /** The HL7 segment identifier. */
   name = "PRA";
 
   constructor() {
@@ -105,6 +111,7 @@ export class PRA extends BaseSegment {
 
   /** PRA-8: Date Entered Practice (DT) */
   dateEnteredPractice(value: string, format?: never): this;
+  /** Sets the date entered practice field (chainable). */
   dateEnteredPractice(value: Date, format?: HL7DateLayout): this;
   dateEnteredPractice(value: string | Date, format?: HL7DateLayout): this {
     this.fields[7] = this.createField(
@@ -113,14 +120,17 @@ export class PRA extends BaseSegment {
     return this;
   }
 
+  /** Get primary key value. */
   getPrimaryKeyValue(): string {
     return this.fields[0]?.components[0]?.subComponents[0] ?? "";
   }
 
+  /** Get practitioner category. */
   getPractitionerCategory(): string {
     return this.fields[2]?.components[0]?.subComponents[0] ?? "";
   }
 
+  /** Parses the input string into a structured instance. */
   static parse(
     segmentString: string,
     encoding: EncodingCharacters,

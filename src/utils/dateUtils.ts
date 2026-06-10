@@ -11,26 +11,46 @@ import type { OkResult } from "../types/okResult.ts";
 import type { Result } from "../types/result.ts";
 import { Err } from "./err.ts";
 
+/** Layout — `01/02 03:04:05PM '06 -0700`. */
 export const Layout = "01/02 03:04:05PM '06 -0700";
+/** ANSIC — `Mon Jan _2 15:04:05 2006`. */
 export const ANSIC = "Mon Jan _2 15:04:05 2006";
+/** Unix Date — `Mon Jan _2 15:04:05 MST 2006`. */
 export const UnixDate = "Mon Jan _2 15:04:05 MST 2006";
+/** Ruby Date — `Mon Jan 02 15:04:05 -0700 2006`. */
 export const RubyDate = "Mon Jan 02 15:04:05 -0700 2006";
+/** RFC822 — `02 Jan 06 15:04 MST`. */
 export const RFC822 = "02 Jan 06 15:04 MST";
+/** RFC822 Z — `02 Jan 06 15:04 -0700`. */
 export const RFC822Z = "02 Jan 06 15:04 -0700";
+/** RFC850 — `Monday, 02-Jan-06 15:04:05 MST`. */
 export const RFC850 = "Monday, 02-Jan-06 15:04:05 MST";
+/** RFC1123 — `Mon, 02 Jan 2006 15:04:05 MST`. */
 export const RFC1123 = "Mon, 02 Jan 2006 15:04:05 MST";
+/** RFC1123 Z — `Mon, 02 Jan 2006 15:04:05 -0700`. */
 export const RFC1123Z = "Mon, 02 Jan 2006 15:04:05 -0700";
+/** RFC3339 — `2006-01-02T15:04:05Z07:00`. */
 export const RFC3339 = "2006-01-02T15:04:05Z07:00";
+/** RFC3339 Nano — `2006-01-02T15:04:05.999999999Z07:00`. */
 export const RFC3339Nano = "2006-01-02T15:04:05.999999999Z07:00";
+/** Kitchen — `3:04PM`. */
 export const Kitchen = "3:04PM";
+/** Stamp — `Jan _2 15:04:05`. */
 export const Stamp = "Jan _2 15:04:05";
+/** Stamp Milli — `Jan _2 15:04:05.000`. */
 export const StampMilli = "Jan _2 15:04:05.000";
+/** Stamp Micro — `Jan _2 15:04:05.000000`. */
 export const StampMicro = "Jan _2 15:04:05.000000";
+/** Stamp Nano — `Jan _2 15:04:05.000000000`. */
 export const StampNano = "Jan _2 15:04:05.000000000";
+/** Date Time — `2006-01-02 15:04:05`. */
 export const DateTime = "2006-01-02 15:04:05";
+/** Date Only — `2006-01-02`. */
 export const DateOnly = "2006-01-02";
+/** Time Only — `15:04:05`. */
 export const TimeOnly = "15:04:05";
 
+/** The DateLayoutError type. */
 export type DateLayoutError =
   | "parsing time with extra text"
   | "parsing prefix error"
@@ -57,6 +77,7 @@ export type DateLayoutError =
   | "bad tz colon"
   | "time out of range";
 
+/** The LayoutName type. */
 export type LayoutName =
   | "Layout"
   | "ANSIC"
@@ -1249,6 +1270,7 @@ function resolveLayout(name: string): string {
   return (LAYOUTS as Record<string, string>)[name] ?? name;
 }
 
+/** The FormatOptions type. */
 export type FormatOptions = {
   date: Date | string;
   in: LayoutName;
@@ -1274,6 +1296,7 @@ export interface DateUtils {
   ): Result<Date, DateLayoutError>;
 }
 
+/** Date Utils. */
 export const dateUtils: DateUtils = {
   /**
    * Formats a date using the specified layout.

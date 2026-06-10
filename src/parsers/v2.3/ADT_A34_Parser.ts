@@ -1,3 +1,8 @@
+/**
+ * Parser for ADT^A34 messages (HL7 v2.3).
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import { MSH } from "../../segments/v2.3/MSH.ts";
@@ -9,26 +14,43 @@ import { PV1 } from "../../segments/v2.3/PV1.ts";
 import { HL7Message } from "../../types/message.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 
+/** Structured result of parsing an HL7 ADT^A34 (v2.3) message. */
 export interface ParsedADT_A34 {
+  /** The message value. */
   message: HL7Message;
+  /** The msh value. */
   msh: MSH;
+  /** The evn value. */
   evn?: EVN;
+  /** The pid value. */
   pid: PID;
+  /** The pd1 value. */
   pd1?: PD1;
+  /** The mrg value. */
   mrg: MRG;
+  /** The pv1 value. */
   pv1?: PV1;
 }
 
+/** Parser for HL7 ADT^A34 (v2.3) messages. */
 export class ADT_A34_Parser {
+  /** The message name value. */
   protected readonly messageName: string = "ADT_A34";
 
+  /** Parse msh. */
   protected parseMSH(s: string): Result<MSH> { return MSH.parse(s); }
+  /** Parse evn. */
   protected parseEVN(s: string, e: EncodingCharacters): Result<EVN> { return EVN.parse(s, e); }
+  /** Parse pid. */
   protected parsePID(s: string, e: EncodingCharacters): Result<PID> { return PID.parse(s, e); }
+  /** Parse pd1. */
   protected parsePD1(s: string, e: EncodingCharacters): Result<PD1> { return PD1.parse(s, e); }
+  /** Parse mrg. */
   protected parseMRG(s: string, e: EncodingCharacters): Result<MRG> { return MRG.parse(s, e); }
+  /** Parse pv1. */
   protected parsePV1(s: string, e: EncodingCharacters): Result<PV1> { return PV1.parse(s, e); }
 
+  /** Parses the input string into a structured instance. */
   parse(messageString: string): Result<ParsedADT_A34> {
     try {
       const segments = messageString
@@ -110,6 +132,7 @@ export class ADT_A34_Parser {
   }
 }
 
+/** Parses an HL7 ADT^A34 (v2.3) message string into a structured result. */
 export function parseADT_A34(messageString: string): Result<ParsedADT_A34> {
   return new ADT_A34_Parser().parse(messageString);
 }

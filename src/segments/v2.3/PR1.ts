@@ -1,3 +1,8 @@
+/**
+ * PR1 segment definition for HL7 v2.3.
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import { BaseSegment } from "../../types/segment.ts";
@@ -14,6 +19,7 @@ import {
  * Transmits information relative to various types of procedures performed on a patient.
  */
 export class PR1 extends BaseSegment {
+  /** The HL7 segment identifier. */
   name = "PR1";
 
   constructor() {
@@ -63,6 +69,7 @@ export class PR1 extends BaseSegment {
    * The date/time the procedure was performed.
    */
   procedureDateTime(value: string, format?: never): this;
+  /** Sets the procedure date time field (chainable). */
   procedureDateTime(value: Date, format?: HL7DateTimeLayout): this;
   procedureDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
     this.fields[4] = this.createField(
@@ -174,6 +181,7 @@ export class PR1 extends BaseSegment {
     return this;
   }
 
+  /** Parses the input string into a structured instance. */
   static parse(
     segmentString: string,
     encoding: EncodingCharacters,

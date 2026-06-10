@@ -1,3 +1,8 @@
+/**
+ * IN3 segment definition for HL7 v2.3.
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import { BaseSegment } from "../../types/segment.ts";
@@ -16,6 +21,7 @@ import {
  * Communicates certification and pre-authorization information for insurance coverage.
  */
 export class IN3 extends BaseSegment {
+  /** The HL7 segment identifier. */
   name = "IN3";
 
   constructor() {
@@ -55,6 +61,7 @@ export class IN3 extends BaseSegment {
 
   /** IN3-6: Certification Date/Time (TS) */
   certificationDateTime(value: string, format?: never): this;
+  /** Sets the certification date time field (chainable). */
   certificationDateTime(value: Date, format?: HL7DateTimeLayout): this;
   certificationDateTime(
     value: string | Date,
@@ -68,6 +75,7 @@ export class IN3 extends BaseSegment {
 
   /** IN3-7: Certification Modify Date/Time (TS) */
   certificationModifyDateTime(value: string, format?: never): this;
+  /** Sets the certification modify date time field (chainable). */
   certificationModifyDateTime(value: Date, format?: HL7DateTimeLayout): this;
   certificationModifyDateTime(
     value: string | Date,
@@ -87,6 +95,7 @@ export class IN3 extends BaseSegment {
 
   /** IN3-9: Certification Begin Date (DT) */
   certificationBeginDate(value: string, format?: never): this;
+  /** Sets the certification begin date field (chainable). */
   certificationBeginDate(value: Date, format?: HL7DateLayout): this;
   certificationBeginDate(value: string | Date, format?: HL7DateLayout): this {
     this.fields[8] = this.createField(
@@ -97,6 +106,7 @@ export class IN3 extends BaseSegment {
 
   /** IN3-10: Certification End Date (DT) */
   certificationEndDate(value: string, format?: never): this;
+  /** Sets the certification end date field (chainable). */
   certificationEndDate(value: Date, format?: HL7DateLayout): this;
   certificationEndDate(value: string | Date, format?: HL7DateLayout): this {
     this.fields[9] = this.createField(
@@ -119,6 +129,7 @@ export class IN3 extends BaseSegment {
 
   /** IN3-13: Non-Concur Effective Date/Time (TS) */
   nonConcurEffectiveDateTime(value: string, format?: never): this;
+  /** Sets the non concur effective date time field (chainable). */
   nonConcurEffectiveDateTime(value: Date, format?: HL7DateTimeLayout): this;
   nonConcurEffectiveDateTime(
     value: string | Date,
@@ -180,6 +191,7 @@ export class IN3 extends BaseSegment {
 
   /** IN3-22: Second Opinion Date (DT) */
   secondOpinionDate(value: string, format?: never): this;
+  /** Sets the second opinion date field (chainable). */
   secondOpinionDate(value: Date, format?: HL7DateLayout): this;
   secondOpinionDate(value: string | Date, format?: HL7DateLayout): this {
     this.fields[21] = this.createField(
@@ -210,6 +222,7 @@ export class IN3 extends BaseSegment {
     return this;
   }
 
+  /** Parses the input string into a structured instance. */
   static parse(
     segmentString: string,
     encoding: EncodingCharacters,

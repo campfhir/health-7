@@ -1,3 +1,8 @@
+/**
+ * Barrel re-exporting all HL7 v2.5.1 message builders.
+ *
+ * @module
+ */
 export { createADT_A01 } from "./ADT_A01.ts";
 export { createADT_A02 } from "./ADT_A02.ts";
 export { createADT_A03 } from "./ADT_A03.ts";

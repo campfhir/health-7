@@ -45,6 +45,7 @@ describe("MFN_M02 builder", () => {
 
   test("verify() detects missing MSH", () => {
     const { mfi, mfe, stf } = buildBasicMessage();
+    // deno-lint-ignore no-explicit-any
     const message = new MFN_M02(null as any, mfi, [{ mfe, stf }]);
 
     const result = message.verify();
@@ -54,6 +55,7 @@ describe("MFN_M02 builder", () => {
 
   test("verify() detects missing MFI", () => {
     const { msh, mfe, stf } = buildBasicMessage();
+    // deno-lint-ignore no-explicit-any
     const message = new MFN_M02(msh, null as any, [{ mfe, stf }]);
 
     const result = message.verify();

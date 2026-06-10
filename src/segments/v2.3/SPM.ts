@@ -1,3 +1,8 @@
+/**
+ * SPM segment definition for HL7 v2.3.
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import { BaseSegment } from "../../types/segment.ts";
@@ -13,6 +18,7 @@ import {
  * SPM - Specimen Segment (HL7 v2.3)
  */
 export class SPM extends BaseSegment {
+  /** The HL7 segment identifier. */
   name = "SPM";
 
   constructor() {
@@ -114,6 +120,7 @@ export class SPM extends BaseSegment {
 
   /** SPM-18: Specimen Received Date/Time (TS) */
   specimenReceivedDateTime(value: string, format?: never): this;
+  /** Sets the specimen received date time field (chainable). */
   specimenReceivedDateTime(value: Date, format?: HL7DateTimeLayout): this;
   specimenReceivedDateTime(
     value: string | Date,
@@ -149,6 +156,7 @@ export class SPM extends BaseSegment {
     return this;
   }
 
+  /** Parses the input string into a structured instance. */
   static parse(
     segmentString: string,
     encoding: EncodingCharacters,

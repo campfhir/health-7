@@ -1,3 +1,8 @@
+/**
+ * Barrel re-exporting all HL7 v2.3 segment classes.
+ *
+ * @module
+ */
 export * from "./ACC.ts";
 export * from "./AIG.ts";
 export * from "./AIL.ts";

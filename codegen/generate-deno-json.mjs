@@ -34,6 +34,7 @@ for (const group of GROUPS) {
 const denoJson = {
   name: pkg.name,
   version: pkg.version,
+  description: pkg.description,
   license: pkg.license,
   exports: exportsMap,
   publish: {

@@ -1,23 +1,38 @@
+/** Segment Definition. */
 export interface SegmentDefinition {
+  /** The HL7 segment identifier. */
   name: string;
+  /** The required value. */
   required: boolean;
+  /** The repeating value. */
   repeating: boolean;
+  /** The max occurrences value. */
   maxOccurrences?: number;
 }
 
+/** Segment Group. */
 export interface SegmentGroup {
+  /** The HL7 segment identifier. */
   name: string;
+  /** The required value. */
   required: boolean;
+  /** The repeating value. */
   repeating: boolean;
+  /** The segments value. */
   segments: (SegmentDefinition | SegmentGroup)[];
   /** Override the generated Parsed* type name (defaults to Parsed + PascalCase of name) */
   exportTypeName?: string;
 }
 
+/** Message Schema. */
 export interface MessageSchema {
+  /** The message type value. */
   messageType: string;
+  /** The trigger event value. */
   triggerEvent: string;
+  /** The version value. */
   version: string;
+  /** The structure value. */
   structure: (SegmentDefinition | SegmentGroup)[];
   /**
    * When set, codegen generates a thin wrapper (parser subclass + builder re-export)
@@ -39,6 +54,7 @@ export interface VersionSchema {
   messages: MessageSchema[];
 }
 
+/** Is Segment Group. */
 export function isSegmentGroup(item: SegmentDefinition | SegmentGroup): item is SegmentGroup {
   return 'segments' in item;
 }

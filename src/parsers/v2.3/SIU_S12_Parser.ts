@@ -1,3 +1,8 @@
+/**
+ * Parser for SIU^S12 messages (HL7 v2.3).
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import { MSH } from "../../segments/v2.3/MSH.ts";
@@ -17,109 +22,157 @@ import { AIP } from "../../segments/v2.3/AIP.ts";
 import { HL7Message } from "../../types/message.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 
+/** Structured result of parsing an HL7 SIU^S12 (v2.3) message. */
 export interface ParsedSIUPatient {
+  /** The pid value. */
   pid: PID;
+  /** The pd1 value. */
   pd1?: PD1;
+  /** The pv1 value. */
   pv1?: PV1;
+  /** The pv2 value. */
   pv2?: PV2;
+  /** The obx list value. */
   obxList?: OBX[];
+  /** The dg1 list value. */
   dg1List?: DG1[];
 }
 
+/** Structured result of parsing an HL7 SIU^S12 (v2.3) message. */
 export interface ParsedSIUService {
+  /** The ais value. */
   ais: AIS;
+  /** The nte list value. */
   nteList?: NTE[];
 }
 
+/** Structured result of parsing an HL7 SIU^S12 (v2.3) message. */
 export interface ParsedSIUGeneralResource {
+  /** The aig value. */
   aig: AIG;
+  /** The nte list value. */
   nteList?: NTE[];
 }
 
+/** Structured result of parsing an HL7 SIU^S12 (v2.3) message. */
 export interface ParsedSIULocationResource {
+  /** The ail value. */
   ail: AIL;
+  /** The nte list value. */
   nteList?: NTE[];
 }
 
+/** Structured result of parsing an HL7 SIU^S12 (v2.3) message. */
 export interface ParsedSIUPersonnelResource {
+  /** The aip value. */
   aip: AIP;
+  /** The nte list value. */
   nteList?: NTE[];
 }
 
+/** Structured result of parsing an HL7 SIU^S12 (v2.3) message. */
 export interface ParsedSIUResources {
+  /** The rgs value. */
   rgs: RGS;
+  /** The services value. */
   services?: ParsedSIUService[];
+  /** The general resources value. */
   generalResources?: ParsedSIUGeneralResource[];
+  /** The location resources value. */
   locationResources?: ParsedSIULocationResource[];
+  /** The personnel resources value. */
   personnelResources?: ParsedSIUPersonnelResource[];
 }
 
+/** Structured result of parsing an HL7 SIU^S12 (v2.3) message. */
 export interface ParsedSIU_S12 {
+  /** The message value. */
   message: HL7Message;
+  /** The msh value. */
   msh: MSH;
+  /** The sch value. */
   sch: SCH;
+  /** The nte list value. */
   nteList?: NTE[];
+  /** The patients value. */
   patients?: ParsedSIUPatient[];
+  /** The resources value. */
   resources: ParsedSIUResources[];
 }
 
+/** Parser for HL7 SIU^S12 (v2.3) messages. */
 export class SIU_S12_Parser {
+  /** Parse msh. */
   protected parseMSH(s: string): Result<MSH> {
     return MSH.parse(s);
   }
 
+  /** Parse sch. */
   protected parseSCH(s: string, e: EncodingCharacters): Result<SCH> {
     return SCH.parse(s, e);
   }
 
+  /** Parse nte. */
   protected parseNTE(s: string, e: EncodingCharacters): Result<NTE> {
     return NTE.parse(s, e);
   }
 
+  /** Parse pid. */
   protected parsePID(s: string, e: EncodingCharacters): Result<PID> {
     return PID.parse(s, e);
   }
 
+  /** Parse pd1. */
   protected parsePD1(s: string, e: EncodingCharacters): Result<PD1> {
     return PD1.parse(s, e);
   }
 
+  /** Parse pv1. */
   protected parsePV1(s: string, e: EncodingCharacters): Result<PV1> {
     return PV1.parse(s, e);
   }
 
+  /** Parse pv2. */
   protected parsePV2(s: string, e: EncodingCharacters): Result<PV2> {
     return PV2.parse(s, e);
   }
 
+  /** Parse obx. */
   protected parseOBX(s: string, e: EncodingCharacters): Result<OBX> {
     return OBX.parse(s, e);
   }
 
+  /** Parse dg1. */
   protected parseDG1(s: string, e: EncodingCharacters): Result<DG1> {
     return DG1.parse(s, e);
   }
 
+  /** Parse rgs. */
   protected parseRGS(s: string, e: EncodingCharacters): Result<RGS> {
     return RGS.parse(s, e);
   }
 
+  /** Parse ais. */
   protected parseAIS(s: string, e: EncodingCharacters): Result<AIS> {
     return AIS.parse(s, e);
   }
 
+  /** Parse aig. */
   protected parseAIG(s: string, e: EncodingCharacters): Result<AIG> {
     return AIG.parse(s, e);
   }
 
+  /** Parse ail. */
   protected parseAIL(s: string, e: EncodingCharacters): Result<AIL> {
     return AIL.parse(s, e);
   }
 
+  /** Parse aip. */
   protected parseAIP(s: string, e: EncodingCharacters): Result<AIP> {
     return AIP.parse(s, e);
   }
 
+  /** Parses the input string into a structured instance. */
   parse(messageString: string): Result<ParsedSIU_S12> {
     try {
       const segments = messageString
@@ -468,6 +521,7 @@ export class SIU_S12_Parser {
   }
 }
 
+/** Parses an HL7 SIU^S12 (v2.3) message string into a structured result. */
 export function parseSIU_S12(messageString: string): Result<ParsedSIU_S12> {
   return new SIU_S12_Parser().parse(messageString);
 }

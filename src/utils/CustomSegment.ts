@@ -13,13 +13,16 @@ import { BaseSegment } from "../types/segment.ts";
  *   .setField(3, [['sub1a', 'sub1b'], ['sub2']]);
  */
 export class CustomSegment extends BaseSegment {
+  /** The HL7 segment identifier. */
   name: string;
 
+  /** Constructor. */
   constructor(name: string) {
     super();
     this.name = name;
   }
 
+  /** Sets the set field field (chainable). */
   setField(fieldNumber: number, value: string | string[] | string[][]): this {
     const index = fieldNumber - 1;
     while (this.fields.length <= index) {

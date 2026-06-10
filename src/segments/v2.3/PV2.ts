@@ -1,3 +1,8 @@
+/**
+ * PV2 segment definition for HL7 v2.3.
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import { BaseSegment } from "../../types/segment.ts";
@@ -15,6 +20,7 @@ import {
  * PV2 - Patient Visit - Additional Information Segment (HL7 v2.3)
  */
 export class PV2 extends BaseSegment {
+  /** The HL7 segment identifier. */
   name = "PV2";
 
   constructor() {
@@ -73,6 +79,7 @@ export class PV2 extends BaseSegment {
 
   /** PV2-8: Expected Admit Date/Time (TS) */
   expectedAdmitDateTime(value: string, format?: never): this;
+  /** Sets the expected admit date time field (chainable). */
   expectedAdmitDateTime(value: Date, format?: HL7DateTimeLayout): this;
   expectedAdmitDateTime(
     value: string | Date,
@@ -86,6 +93,7 @@ export class PV2 extends BaseSegment {
 
   /** PV2-9: Expected Discharge Date/Time (TS) */
   expectedDischargeDateTime(value: string, format?: never): this;
+  /** Sets the expected discharge date time field (chainable). */
   expectedDischargeDateTime(value: Date, format?: HL7DateTimeLayout): this;
   expectedDischargeDateTime(
     value: string | Date,
@@ -129,6 +137,7 @@ export class PV2 extends BaseSegment {
 
   /** PV2-14: Previous Service Date (DT) */
   previousServiceDate(value: string, format?: never): this;
+  /** Sets the previous service date field (chainable). */
   previousServiceDate(value: Date, format?: HL7DateLayout): this;
   previousServiceDate(value: string | Date, format?: HL7DateLayout): this {
     this.fields[13] = this.createField(
@@ -151,6 +160,7 @@ export class PV2 extends BaseSegment {
 
   /** PV2-17: Purge Status Date (DT) */
   purgeStatusDate(value: string, format?: never): this;
+  /** Sets the purge status date field (chainable). */
   purgeStatusDate(value: Date, format?: HL7DateLayout): this;
   purgeStatusDate(value: string | Date, format?: HL7DateLayout): this {
     this.fields[16] = this.createField(
@@ -207,6 +217,7 @@ export class PV2 extends BaseSegment {
     return this;
   }
 
+  /** Parses the input string into a structured instance. */
   static parse(
     segmentString: string,
     encoding: EncodingCharacters,

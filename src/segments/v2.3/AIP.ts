@@ -1,3 +1,8 @@
+/**
+ * AIP segment definition for HL7 v2.3.
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import { BaseSegment } from "../../types/segment.ts";
@@ -13,6 +18,7 @@ import {
  * AIP - Appointment Information - Personnel Resource Segment (HL7 v2.3)
  */
 export class AIP extends BaseSegment {
+  /** The HL7 segment identifier. */
   name = "AIP";
 
   constructor() {
@@ -72,6 +78,7 @@ export class AIP extends BaseSegment {
 
   /** AIP-6: Start Date/Time (TS) */
   startDateTime(value: string, format?: never): this;
+  /** Sets the start date time field (chainable). */
   startDateTime(value: Date, format?: HL7DateTimeLayout): this;
   startDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
     this.fields[5] = this.createField(
@@ -128,6 +135,7 @@ export class AIP extends BaseSegment {
     return this;
   }
 
+  /** Parses the input string into a structured instance. */
   static parse(
     segmentString: string,
     encoding: EncodingCharacters,

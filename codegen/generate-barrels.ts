@@ -65,9 +65,18 @@ const DIRS: { dir: string; barrel: (absDir: string) => string }[] = [
   { dir: "src/parsers/v2.5.1",    barrel: parserBarrel  },
 ];
 
+// JSR module doc for a barrel, derived from its directory (kind + version).
+function barrelModuleDoc(dir: string): string {
+  const [, kind, ver] = dir.match(/src\/(segments|builders|parsers)\/(v[\d.]+)/)!;
+  const noun = { segments: "segment classes", builders: "message builders", parsers: "message parsers" }[
+    kind as "segments" | "builders" | "parsers"
+  ];
+  return `/**\n * Barrel re-exporting all HL7 ${ver} ${noun}.\n *\n * @module\n */\n`;
+}
+
 for (const { dir, barrel } of DIRS) {
   const absDir = join(ROOT, dir);
-  const content = barrel(absDir);
+  const content = barrelModuleDoc(dir) + barrel(absDir);
   const indexPath = join(absDir, "index.ts");
 
   if (DRY_RUN) {

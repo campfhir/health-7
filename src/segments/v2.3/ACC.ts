@@ -1,3 +1,8 @@
+/**
+ * ACC segment definition for HL7 v2.3.
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import { BaseSegment } from "../../types/segment.ts";
@@ -14,6 +19,7 @@ import {
  * Contains information about an accident that caused the patient's injury.
  */
 export class ACC extends BaseSegment {
+  /** The HL7 segment identifier. */
   name = "ACC";
 
   constructor() {
@@ -23,6 +29,7 @@ export class ACC extends BaseSegment {
 
   /** ACC-1: Accident Date/Time (TS) */
   accidentDateTime(value: string, format?: never): this;
+  /** Sets the accident date time field (chainable). */
   accidentDateTime(value: Date, format?: HL7DateTimeLayout): this;
   accidentDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
     this.fields[0] = this.createField(
@@ -98,6 +105,7 @@ export class ACC extends BaseSegment {
     return this;
   }
 
+  /** Parses the input string into a structured instance. */
   static parse(
     segmentString: string,
     encoding: EncodingCharacters,

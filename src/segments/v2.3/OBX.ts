@@ -1,3 +1,8 @@
+/**
+ * OBX segment definition for HL7 v2.3.
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import { BaseSegment } from "../../types/segment.ts";
@@ -15,6 +20,7 @@ import {
  * OBX - Observation/Result Segment (HL7 v2.3)
  */
 export class OBX extends BaseSegment {
+  /** The HL7 segment identifier. */
   name = "OBX";
 
   constructor() {
@@ -22,14 +28,17 @@ export class OBX extends BaseSegment {
     this.fields = [];
   }
 
+  /** Sets the set id field (chainable). */
   setId(value: string): this {
     this.fields[0] = this.createField(value);
     return this;
   }
+  /** Sets the value type field (chainable). */
   valueType(value: string): this {
     this.fields[1] = this.createField(value);
     return this;
   }
+  /** Observation identifier. */
   observationIdentifier(
     identifier: string,
     text?: string,
@@ -42,14 +51,17 @@ export class OBX extends BaseSegment {
     this.fields[2] = this.createField(components);
     return this;
   }
+  /** Sets the observation sub id field (chainable). */
   observationSubId(value: string): this {
     this.fields[3] = this.createField(value);
     return this;
   }
+  /** Sets the observation value field (chainable). */
   observationValue(value: string | string[]): this {
     this.fields[4] = this.createField(value);
     return this;
   }
+  /** Sets the units field (chainable). */
   units(identifier?: string, text?: string, nameOfCodingSystem?: string): this {
     const components = [];
     if (identifier) components.push(identifier);
@@ -59,27 +71,34 @@ export class OBX extends BaseSegment {
     this.fields[5] = this.createField(components);
     return this;
   }
+  /** Sets the reference range field (chainable). */
   referenceRange(value: string): this {
     this.fields[6] = this.createField(value);
     return this;
   }
+  /** Sets the abnormal flags field (chainable). */
   abnormalFlags(value: string): this {
     this.fields[7] = this.createField(value);
     return this;
   }
+  /** Sets the probability field (chainable). */
   probability(value: string): this {
     this.fields[8] = this.createField(value);
     return this;
   }
+  /** Sets the nature of abnormal test field (chainable). */
   natureOfAbnormalTest(value: string): this {
     this.fields[9] = this.createField(value);
     return this;
   }
+  /** Sets the observation result status field (chainable). */
   observationResultStatus(value: string): this {
     this.fields[10] = this.createField(value);
     return this;
   }
+  /** Sets the effective date of reference range field (chainable). */
   effectiveDateOfReferenceRange(value: string, format?: never): this;
+  /** Sets the effective date of reference range field (chainable). */
   effectiveDateOfReferenceRange(value: Date, format?: HL7DateLayout): this;
   effectiveDateOfReferenceRange(
     value: string | Date,
@@ -90,11 +109,14 @@ export class OBX extends BaseSegment {
     );
     return this;
   }
+  /** Sets the user defined access checks field (chainable). */
   userDefinedAccessChecks(value: string): this {
     this.fields[12] = this.createField(value);
     return this;
   }
+  /** Sets the date time of observation field (chainable). */
   dateTimeOfObservation(value: string, format?: never): this;
+  /** Sets the date time of observation field (chainable). */
   dateTimeOfObservation(value: Date, format?: HL7DateTimeLayout): this;
   dateTimeOfObservation(
     value: string | Date,
@@ -105,10 +127,12 @@ export class OBX extends BaseSegment {
     );
     return this;
   }
+  /** Sets the producers id field (chainable). */
   producersId(value: string): this {
     this.fields[14] = this.createField(value);
     return this;
   }
+  /** Responsible observer. */
   responsibleObserver(
     id: string,
     familyName?: string,
@@ -121,6 +145,7 @@ export class OBX extends BaseSegment {
     this.fields[15] = this.createField(components);
     return this;
   }
+  /** Observation method. */
   observationMethod(
     identifier?: string,
     text?: string,
@@ -164,6 +189,7 @@ export class OBX extends BaseSegment {
     );
   }
 
+  /** Parses the input string into a structured instance. */
   static parse(
     segmentString: string,
     encoding: EncodingCharacters,

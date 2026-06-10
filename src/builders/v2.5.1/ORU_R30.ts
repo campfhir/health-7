@@ -1,3 +1,8 @@
+/**
+ * Builder for ORU^R30 messages (HL7 v2.5.1).
+ *
+ * @module
+ */
 import type { MSH } from "../../segments/v2.5.1/MSH.ts";
 import type { PID } from "../../segments/v2.5.1/PID.ts";
 import type { PV1 } from "../../segments/v2.5.1/PV1.ts";
@@ -6,41 +11,62 @@ import type { OBR } from "../../segments/v2.5.1/OBR.ts";
 import type { OBX } from "../../segments/v2.5.1/OBX.ts";
 import { type EncodingCharacters, DEFAULT_ENCODING } from "../../types/encoding.ts";
 
+/** OrderObservationR30 — a data structure used to build an HL7 ORU^R30 (v2.5.1) message. */
 export interface OrderObservationR30 {
+  /** The orc value. */
   orc: ORC;
+  /** The obr value. */
   obr: OBR;
+  /** The obx list value. */
   obxList: OBX[];
+  /** The observations value. */
   observations?: OBX[]; // Alias for obxList
 }
 
+/** PatientResultR30 — a data structure used to build an HL7 ORU^R30 (v2.5.1) message. */
 export interface PatientResultR30 {
+  /** The pid value. */
   pid?: PID;
+  /** The pv1 value. */
   pv1?: PV1;
+  /** The order observations value. */
   orderObservations: OrderObservationR30[];
 }
 
 // Simplified interface for convenience
+/** SimpleOrderObservationR30 — a data structure used to build an HL7 ORU^R30 (v2.5.1) message. */
 export interface SimpleOrderObservationR30 {
+  /** The orc value. */
   orc: ORC;
+  /** The obr value. */
   obr: OBR;
+  /** The observations value. */
   observations: OBX[];
 }
 
+/** SimplePatientResultR30 — a data structure used to build an HL7 ORU^R30 (v2.5.1) message. */
 export interface SimplePatientResultR30 {
+  /** The pid value. */
   pid?: PID;
+  /** The pv1 value. */
   pv1?: PV1;
+  /** The order observations value. */
   orderObservations: SimpleOrderObservationR30[];
 }
 
+/** Builder for HL7 ORU^R30 (v2.5.1) messages. */
 export class ORU_R30 {
+  /** The message name value. */
   protected readonly messageName: string = "ORU_R30";
 
+  /** Constructor. */
   constructor(
     public msh: MSH,
     public patientResults: PatientResultR30[] = [],
     private encoding: EncodingCharacters = DEFAULT_ENCODING,
   ) {}
 
+  /** Validates the message structure, returning a result. */
   verify(): { valid: boolean; errors: string[] } {
     const errors: string[] = [];
 
@@ -86,6 +112,7 @@ export class ORU_R30 {
     };
   }
 
+  /** Encodes this message to its HL7 wire string. */
   encode(options?: { renumberSetIds?: boolean }): string {
     const verification = this.verify();
     if (!verification.valid) {
@@ -136,6 +163,7 @@ export class ORU_R30 {
   }
 }
 
+/** Builds an HL7 ORU^R30 (v2.5.1) message. */
 export function createORU_R30(
   msh: MSH,
   patientResults: SimplePatientResultR30[] = [],

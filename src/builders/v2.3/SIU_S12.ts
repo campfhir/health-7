@@ -1,3 +1,8 @@
+/**
+ * Builder for SIU^S12 messages (HL7 v2.3).
+ *
+ * @module
+ */
 import type { MSH as MSH_base } from "../../segments/v2.3/MSH.ts";
 import type { SCH as SCH_base } from "../../segments/v2.3/SCH.ts";
 import type { NTE as NTE_base } from "../../segments/v2.3/NTE.ts";
@@ -29,6 +34,7 @@ import type { AIL } from "../../segments/v2.3/AIL.ts";
 import type { AIP } from "../../segments/v2.3/AIP.ts";
 import { type EncodingCharacters, DEFAULT_ENCODING } from "../../types/encoding.ts";
 
+/** SIUPatientGroup — a data structure used to build an HL7 SIU^S12 (v2.3) message. */
 export interface SIUPatientGroup<
   TPID extends PID_base = PID,
   TPD1 extends PD1_base = PD1,
@@ -37,46 +43,65 @@ export interface SIUPatientGroup<
   TOBX extends OBX_base = OBX,
   TDG1 extends DG1_base = DG1,
 > {
+  /** The pid value. */
   pid: TPID;
+  /** The pd1 value. */
   pd1?: TPD1;
+  /** The pv1 value. */
   pv1?: TPV1;
+  /** The pv2 value. */
   pv2?: TPV2;
+  /** The obx list value. */
   obxList?: TOBX[];
+  /** The dg1 list value. */
   dg1List?: TDG1[];
 }
 
+/** SIUServiceGroup — a data structure used to build an HL7 SIU^S12 (v2.3) message. */
 export interface SIUServiceGroup<
   TAIS extends AIS_base = AIS,
   TNTE extends NTE_base = NTE,
 > {
+  /** The ais value. */
   ais: TAIS;
+  /** The nte list value. */
   nteList?: TNTE[];
 }
 
+/** SIUGeneralResourceGroup — a data structure used to build an HL7 SIU^S12 (v2.3) message. */
 export interface SIUGeneralResourceGroup<
   TAIG extends AIG_base = AIG,
   TNTE extends NTE_base = NTE,
 > {
+  /** The aig value. */
   aig: TAIG;
+  /** The nte list value. */
   nteList?: TNTE[];
 }
 
+/** SIULocationResourceGroup — a data structure used to build an HL7 SIU^S12 (v2.3) message. */
 export interface SIULocationResourceGroup<
   TAIL extends AIL_base = AIL,
   TNTE extends NTE_base = NTE,
 > {
+  /** The ail value. */
   ail: TAIL;
+  /** The nte list value. */
   nteList?: TNTE[];
 }
 
+/** SIUPersonnelResourceGroup — a data structure used to build an HL7 SIU^S12 (v2.3) message. */
 export interface SIUPersonnelResourceGroup<
   TAIP extends AIP_base = AIP,
   TNTE extends NTE_base = NTE,
 > {
+  /** The aip value. */
   aip: TAIP;
+  /** The nte list value. */
   nteList?: TNTE[];
 }
 
+/** SIUResourcesGroup — a data structure used to build an HL7 SIU^S12 (v2.3) message. */
 export interface SIUResourcesGroup<
   TRGS extends RGS_base = RGS,
   TAIS extends AIS_base = AIS,
@@ -85,13 +110,19 @@ export interface SIUResourcesGroup<
   TAIP extends AIP_base = AIP,
   TNTE extends NTE_base = NTE,
 > {
+  /** The rgs value. */
   rgs: TRGS;
+  /** The services value. */
   services?: SIUServiceGroup<TAIS, TNTE>[];
+  /** The general resources value. */
   generalResources?: SIUGeneralResourceGroup<TAIG, TNTE>[];
+  /** The location resources value. */
   locationResources?: SIULocationResourceGroup<TAIL, TNTE>[];
+  /** The personnel resources value. */
   personnelResources?: SIUPersonnelResourceGroup<TAIP, TNTE>[];
 }
 
+/** Builder for HL7 SIU^S12 (v2.3) messages. */
 export class SIU_S12<
   TMSH extends MSH_base = MSH,
   TSCH extends SCH_base = SCH,
@@ -108,8 +139,10 @@ export class SIU_S12<
   TAIL extends AIL_base = AIL,
   TAIP extends AIP_base = AIP,
 > {
+  /** The message name value. */
   protected readonly messageName: string = "SIU_S12";
 
+  /** Constructor. */
   constructor(
     public msh: TMSH,
     public sch: TSCH,
@@ -119,6 +152,7 @@ export class SIU_S12<
     private encoding: EncodingCharacters = DEFAULT_ENCODING,
   ) {}
 
+  /** Validates the message structure, returning a result. */
   verify(): { valid: boolean; errors: string[] } {
     const errors: string[] = [];
 
@@ -144,6 +178,7 @@ export class SIU_S12<
     return { valid: errors.length === 0, errors };
   }
 
+  /** Encodes this message to its HL7 wire string. */
   encode(): string {
     const verification = this.verify();
     if (!verification.valid) {
@@ -206,6 +241,7 @@ export class SIU_S12<
   }
 }
 
+/** Builds an HL7 SIU^S12 (v2.3) message. */
 export function createSIU_S12<
   TMSH extends MSH_base = MSH,
   TSCH extends SCH_base = SCH,

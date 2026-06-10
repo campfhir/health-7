@@ -1,3 +1,8 @@
+/**
+ * PV1 segment definition for HL7 v2.5.1.
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
@@ -9,6 +14,7 @@ import { PV1 as PV1_base } from "../v2.3/PV1.ts";
  * Extends v2.3 PV1. Add v2.5.1-specific fields here as needed.
  */
 export class PV1 extends PV1_base {
+  /** Parses the input string into a structured instance. */
   static override parse(
     segmentString: string,
     encoding: EncodingCharacters,

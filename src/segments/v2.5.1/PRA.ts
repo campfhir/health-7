@@ -1,3 +1,8 @@
+/**
+ * PRA segment definition for HL7 v2.5.1.
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
@@ -9,6 +14,7 @@ import { PRA as PRA_base } from "../v2.3/PRA.ts";
  * Extends v2.3 PRA. Add v2.5.1-specific fields here as needed.
  */
 export class PRA extends PRA_base {
+  /** Parses the input string into a structured instance. */
   static override parse(
     segmentString: string,
     encoding: EncodingCharacters,

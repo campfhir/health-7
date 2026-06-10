@@ -1,3 +1,8 @@
+/**
+ * Parser for ORU^R01 messages (HL7 v2.3).
+ *
+ * @module
+ */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import { MSH } from "../../segments/v2.3/MSH.ts";
@@ -13,63 +18,93 @@ import { CTI } from "../../segments/v2.3/CTI.ts";
 import { HL7Message } from "../../types/message.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 
+/** Structured result of parsing an HL7 ORU^R01 (v2.3) message. */
 export interface ParsedOrderObservation {
+  /** The orc value. */
   orc?: ORC;
+  /** The obr value. */
   obr: OBR;
+  /** The obr nte list value. */
   obrNteList?: NTE[];
+  /** The obx list value. */
   obxList: OBX[];
+  /** The obx nte map value. */
   obxNteMap?: Map<number, NTE[]>;
+  /** The cti list value. */
   ctiList?: CTI[];
 }
 
+/** Structured result of parsing an HL7 ORU^R01 (v2.3) message. */
 export interface ParsedPatientResult {
+  /** The pid value. */
   pid?: PID;
+  /** The pd1 value. */
   pd1?: PD1;
+  /** The nk1 list value. */
   nk1List?: NK1[];
+  /** The nte list value. */
   nteList?: NTE[];
+  /** The pv1 value. */
   pv1?: PV1;
+  /** The order observations value. */
   orderObservations: ParsedOrderObservation[];
 }
 
+/** Structured result of parsing an HL7 ORU^R01 (v2.3) message. */
 export interface ParsedORU_R01 {
+  /** The message value. */
   message: HL7Message;
+  /** The msh value. */
   msh: MSH;
+  /** The patient results value. */
   patientResults: ParsedPatientResult[];
 }
 
+/** Parser for HL7 ORU^R01 (v2.3) messages. */
 export class ORU_R01_Parser {
+  /** Parse msh. */
   protected parseMSH(s: string): Result<MSH> {
     return MSH.parse(s);
   }
+  /** Parse pid. */
   protected parsePID(s: string, e: EncodingCharacters): Result<PID> {
     return PID.parse(s, e);
   }
+  /** Parse pd1. */
   protected parsePD1(s: string, e: EncodingCharacters): Result<PD1> {
     return PD1.parse(s, e);
   }
+  /** Parse nk1. */
   protected parseNK1(s: string, e: EncodingCharacters): Result<NK1> {
     return NK1.parse(s, e) as Result<NK1>;
   }
+  /** Parse nte. */
   protected parseNTE(s: string, e: EncodingCharacters): Result<NTE> {
     return NTE.parse(s, e);
   }
+  /** Parse pv1. */
   protected parsePV1(s: string, e: EncodingCharacters): Result<PV1> {
     return PV1.parse(s, e);
   }
+  /** Parse orc. */
   protected parseORC(s: string, e: EncodingCharacters): Result<ORC> {
     return ORC.parse(s, e);
   }
+  /** Parse obr. */
   protected parseOBR(s: string, e: EncodingCharacters): Result<OBR> {
     return OBR.parse(s, e);
   }
+  /** Parse obx. */
   protected parseOBX(s: string, e: EncodingCharacters): Result<OBX> {
     return OBX.parse(s, e);
   }
 
+  /** Parse cti. */
   protected parseCTI(s: string, e: EncodingCharacters): Result<CTI> {
     return CTI.parse(s, e);
   }
 
+  /** Parses the input string into a structured instance. */
   parse(messageString: string): Result<ParsedORU_R01> {
     try {
       const segments = messageString
@@ -362,6 +397,7 @@ export class ORU_R01_Parser {
   }
 }
 
+/** Parses an HL7 ORU^R01 (v2.3) message string into a structured result. */
 export function parseORU_R01(messageString: string): Result<ParsedORU_R01> {
   return new ORU_R01_Parser().parse(messageString);
 }
