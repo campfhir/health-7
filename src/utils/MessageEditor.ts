@@ -116,11 +116,19 @@ export class MessageEditor {
   private insertions: Insertion[] = [];
   private updates: Update[] = [];
 
-  /** Constructor. */
+  private message: Encodable;
+
+  /**
+   * Creates an editor for the given message — either an {@link Encodable}
+   * message object or a raw HL7 string (treated as already-encoded).
+   */
   constructor(
-    private message: Encodable,
+    message: string | Encodable,
     private encoding: EncodingCharacters = DEFAULT_ENCODING,
-  ) {}
+  ) {
+    this.message =
+      typeof message === "string" ? { encode: () => message } : message;
+  }
 
   /** Sets the update field (chainable). */
   update(path: string, value: string): this;

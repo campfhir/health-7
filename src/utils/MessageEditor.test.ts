@@ -2,11 +2,6 @@ import { test, expect, describe } from "vitest";
 import { MessageEditor } from "./MessageEditor.ts";
 import { CustomSegment } from "./CustomSegment.ts";
 
-// Minimal encodable stub — returns a fixed HL7 string
-function makeMessage(raw: string) {
-  return { encode: () => raw };
-}
-
 const BASE = [
   "MSH|^~\\&|LAB|HOSP|EMR|CLINIC|20250101||ORU^R01|MSG001|P|2.5.1",
   "PID|1||12345^^^MRN^MR||Doe^John",
@@ -24,7 +19,7 @@ function lines(encoded: string) {
 describe("MessageEditor.append", () => {
   test("appends segment at end of message", () => {
     const zseg = new CustomSegment("ZMH").setField(1, "end-data");
-    const result = lines(new MessageEditor(makeMessage(BASE)).append(zseg).encode());
+    const result = lines(new MessageEditor(BASE).append(zseg).encode());
     expect(result[result.length - 1]).toBe("ZMH|end-data");
   });
 
@@ -32,7 +27,7 @@ describe("MessageEditor.append", () => {
     const z1 = new CustomSegment("ZA1").setField(1, "first");
     const z2 = new CustomSegment("ZA2").setField(1, "second");
     const result = lines(
-      new MessageEditor(makeMessage(BASE)).append(z1).append(z2).encode(),
+      new MessageEditor(BASE).append(z1).append(z2).encode(),
     );
     expect(result[result.length - 2]).toBe("ZA1|first");
     expect(result[result.length - 1]).toBe("ZA2|second");
@@ -43,7 +38,7 @@ describe("MessageEditor.insert.after", () => {
   test("inserts after last occurrence by default", () => {
     const zpd = new CustomSegment("ZPD").setField(1, "patient-data");
     const result = lines(
-      new MessageEditor(makeMessage(BASE))
+      new MessageEditor(BASE)
         .insert(zpd).after("PID").commit()
         .encode(),
     );
@@ -55,7 +50,7 @@ describe("MessageEditor.insert.after", () => {
     const zob = new CustomSegment("ZOB").setField(1, "obs-data");
     // Last OBX is OBX|3 at index 6 in BASE — should insert after it
     const result = lines(
-      new MessageEditor(makeMessage(BASE))
+      new MessageEditor(BASE)
         .insert(zob).after("OBX").last().commit()
         .encode(),
     );
@@ -69,7 +64,7 @@ describe("MessageEditor.insert.after", () => {
   test("inserts after each occurrence", () => {
     const zob = new CustomSegment("ZOB").setField(1, "x");
     const result = lines(
-      new MessageEditor(makeMessage(BASE))
+      new MessageEditor(BASE)
         .insert(zob).after("OBX").each().commit()
         .encode(),
     );
@@ -86,7 +81,7 @@ describe("MessageEditor.insert.after", () => {
   test("inserts after nth occurrence", () => {
     const zob = new CustomSegment("ZOB").setField(1, "second");
     const result = lines(
-      new MessageEditor(makeMessage(BASE))
+      new MessageEditor(BASE)
         .insert(zob).after("OBX").nth(2).commit()
         .encode(),
     );
@@ -101,7 +96,7 @@ describe("MessageEditor.insert.after", () => {
 
   test("does nothing when target segment not found", () => {
     const zseg = new CustomSegment("ZXX").setField(1, "data");
-    const result = new MessageEditor(makeMessage(BASE))
+    const result = new MessageEditor(BASE)
       .insert(zseg).after("NK1").commit()
       .encode();
     expect(result).toBe(BASE);
@@ -109,7 +104,7 @@ describe("MessageEditor.insert.after", () => {
 
   test("nth beyond count does nothing", () => {
     const zseg = new CustomSegment("ZXX").setField(1, "data");
-    const result = new MessageEditor(makeMessage(BASE))
+    const result = new MessageEditor(BASE)
       .insert(zseg).after("PID").nth(99).commit()
       .encode();
     expect(result).toBe(BASE);
@@ -120,7 +115,7 @@ describe("MessageEditor.insert.before", () => {
   test("inserts before last occurrence by default", () => {
     const zob = new CustomSegment("ZOB").setField(1, "before-last-obr");
     const result = lines(
-      new MessageEditor(makeMessage(BASE))
+      new MessageEditor(BASE)
         .insert(zob).before("OBR").commit()
         .encode(),
     );
@@ -134,7 +129,7 @@ describe("MessageEditor.insert.before", () => {
   test("inserts before each occurrence", () => {
     const zob = new CustomSegment("ZOB").setField(1, "x");
     const result = lines(
-      new MessageEditor(makeMessage(BASE))
+      new MessageEditor(BASE)
         .insert(zob).before("OBR").each().commit()
         .encode(),
     );
@@ -150,7 +145,7 @@ describe("MessageEditor.insert.before", () => {
   test("inserts before nth occurrence", () => {
     const zob = new CustomSegment("ZOB").setField(1, "before-second-obr");
     const result = lines(
-      new MessageEditor(makeMessage(BASE))
+      new MessageEditor(BASE)
         .insert(zob).before("OBR").nth(2).commit()
         .encode(),
     );
@@ -164,14 +159,14 @@ describe("MessageEditor.insert.before", () => {
 
 describe("MessageEditor.update", () => {
   test("updates an entire field", () => {
-    const result = new MessageEditor(makeMessage(BASE))
+    const result = new MessageEditor(BASE)
       .update("PID-5", "Smith^Jane")
       .encode();
     expect(lines(result)[1]).toBe("PID|1||12345^^^MRN^MR||Smith^Jane");
   });
 
   test("updates a single component", () => {
-    const result = new MessageEditor(makeMessage(BASE))
+    const result = new MessageEditor(BASE)
       .update("PID-5.1", "Smith")
       .encode();
     expect(lines(result)[1]).toBe("PID|1||12345^^^MRN^MR||Smith^John");
@@ -179,14 +174,14 @@ describe("MessageEditor.update", () => {
 
   test("updates a subcomponent", () => {
     // BASE has PID-3 = 12345^^^MRN^MR; update assigning authority namespace (CX.4.1)
-    const result = new MessageEditor(makeMessage(BASE))
+    const result = new MessageEditor(BASE)
       .update("PID-3.4.1", "GEN")
       .encode();
     expect(lines(result)[1]).toContain("GEN^MR");
   });
 
   test("updates all occurrences of a repeating segment", () => {
-    const result = new MessageEditor(makeMessage(BASE))
+    const result = new MessageEditor(BASE)
       .update("OBX-6", "unit")
       .encode();
     const obxLines = lines(result).filter((l) => l.startsWith("OBX|"));
@@ -194,7 +189,7 @@ describe("MessageEditor.update", () => {
   });
 
   test("bulk update via object", () => {
-    const result = new MessageEditor(makeMessage(BASE))
+    const result = new MessageEditor(BASE)
       .update({
         "MSH-3": "NEW_LAB",
         "PID-5.1": "Smith",
@@ -206,7 +201,7 @@ describe("MessageEditor.update", () => {
   });
 
   test("ignores invalid paths silently", () => {
-    const result = new MessageEditor(makeMessage(BASE))
+    const result = new MessageEditor(BASE)
       .update("BADPATH", "x")
       .encode();
     expect(result).toBe(BASE);
@@ -215,7 +210,7 @@ describe("MessageEditor.update", () => {
   test("update chains with insert", () => {
     const zseg = new CustomSegment("ZPD").setField(1, "extra");
     const result = lines(
-      new MessageEditor(makeMessage(BASE))
+      new MessageEditor(BASE)
         .update("PID-5.1", "Smith")
         .insert(zseg).after("PID").commit()
         .encode(),
@@ -231,7 +226,7 @@ describe("MessageEditor chaining", () => {
     const zpd = new CustomSegment("ZPD").setField(1, "patient");
     const zmh = new CustomSegment("ZMH").setField(1, "message");
     const result = lines(
-      new MessageEditor(makeMessage(BASE))
+      new MessageEditor(BASE)
         .insert(zpd).after("PID").commit()
         .append(zmh)
         .encode(),
@@ -245,7 +240,7 @@ describe("MessageEditor chaining", () => {
     const zob = new CustomSegment("ZOB").setField(1, "obs");
     const zmh = new CustomSegment("ZMH").setField(1, "end");
     const result = lines(
-      new MessageEditor(makeMessage(BASE))
+      new MessageEditor(BASE)
         .insert(zob).after("OBX").each().commit()
         .append(zmh)
         .encode(),
@@ -258,5 +253,22 @@ describe("MessageEditor chaining", () => {
     for (const idx of obxIndices) {
       expect(result[idx + 1]).toBe("ZOB|obs");
     }
+  });
+});
+
+describe("MessageEditor string constructor", () => {
+  test("accepts a raw HL7 string, treated as already-encoded", () => {
+    const zseg = new CustomSegment("ZMH").setField(1, "end-data");
+    const fromString = lines(new MessageEditor(BASE).append(zseg).encode());
+    const fromEncodable = lines(
+      new MessageEditor({ encode: () => BASE }).append(zseg).encode(),
+    );
+    expect(fromString).toEqual(fromEncodable);
+    expect(fromString[fromString.length - 1]).toBe("ZMH|end-data");
+  });
+
+  test("edits a raw string message", () => {
+    const result = new MessageEditor(BASE).update("PID-5", "Smith^Jane").encode();
+    expect(result).toContain("PID|1||12345^^^MRN^MR||Smith^Jane");
   });
 });
