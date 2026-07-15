@@ -304,7 +304,8 @@
     "./builders/v2.5.1/SIU_S15": "./src/builders/v2.5.1/SIU_S15.ts",
     "./builders/v2.5.1/SIU_S16": "./src/builders/v2.5.1/SIU_S16.ts",
     "./builders/v2.5.1/SIU_S17": "./src/builders/v2.5.1/SIU_S17.ts",
-    "./builders/v2.5.1/SIU_S26": "./src/builders/v2.5.1/SIU_S26.ts"
+    "./builders/v2.5.1/SIU_S26": "./src/builders/v2.5.1/SIU_S26.ts",
+    "./utils/dateUtils": "./src/utils/dateUtils.ts"
   },
   "publish": {
     "exclude": [

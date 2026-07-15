@@ -18,6 +18,10 @@ const GROUPS = [
   "builders/v2.5.1",
 ];
 
+// Individually exported utils. Not the whole utils/ directory — only modules
+// intended as public API get a subpath (e.g. err.ts stays internal).
+const UTILS = ["dateUtils"];
+
 const exportsMap = { ".": "./src/index.ts" };
 for (const group of GROUPS) {
   exportsMap[`./${group}`] = `./src/${group}/index.ts`;
@@ -29,6 +33,9 @@ for (const group of GROUPS) {
     const name = f.slice(0, -3);
     exportsMap[`./${group}/${name}`] = `./src/${group}/${f}`;
   }
+}
+for (const name of UTILS) {
+  exportsMap[`./utils/${name}`] = `./src/utils/${name}.ts`;
 }
 
 const denoJson = {

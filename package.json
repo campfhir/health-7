@@ -70,6 +70,11 @@
       "require": "./dist/builders/v2.5.1/*.js",
       "import": "./dist/builders/v2.5.1/*.mjs",
       "types": "./dist/builders/v2.5.1/*.d.ts"
+    },
+    "./utils/dateUtils": {
+      "require": "./dist/utils/dateUtils.js",
+      "import": "./dist/utils/dateUtils.mjs",
+      "types": "./dist/utils/dateUtils.d.ts"
     }
   },
   "files": [
