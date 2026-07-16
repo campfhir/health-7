@@ -245,33 +245,27 @@ export class IN1 extends BaseSegment {
     return this;
   }
 
-  /** IN1-35 Coverage Type (chainable). */
+  /** IN1-47 Coverage Type (chainable). */
   coverageType(value: string): this {
-    this.fields[34] = this.createField(value);
-    return this;
-  }
-
-  /** IN1-36 Handicap (chainable). */
-  handicap(value: string): this {
-    this.fields[35] = this.createField(value);
-    return this;
-  }
-
-  /** IN1-46 Policy Number (chainable). */
-  policyNumber(value: string): this {
-    this.fields[45] = this.createField(value);
-    return this;
-  }
-
-  /** IN1-47 Policy Deductible (chainable). */
-  policyDeductible(value: string): this {
     this.fields[46] = this.createField(value);
     return this;
   }
 
-  /** IN1-49 Policy Type (chainable). */
-  policyType(value: string): this {
-    this.fields[48] = this.createField(value);
+  /** IN1-48 Handicap (chainable). */
+  handicap(value: string): this {
+    this.fields[47] = this.createField(value);
+    return this;
+  }
+
+  /** IN1-36 Policy Number (chainable). */
+  policyNumber(value: string): this {
+    this.fields[35] = this.createField(value);
+    return this;
+  }
+
+  /** IN1-37 Policy Deductible (chainable). */
+  policyDeductible(value: string): this {
+    this.fields[36] = this.createField(value);
     return this;
   }
 

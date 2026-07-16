@@ -141,33 +141,33 @@ export class RXD extends BaseSegment {
     return this;
   }
 
-  /** RXD-15 Substance Lot Number (chainable). */
+  /** RXD-18 Substance Lot Number (chainable). */
   substanceLotNumber(value: string): this {
-    this.fields[14] = this.createField(value);
+    this.fields[17] = this.createField(value);
     return this;
   }
 
-  /** RXD-16 Substance Expiration Date (chainable). */
+  /** RXD-19 Substance Expiration Date (chainable). */
   substanceExpirationDate(value: string, format?: never): this;
-  /** RXD-16 Substance Expiration Date (chainable). */
+  /** RXD-19 Substance Expiration Date (chainable). */
   substanceExpirationDate(value: Date, format?: HL7DateLayout): this;
   substanceExpirationDate(value: string | Date, format?: HL7DateLayout): this {
-    this.fields[15] = this.createField(
+    this.fields[18] = this.createField(
       formatHL7Date(value, format ?? DateLayout),
     );
     return this;
   }
 
   /**
-   * RXD-17 Substance Manufacturer Name (chainable).
-   * @param code - RXD-17.1 Code
-   * @param text - RXD-17.2 Text
+   * RXD-20 Substance Manufacturer Name (chainable).
+   * @param code - RXD-20.1 Code
+   * @param text - RXD-20.2 Text
    */
   substanceManufacturerName(code: string, text?: string): this {
     if (text) {
-      this.fields[16] = this.createField([[code, text]]);
+      this.fields[19] = this.createField([[code, text]]);
     } else {
-      this.fields[16] = this.createField(code);
+      this.fields[19] = this.createField(code);
     }
     return this;
   }

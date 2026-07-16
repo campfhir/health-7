@@ -105,67 +105,52 @@ export class RXO extends BaseSegment {
   }
 
   /**
-   * RXO-9 Requested Dispense Code (chainable).
-   * @param code - RXO-9.1 Code
-   * @param text - RXO-9.2 Text
+   * RXO-10 Requested Dispense Code (chainable).
+   * @param code - RXO-10.1 Code
+   * @param text - RXO-10.2 Text
    */
   requestedDispenseCode(code: string, text?: string): this {
     if (text) {
-      this.fields[8] = this.createField([[code, text]]);
+      this.fields[9] = this.createField([[code, text]]);
     } else {
-      this.fields[8] = this.createField(code);
+      this.fields[9] = this.createField(code);
     }
     return this;
   }
 
-  /** RXO-10 Requested Dispense Amount (chainable). */
+  /** RXO-11 Requested Dispense Amount (chainable). */
   requestedDispenseAmount(value: string): this {
-    this.fields[9] = this.createField(value);
+    this.fields[10] = this.createField(value);
     return this;
   }
 
   /**
-   * RXO-11 Requested Dispense Units (chainable).
-   * @param code - RXO-11.1 Code
-   * @param text - RXO-11.2 Text
+   * RXO-12 Requested Dispense Units (chainable).
+   * @param code - RXO-12.1 Code
+   * @param text - RXO-12.2 Text
    */
   requestedDispenseUnits(code: string, text?: string): this {
     if (text) {
-      this.fields[10] = this.createField([[code, text]]);
+      this.fields[11] = this.createField([[code, text]]);
     } else {
-      this.fields[10] = this.createField(code);
+      this.fields[11] = this.createField(code);
     }
     return this;
   }
 
-  /** RXO-12 Number of Refills (chainable). */
+  /** RXO-13 Number of Refills (chainable). */
   numberOfRefills(value: string): this {
-    this.fields[11] = this.createField(value);
+    this.fields[12] = this.createField(value);
     return this;
   }
 
   /**
-   * RXO-13 Ordering Provider's DEA Number (chainable).
-   * @param id - RXO-13.1 ID Number
-   * @param familyName - RXO-13.2 Family Name
-   * @param givenName - RXO-13.3 Given Name
-   */
-  orderingProviderDeaNumber(id: string, familyName?: string, givenName?: string): this {
-    if (familyName || givenName) {
-      this.fields[12] = this.createField([[id, familyName || "", givenName || ""]]);
-    } else {
-      this.fields[12] = this.createField(id);
-    }
-    return this;
-  }
-
-  /**
-   * RXO-14 Pharmacist/Treatment Supplier's Verifier ID (chainable).
+   * RXO-14 Ordering Provider's DEA Number (chainable).
    * @param id - RXO-14.1 ID Number
    * @param familyName - RXO-14.2 Family Name
    * @param givenName - RXO-14.3 Given Name
    */
-  pharmacistVerifierId(id: string, familyName?: string, givenName?: string): this {
+  orderingProviderDeaNumber(id: string, familyName?: string, givenName?: string): this {
     if (familyName || givenName) {
       this.fields[13] = this.createField([[id, familyName || "", givenName || ""]]);
     } else {
@@ -174,28 +159,43 @@ export class RXO extends BaseSegment {
     return this;
   }
 
-  /** RXO-15 Needs Human Review (chainable). */
-  needsHumanReview(value: string): this {
-    this.fields[14] = this.createField(value);
+  /**
+   * RXO-15 Pharmacist/Treatment Supplier's Verifier ID (chainable).
+   * @param id - RXO-15.1 ID Number
+   * @param familyName - RXO-15.2 Family Name
+   * @param givenName - RXO-15.3 Given Name
+   */
+  pharmacistVerifierId(id: string, familyName?: string, givenName?: string): this {
+    if (familyName || givenName) {
+      this.fields[14] = this.createField([[id, familyName || "", givenName || ""]]);
+    } else {
+      this.fields[14] = this.createField(id);
+    }
     return this;
   }
 
-  /** RXO-20 Requested Give Rate Amount (chainable). */
+  /** RXO-16 Needs Human Review (chainable). */
+  needsHumanReview(value: string): this {
+    this.fields[15] = this.createField(value);
+    return this;
+  }
+
+  /** RXO-21 Requested Give Rate Amount (chainable). */
   requestedGiveRateAmount(value: string): this {
-    this.fields[19] = this.createField(value);
+    this.fields[20] = this.createField(value);
     return this;
   }
 
   /**
-   * RXO-21 Requested Give Rate Units (chainable).
-   * @param code - RXO-21.1 Code
-   * @param text - RXO-21.2 Text
+   * RXO-22 Requested Give Rate Units (chainable).
+   * @param code - RXO-22.1 Code
+   * @param text - RXO-22.2 Text
    */
   requestedGiveRateUnits(code: string, text?: string): this {
     if (text) {
-      this.fields[20] = this.createField([[code, text]]);
+      this.fields[21] = this.createField([[code, text]]);
     } else {
-      this.fields[20] = this.createField(code);
+      this.fields[21] = this.createField(code);
     }
     return this;
   }

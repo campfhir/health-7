@@ -164,48 +164,48 @@ export class RXE extends BaseSegment {
     return this;
   }
 
-  /** RXE-21 Give Per (Time Unit) (chainable). */
+  /** RXE-22 Give Per (Time Unit) (chainable). */
   givePer(value: string): this {
-    this.fields[20] = this.createField(value);
-    return this;
-  }
-
-  /** RXE-22 Give Rate Amount (chainable). */
-  giveRateAmount(value: string): this {
     this.fields[21] = this.createField(value);
     return this;
   }
 
+  /** RXE-23 Give Rate Amount (chainable). */
+  giveRateAmount(value: string): this {
+    this.fields[22] = this.createField(value);
+    return this;
+  }
+
   /**
-   * RXE-23 Give Rate Units (chainable).
-   * @param code - RXE-23.1 Code
-   * @param text - RXE-23.2 Text
+   * RXE-24 Give Rate Units (chainable).
+   * @param code - RXE-24.1 Code
+   * @param text - RXE-24.2 Text
    */
   giveRateUnits(code: string, text?: string): this {
     if (text) {
-      this.fields[22] = this.createField([[code, text]]);
+      this.fields[23] = this.createField([[code, text]]);
     } else {
-      this.fields[22] = this.createField(code);
+      this.fields[23] = this.createField(code);
     }
     return this;
   }
 
-  /** RXE-24 Give Strength (chainable). */
+  /** RXE-25 Give Strength (chainable). */
   giveStrength(value: string): this {
-    this.fields[23] = this.createField(value);
+    this.fields[24] = this.createField(value);
     return this;
   }
 
   /**
-   * RXE-25 Give Strength Units (chainable).
-   * @param code - RXE-25.1 Code
-   * @param text - RXE-25.2 Text
+   * RXE-26 Give Strength Units (chainable).
+   * @param code - RXE-26.1 Code
+   * @param text - RXE-26.2 Text
    */
   giveStrengthUnits(code: string, text?: string): this {
     if (text) {
-      this.fields[24] = this.createField([[code, text]]);
+      this.fields[25] = this.createField([[code, text]]);
     } else {
-      this.fields[24] = this.createField(code);
+      this.fields[25] = this.createField(code);
     }
     return this;
   }

@@ -241,12 +241,6 @@ export class PV2 extends BaseSegment {
     return this;
   }
 
-  /** PV2-41 Indirect Exposure Mechanism (chainable). */
-  indirectExposureMechanism(value: string): this {
-    this.fields[40] = this.createField(value);
-    return this;
-  }
-
   /** Parses the input string into a structured instance. */
   static parse(
     segmentString: string,

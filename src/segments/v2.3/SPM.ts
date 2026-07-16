@@ -185,32 +185,32 @@ export class SPM extends BaseSegment {
   }
 
   /**
-   * SPM-24 Specimen Current Quantity (chainable).
-   * @param value - SPM-24.1 Value
-   * @param units - SPM-24.2 Units
+   * SPM-25 Specimen Current Quantity (chainable).
+   * @param value - SPM-25.1 Value
+   * @param units - SPM-25.2 Units
    */
   specimenCurrentQuantity(value: string, units?: string): this {
-    this.fields[23] = this.createField([[value, units || ""]]);
+    this.fields[24] = this.createField([[value, units || ""]]);
     return this;
   }
 
   /**
-   * SPM-27 Specimen Condition (chainable).
-   * @param code - SPM-27.1 Code
-   * @param text - SPM-27.2 Text
+   * SPM-24 Specimen Condition (chainable).
+   * @param code - SPM-24.1 Code
+   * @param text - SPM-24.2 Text
    */
   specimenCondition(code: string, text?: string): this {
-    this.fields[26] = this.createField([[code, text || ""]]);
+    this.fields[23] = this.createField([[code, text || ""]]);
     return this;
   }
 
   /**
-   * SPM-32 Specimen Reject Reason (chainable).
-   * @param code - SPM-32.1 Code
-   * @param text - SPM-32.2 Text
+   * SPM-21 Specimen Reject Reason (chainable).
+   * @param code - SPM-21.1 Code
+   * @param text - SPM-21.2 Text
    */
   specimenRejectReason(code: string, text?: string): this {
-    this.fields[31] = this.createField([[code, text || ""]]);
+    this.fields[20] = this.createField([[code, text || ""]]);
     return this;
   }
 

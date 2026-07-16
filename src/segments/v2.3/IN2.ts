@@ -82,56 +82,34 @@ export class IN2 extends BaseSegment {
     return this;
   }
 
-  /** IN2-26 Relationship to the Patient Start Date (chainable). */
+  /** IN2-55 Relationship to the Patient Start Date (chainable). */
   relationshipStartDate(value: string, format?: never): this;
-  /** IN2-26 Relationship to the Patient Start Date (chainable). */
+  /** IN2-55 Relationship to the Patient Start Date (chainable). */
   relationshipStartDate(value: Date, format?: HL7DateLayout): this;
   relationshipStartDate(value: string | Date, format?: HL7DateLayout): this {
-    this.fields[25] = this.createField(
+    this.fields[54] = this.createField(
       formatHL7Date(value, format ?? DateLayout),
     );
     return this;
   }
 
-  /** IN2-27 Relationship to the Patient Stop Date (chainable). */
+  /** IN2-56 Relationship to the Patient Stop Date (chainable). */
   relationshipStopDate(value: string, format?: never): this;
-  /** IN2-27 Relationship to the Patient Stop Date (chainable). */
+  /** IN2-56 Relationship to the Patient Stop Date (chainable). */
   relationshipStopDate(value: Date, format?: HL7DateLayout): this;
   relationshipStopDate(value: string | Date, format?: HL7DateLayout): this {
-    this.fields[26] = this.createField(
+    this.fields[55] = this.createField(
       formatHL7Date(value, format ?? DateLayout),
     );
     return this;
   }
 
-  /** IN2-29 Medicaid Eligibility Status (chainable). */
-  medicaidEligibilityStatus(value: string): this {
-    this.fields[28] = this.createField(value);
-    return this;
-  }
-
-  /** IN2-63 Insured's Sex (chainable). */
-  insuredSex(value: string): this {
-    this.fields[62] = this.createField(value);
-    return this;
-  }
-
   /**
-   * IN2-69 Relationship to the Patient (chainable).
-   * @param code - IN2-69.1 Code
-   * @param text - IN2-69.2 Text
-   */
-  relationshipToPatient(code: string, text?: string): this {
-    this.fields[68] = this.createField([code, text || ""]);
-    return this;
-  }
-
-  /**
-   * IN2-72 Insured's Employment Status (chainable).
+   * IN2-72 Patient's Relationship to Insured (chainable).
    * @param code - IN2-72.1 Code
    * @param text - IN2-72.2 Text
    */
-  insuredEmploymentStatus(code: string, text?: string): this {
+  relationshipToPatient(code: string, text?: string): this {
     this.fields[71] = this.createField([code, text || ""]);
     return this;
   }
