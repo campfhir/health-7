@@ -192,7 +192,7 @@ export class PV1 extends BaseSegment {
   /** PV1-44 Admit Date/Time (chainable). */
   admitDateTime(value: Date, format?: HL7DateTimeLayout): this;
   admitDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
-    this.fields[44] = this.createField(
+    this.fields[43] = this.createField(
       formatHL7Date(value, format ?? DateTimeLayout),
     );
     return this;
@@ -202,7 +202,7 @@ export class PV1 extends BaseSegment {
   /** PV1-45 Discharge Date/Time (chainable). */
   dischargeDateTime(value: Date, format?: HL7DateTimeLayout): this;
   dischargeDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
-    this.fields[45] = this.createField(
+    this.fields[44] = this.createField(
       formatHL7Date(value, format ?? DateTimeLayout),
     );
     return this;
