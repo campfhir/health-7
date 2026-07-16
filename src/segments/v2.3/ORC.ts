@@ -114,9 +114,31 @@ export class ORC extends BaseSegment {
     return this;
   }
 
-  /** ORC-13 Enterers Location (chainable). */
-  enterersLocation(value: string): this {
-    this.fields[12] = this.createField(value);
+  /**
+   * ORC-13 Enterers Location (chainable).
+   * @param pointOfCare - ORC-13.1 Point of Care
+   * @param room - ORC-13.2 Room
+   * @param bed - ORC-13.3 Bed
+   * @param facility - ORC-13.4 Facility
+   * @param locationStatus - ORC-13.5 Location Status
+   * @param personLocationType - ORC-13.6 Person Location Type
+   */
+  enterersLocation(
+    pointOfCare: string,
+    room?: string,
+    bed?: string,
+    facility?: string,
+    locationStatus?: string,
+    personLocationType?: string,
+  ): this {
+    this.fields[12] = this.createComponentsField([
+      pointOfCare,
+      room,
+      bed,
+      facility,
+      locationStatus,
+      personLocationType,
+    ]);
     return this;
   }
 

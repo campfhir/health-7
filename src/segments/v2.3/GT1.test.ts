@@ -106,7 +106,8 @@ describe("GT1 field positions", () => {
   });
 
   test("GT1-21 Guarantor Organization Name", () => {
-    assertField(new GT1().guarantorOrganizationName(SENTINEL), 21);
+    const parts = new GT1().guarantorOrganizationName("C1", "C2", "C3").encode().split("|");
+    expect(parts[21]).toBe("C1^C2^C3");
   });
 
   test("GT1-22 Guarantor Billing Hold Flag", () => {
@@ -241,7 +242,8 @@ describe("GT1 field positions", () => {
   });
 
   test("GT1-51 Guarantor Employer Organization Name", () => {
-    assertField(new GT1().guarantorEmployerOrganizationName(SENTINEL), 51);
+    const parts = new GT1().guarantorEmployerOrganizationName("C1", "C2", "C3").encode().split("|");
+    expect(parts[51]).toBe("C1^C2^C3");
   });
 
   test("GT1-52 Handicap", () => {

@@ -71,7 +71,8 @@ describe("ORC field positions", () => {
   });
 
   test("ORC-13 Enterers Location", () => {
-    assertField(new ORC().enterersLocation(SENTINEL), 13);
+    const parts = new ORC().enterersLocation("C1", "C2", "C3", "C4", "C5", "C6").encode().split("|");
+    expect(parts[13]).toBe("C1^C2^C3^C4^C5^C6");
   });
 
   test("ORC-14 Call Back Phone Number", () => {

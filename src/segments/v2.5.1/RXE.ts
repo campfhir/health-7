@@ -161,9 +161,31 @@ export class RXE extends RXE_base {
     return this;
   }
 
-  /** RXE-42 Deliver-to Patient Location (chainable). */
-  deliverToPatientLocation(value: string): this {
-    this.fields[41] = this.createField(value);
+  /**
+   * RXE-42 Deliver-to Patient Location (chainable).
+   * @param pointOfCare - RXE-42.1 Point of Care
+   * @param room - RXE-42.2 Room
+   * @param bed - RXE-42.3 Bed
+   * @param facility - RXE-42.4 Facility
+   * @param locationStatus - RXE-42.5 Location Status
+   * @param personLocationType - RXE-42.6 Person Location Type
+   */
+  deliverToPatientLocation(
+    pointOfCare: string,
+    room?: string,
+    bed?: string,
+    facility?: string,
+    locationStatus?: string,
+    personLocationType?: string,
+  ): this {
+    this.fields[41] = this.createComponentsField([
+      pointOfCare,
+      room,
+      bed,
+      facility,
+      locationStatus,
+      personLocationType,
+    ]);
     return this;
   }
 

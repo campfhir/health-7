@@ -73,7 +73,8 @@ describe("RXD field positions", () => {
   });
 
   test("RXD-13 Dispense To Location", () => {
-    assertField(new RXD().dispenseToLocation(SENTINEL), 13);
+    const parts = new RXD().dispenseToLocation("C1", "C2", "C3", "C4").encode().split("|");
+    expect(parts[13]).toBe("C1^C2^C3^C4");
   });
 
   test("RXD-14 Needs Human Review", () => {

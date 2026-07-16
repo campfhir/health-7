@@ -185,7 +185,8 @@ describe("IN1 field positions", () => {
   });
 
   test("IN1-38 Policy Limit Amount", () => {
-    assertField(new IN1().policyLimitAmount(SENTINEL), 38);
+    const parts = new IN1().policyLimitAmount("C1", "C2").encode().split("|");
+    expect(parts[38]).toBe("C1^C2");
   });
 
   test("IN1-39 Policy Limit Days", () => {
@@ -193,11 +194,13 @@ describe("IN1 field positions", () => {
   });
 
   test("IN1-40 Room Rate Semi Private", () => {
-    assertField(new IN1().roomRateSemiPrivate(SENTINEL), 40);
+    const parts = new IN1().roomRateSemiPrivate("C1", "C2").encode().split("|");
+    expect(parts[40]).toBe("C1^C2");
   });
 
   test("IN1-41 Room Rate Private", () => {
-    assertField(new IN1().roomRatePrivate(SENTINEL), 41);
+    const parts = new IN1().roomRatePrivate("C1", "C2").encode().split("|");
+    expect(parts[41]).toBe("C1^C2");
   });
 
   test("IN1-42 Insured Employment Status", () => {

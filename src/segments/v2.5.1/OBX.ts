@@ -47,9 +47,19 @@ export class OBX extends OBX_base {
   /**
    * OBX-23 Performing Organization Name (chainable).
    * @param organizationName - OBX-23.1 Organization Name
+   * @param organizationNameTypeCode - OBX-23.2 Organization Name Type Code
+   * @param idNumber - OBX-23.3 ID Number
    */
-  performingOrganizationName(organizationName: string): this {
-    this.fields[22] = this.createComponentsField([organizationName]);
+  performingOrganizationName(
+    organizationName: string,
+    organizationNameTypeCode?: string,
+    idNumber?: string,
+  ): this {
+    this.fields[22] = this.createComponentsField([
+      organizationName,
+      organizationNameTypeCode,
+      idNumber,
+    ]);
     return this;
   }
   /**

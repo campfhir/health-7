@@ -143,9 +143,25 @@ export class RXA extends BaseSegment {
     return this;
   }
 
-  /** RXA-11 Administered-at Location (chainable). */
-  administeredAtLocation(value: string): this {
-    this.fields[10] = this.createField(value);
+  /**
+   * RXA-11 Administered-at Location (chainable).
+   * @param pointOfCare - RXA-11.1 Point of Care
+   * @param room - RXA-11.2 Room
+   * @param bed - RXA-11.3 Bed
+   * @param facility - RXA-11.4 Facility
+   */
+  administeredAtLocation(
+    pointOfCare: string,
+    room?: string,
+    bed?: string,
+    facility?: string,
+  ): this {
+    this.fields[10] = this.createComponentsField([
+      pointOfCare,
+      room,
+      bed,
+      facility,
+    ]);
     return this;
   }
 

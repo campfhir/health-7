@@ -86,7 +86,8 @@ describe("SCH field positions", () => {
   });
 
   test("SCH-15 Placer Contact Location", () => {
-    assertField(new SCH().placerContactLocation(SENTINEL), 15);
+    const parts = new SCH().placerContactLocation("C1", "C2", "C3", "C4", "C5", "C6").encode().split("|");
+    expect(parts[15]).toBe("C1^C2^C3^C4^C5^C6");
   });
 
   test("SCH-16 Filler Contact Person", () => {
@@ -104,7 +105,8 @@ describe("SCH field positions", () => {
   });
 
   test("SCH-19 Filler Contact Location", () => {
-    assertField(new SCH().fillerContactLocation(SENTINEL), 19);
+    const parts = new SCH().fillerContactLocation("C1", "C2", "C3", "C4", "C5", "C6").encode().split("|");
+    expect(parts[19]).toBe("C1^C2^C3^C4^C5^C6");
   });
 
   test("SCH-20 Entered By Person", () => {
@@ -117,7 +119,8 @@ describe("SCH field positions", () => {
   });
 
   test("SCH-22 Entered By Location", () => {
-    assertField(new SCH().enteredByLocation(SENTINEL), 22);
+    const parts = new SCH().enteredByLocation("C1", "C2", "C3", "C4", "C5", "C6").encode().split("|");
+    expect(parts[22]).toBe("C1^C2^C3^C4^C5^C6");
   });
 
   test("SCH-23 Parent Placer Appointment ID", () => {

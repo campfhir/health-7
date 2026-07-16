@@ -65,7 +65,8 @@ describe("RXA field positions", () => {
   });
 
   test("RXA-11 Administered At Location", () => {
-    assertField(new RXA().administeredAtLocation(SENTINEL), 11);
+    const parts = new RXA().administeredAtLocation("C1", "C2", "C3", "C4").encode().split("|");
+    expect(parts[11]).toBe("C1^C2^C3^C4");
   });
 
   test("RXA-12 Administered Per", () => {

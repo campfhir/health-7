@@ -52,7 +52,8 @@ describe("RXE field positions", () => {
   });
 
   test("RXE-8 Deliver To Location", () => {
-    assertField(new RXE().deliverToLocation(SENTINEL), 8);
+    const parts = new RXE().deliverToLocation("C1", "C2", "C3", "C4").encode().split("|");
+    expect(parts[8]).toBe("C1^C2^C3^C4");
   });
 
   test("RXE-9 Substitution Status", () => {

@@ -131,9 +131,25 @@ export class RXD extends BaseSegment {
     return this;
   }
 
-  /** RXD-13 Dispense-to Location (chainable). */
-  dispenseToLocation(value: string): this {
-    this.fields[12] = this.createField(value);
+  /**
+   * RXD-13 Dispense-to Location (chainable).
+   * @param pointOfCare - RXD-13.1 Point of Care
+   * @param room - RXD-13.2 Room
+   * @param bed - RXD-13.3 Bed
+   * @param facility - RXD-13.4 Facility
+   */
+  dispenseToLocation(
+    pointOfCare: string,
+    room?: string,
+    bed?: string,
+    facility?: string,
+  ): this {
+    this.fields[12] = this.createComponentsField([
+      pointOfCare,
+      room,
+      bed,
+      facility,
+    ]);
     return this;
   }
 

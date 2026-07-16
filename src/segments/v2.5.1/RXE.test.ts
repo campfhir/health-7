@@ -71,7 +71,8 @@ describe("RXE field positions", () => {
   });
 
   test("RXE-42 Deliver To Patient Location", () => {
-    assertField(new RXE().deliverToPatientLocation(SENTINEL), 42);
+    const parts = new RXE().deliverToPatientLocation("C1", "C2", "C3", "C4", "C5", "C6").encode().split("|");
+    expect(parts[42]).toBe("C1^C2^C3^C4^C5^C6");
   });
 
   test("RXE-43 Deliver To Address", () => {

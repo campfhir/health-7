@@ -29,7 +29,8 @@ describe("OBX field positions", () => {
   });
 
   test("OBX-23 Performing Organization Name", () => {
-    assertField(new OBX().performingOrganizationName(SENTINEL), 23);
+    const parts = new OBX().performingOrganizationName("C1", "C2", "C3").encode().split("|");
+    expect(parts[23]).toBe("C1^C2^C3");
   });
 
   test("OBX-24 Performing Organization Address", () => {

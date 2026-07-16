@@ -36,9 +36,19 @@ export class ORC extends ORC_base {
   /**
    * ORC-21 Ordering Facility Name (chainable).
    * @param organizationName - ORC-21.1 Organization Name
+   * @param organizationNameTypeCode - ORC-21.2 Organization Name Type Code
+   * @param idNumber - ORC-21.3 ID Number
    */
-  orderingFacilityName(organizationName: string): this {
-    this.fields[20] = this.createComponentsField([organizationName]);
+  orderingFacilityName(
+    organizationName: string,
+    organizationNameTypeCode?: string,
+    idNumber?: string,
+  ): this {
+    this.fields[20] = this.createComponentsField([
+      organizationName,
+      organizationNameTypeCode,
+      idNumber,
+    ]);
     return this;
   }
   /**

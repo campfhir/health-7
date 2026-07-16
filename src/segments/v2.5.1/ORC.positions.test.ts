@@ -25,7 +25,8 @@ describe("ORC field positions", () => {
   });
 
   test("ORC-21 Ordering Facility Name", () => {
-    assertField(new ORC().orderingFacilityName(SENTINEL), 21);
+    const parts = new ORC().orderingFacilityName("C1", "C2", "C3").encode().split("|");
+    expect(parts[21]).toBe("C1^C2^C3");
   });
 
   test("ORC-22 Ordering Facility Address", () => {

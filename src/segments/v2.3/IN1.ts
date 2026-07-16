@@ -376,9 +376,10 @@ export class IN1 extends BaseSegment {
   /**
    * IN1-38 Policy Limit - Amount (chainable).
    * @param price - IN1-38.1 Price
+   * @param priceType - IN1-38.2 Price Type
    */
-  policyLimitAmount(price: string): this {
-    this.fields[37] = this.createComponentsField([price]);
+  policyLimitAmount(price: string, priceType?: string): this {
+    this.fields[37] = this.createComponentsField([price, priceType]);
     return this;
   }
 
@@ -391,18 +392,20 @@ export class IN1 extends BaseSegment {
   /**
    * IN1-40 Room Rate - Semi-Private (chainable).
    * @param price - IN1-40.1 Price
+   * @param priceType - IN1-40.2 Price Type
    */
-  roomRateSemiPrivate(price: string): this {
-    this.fields[39] = this.createComponentsField([price]);
+  roomRateSemiPrivate(price: string, priceType?: string): this {
+    this.fields[39] = this.createComponentsField([price, priceType]);
     return this;
   }
 
   /**
    * IN1-41 Room Rate - Private (chainable).
    * @param price - IN1-41.1 Price
+   * @param priceType - IN1-41.2 Price Type
    */
-  roomRatePrivate(price: string): this {
-    this.fields[40] = this.createComponentsField([price]);
+  roomRatePrivate(price: string, priceType?: string): this {
+    this.fields[40] = this.createComponentsField([price, priceType]);
     return this;
   }
 

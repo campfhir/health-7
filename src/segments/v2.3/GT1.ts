@@ -209,9 +209,22 @@ export class GT1 extends BaseSegment {
     return this;
   }
 
-  /** GT1-21 Guarantor Organization Name (chainable). */
-  guarantorOrganizationName(value: string): this {
-    this.fields[20] = this.createField(value);
+  /**
+   * GT1-21 Guarantor Organization Name (chainable).
+   * @param organizationName - GT1-21.1 Organization Name
+   * @param organizationNameTypeCode - GT1-21.2 Organization Name Type Code
+   * @param idNumber - GT1-21.3 ID Number
+   */
+  guarantorOrganizationName(
+    organizationName: string,
+    organizationNameTypeCode?: string,
+    idNumber?: string,
+  ): this {
+    this.fields[20] = this.createComponentsField([
+      organizationName,
+      organizationNameTypeCode,
+      idNumber,
+    ]);
     return this;
   }
 
@@ -520,9 +533,22 @@ export class GT1 extends BaseSegment {
     return this;
   }
 
-  /** GT1-51 Guarantor Employer's Organization Name (chainable). */
-  guarantorEmployerOrganizationName(value: string): this {
-    this.fields[50] = this.createField(value);
+  /**
+   * GT1-51 Guarantor Employer's Organization Name (chainable).
+   * @param organizationName - GT1-51.1 Organization Name
+   * @param organizationNameTypeCode - GT1-51.2 Organization Name Type Code
+   * @param idNumber - GT1-51.3 ID Number
+   */
+  guarantorEmployerOrganizationName(
+    organizationName: string,
+    organizationNameTypeCode?: string,
+    idNumber?: string,
+  ): this {
+    this.fields[50] = this.createComponentsField([
+      organizationName,
+      organizationNameTypeCode,
+      idNumber,
+    ]);
     return this;
   }
 

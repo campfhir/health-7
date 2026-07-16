@@ -169,9 +169,28 @@ export class SCH extends BaseSegment {
   /**
    * SCH-15 Placer Contact Location (chainable).
    * @param pointOfCare - SCH-15.1 Point of Care
+   * @param room - SCH-15.2 Room
+   * @param bed - SCH-15.3 Bed
+   * @param facility - SCH-15.4 Facility
+   * @param locationStatus - SCH-15.5 Location Status
+   * @param personLocationType - SCH-15.6 Person Location Type
    */
-  placerContactLocation(pointOfCare: string): this {
-    this.fields[14] = this.createComponentsField([pointOfCare]);
+  placerContactLocation(
+    pointOfCare: string,
+    room?: string,
+    bed?: string,
+    facility?: string,
+    locationStatus?: string,
+    personLocationType?: string,
+  ): this {
+    this.fields[14] = this.createComponentsField([
+      pointOfCare,
+      room,
+      bed,
+      facility,
+      locationStatus,
+      personLocationType,
+    ]);
     return this;
   }
 
@@ -223,9 +242,28 @@ export class SCH extends BaseSegment {
   /**
    * SCH-19 Filler Contact Location (chainable).
    * @param pointOfCare - SCH-19.1 Point of Care
+   * @param room - SCH-19.2 Room
+   * @param bed - SCH-19.3 Bed
+   * @param facility - SCH-19.4 Facility
+   * @param locationStatus - SCH-19.5 Location Status
+   * @param personLocationType - SCH-19.6 Person Location Type
    */
-  fillerContactLocation(pointOfCare: string): this {
-    this.fields[18] = this.createComponentsField([pointOfCare]);
+  fillerContactLocation(
+    pointOfCare: string,
+    room?: string,
+    bed?: string,
+    facility?: string,
+    locationStatus?: string,
+    personLocationType?: string,
+  ): this {
+    this.fields[18] = this.createComponentsField([
+      pointOfCare,
+      room,
+      bed,
+      facility,
+      locationStatus,
+      personLocationType,
+    ]);
     return this;
   }
 
@@ -249,9 +287,28 @@ export class SCH extends BaseSegment {
   /**
    * SCH-22 Entered By Location (chainable).
    * @param pointOfCare - SCH-22.1 Point of Care
+   * @param room - SCH-22.2 Room
+   * @param bed - SCH-22.3 Bed
+   * @param facility - SCH-22.4 Facility
+   * @param locationStatus - SCH-22.5 Location Status
+   * @param personLocationType - SCH-22.6 Person Location Type
    */
-  enteredByLocation(pointOfCare: string): this {
-    this.fields[21] = this.createComponentsField([pointOfCare]);
+  enteredByLocation(
+    pointOfCare: string,
+    room?: string,
+    bed?: string,
+    facility?: string,
+    locationStatus?: string,
+    personLocationType?: string,
+  ): this {
+    this.fields[21] = this.createComponentsField([
+      pointOfCare,
+      room,
+      bed,
+      facility,
+      locationStatus,
+      personLocationType,
+    ]);
     return this;
   }
 

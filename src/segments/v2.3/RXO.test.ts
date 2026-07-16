@@ -53,7 +53,8 @@ describe("RXO field positions", () => {
   });
 
   test("RXO-8 Deliver To Location", () => {
-    assertField(new RXO().deliverToLocation(SENTINEL), 8);
+    const parts = new RXO().deliverToLocation("C1", "C2", "C3", "C4").encode().split("|");
+    expect(parts[8]).toBe("C1^C2^C3^C4");
   });
 
   test("RXO-9 Allow Substitutions", () => {

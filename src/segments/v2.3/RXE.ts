@@ -85,9 +85,25 @@ export class RXE extends BaseSegment {
     return this;
   }
 
-  /** RXE-8 Deliver-To Location (chainable). */
-  deliverToLocation(value: string): this {
-    this.fields[7] = this.createField(value);
+  /**
+   * RXE-8 Deliver-To Location (chainable).
+   * @param pointOfCare - RXE-8.1 Point of Care
+   * @param room - RXE-8.2 Room
+   * @param bed - RXE-8.3 Bed
+   * @param facility - RXE-8.4 Facility
+   */
+  deliverToLocation(
+    pointOfCare: string,
+    room?: string,
+    bed?: string,
+    facility?: string,
+  ): this {
+    this.fields[7] = this.createComponentsField([
+      pointOfCare,
+      room,
+      bed,
+      facility,
+    ]);
     return this;
   }
 
