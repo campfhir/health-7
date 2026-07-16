@@ -21,37 +21,41 @@ export class MSA extends BaseSegment {
     this.fields = [];
   }
 
-  /** MSA-1: Acknowledgment Code (ID) - e.g. AA=Application Accept, AE=Application Error, AR=Application Reject */
+  /** MSA-1 Acknowledgment Code (chainable). */
   acknowledgmentCode(value: string): this {
     this.fields[0] = this.createField(value);
     return this;
   }
 
-  /** MSA-2: Message Control ID (ST) */
+  /** MSA-2 Message Control ID (chainable). */
   messageControlId(value: string): this {
     this.fields[1] = this.createField(value);
     return this;
   }
 
-  /** MSA-3: Text Message (ST) */
+  /** MSA-3 Text Message (chainable). */
   textMessage(value: string): this {
     this.fields[2] = this.createField(value);
     return this;
   }
 
-  /** MSA-4: Expected Sequence Number (NM) */
+  /** MSA-4 Expected Sequence Number (chainable). */
   expectedSequenceNumber(value: string): this {
     this.fields[3] = this.createField(value);
     return this;
   }
 
-  /** MSA-5: Delayed Acknowledgment Type (ID) - deprecated */
+  /** MSA-5 Delayed Acknowledgment Type (chainable). */
   delayedAcknowledgmentType(value: string): this {
     this.fields[4] = this.createField(value);
     return this;
   }
 
-  /** MSA-6: Error Condition (CE) */
+  /**
+   * MSA-6 Error Condition (chainable).
+   * @param code - MSA-6.1 Code
+   * @param text - MSA-6.2 Text
+   */
   errorCondition(code: string, text?: string): this {
     this.fields[5] = this.createField([[code, text || ""]]);
     return this;

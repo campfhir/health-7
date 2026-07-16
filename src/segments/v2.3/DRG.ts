@@ -27,7 +27,12 @@ export class DRG extends BaseSegment {
     this.fields = [];
   }
 
-  /** DRG-1: Diagnostic Related Group (CE) */
+  /**
+   * DRG-1 Diagnostic Related Group (chainable).
+   * @param code - DRG-1.1 Code
+   * @param text - DRG-1.2 Text
+   * @param codingSystem - DRG-1.3 Coding System
+   */
   diagnosticRelatedGroup(
     code: string,
     text?: string,
@@ -37,9 +42,9 @@ export class DRG extends BaseSegment {
     return this;
   }
 
-  /** DRG-2: DRG Assigned Date/Time (TS) */
+  /** DRG-2 DRG Assigned Date/Time (chainable). */
   drgAssignedDateTime(value: string, format?: never): this;
-  /** Sets the drg assigned date time field (chainable). */
+  /** DRG-2 DRG Assigned Date/Time (chainable). */
   drgAssignedDateTime(value: Date, format?: HL7DateTimeLayout): this;
   drgAssignedDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
     this.fields[1] = this.createField(
@@ -48,55 +53,59 @@ export class DRG extends BaseSegment {
     return this;
   }
 
-  /** DRG-3: DRG Approval Indicator (ID) - Y/N */
+  /** DRG-3 DRG Approval Indicator (chainable). */
   drgApprovalIndicator(value: string): this {
     this.fields[2] = this.createField(value);
     return this;
   }
 
-  /** DRG-4: DRG Grouper Review Code (IS) */
+  /** DRG-4 DRG Grouper Review Code (chainable). */
   drgGrouperReviewCode(value: string): this {
     this.fields[3] = this.createField(value);
     return this;
   }
 
-  /** DRG-5: Outlier Type (CE) */
+  /**
+   * DRG-5 Outlier Type (chainable).
+   * @param code - DRG-5.1 Code
+   * @param text - DRG-5.2 Text
+   */
   outlierType(code: string, text?: string): this {
     this.fields[4] = this.createField([code, text || ""]);
     return this;
   }
 
-  /** DRG-6: Outlier Days (NM) */
+  /** DRG-6 Outlier Days (chainable). */
   outlierDays(value: string): this {
     this.fields[5] = this.createField(value);
     return this;
   }
 
-  /** DRG-7: Outlier Cost (CP) */
+  /** DRG-7 Outlier Cost (chainable). */
   outlierCost(value: string): this {
     this.fields[6] = this.createField(value);
     return this;
   }
 
-  /** DRG-8: DRG Payor (IS) - e.g. C=Champus, G=Medicare, H=HMO */
+  /** DRG-8 DRG Payor (chainable). */
   drgPayor(value: string): this {
     this.fields[7] = this.createField(value);
     return this;
   }
 
-  /** DRG-9: Outlier Reimbursement (CP) */
+  /** DRG-9 Outlier Reimbursement (chainable). */
   outlierReimbursement(value: string): this {
     this.fields[8] = this.createField(value);
     return this;
   }
 
-  /** DRG-10: Confidential Indicator (ID) - Y/N */
+  /** DRG-10 Confidential Indicator (chainable). */
   confidentialIndicator(value: string): this {
     this.fields[9] = this.createField(value);
     return this;
   }
 
-  /** DRG-11: DRG Transfer Type (IS) - e.g. E=Transfer to another institution */
+  /** DRG-11 DRG Transfer Type (chainable). */
   drgTransferType(value: string): this {
     this.fields[10] = this.createField(value);
     return this;

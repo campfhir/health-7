@@ -27,21 +27,15 @@ export class EVN extends BaseSegment {
     this.fields = [];
   }
 
-  /**
-   * EVN-1: Event Type Code (IS, optional, deprecated)
-   * Retained for backward compatibility; the trigger event is in MSH-9.
-   */
+  /** EVN-1 Event Type Code (chainable). */
   eventTypeCode(value: string): this {
     this.fields[0] = this.createField(value);
     return this;
   }
 
-  /**
-   * EVN-2: Recorded Date/Time (TS, required)
-   * The date/time the event was recorded.
-   */
+  /** EVN-2 Recorded Date/Time (chainable). */
   recordedDateTime(value: string, format?: never): this;
-  /** Sets the recorded date time field (chainable). */
+  /** EVN-2 Recorded Date/Time (chainable). */
   recordedDateTime(value: Date, format?: HL7DateTimeLayout): this;
   recordedDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
     this.fields[1] = this.createField(
@@ -50,12 +44,9 @@ export class EVN extends BaseSegment {
     return this;
   }
 
-  /**
-   * EVN-3: Date/Time Planned Event (TS, optional)
-   * The date/time the event was planned.
-   */
+  /** EVN-3 Date/Time Planned Event (chainable). */
   dateTimePlannedEvent(value: string, format?: never): this;
-  /** Sets the date time planned event field (chainable). */
+  /** EVN-3 Date/Time Planned Event (chainable). */
   dateTimePlannedEvent(value: Date, format?: HL7DateTimeLayout): this;
   dateTimePlannedEvent(value: string | Date, format?: HL7DateTimeLayout): this {
     this.fields[2] = this.createField(
@@ -64,18 +55,17 @@ export class EVN extends BaseSegment {
     return this;
   }
 
-  /**
-   * EVN-4: Event Reason Code (IS, optional)
-   * The reason for the event (e.g., 01=Patient request, 02=Physician order).
-   */
+  /** EVN-4 Event Reason Code (chainable). */
   eventReasonCode(value: string): this {
     this.fields[3] = this.createField(value);
     return this;
   }
 
   /**
-   * EVN-5: Operator ID (XCN, optional)
-   * The person who initiated the event.
+   * EVN-5 Operator ID (chainable).
+   * @param id - EVN-5.1 ID Number
+   * @param familyName - EVN-5.2 Family Name
+   * @param givenName - EVN-5.3 Given Name
    */
   operatorId(id: string, familyName?: string, givenName?: string): this {
     const components = [id, familyName || "", givenName || ""];
@@ -83,12 +73,9 @@ export class EVN extends BaseSegment {
     return this;
   }
 
-  /**
-   * EVN-6: Event Occurred (TS, optional)
-   * The date/time the event actually occurred.
-   */
+  /** EVN-6 Event Occurred (chainable). */
   eventOccurred(value: string, format?: never): this;
-  /** Sets the event occurred field (chainable). */
+  /** EVN-6 Event Occurred (chainable). */
   eventOccurred(value: Date, format?: HL7DateTimeLayout): this;
   eventOccurred(value: string | Date, format?: HL7DateTimeLayout): this {
     this.fields[5] = this.createField(
@@ -98,8 +85,10 @@ export class EVN extends BaseSegment {
   }
 
   /**
-   * EVN-7: Event Facility (HD, optional)
-   * The facility where the event occurred.
+   * EVN-7 Event Facility (chainable).
+   * @param namespaceId - EVN-7.1 Namespace ID
+   * @param universalId - EVN-7.2 Universal ID
+   * @param universalIdType - EVN-7.3 Universal ID Type
    */
   eventFacility(
     namespaceId: string,

@@ -28,7 +28,13 @@ export class PV2 extends BaseSegment {
     this.fields = [];
   }
 
-  /** PV2-1: Prior Pending Location (PL) */
+  /**
+   * PV2-1 Prior Pending Location (chainable).
+   * @param pointOfCare - PV2-1.1 Point of Care
+   * @param room - PV2-1.2 Room
+   * @param bed - PV2-1.3 Bed
+   * @param facility - PV2-1.4 Facility
+   */
   priorPendingLocation(
     pointOfCare: string,
     room?: string,
@@ -41,45 +47,60 @@ export class PV2 extends BaseSegment {
     return this;
   }
 
-  /** PV2-2: Accommodation Code (CE) */
+  /**
+   * PV2-2 Accommodation Code (chainable).
+   * @param code - PV2-2.1 Code
+   * @param text - PV2-2.2 Text
+   * @param codingSystem - PV2-2.3 Coding System
+   */
   accommodationCode(code: string, text?: string, codingSystem?: string): this {
     this.fields[1] = this.createField([[code, text || "", codingSystem || ""]]);
     return this;
   }
 
-  /** PV2-3: Admit Reason (CE) */
+  /**
+   * PV2-3 Admit Reason (chainable).
+   * @param code - PV2-3.1 Code
+   * @param text - PV2-3.2 Text
+   * @param codingSystem - PV2-3.3 Coding System
+   */
   admitReason(code: string, text?: string, codingSystem?: string): this {
     this.fields[2] = this.createField([[code, text || "", codingSystem || ""]]);
     return this;
   }
 
-  /** PV2-4: Transfer Reason (CE) */
+  /**
+   * PV2-4 Transfer Reason (chainable).
+   * @param code - PV2-4.1 Code
+   * @param text - PV2-4.2 Text
+   * @param codingSystem - PV2-4.3 Coding System
+   */
   transferReason(code: string, text?: string, codingSystem?: string): this {
     this.fields[3] = this.createField([[code, text || "", codingSystem || ""]]);
     return this;
   }
 
-  /** PV2-5: Patient Valuables (ST) */
+  /** PV2-5 Patient Valuables (chainable). */
   patientValuables(value: string): this {
     this.fields[4] = this.createField(value);
     return this;
   }
 
-  /** PV2-6: Patient Valuables Location (ST) */
+  /** PV2-6 Patient Valuables Location (chainable). */
   patientValuablesLocation(value: string): this {
     this.fields[5] = this.createField(value);
     return this;
   }
 
-  /** PV2-7: Visit User Code (IS) */
+  /** PV2-7 Visit User Code (chainable). */
   visitUserCode(value: string): this {
     this.fields[6] = this.createField(value);
     return this;
   }
 
-  /** PV2-8: Expected Admit Date/Time (TS) */
+  /** PV2-8 Expected Admit Date/Time (chainable). */
   expectedAdmitDateTime(value: string, format?: never): this;
-  /** Sets the expected admit date time field (chainable). */
+  /** PV2-8 Expected Admit Date/Time (chainable). */
   expectedAdmitDateTime(value: Date, format?: HL7DateTimeLayout): this;
   expectedAdmitDateTime(
     value: string | Date,
@@ -91,9 +112,9 @@ export class PV2 extends BaseSegment {
     return this;
   }
 
-  /** PV2-9: Expected Discharge Date/Time (TS) */
+  /** PV2-9 Expected Discharge Date/Time (chainable). */
   expectedDischargeDateTime(value: string, format?: never): this;
-  /** Sets the expected discharge date time field (chainable). */
+  /** PV2-9 Expected Discharge Date/Time (chainable). */
   expectedDischargeDateTime(value: Date, format?: HL7DateTimeLayout): this;
   expectedDischargeDateTime(
     value: string | Date,
@@ -105,25 +126,30 @@ export class PV2 extends BaseSegment {
     return this;
   }
 
-  /** PV2-10: Estimated Length of Inpatient Stay (NM) */
+  /** PV2-10 Estimated Length of Inpatient Stay (chainable). */
   estimatedLengthOfStay(value: string): this {
     this.fields[9] = this.createField(value);
     return this;
   }
 
-  /** PV2-11: Actual Length of Inpatient Stay (NM) */
+  /** PV2-11 Actual Length of Inpatient Stay (chainable). */
   actualLengthOfStay(value: string): this {
     this.fields[10] = this.createField(value);
     return this;
   }
 
-  /** PV2-12: Visit Description (ST) */
+  /** PV2-12 Visit Description (chainable). */
   visitDescription(value: string): this {
     this.fields[11] = this.createField(value);
     return this;
   }
 
-  /** PV2-13: Referral Source Code (XCN) */
+  /**
+   * PV2-13 Referral Source Code (chainable).
+   * @param id - PV2-13.1 ID Number
+   * @param familyName - PV2-13.2 Family Name
+   * @param givenName - PV2-13.3 Given Name
+   */
   referralSourceCode(
     id: string,
     familyName?: string,
@@ -135,9 +161,9 @@ export class PV2 extends BaseSegment {
     return this;
   }
 
-  /** PV2-14: Previous Service Date (DT) */
+  /** PV2-14 Previous Service Date (chainable). */
   previousServiceDate(value: string, format?: never): this;
-  /** Sets the previous service date field (chainable). */
+  /** PV2-14 Previous Service Date (chainable). */
   previousServiceDate(value: Date, format?: HL7DateLayout): this;
   previousServiceDate(value: string | Date, format?: HL7DateLayout): this {
     this.fields[13] = this.createField(
@@ -146,21 +172,21 @@ export class PV2 extends BaseSegment {
     return this;
   }
 
-  /** PV2-15: Employment Illness Related Indicator (ID) */
+  /** PV2-15 Employment Illness Related Indicator (chainable). */
   employmentIllnessRelated(value: string): this {
     this.fields[14] = this.createField(value);
     return this;
   }
 
-  /** PV2-16: Purge Status Code (IS) */
+  /** PV2-16 Purge Status Code (chainable). */
   purgeStatusCode(value: string): this {
     this.fields[15] = this.createField(value);
     return this;
   }
 
-  /** PV2-17: Purge Status Date (DT) */
+  /** PV2-17 Purge Status Date (chainable). */
   purgeStatusDate(value: string, format?: never): this;
-  /** Sets the purge status date field (chainable). */
+  /** PV2-17 Purge Status Date (chainable). */
   purgeStatusDate(value: Date, format?: HL7DateLayout): this;
   purgeStatusDate(value: string | Date, format?: HL7DateLayout): this {
     this.fields[16] = this.createField(
@@ -169,49 +195,53 @@ export class PV2 extends BaseSegment {
     return this;
   }
 
-  /** PV2-18: Special Program Code (IS) */
+  /** PV2-18 Special Program Code (chainable). */
   specialProgramCode(value: string): this {
     this.fields[17] = this.createField(value);
     return this;
   }
 
-  /** PV2-19: Retention Indicator (ID) */
+  /** PV2-19 Retention Indicator (chainable). */
   retentionIndicator(value: string): this {
     this.fields[18] = this.createField(value);
     return this;
   }
 
-  /** PV2-20: Expected Number of Insurance Plans (NM) */
+  /** PV2-20 Expected Number of Insurance Plans (chainable). */
   expectedNumberOfInsurancePlans(value: string): this {
     this.fields[19] = this.createField(value);
     return this;
   }
 
-  /** PV2-21: Visit Publicity Code (IS) */
+  /** PV2-21 Visit Publicity Code (chainable). */
   visitPublicityCode(value: string): this {
     this.fields[20] = this.createField(value);
     return this;
   }
 
-  /** PV2-22: Visit Protection Indicator (ID) */
+  /** PV2-22 Visit Protection Indicator (chainable). */
   visitProtectionIndicator(value: string): this {
     this.fields[21] = this.createField(value);
     return this;
   }
 
-  /** PV2-25: Visit Priority Code (IS) */
+  /** PV2-25 Visit Priority Code (chainable). */
   visitPriorityCode(value: string): this {
     this.fields[24] = this.createField(value);
     return this;
   }
 
-  /** PV2-38: Mode of Arrival Code (CE) */
+  /**
+   * PV2-38 Mode of Arrival Code (chainable).
+   * @param code - PV2-38.1 Code
+   * @param text - PV2-38.2 Text
+   */
   modeOfArrivalCode(code: string, text?: string): this {
     this.fields[37] = this.createField([[code, text || ""]]);
     return this;
   }
 
-  /** PV2-41: Indirect Exposure Mechanism (IS) */
+  /** PV2-41 Indirect Exposure Mechanism (chainable). */
   indirectExposureMechanism(value: string): this {
     this.fields[40] = this.createField(value);
     return this;

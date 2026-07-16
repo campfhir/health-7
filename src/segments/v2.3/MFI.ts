@@ -31,7 +31,12 @@ export class MFI extends BaseSegment {
     this.fields = [];
   }
 
-  /** MFI-1: Master File Identifier (CE) e.g., "STF" for Staff Master */
+  /**
+   * MFI-1 Master File Identifier (chainable).
+   * @param identifier - MFI-1.1 Identifier
+   * @param text - MFI-1.2 Text
+   * @param codingSystem - MFI-1.3 Coding System
+   */
   masterFileIdentifier(
     identifier: string,
     text?: string,
@@ -47,21 +52,21 @@ export class MFI extends BaseSegment {
     return this;
   }
 
-  /** MFI-2: Master File Application Identifier (HD) */
+  /** MFI-2 Master File Application Identifier (chainable). */
   masterFileApplicationIdentifier(value: string): this {
     this.fields[1] = this.createField(value);
     return this;
   }
 
-  /** MFI-3: File-Level Event Code (ID) e.g., "UPD" (Update), "REP" (Replace) */
+  /** MFI-3 File-Level Event Code (chainable). */
   fileLevelEventCode(value: string): this {
     this.fields[2] = this.createField(value);
     return this;
   }
 
-  /** MFI-4: Entered Date/Time (TS) */
+  /** MFI-4 Entered Date/Time (chainable). */
   enteredDateTime(value: string, format?: never): this;
-  /** Sets the entered date time field (chainable). */
+  /** MFI-4 Entered Date/Time (chainable). */
   enteredDateTime(value: Date, format?: HL7DateTimeLayout): this;
   enteredDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
     this.fields[3] = this.createField(
@@ -70,9 +75,9 @@ export class MFI extends BaseSegment {
     return this;
   }
 
-  /** MFI-5: Effective Date/Time (TS) */
+  /** MFI-5 Effective Date/Time (chainable). */
   effectiveDateTime(value: string, format?: never): this;
-  /** Sets the effective date time field (chainable). */
+  /** MFI-5 Effective Date/Time (chainable). */
   effectiveDateTime(value: Date, format?: HL7DateTimeLayout): this;
   effectiveDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
     this.fields[4] = this.createField(
@@ -81,7 +86,7 @@ export class MFI extends BaseSegment {
     return this;
   }
 
-  /** MFI-6: Response Level Code (ID) e.g., "NE" (Never), "ER" (Error/reject only), "AL" (Always) */
+  /** MFI-6 Response Level Code (chainable). */
   responseLevelCode(value: string): this {
     this.fields[5] = this.createField(value);
     return this;

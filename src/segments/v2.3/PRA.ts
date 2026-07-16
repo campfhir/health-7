@@ -31,7 +31,12 @@ export class PRA extends BaseSegment {
     this.fields = [];
   }
 
-  /** PRA-1: Primary Key Value - PRA (CE) */
+  /**
+   * PRA-1 Primary Key Value (chainable).
+   * @param identifier - PRA-1.1 Identifier
+   * @param text - PRA-1.2 Text
+   * @param codingSystem - PRA-1.3 Coding System
+   */
   primaryKeyValue(
     identifier: string,
     text?: string,
@@ -47,7 +52,11 @@ export class PRA extends BaseSegment {
     return this;
   }
 
-  /** PRA-2: Practitioner Group (CE) */
+  /**
+   * PRA-2 Practitioner Group (chainable).
+   * @param identifier - PRA-2.1 Identifier
+   * @param text - PRA-2.2 Text
+   */
   practitionerGroup(identifier: string, text?: string): this {
     if (text) {
       this.fields[1] = this.createField([identifier, text]);
@@ -57,21 +66,24 @@ export class PRA extends BaseSegment {
     return this;
   }
 
-  /** PRA-3: Practitioner Category (IS) e.g., "OP" (Outpatient), "IP" (Inpatient) */
+  /** PRA-3 Practitioner Category (chainable). */
   practitionerCategory(value: string): this {
     this.fields[2] = this.createField(value);
     return this;
   }
 
-  /** PRA-4: Provider Billing (ID) e.g., "I" (Institution), "P" (Physician) */
+  /** PRA-4 Provider Billing (chainable). */
   providerBilling(value: string): this {
     this.fields[3] = this.createField(value);
     return this;
   }
 
   /**
-   * PRA-5: Specialty (SPD)
-   * Components: specialtyName^governingBoard^eligibleOrCertified^dateOfCertification
+   * PRA-5 Specialty (chainable).
+   * @param specialtyName - PRA-5.1 Specialty Name
+   * @param governingBoard - PRA-5.2 Governing Board
+   * @param eligibleOrCertified - PRA-5.3 Eligible Or Certified
+   * @param dateOfCertification - PRA-5.4 Date Of Certification
    */
   specialty(
     specialtyName: string,
@@ -90,8 +102,11 @@ export class PRA extends BaseSegment {
   }
 
   /**
-   * PRA-6: Practitioner ID Numbers (PLN)
-   * Components: idNumber^typeOfIdNumber^stateOtherQualifying^expireDate
+   * PRA-6 Practitioner ID Numbers (chainable).
+   * @param idNumber - PRA-6.1 ID Number
+   * @param typeOfIdNumber - PRA-6.2 Type Of ID Number
+   * @param stateOrQualifying - PRA-6.3 State Or Qualifying
+   * @param expireDate - PRA-6.4 Expire Date
    */
   practitionerIdNumbers(
     idNumber: string,
@@ -109,9 +124,9 @@ export class PRA extends BaseSegment {
     return this;
   }
 
-  /** PRA-8: Date Entered Practice (DT) */
+  /** PRA-8 Date Entered Practice (chainable). */
   dateEnteredPractice(value: string, format?: never): this;
-  /** Sets the date entered practice field (chainable). */
+  /** PRA-8 Date Entered Practice (chainable). */
   dateEnteredPractice(value: Date, format?: HL7DateLayout): this;
   dateEnteredPractice(value: string | Date, format?: HL7DateLayout): this {
     this.fields[7] = this.createField(

@@ -26,19 +26,24 @@ export class AIS extends BaseSegment {
     this.fields = [];
   }
 
-  /** AIS-1: Set ID (SI, required) */
+  /** AIS-1 Set ID (chainable). */
   setId(value: string): this {
     this.fields[0] = this.createField(value);
     return this;
   }
 
-  /** AIS-2: Segment Action Code (ID) */
+  /** AIS-2 Segment Action Code (chainable). */
   segmentActionCode(value: string): this {
     this.fields[1] = this.createField(value);
     return this;
   }
 
-  /** AIS-3: Universal Service Identifier (CE, required) */
+  /**
+   * AIS-3 Universal Service Identifier (chainable).
+   * @param code - AIS-3.1 Code
+   * @param text - AIS-3.2 Text
+   * @param codingSystem - AIS-3.3 Coding System
+   */
   universalServiceId(code: string, text?: string, codingSystem?: string): this {
     if (text || codingSystem) {
       this.fields[2] = this.createField([
@@ -50,9 +55,9 @@ export class AIS extends BaseSegment {
     return this;
   }
 
-  /** AIS-4: Start Date/Time (TS) */
+  /** AIS-4 Start Date/Time (chainable). */
   startDateTime(value: string, format?: never): this;
-  /** Sets the start date time field (chainable). */
+  /** AIS-4 Start Date/Time (chainable). */
   startDateTime(value: Date, format?: HL7DateTimeLayout): this;
   startDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
     this.fields[3] = this.createField(
@@ -61,13 +66,17 @@ export class AIS extends BaseSegment {
     return this;
   }
 
-  /** AIS-5: Start Date/Time Offset (NM) */
+  /** AIS-5 Start Date/Time Offset (chainable). */
   startDateTimeOffset(value: string): this {
     this.fields[4] = this.createField(value);
     return this;
   }
 
-  /** AIS-6: Start Date/Time Offset Units (CE) */
+  /**
+   * AIS-6 Start Date/Time Offset Units (chainable).
+   * @param code - AIS-6.1 Code
+   * @param text - AIS-6.2 Text
+   */
   startDateTimeOffsetUnits(code: string, text?: string): this {
     if (text) {
       this.fields[5] = this.createField([[code, text]]);
@@ -77,13 +86,17 @@ export class AIS extends BaseSegment {
     return this;
   }
 
-  /** AIS-7: Duration (NM) */
+  /** AIS-7 Duration (chainable). */
   duration(value: string): this {
     this.fields[6] = this.createField(value);
     return this;
   }
 
-  /** AIS-8: Duration Units (CE) */
+  /**
+   * AIS-8 Duration Units (chainable).
+   * @param code - AIS-8.1 Code
+   * @param text - AIS-8.2 Text
+   */
   durationUnits(code: string, text?: string): this {
     if (text) {
       this.fields[7] = this.createField([[code, text]]);
@@ -93,13 +106,17 @@ export class AIS extends BaseSegment {
     return this;
   }
 
-  /** AIS-9: Allow Substitution Code (IS) */
+  /** AIS-9 Allow Substitution Code (chainable). */
   allowSubstitutionCode(value: string): this {
     this.fields[8] = this.createField(value);
     return this;
   }
 
-  /** AIS-10: Filler Status Code (CE) */
+  /**
+   * AIS-10 Filler Status Code (chainable).
+   * @param code - AIS-10.1 Code
+   * @param text - AIS-10.2 Text
+   */
   fillerStatusCode(code: string, text?: string): this {
     if (text) {
       this.fields[9] = this.createField([[code, text]]);
@@ -109,7 +126,11 @@ export class AIS extends BaseSegment {
     return this;
   }
 
-  /** AIS-11: Placer Supplemental Service Information (CE) */
+  /**
+   * AIS-11 Placer Supplemental Service Information (chainable).
+   * @param code - AIS-11.1 Code
+   * @param text - AIS-11.2 Text
+   */
   placerSupplementalInfo(code: string, text?: string): this {
     if (text) {
       this.fields[10] = this.createField([[code, text]]);
@@ -119,7 +140,11 @@ export class AIS extends BaseSegment {
     return this;
   }
 
-  /** AIS-12: Filler Supplemental Service Information (CE) */
+  /**
+   * AIS-12 Filler Supplemental Service Information (chainable).
+   * @param code - AIS-12.1 Code
+   * @param text - AIS-12.2 Text
+   */
   fillerSupplementalInfo(code: string, text?: string): this {
     if (text) {
       this.fields[11] = this.createField([[code, text]]);

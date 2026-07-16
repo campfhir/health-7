@@ -29,39 +29,44 @@ export class IN3 extends BaseSegment {
     this.fields = [];
   }
 
-  /** IN3-1: Set ID (SI, required) */
+  /** IN3-1 Set ID (chainable). */
   setId(value: string): this {
     this.fields[0] = this.createField(value);
     return this;
   }
 
-  /** IN3-2: Certification Number (CX) */
+  /** IN3-2 Certification Number (chainable). */
   certificationNumber(value: string): this {
     this.fields[1] = this.createField(value);
     return this;
   }
 
-  /** IN3-3: Certified By (XCN) */
+  /**
+   * IN3-3 Certified By (chainable).
+   * @param id - IN3-3.1 ID Number
+   * @param familyName - IN3-3.2 Family Name
+   * @param givenName - IN3-3.3 Given Name
+   */
   certifiedBy(id: string, familyName?: string, givenName?: string): this {
     this.fields[2] = this.createField([id, familyName || "", givenName || ""]);
     return this;
   }
 
-  /** IN3-4: Certification Required (ID) - Y/N */
+  /** IN3-4 Certification Required (chainable). */
   certificationRequired(value: string): this {
     this.fields[3] = this.createField(value);
     return this;
   }
 
-  /** IN3-5: Penalty (MOP) - money or percentage */
+  /** IN3-5 Penalty (chainable). */
   penalty(value: string): this {
     this.fields[4] = this.createField(value);
     return this;
   }
 
-  /** IN3-6: Certification Date/Time (TS) */
+  /** IN3-6 Certification Date/Time (chainable). */
   certificationDateTime(value: string, format?: never): this;
-  /** Sets the certification date time field (chainable). */
+  /** IN3-6 Certification Date/Time (chainable). */
   certificationDateTime(value: Date, format?: HL7DateTimeLayout): this;
   certificationDateTime(
     value: string | Date,
@@ -73,9 +78,9 @@ export class IN3 extends BaseSegment {
     return this;
   }
 
-  /** IN3-7: Certification Modify Date/Time (TS) */
+  /** IN3-7 Certification Modify Date/Time (chainable). */
   certificationModifyDateTime(value: string, format?: never): this;
-  /** Sets the certification modify date time field (chainable). */
+  /** IN3-7 Certification Modify Date/Time (chainable). */
   certificationModifyDateTime(value: Date, format?: HL7DateTimeLayout): this;
   certificationModifyDateTime(
     value: string | Date,
@@ -87,15 +92,20 @@ export class IN3 extends BaseSegment {
     return this;
   }
 
-  /** IN3-8: Operator (XCN) */
+  /**
+   * IN3-8 Operator (chainable).
+   * @param id - IN3-8.1 ID Number
+   * @param familyName - IN3-8.2 Family Name
+   * @param givenName - IN3-8.3 Given Name
+   */
   operator(id: string, familyName?: string, givenName?: string): this {
     this.fields[7] = this.createField([id, familyName || "", givenName || ""]);
     return this;
   }
 
-  /** IN3-9: Certification Begin Date (DT) */
+  /** IN3-9 Certification Begin Date (chainable). */
   certificationBeginDate(value: string, format?: never): this;
-  /** Sets the certification begin date field (chainable). */
+  /** IN3-9 Certification Begin Date (chainable). */
   certificationBeginDate(value: Date, format?: HL7DateLayout): this;
   certificationBeginDate(value: string | Date, format?: HL7DateLayout): this {
     this.fields[8] = this.createField(
@@ -104,9 +114,9 @@ export class IN3 extends BaseSegment {
     return this;
   }
 
-  /** IN3-10: Certification End Date (DT) */
+  /** IN3-10 Certification End Date (chainable). */
   certificationEndDate(value: string, format?: never): this;
-  /** Sets the certification end date field (chainable). */
+  /** IN3-10 Certification End Date (chainable). */
   certificationEndDate(value: Date, format?: HL7DateLayout): this;
   certificationEndDate(value: string | Date, format?: HL7DateLayout): this {
     this.fields[9] = this.createField(
@@ -115,21 +125,25 @@ export class IN3 extends BaseSegment {
     return this;
   }
 
-  /** IN3-11: Days (DTN) - number of days certified */
+  /** IN3-11 Days (chainable). */
   days(value: string): this {
     this.fields[10] = this.createField(value);
     return this;
   }
 
-  /** IN3-12: Non-Concur Code/Description (CE) */
+  /**
+   * IN3-12 Non-Concur Code/Description (chainable).
+   * @param code - IN3-12.1 Code
+   * @param text - IN3-12.2 Text
+   */
   nonConcurCodeDescription(code: string, text?: string): this {
     this.fields[11] = this.createField([code, text || ""]);
     return this;
   }
 
-  /** IN3-13: Non-Concur Effective Date/Time (TS) */
+  /** IN3-13 Non-Concur Effective Date/Time (chainable). */
   nonConcurEffectiveDateTime(value: string, format?: never): this;
-  /** Sets the non concur effective date time field (chainable). */
+  /** IN3-13 Non-Concur Effective Date/Time (chainable). */
   nonConcurEffectiveDateTime(value: Date, format?: HL7DateTimeLayout): this;
   nonConcurEffectiveDateTime(
     value: string | Date,
@@ -141,57 +155,70 @@ export class IN3 extends BaseSegment {
     return this;
   }
 
-  /** IN3-14: Physician Reviewer (XCN) */
+  /**
+   * IN3-14 Physician Reviewer (chainable).
+   * @param id - IN3-14.1 ID Number
+   * @param familyName - IN3-14.2 Family Name
+   * @param givenName - IN3-14.3 Given Name
+   */
   physicianReviewer(id: string, familyName?: string, givenName?: string): this {
     this.fields[13] = this.createField([id, familyName || "", givenName || ""]);
     return this;
   }
 
-  /** IN3-15: Certification Contact (ST) */
+  /** IN3-15 Certification Contact (chainable). */
   certificationContact(value: string): this {
     this.fields[14] = this.createField(value);
     return this;
   }
 
-  /** IN3-16: Certification Contact Phone Number (XTN) */
+  /** IN3-16 Certification Contact Phone Number (chainable). */
   certificationContactPhone(value: string): this {
     this.fields[15] = this.createField(value);
     return this;
   }
 
-  /** IN3-17: Appeal Reason (CE) */
+  /**
+   * IN3-17 Appeal Reason (chainable).
+   * @param code - IN3-17.1 Code
+   * @param text - IN3-17.2 Text
+   */
   appealReason(code: string, text?: string): this {
     this.fields[16] = this.createField([code, text || ""]);
     return this;
   }
 
-  /** IN3-18: Certification Agency (CE) */
+  /**
+   * IN3-18 Certification Agency (chainable).
+   * @param code - IN3-18.1 Code
+   * @param text - IN3-18.2 Text
+   */
   certificationAgency(code: string, text?: string): this {
     this.fields[17] = this.createField([code, text || ""]);
     return this;
   }
 
-  /** IN3-19: Certification Agency Phone Number (XTN) */
+  /** IN3-19 Certification Agency Phone Number (chainable). */
   certificationAgencyPhone(value: string): this {
     this.fields[18] = this.createField(value);
     return this;
   }
 
-  /** IN3-20: Pre-Certification Required (ICD) */
+  /** IN3-20 Pre-Certification Required (chainable). */
   preCertificationRequired(value: string): this {
     this.fields[19] = this.createField(value);
     return this;
   }
 
-  /** IN3-21: Case Manager (ST) */
+  /** IN3-21 Case Manager (chainable). */
   caseManager(value: string): this {
     this.fields[20] = this.createField(value);
     return this;
   }
 
-  /** IN3-22: Second Opinion Date (DT) */
+  /** IN3-22 Second Opinion Date (chainable). */
   secondOpinionDate(value: string, format?: never): this;
-  /** Sets the second opinion date field (chainable). */
+  /** IN3-22 Second Opinion Date (chainable). */
   secondOpinionDate(value: Date, format?: HL7DateLayout): this;
   secondOpinionDate(value: string | Date, format?: HL7DateLayout): this {
     this.fields[21] = this.createField(
@@ -200,19 +227,24 @@ export class IN3 extends BaseSegment {
     return this;
   }
 
-  /** IN3-23: Second Opinion Status (IS) */
+  /** IN3-23 Second Opinion Status (chainable). */
   secondOpinionStatus(value: string): this {
     this.fields[22] = this.createField(value);
     return this;
   }
 
-  /** IN3-24: Second Opinion Documentation Received (IS) */
+  /** IN3-24 Second Opinion Documentation Received (chainable). */
   secondOpinionDocumentationReceived(value: string): this {
     this.fields[23] = this.createField(value);
     return this;
   }
 
-  /** IN3-25: Second Opinion Physician (XCN) */
+  /**
+   * IN3-25 Second Opinion Physician (chainable).
+   * @param id - IN3-25.1 ID Number
+   * @param familyName - IN3-25.2 Family Name
+   * @param givenName - IN3-25.3 Given Name
+   */
   secondOpinionPhysician(
     id: string,
     familyName?: string,

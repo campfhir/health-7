@@ -21,13 +21,20 @@ export class ERR extends BaseSegment {
     this.fields = [];
   }
 
-  /** ERR-1: Error Code and Location (ELD, deprecated in v2.5) */
+  /** ERR-1 Error Code and Location (chainable). */
   errorCodeAndLocation(value: string): this {
     this.fields[0] = this.createField(value);
     return this;
   }
 
-  /** ERR-2: Error Location (ERL) */
+  /**
+   * ERR-2 Error Location (chainable).
+   * @param segmentId - ERR-2.1 Segment ID
+   * @param segmentSequence - ERR-2.2 Segment Sequence
+   * @param fieldPosition - ERR-2.3 Field Position
+   * @param fieldRepetition - ERR-2.4 Field Repetition
+   * @param componentNumber - ERR-2.5 Component Number
+   */
   errorLocation(
     segmentId: string,
     segmentSequence?: string,
@@ -47,7 +54,12 @@ export class ERR extends BaseSegment {
     return this;
   }
 
-  /** ERR-3: HL7 Error Code (CWE, required) */
+  /**
+   * ERR-3 HL7 Error Code (chainable).
+   * @param code - ERR-3.1 Code
+   * @param text - ERR-3.2 Text
+   * @param codingSystem - ERR-3.3 Coding System
+   */
   hl7ErrorCode(code: string, text?: string, codingSystem?: string): this {
     this.fields[2] = this.createField([
       [code, text || "", codingSystem || ""],
@@ -55,37 +67,41 @@ export class ERR extends BaseSegment {
     return this;
   }
 
-  /** ERR-4: Severity (ID, required) - e.g. W=Warning, I=Information, E=Error */
+  /** ERR-4 Severity (chainable). */
   severity(value: string): this {
     this.fields[3] = this.createField(value);
     return this;
   }
 
-  /** ERR-5: Application Error Code (CWE) */
+  /**
+   * ERR-5 Application Error Code (chainable).
+   * @param code - ERR-5.1 Code
+   * @param text - ERR-5.2 Text
+   */
   applicationErrorCode(code: string, text?: string): this {
     this.fields[4] = this.createField([[code, text || ""]]);
     return this;
   }
 
-  /** ERR-6: Application Error Parameter (ST) */
+  /** ERR-6 Application Error Parameter (chainable). */
   applicationErrorParameter(value: string): this {
     this.fields[5] = this.createField(value);
     return this;
   }
 
-  /** ERR-7: Diagnostic Information (TX) */
+  /** ERR-7 Diagnostic Information (chainable). */
   diagnosticInfo(value: string): this {
     this.fields[6] = this.createField(value);
     return this;
   }
 
-  /** ERR-8: User Message (TX) */
+  /** ERR-8 User Message (chainable). */
   userMessage(value: string): this {
     this.fields[7] = this.createField(value);
     return this;
   }
 
-  /** ERR-9: Inform Person Indicator (IS) */
+  /** ERR-9 Inform Person Indicator (chainable). */
   informPersonIndicator(value: string): this {
     this.fields[8] = this.createField(value);
     return this;

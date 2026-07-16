@@ -27,19 +27,28 @@ export class GT1 extends BaseSegment {
     this.fields = [];
   }
 
-  /** GT1-1: Set ID (SI) - Sequence number of this segment */
+  /** GT1-1 Set ID (chainable). */
   setId(value: string): this {
     this.fields[0] = this.createField(value);
     return this;
   }
 
-  /** GT1-2: Guarantor Number (CX) - Identifier for the guarantor */
+  /**
+   * GT1-2 Guarantor Number (chainable).
+   * @param id - GT1-2.1 ID Number
+   * @param assigningAuthority - GT1-2.4 Assigning Authority
+   */
   guarantorNumber(id: string, assigningAuthority?: string): this {
     this.fields[1] = this.createField([[id, "", "", assigningAuthority || ""]]);
     return this;
   }
 
-  /** GT1-3: Guarantor Name (XPN) - Name of the guarantor */
+  /**
+   * GT1-3 Guarantor Name (chainable).
+   * @param familyName - GT1-3.1 Family Name
+   * @param givenName - GT1-3.2 Given Name
+   * @param middleName - GT1-3.3 Middle Name
+   */
   guarantorName(
     familyName: string,
     givenName?: string,
@@ -51,13 +60,24 @@ export class GT1 extends BaseSegment {
     return this;
   }
 
-  /** GT1-4: Guarantor Spouse Name (XPN) - Name of the guarantor's spouse */
+  /**
+   * GT1-4 Guarantor Spouse Name (chainable).
+   * @param familyName - GT1-4.1 Family Name
+   * @param givenName - GT1-4.2 Given Name
+   */
   guarantorSpouseName(familyName: string, givenName?: string): this {
     this.fields[3] = this.createField([[familyName, givenName || ""]]);
     return this;
   }
 
-  /** GT1-5: Guarantor Address (XAD) - Address of the guarantor */
+  /**
+   * GT1-5 Guarantor Address (chainable).
+   * @param street - GT1-5.1 Street
+   * @param city - GT1-5.3 City
+   * @param state - GT1-5.4 State
+   * @param zip - GT1-5.5 Zip
+   * @param country - GT1-5.6 Country
+   */
   guarantorAddress(
     street: string,
     city?: string,
@@ -71,21 +91,21 @@ export class GT1 extends BaseSegment {
     return this;
   }
 
-  /** GT1-6: Guarantor Phone Number - Home (XTN) */
+  /** GT1-6 Guarantor Phone Number - Home (chainable). */
   guarantorPhoneHome(value: string): this {
     this.fields[5] = this.createField(value);
     return this;
   }
 
-  /** GT1-7: Guarantor Phone Number - Business (XTN) */
+  /** GT1-7 Guarantor Phone Number - Business (chainable). */
   guarantorPhoneBusiness(value: string): this {
     this.fields[6] = this.createField(value);
     return this;
   }
 
-  /** GT1-8: Guarantor Date/Time Of Birth (TS) */
+  /** GT1-8 Guarantor Date/Time Of Birth (chainable). */
   guarantorDateOfBirth(value: string, format?: never): this;
-  /** Sets the guarantor date of birth field (chainable). */
+  /** GT1-8 Guarantor Date/Time Of Birth (chainable). */
   guarantorDateOfBirth(value: Date, format?: HL7DateLayout): this;
   guarantorDateOfBirth(value: string | Date, format?: HL7DateLayout): this {
     this.fields[7] = this.createField(
@@ -94,33 +114,37 @@ export class GT1 extends BaseSegment {
     return this;
   }
 
-  /** GT1-9: Guarantor Administrative Sex (IS) - e.g. M/F/U */
+  /** GT1-9 Guarantor Administrative Sex (chainable). */
   guarantorSex(value: string): this {
     this.fields[8] = this.createField(value);
     return this;
   }
 
-  /** GT1-10: Guarantor Type (IS) */
+  /** GT1-10 Guarantor Type (chainable). */
   guarantorType(value: string): this {
     this.fields[9] = this.createField(value);
     return this;
   }
 
-  /** GT1-11: Guarantor Relationship (CE) - Relationship to patient */
+  /**
+   * GT1-11 Guarantor Relationship (chainable).
+   * @param code - GT1-11.1 Code
+   * @param text - GT1-11.2 Text
+   */
   guarantorRelationship(code: string, text?: string): this {
     this.fields[10] = this.createField([code, text || ""]);
     return this;
   }
 
-  /** GT1-12: Guarantor SSN (ST) - Social Security Number */
+  /** GT1-12 Guarantor SSN (chainable). */
   guarantorSsn(value: string): this {
     this.fields[11] = this.createField(value);
     return this;
   }
 
-  /** GT1-13: Guarantor Date - Begin (DT) */
+  /** GT1-13 Guarantor Date - Begin (chainable). */
   guarantorDateBegin(value: string, format?: never): this;
-  /** Sets the guarantor date begin field (chainable). */
+  /** GT1-13 Guarantor Date - Begin (chainable). */
   guarantorDateBegin(value: Date, format?: HL7DateLayout): this;
   guarantorDateBegin(value: string | Date, format?: HL7DateLayout): this {
     this.fields[12] = this.createField(
@@ -129,9 +153,9 @@ export class GT1 extends BaseSegment {
     return this;
   }
 
-  /** GT1-14: Guarantor Date - End (DT) */
+  /** GT1-14 Guarantor Date - End (chainable). */
   guarantorDateEnd(value: string, format?: never): this;
-  /** Sets the guarantor date end field (chainable). */
+  /** GT1-14 Guarantor Date - End (chainable). */
   guarantorDateEnd(value: Date, format?: HL7DateLayout): this;
   guarantorDateEnd(value: string | Date, format?: HL7DateLayout): this {
     this.fields[13] = this.createField(
@@ -140,19 +164,25 @@ export class GT1 extends BaseSegment {
     return this;
   }
 
-  /** GT1-15: Guarantor Priority (NM) */
+  /** GT1-15 Guarantor Priority (chainable). */
   guarantorPriority(value: string): this {
     this.fields[14] = this.createField(value);
     return this;
   }
 
-  /** GT1-16: Guarantor Employer Name (XPN) */
+  /** GT1-16 Guarantor Employer Name (chainable). */
   guarantorEmployerName(value: string): this {
     this.fields[15] = this.createField(value);
     return this;
   }
 
-  /** GT1-17: Guarantor Employer Address (XAD) */
+  /**
+   * GT1-17 Guarantor Employer Address (chainable).
+   * @param street - GT1-17.1 Street
+   * @param city - GT1-17.3 City
+   * @param state - GT1-17.4 State
+   * @param zip - GT1-17.5 Zip
+   */
   guarantorEmployerAddress(
     street: string,
     city?: string,
@@ -165,19 +195,19 @@ export class GT1 extends BaseSegment {
     return this;
   }
 
-  /** GT1-19: Guarantor Employee ID Number (CX) */
+  /** GT1-19 Guarantor Employee ID Number (chainable). */
   guarantorEmployeeId(value: string): this {
     this.fields[18] = this.createField(value);
     return this;
   }
 
-  /** GT1-20: Guarantor Employment Status (IS) */
+  /** GT1-20 Guarantor Employment Status (chainable). */
   guarantorEmploymentStatus(value: string): this {
     this.fields[19] = this.createField(value);
     return this;
   }
 
-  /** GT1-21: Guarantor Organization Name (XON) */
+  /** GT1-21 Guarantor Organization Name (chainable). */
   guarantorOrganizationName(value: string): this {
     this.fields[20] = this.createField(value);
     return this;

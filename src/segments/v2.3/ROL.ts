@@ -26,7 +26,13 @@ export class ROL extends BaseSegment {
     this.fields = [];
   }
 
-  /** ROL-1: Role Instance ID (EI) */
+  /**
+   * ROL-1 Role Instance ID (chainable).
+   * @param entityId - ROL-1.1 Entity ID
+   * @param namespaceId - ROL-1.2 Namespace ID
+   * @param universalId - ROL-1.3 Universal ID
+   * @param universalIdType - ROL-1.4 Universal ID Type
+   */
   roleInstanceId(
     entityId: string,
     namespaceId?: string,
@@ -39,19 +45,30 @@ export class ROL extends BaseSegment {
     return this;
   }
 
-  /** ROL-2: Action Code (ID) - e.g. AD=Add, DE=Delete, UP=Update, CO=Correct */
+  /** ROL-2 Action Code (chainable). */
   actionCode(value: string): this {
     this.fields[1] = this.createField(value);
     return this;
   }
 
-  /** ROL-3: Role-ROL (CE) */
+  /**
+   * ROL-3 Role-ROL (chainable).
+   * @param code - ROL-3.1 Code
+   * @param text - ROL-3.2 Text
+   * @param codingSystem - ROL-3.3 Coding System
+   */
   role(code: string, text?: string, codingSystem?: string): this {
     this.fields[2] = this.createField([[code, text || "", codingSystem || ""]]);
     return this;
   }
 
-  /** ROL-4: Role Person (XCN) */
+  /**
+   * ROL-4 Role Person (chainable).
+   * @param id - ROL-4.1 ID Number
+   * @param familyName - ROL-4.2 Family Name
+   * @param givenName - ROL-4.3 Given Name
+   * @param middleName - ROL-4.4 Middle Name
+   */
   rolePerson(
     id: string,
     familyName?: string,
@@ -64,9 +81,9 @@ export class ROL extends BaseSegment {
     return this;
   }
 
-  /** ROL-5: Role Begin Date/Time (TS) */
+  /** ROL-5 Role Begin Date/Time (chainable). */
   roleBeginDateTime(value: string, format?: never): this;
-  /** Sets the role begin date time field (chainable). */
+  /** ROL-5 Role Begin Date/Time (chainable). */
   roleBeginDateTime(value: Date, format?: HL7DateTimeLayout): this;
   roleBeginDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
     this.fields[4] = this.createField(
@@ -75,9 +92,9 @@ export class ROL extends BaseSegment {
     return this;
   }
 
-  /** ROL-6: Role End Date/Time (TS) */
+  /** ROL-6 Role End Date/Time (chainable). */
   roleEndDateTime(value: string, format?: never): this;
-  /** Sets the role end date time field (chainable). */
+  /** ROL-6 Role End Date/Time (chainable). */
   roleEndDateTime(value: Date, format?: HL7DateTimeLayout): this;
   roleEndDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
     this.fields[5] = this.createField(
@@ -86,31 +103,53 @@ export class ROL extends BaseSegment {
     return this;
   }
 
-  /** ROL-7: Role Duration (CE) */
+  /**
+   * ROL-7 Role Duration (chainable).
+   * @param code - ROL-7.1 Code
+   * @param text - ROL-7.2 Text
+   */
   roleDuration(code: string, text?: string): this {
     this.fields[6] = this.createField([[code, text || ""]]);
     return this;
   }
 
-  /** ROL-8: Role Action Reason (CE) */
+  /**
+   * ROL-8 Role Action Reason (chainable).
+   * @param code - ROL-8.1 Code
+   * @param text - ROL-8.2 Text
+   */
   roleActionReason(code: string, text?: string): this {
     this.fields[7] = this.createField([[code, text || ""]]);
     return this;
   }
 
-  /** ROL-9: Provider Type (CE) */
+  /**
+   * ROL-9 Provider Type (chainable).
+   * @param code - ROL-9.1 Code
+   * @param text - ROL-9.2 Text
+   */
   providerType(code: string, text?: string): this {
     this.fields[8] = this.createField([[code, text || ""]]);
     return this;
   }
 
-  /** ROL-10: Organization Unit Type (CE) */
+  /**
+   * ROL-10 Organization Unit Type (chainable).
+   * @param code - ROL-10.1 Code
+   * @param text - ROL-10.2 Text
+   */
   organizationUnitType(code: string, text?: string): this {
     this.fields[9] = this.createField([[code, text || ""]]);
     return this;
   }
 
-  /** ROL-11: Office/Home Address/Birthplace (XAD) */
+  /**
+   * ROL-11 Office/Home Address/Birthplace (chainable).
+   * @param street - ROL-11.1 Street
+   * @param city - ROL-11.3 City
+   * @param state - ROL-11.4 State
+   * @param zip - ROL-11.5 Zip
+   */
   officeAddress(
     street: string,
     city?: string,
@@ -123,7 +162,7 @@ export class ROL extends BaseSegment {
     return this;
   }
 
-  /** ROL-12: Phone (XTN) */
+  /** ROL-12 Phone (chainable). */
   phone(value: string): this {
     this.fields[11] = this.createField(value);
     return this;

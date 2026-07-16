@@ -24,38 +24,29 @@ export class NTE extends BaseSegment {
     this.fields = [];
   }
 
-  /**
-   * NTE-1: Set ID - NTE (SI)
-   * Sequential number for notes
-   */
+  /** NTE-1 Set ID (chainable). */
   setId(id: string): this {
     this.fields[0] = this.createField(id);
     return this;
   }
 
-  /**
-   * NTE-2: Source of Comment (ID)
-   * Who/what generated the comment
-   * Values: L (Ancillary), P (Placer), O (Order Filler)
-   */
+  /** NTE-2 Source of Comment (chainable). */
   sourceOfComment(source: string): this {
     this.fields[1] = this.createField(source);
     return this;
   }
 
-  /**
-   * NTE-3: Comment (FT)
-   * The actual note/comment text
-   * This is a multi-line field that can contain line breaks
-   */
+  /** NTE-3 Comment (chainable). */
   comment(text: string): this {
     this.fields[2] = this.createField(text);
     return this;
   }
 
   /**
-   * NTE-4: Comment Type (CE)
-   * Categorizes the type of comment
+   * NTE-4 Comment Type (chainable).
+   * @param identifier - NTE-4.1 Identifier
+   * @param text - NTE-4.2 Text
+   * @param codingSystem - NTE-4.3 Coding System
    */
   commentType(identifier: string, text?: string, codingSystem?: string): this {
     if (text || codingSystem) {

@@ -26,17 +26,24 @@ export class PID extends BaseSegment {
     this.fields = [];
   }
 
-  /** Sets the set id field (chainable). */
+  /** PID-1 Set ID (chainable). */
   setId(value: string): this {
     this.fields[0] = this.createField(value);
     return this;
   }
-  /** Sets the patient id field (chainable). */
+  /** PID-2 Patient ID (chainable). */
   patientId(value: string): this {
     this.fields[1] = this.createField(value);
     return this;
   }
-  /** Patient identifier list. */
+  /**
+   * PID-3 Patient Identifier List (chainable).
+   * @param id - PID-3.1 ID Number
+   * @param checkDigit - PID-3.2 Check Digit
+   * @param checkDigitScheme - PID-3.3 Check Digit Scheme
+   * @param assigningAuthority - PID-3.4 Assigning Authority
+   * @param identifierTypeCode - PID-3.5 Identifier Type Code
+   */
   patientIdentifierList(
     id: string,
     checkDigit?: string,
@@ -53,12 +60,19 @@ export class PID extends BaseSegment {
     this.fields[2] = this.createField(components);
     return this;
   }
-  /** Sets the alternate patient id field (chainable). */
+  /** PID-4 Alternate Patient ID (chainable). */
   alternatePatientId(value: string): this {
     this.fields[3] = this.createField(value);
     return this;
   }
-  /** Patient name. */
+  /**
+   * PID-5 Patient Name (chainable).
+   * @param familyName - PID-5.1 Family Name
+   * @param givenName - PID-5.2 Given Name
+   * @param middleName - PID-5.3 Middle Name
+   * @param suffix - PID-5.4 Suffix
+   * @param prefix - PID-5.5 Prefix
+   */
   patientName(
     familyName: string,
     givenName?: string,
@@ -75,16 +89,20 @@ export class PID extends BaseSegment {
     this.fields[4] = this.createField(components);
     return this;
   }
-  /** Sets the mothers maiden name field (chainable). */
+  /**
+   * PID-6 Mothers Maiden Name (chainable).
+   * @param familyName - PID-6.1 Family Name
+   * @param givenName - PID-6.2 Given Name
+   */
   mothersMaidenName(familyName: string, givenName?: string): this {
     const components = [familyName];
     if (givenName) components.push(givenName);
     this.fields[5] = this.createField(components);
     return this;
   }
-  /** Sets the date time of birth field (chainable). */
+  /** PID-7 Date Time Of Birth (chainable). */
   dateTimeOfBirth(value: string, format?: never): this;
-  /** Sets the date time of birth field (chainable). */
+  /** PID-7 Date Time Of Birth (chainable). */
   dateTimeOfBirth(value: Date, format?: HL7DateLayout): this;
   dateTimeOfBirth(value: string | Date, format?: HL7DateLayout): this {
     this.fields[6] = this.createField(
@@ -92,24 +110,36 @@ export class PID extends BaseSegment {
     );
     return this;
   }
-  /** Sets the administrative sex field (chainable). */
+  /** PID-8 Administrative Sex (chainable). */
   administrativeSex(value: string): this {
     this.fields[7] = this.createField(value);
     return this;
   }
-  /** Sets the patient alias field (chainable). */
+  /**
+   * PID-9 Patient Alias (chainable).
+   * @param familyName - PID-9.1 Family Name
+   * @param givenName - PID-9.2 Given Name
+   */
   patientAlias(familyName: string, givenName?: string): this {
     const components = [familyName];
     if (givenName) components.push(givenName);
     this.fields[8] = this.createField(components);
     return this;
   }
-  /** Sets the race field (chainable). */
+  /** PID-10 Race (chainable). */
   race(value: string): this {
     this.fields[9] = this.createField(value);
     return this;
   }
-  /** Patient address. */
+  /**
+   * PID-11 Patient Address (chainable).
+   * @param streetAddress - PID-11.1 Street Address
+   * @param otherDesignation - PID-11.2 Other Designation
+   * @param city - PID-11.3 City
+   * @param state - PID-11.4 State
+   * @param zip - PID-11.5 Zip
+   * @param country - PID-11.6 Country
+   */
   patientAddress(
     streetAddress?: string,
     otherDesignation?: string,
@@ -129,42 +159,42 @@ export class PID extends BaseSegment {
     this.fields[10] = this.createField(components);
     return this;
   }
-  /** Sets the county code field (chainable). */
+  /** PID-12 County Code (chainable). */
   countyCode(value: string): this {
     this.fields[11] = this.createField(value);
     return this;
   }
-  /** Sets the phone number home field (chainable). */
+  /** PID-13 Phone Number Home (chainable). */
   phoneNumberHome(value: string): this {
     this.fields[12] = this.createField(value);
     return this;
   }
-  /** Sets the phone number business field (chainable). */
+  /** PID-14 Phone Number Business (chainable). */
   phoneNumberBusiness(value: string): this {
     this.fields[13] = this.createField(value);
     return this;
   }
-  /** Sets the primary language field (chainable). */
+  /** PID-15 Primary Language (chainable). */
   primaryLanguage(value: string): this {
     this.fields[14] = this.createField(value);
     return this;
   }
-  /** Sets the marital status field (chainable). */
+  /** PID-16 Marital Status (chainable). */
   maritalStatus(value: string): this {
     this.fields[15] = this.createField(value);
     return this;
   }
-  /** Sets the religion field (chainable). */
+  /** PID-17 Religion (chainable). */
   religion(value: string): this {
     this.fields[16] = this.createField(value);
     return this;
   }
-  /** Sets the patient account number field (chainable). */
+  /** PID-18 Patient Account Number (chainable). */
   patientAccountNumber(value: string): this {
     this.fields[17] = this.createField(value);
     return this;
   }
-  /** Sets the ssn field (chainable). */
+  /** PID-19 SSN (chainable). */
   ssn(value: string): this {
     this.fields[18] = this.createField(value);
     return this;

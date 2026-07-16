@@ -21,19 +21,23 @@ export class RGS extends BaseSegment {
     this.fields = [];
   }
 
-  /** RGS-1: Set ID (SI, required) */
+  /** RGS-1 Set ID (chainable). */
   setId(value: string): this {
     this.fields[0] = this.createField(value);
     return this;
   }
 
-  /** RGS-2: Segment Action Code (ID) e.g. A=Add, D=Delete, U=Update */
+  /** RGS-2 Segment Action Code (chainable). */
   segmentActionCode(value: string): this {
     this.fields[1] = this.createField(value);
     return this;
   }
 
-  /** RGS-3: Resource Group ID (CE) */
+  /**
+   * RGS-3 Resource Group ID (chainable).
+   * @param code - RGS-3.1 Code
+   * @param text - RGS-3.2 Text
+   */
   resourceGroupId(code: string, text?: string): this {
     if (text) {
       this.fields[2] = this.createField([[code, text]]);

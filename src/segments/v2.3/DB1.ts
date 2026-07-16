@@ -27,33 +27,33 @@ export class DB1 extends BaseSegment {
     this.fields = [];
   }
 
-  /** DB1-1: Set ID (SI) - Sequence number of this segment */
+  /** DB1-1 Set ID (chainable). */
   setId(value: string): this {
     this.fields[0] = this.createField(value);
     return this;
   }
 
-  /** DB1-2: Disabled Person Code (IS) - e.g. PT=Patient, GT=Guarantor, IN=Insured, AP=Authorized Person */
+  /** DB1-2 Disabled Person Code (chainable). */
   disabledPersonCode(value: string): this {
     this.fields[1] = this.createField(value);
     return this;
   }
 
-  /** DB1-3: Disabled Person Identifier (CX) - Identifier of the disabled person */
+  /** DB1-3 Disabled Person Identifier (chainable). */
   disabledPersonIdentifier(value: string): this {
     this.fields[2] = this.createField(value);
     return this;
   }
 
-  /** DB1-4: Disability Indicator (ID) - e.g. Y/N */
+  /** DB1-4 Disability Indicator (chainable). */
   disabilityIndicator(value: string): this {
     this.fields[3] = this.createField(value);
     return this;
   }
 
-  /** DB1-5: Disability Start Date (DT) */
+  /** DB1-5 Disability Start Date (chainable). */
   disabilityStartDate(value: string, format?: never): this;
-  /** Sets the disability start date field (chainable). */
+  /** DB1-5 Disability Start Date (chainable). */
   disabilityStartDate(value: Date, format?: HL7DateLayout): this;
   disabilityStartDate(value: string | Date, format?: HL7DateLayout): this {
     this.fields[4] = this.createField(
@@ -62,9 +62,9 @@ export class DB1 extends BaseSegment {
     return this;
   }
 
-  /** DB1-6: Disability End Date (DT) */
+  /** DB1-6 Disability End Date (chainable). */
   disabilityEndDate(value: string, format?: never): this;
-  /** Sets the disability end date field (chainable). */
+  /** DB1-6 Disability End Date (chainable). */
   disabilityEndDate(value: Date, format?: HL7DateLayout): this;
   disabilityEndDate(value: string | Date, format?: HL7DateLayout): this {
     this.fields[5] = this.createField(
@@ -73,9 +73,9 @@ export class DB1 extends BaseSegment {
     return this;
   }
 
-  /** DB1-7: Disability Return to Work Date (DT) */
+  /** DB1-7 Disability Return to Work Date (chainable). */
   disabilityReturnToWorkDate(value: string, format?: never): this;
-  /** Sets the disability return to work date field (chainable). */
+  /** DB1-7 Disability Return to Work Date (chainable). */
   disabilityReturnToWorkDate(value: Date, format?: HL7DateLayout): this;
   disabilityReturnToWorkDate(
     value: string | Date,
@@ -87,9 +87,9 @@ export class DB1 extends BaseSegment {
     return this;
   }
 
-  /** DB1-8: Disability Unable to Work Date (DT) */
+  /** DB1-8 Disability Unable to Work Date (chainable). */
   disabilityUnableToWorkDate(value: string, format?: never): this;
-  /** Sets the disability unable to work date field (chainable). */
+  /** DB1-8 Disability Unable to Work Date (chainable). */
   disabilityUnableToWorkDate(value: Date, format?: HL7DateLayout): this;
   disabilityUnableToWorkDate(
     value: string | Date,

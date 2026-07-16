@@ -21,25 +21,37 @@ export class SCH extends BaseSegment {
     this.fields = [];
   }
 
-  /** SCH-1: Placer Appointment ID (EI) */
+  /**
+   * SCH-1 Placer Appointment ID (chainable).
+   * @param entityId - SCH-1.1 Entity ID
+   * @param namespaceId - SCH-1.2 Namespace ID
+   */
   placerAppointmentId(entityId: string, namespaceId?: string): this {
     this.fields[0] = this.createField([[entityId, namespaceId || ""]]);
     return this;
   }
 
-  /** SCH-2: Filler Appointment ID (EI) */
+  /**
+   * SCH-2 Filler Appointment ID (chainable).
+   * @param entityId - SCH-2.1 Entity ID
+   * @param namespaceId - SCH-2.2 Namespace ID
+   */
   fillerAppointmentId(entityId: string, namespaceId?: string): this {
     this.fields[1] = this.createField([[entityId, namespaceId || ""]]);
     return this;
   }
 
-  /** SCH-3: Occurrence Number (NM) */
+  /** SCH-3 Occurrence Number (chainable). */
   occurrenceNumber(value: string): this {
     this.fields[2] = this.createField(value);
     return this;
   }
 
-  /** SCH-5: Schedule ID (CE) */
+  /**
+   * SCH-5 Schedule ID (chainable).
+   * @param code - SCH-5.1 Code
+   * @param text - SCH-5.2 Text
+   */
   scheduleId(code: string, text?: string): this {
     if (text) {
       this.fields[4] = this.createField([[code, text]]);
@@ -49,7 +61,12 @@ export class SCH extends BaseSegment {
     return this;
   }
 
-  /** SCH-6: Event Reason (CE, required) */
+  /**
+   * SCH-6 Event Reason (chainable).
+   * @param code - SCH-6.1 Code
+   * @param text - SCH-6.2 Text
+   * @param codingSystem - SCH-6.3 Coding System
+   */
   eventReason(code: string, text?: string, codingSystem?: string): this {
     if (text || codingSystem) {
       this.fields[5] = this.createField([[code, text || "", codingSystem || ""]]);
@@ -59,7 +76,12 @@ export class SCH extends BaseSegment {
     return this;
   }
 
-  /** SCH-7: Appointment Reason (CE) */
+  /**
+   * SCH-7 Appointment Reason (chainable).
+   * @param code - SCH-7.1 Code
+   * @param text - SCH-7.2 Text
+   * @param codingSystem - SCH-7.3 Coding System
+   */
   appointmentReason(code: string, text?: string, codingSystem?: string): this {
     if (text || codingSystem) {
       this.fields[6] = this.createField([[code, text || "", codingSystem || ""]]);
@@ -69,7 +91,11 @@ export class SCH extends BaseSegment {
     return this;
   }
 
-  /** SCH-8: Appointment Type (CE) */
+  /**
+   * SCH-8 Appointment Type (chainable).
+   * @param code - SCH-8.1 Code
+   * @param text - SCH-8.2 Text
+   */
   appointmentType(code: string, text?: string): this {
     if (text) {
       this.fields[7] = this.createField([[code, text]]);
@@ -79,13 +105,17 @@ export class SCH extends BaseSegment {
     return this;
   }
 
-  /** SCH-9: Appointment Duration (NM) */
+  /** SCH-9 Appointment Duration (chainable). */
   appointmentDuration(value: string): this {
     this.fields[8] = this.createField(value);
     return this;
   }
 
-  /** SCH-10: Appointment Duration Units (CE) */
+  /**
+   * SCH-10 Appointment Duration Units (chainable).
+   * @param code - SCH-10.1 Code
+   * @param text - SCH-10.2 Text
+   */
   appointmentDurationUnits(code: string, text?: string): this {
     if (text) {
       this.fields[9] = this.createField([[code, text]]);
@@ -95,13 +125,18 @@ export class SCH extends BaseSegment {
     return this;
   }
 
-  /** SCH-11: Appointment Timing Quantity (TQ) */
+  /** SCH-11 Appointment Timing Quantity (chainable). */
   appointmentTimingQuantity(value: string): this {
     this.fields[10] = this.createField(value);
     return this;
   }
 
-  /** SCH-12: Placer Contact Person (XCN) */
+  /**
+   * SCH-12 Placer Contact Person (chainable).
+   * @param id - SCH-12.1 ID Number
+   * @param familyName - SCH-12.2 Family Name
+   * @param givenName - SCH-12.3 Given Name
+   */
   placerContactPerson(id: string, familyName?: string, givenName?: string): this {
     if (familyName || givenName) {
       this.fields[11] = this.createField([[id, familyName || "", givenName || ""]]);
@@ -111,7 +146,12 @@ export class SCH extends BaseSegment {
     return this;
   }
 
-  /** SCH-16: Filler Contact Person (XCN) */
+  /**
+   * SCH-16 Filler Contact Person (chainable).
+   * @param id - SCH-16.1 ID Number
+   * @param familyName - SCH-16.2 Family Name
+   * @param givenName - SCH-16.3 Given Name
+   */
   fillerContactPerson(id: string, familyName?: string, givenName?: string): this {
     if (familyName || givenName) {
       this.fields[15] = this.createField([[id, familyName || "", givenName || ""]]);
@@ -121,7 +161,12 @@ export class SCH extends BaseSegment {
     return this;
   }
 
-  /** SCH-20: Entered By Person (XCN) */
+  /**
+   * SCH-20 Entered By Person (chainable).
+   * @param id - SCH-20.1 ID Number
+   * @param familyName - SCH-20.2 Family Name
+   * @param givenName - SCH-20.3 Given Name
+   */
   enteredByPerson(id: string, familyName?: string, givenName?: string): this {
     if (familyName || givenName) {
       this.fields[19] = this.createField([[id, familyName || "", givenName || ""]]);
@@ -131,7 +176,11 @@ export class SCH extends BaseSegment {
     return this;
   }
 
-  /** SCH-25: Filler Status Code (CE) */
+  /**
+   * SCH-25 Filler Status Code (chainable).
+   * @param code - SCH-25.1 Code
+   * @param text - SCH-25.2 Text
+   */
   fillerStatusCode(code: string, text?: string): this {
     if (text) {
       this.fields[24] = this.createField([[code, text]]);

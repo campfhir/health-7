@@ -28,17 +28,22 @@ export class OBX extends BaseSegment {
     this.fields = [];
   }
 
-  /** Sets the set id field (chainable). */
+  /** OBX-1 Set ID (chainable). */
   setId(value: string): this {
     this.fields[0] = this.createField(value);
     return this;
   }
-  /** Sets the value type field (chainable). */
+  /** OBX-2 Value Type (chainable). */
   valueType(value: string): this {
     this.fields[1] = this.createField(value);
     return this;
   }
-  /** Observation identifier. */
+  /**
+   * OBX-3 Observation Identifier (chainable).
+   * @param identifier - OBX-3.1 Identifier
+   * @param text - OBX-3.2 Text
+   * @param nameOfCodingSystem - OBX-3.3 Name of Coding System
+   */
   observationIdentifier(
     identifier: string,
     text?: string,
@@ -51,17 +56,22 @@ export class OBX extends BaseSegment {
     this.fields[2] = this.createField(components);
     return this;
   }
-  /** Sets the observation sub id field (chainable). */
+  /** OBX-4 Observation Sub ID (chainable). */
   observationSubId(value: string): this {
     this.fields[3] = this.createField(value);
     return this;
   }
-  /** Sets the observation value field (chainable). */
+  /** OBX-5 Observation Value (chainable). */
   observationValue(value: string | string[]): this {
     this.fields[4] = this.createField(value);
     return this;
   }
-  /** Sets the units field (chainable). */
+  /**
+   * OBX-6 Units (chainable).
+   * @param identifier - OBX-6.1 Identifier
+   * @param text - OBX-6.2 Text
+   * @param nameOfCodingSystem - OBX-6.3 Name of Coding System
+   */
   units(identifier?: string, text?: string, nameOfCodingSystem?: string): this {
     const components = [];
     if (identifier) components.push(identifier);
@@ -71,34 +81,34 @@ export class OBX extends BaseSegment {
     this.fields[5] = this.createField(components);
     return this;
   }
-  /** Sets the reference range field (chainable). */
+  /** OBX-7 Reference Range (chainable). */
   referenceRange(value: string): this {
     this.fields[6] = this.createField(value);
     return this;
   }
-  /** Sets the abnormal flags field (chainable). */
+  /** OBX-8 Abnormal Flags (chainable). */
   abnormalFlags(value: string): this {
     this.fields[7] = this.createField(value);
     return this;
   }
-  /** Sets the probability field (chainable). */
+  /** OBX-9 Probability (chainable). */
   probability(value: string): this {
     this.fields[8] = this.createField(value);
     return this;
   }
-  /** Sets the nature of abnormal test field (chainable). */
+  /** OBX-10 Nature Of Abnormal Test (chainable). */
   natureOfAbnormalTest(value: string): this {
     this.fields[9] = this.createField(value);
     return this;
   }
-  /** Sets the observation result status field (chainable). */
+  /** OBX-11 Observation Result Status (chainable). */
   observationResultStatus(value: string): this {
     this.fields[10] = this.createField(value);
     return this;
   }
-  /** Sets the effective date of reference range field (chainable). */
+  /** OBX-12 Effective Date Of Reference Range (chainable). */
   effectiveDateOfReferenceRange(value: string, format?: never): this;
-  /** Sets the effective date of reference range field (chainable). */
+  /** OBX-12 Effective Date Of Reference Range (chainable). */
   effectiveDateOfReferenceRange(value: Date, format?: HL7DateLayout): this;
   effectiveDateOfReferenceRange(
     value: string | Date,
@@ -109,14 +119,14 @@ export class OBX extends BaseSegment {
     );
     return this;
   }
-  /** Sets the user defined access checks field (chainable). */
+  /** OBX-13 User Defined Access Checks (chainable). */
   userDefinedAccessChecks(value: string): this {
     this.fields[12] = this.createField(value);
     return this;
   }
-  /** Sets the date time of observation field (chainable). */
+  /** OBX-14 Date Time Of Observation (chainable). */
   dateTimeOfObservation(value: string, format?: never): this;
-  /** Sets the date time of observation field (chainable). */
+  /** OBX-14 Date Time Of Observation (chainable). */
   dateTimeOfObservation(value: Date, format?: HL7DateTimeLayout): this;
   dateTimeOfObservation(
     value: string | Date,
@@ -127,12 +137,17 @@ export class OBX extends BaseSegment {
     );
     return this;
   }
-  /** Sets the producers id field (chainable). */
+  /** OBX-15 Producers ID (chainable). */
   producersId(value: string): this {
     this.fields[14] = this.createField(value);
     return this;
   }
-  /** Responsible observer. */
+  /**
+   * OBX-16 Responsible Observer (chainable).
+   * @param id - OBX-16.1 ID Number
+   * @param familyName - OBX-16.2 Family Name
+   * @param givenName - OBX-16.3 Given Name
+   */
   responsibleObserver(
     id: string,
     familyName?: string,
@@ -145,7 +160,12 @@ export class OBX extends BaseSegment {
     this.fields[15] = this.createField(components);
     return this;
   }
-  /** Observation method. */
+  /**
+   * OBX-17 Observation Method (chainable).
+   * @param identifier - OBX-17.1 Identifier
+   * @param text - OBX-17.2 Text
+   * @param nameOfCodingSystem - OBX-17.3 Name of Coding System
+   */
   observationMethod(
     identifier?: string,
     text?: string,

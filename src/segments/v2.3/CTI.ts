@@ -25,8 +25,11 @@ export class CTI extends BaseSegment {
   }
 
   /**
-   * CTI-1: Sponsor Study ID (EI)
-   * Identifies the sponsor's clinical study
+   * CTI-1 Sponsor Study ID (chainable).
+   * @param entityIdentifier - CTI-1.1 Entity Identifier
+   * @param namespaceId - CTI-1.2 Namespace ID
+   * @param universalId - CTI-1.3 Universal ID
+   * @param universalIdType - CTI-1.4 Universal ID Type
    */
   sponsorStudyId(entityIdentifier: string, namespaceId?: string, universalId?: string, universalIdType?: string): this {
     if (namespaceId || universalId || universalIdType) {
@@ -38,8 +41,10 @@ export class CTI extends BaseSegment {
   }
 
   /**
-   * CTI-2: Study Phase Identifier (CE)
-   * Identifies a phase of the clinical study
+   * CTI-2 Study Phase Identifier (chainable).
+   * @param identifier - CTI-2.1 Identifier
+   * @param text - CTI-2.2 Text
+   * @param codingSystem - CTI-2.3 Coding System
    */
   studyPhaseIdentifier(identifier: string, text?: string, codingSystem?: string): this {
     if (text || codingSystem) {
@@ -51,8 +56,10 @@ export class CTI extends BaseSegment {
   }
 
   /**
-   * CTI-3: Study Scheduled Time Point (CE)
-   * Identifies a time point within a study phase
+   * CTI-3 Study Scheduled Time Point (chainable).
+   * @param identifier - CTI-3.1 Identifier
+   * @param text - CTI-3.2 Text
+   * @param codingSystem - CTI-3.3 Coding System
    */
   studyScheduledTimePoint(identifier: string, text?: string, codingSystem?: string): this {
     if (text || codingSystem) {

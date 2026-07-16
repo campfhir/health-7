@@ -31,7 +31,12 @@ export class STF extends BaseSegment {
     this.fields = [];
   }
 
-  /** STF-1: Primary Key Value - STF (CE) */
+  /**
+   * STF-1 Primary Key Value - STF (chainable).
+   * @param identifier - STF-1.1 Identifier
+   * @param text - STF-1.2 Text
+   * @param codingSystem - STF-1.3 Coding System
+   */
   primaryKeyValue(
     identifier: string,
     text?: string,
@@ -47,15 +52,19 @@ export class STF extends BaseSegment {
     return this;
   }
 
-  /** STF-2: Staff Identifier List (CX) - repeating, use repetitionSeparator between values */
+  /** STF-2 Staff Identifier List (chainable). */
   staffIdentifierList(value: string): this {
     this.fields[1] = this.createField(value);
     return this;
   }
 
   /**
-   * STF-3: Staff Name (XPN)
-   * Components: family^given^middle^suffix^prefix^degree^nameTypeCode
+   * STF-3 Staff Name (chainable).
+   * @param familyName - STF-3.1 Family Name
+   * @param givenName - STF-3.2 Given Name
+   * @param middleName - STF-3.3 Middle Name
+   * @param suffix - STF-3.4 Suffix
+   * @param prefix - STF-3.5 Prefix
    */
   staffName(
     familyName: string,
@@ -75,21 +84,21 @@ export class STF extends BaseSegment {
     return this;
   }
 
-  /** STF-4: Staff Type (IS) e.g., "MD", "RN", "PN" */
+  /** STF-4 Staff Type (chainable). */
   staffType(value: string): this {
     this.fields[3] = this.createField(value);
     return this;
   }
 
-  /** STF-5: Administrative Sex (IS) e.g., "M", "F", "U" */
+  /** STF-5 Administrative Sex (chainable). */
   administrativeSex(value: string): this {
     this.fields[4] = this.createField(value);
     return this;
   }
 
-  /** STF-6: Date/Time of Birth (TS) */
+  /** STF-6 Date/Time of Birth (chainable). */
   dateTimeOfBirth(value: string, format?: never): this;
-  /** Sets the date time of birth field (chainable). */
+  /** STF-6 Date/Time of Birth (chainable). */
   dateTimeOfBirth(value: Date, format?: HL7DateLayout): this;
   dateTimeOfBirth(value: string | Date, format?: HL7DateLayout): this {
     this.fields[5] = this.createField(
@@ -98,13 +107,17 @@ export class STF extends BaseSegment {
     return this;
   }
 
-  /** STF-7: Active/Inactive Flag (ID) e.g., "A" (Active), "I" (Inactive) */
+  /** STF-7 Active/Inactive Flag (chainable). */
   activeInactiveFlag(value: string): this {
     this.fields[6] = this.createField(value);
     return this;
   }
 
-  /** STF-8: Department (CE) */
+  /**
+   * STF-8 Department (chainable).
+   * @param identifier - STF-8.1 Identifier
+   * @param text - STF-8.2 Text
+   */
   department(identifier: string, text?: string): this {
     if (text) {
       this.fields[7] = this.createField([identifier, text]);
@@ -114,7 +127,11 @@ export class STF extends BaseSegment {
     return this;
   }
 
-  /** STF-9: Hospital Service (CE) */
+  /**
+   * STF-9 Hospital Service (chainable).
+   * @param identifier - STF-9.1 Identifier
+   * @param text - STF-9.2 Text
+   */
   hospitalService(identifier: string, text?: string): this {
     if (text) {
       this.fields[8] = this.createField([identifier, text]);
@@ -124,25 +141,25 @@ export class STF extends BaseSegment {
     return this;
   }
 
-  /** STF-10: Phone (XTN) */
+  /** STF-10 Phone (chainable). */
   phone(value: string): this {
     this.fields[9] = this.createField(value);
     return this;
   }
 
-  /** STF-11: Office/Home Address (XAD) */
+  /** STF-11 Office/Home Address (chainable). */
   address(value: string): this {
     this.fields[10] = this.createField(value);
     return this;
   }
 
-  /** STF-15: E-Mail Address (ST) */
+  /** STF-15 E-Mail Address (chainable). */
   emailAddress(value: string): this {
     this.fields[14] = this.createField(value);
     return this;
   }
 
-  /** STF-18: Job Title (ST) */
+  /** STF-18 Job Title (chainable). */
   jobTitle(value: string): this {
     this.fields[17] = this.createField(value);
     return this;

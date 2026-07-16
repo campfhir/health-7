@@ -26,17 +26,25 @@ export class PV1 extends BaseSegment {
     this.fields = [];
   }
 
-  /** Sets the set id field (chainable). */
+  /** PV1-1 Set ID - PV1 (chainable). */
   setId(value: string): this {
     this.fields[0] = this.createField(value);
     return this;
   }
-  /** Sets the patient class field (chainable). */
+  /** PV1-2 Patient Class (chainable). */
   patientClass(value: string): this {
     this.fields[1] = this.createField(value);
     return this;
   }
-  /** Assigned patient location. */
+  /**
+   * PV1-3 Assigned Patient Location (chainable).
+   * @param pointOfCare - PV1-3.1 Point of Care
+   * @param room - PV1-3.2 Room
+   * @param bed - PV1-3.3 Bed
+   * @param facility - PV1-3.4 Facility
+   * @param locationStatus - PV1-3.5 Location Status
+   * @param personLocationType - PV1-3.6 Person Location Type
+   */
   assignedPatientLocation(
     pointOfCare?: string,
     room?: string,
@@ -56,17 +64,23 @@ export class PV1 extends BaseSegment {
     this.fields[2] = this.createField(components);
     return this;
   }
-  /** Sets the admission type field (chainable). */
+  /** PV1-4 Admission Type (chainable). */
   admissionType(value: string): this {
     this.fields[3] = this.createField(value);
     return this;
   }
-  /** Sets the preadmit number field (chainable). */
+  /** PV1-5 Preadmit Number (chainable). */
   preadmitNumber(value: string): this {
     this.fields[4] = this.createField(value);
     return this;
   }
-  /** Prior patient location. */
+  /**
+   * PV1-6 Prior Patient Location (chainable).
+   * @param pointOfCare - PV1-6.1 Point of Care
+   * @param room - PV1-6.2 Room
+   * @param bed - PV1-6.3 Bed
+   * @param facility - PV1-6.4 Facility
+   */
   priorPatientLocation(
     pointOfCare?: string,
     room?: string,
@@ -82,7 +96,12 @@ export class PV1 extends BaseSegment {
     this.fields[5] = this.createField(components);
     return this;
   }
-  /** Sets the attending doctor field (chainable). */
+  /**
+   * PV1-7 Attending Doctor (chainable).
+   * @param id - PV1-7.1 ID Number
+   * @param familyName - PV1-7.2 Family Name
+   * @param givenName - PV1-7.3 Given Name
+   */
   attendingDoctor(id: string, familyName?: string, givenName?: string): this {
     const components = [id];
     if (familyName) components.push(familyName);
@@ -91,7 +110,12 @@ export class PV1 extends BaseSegment {
     this.fields[6] = this.createField(components);
     return this;
   }
-  /** Sets the referring doctor field (chainable). */
+  /**
+   * PV1-8 Referring Doctor (chainable).
+   * @param id - PV1-8.1 ID Number
+   * @param familyName - PV1-8.2 Family Name
+   * @param givenName - PV1-8.3 Given Name
+   */
   referringDoctor(id: string, familyName?: string, givenName?: string): this {
     const components = [id];
     if (familyName) components.push(familyName);
@@ -100,7 +124,12 @@ export class PV1 extends BaseSegment {
     this.fields[7] = this.createField(components);
     return this;
   }
-  /** Sets the consulting doctor field (chainable). */
+  /**
+   * PV1-9 Consulting Doctor (chainable).
+   * @param id - PV1-9.1 ID Number
+   * @param familyName - PV1-9.2 Family Name
+   * @param givenName - PV1-9.3 Given Name
+   */
   consultingDoctor(id: string, familyName?: string, givenName?: string): this {
     const components = [id];
     if (familyName) components.push(familyName);
@@ -109,12 +138,17 @@ export class PV1 extends BaseSegment {
     this.fields[8] = this.createField(components);
     return this;
   }
-  /** Sets the hospital service field (chainable). */
+  /** PV1-10 Hospital Service (chainable). */
   hospitalService(value: string): this {
     this.fields[9] = this.createField(value);
     return this;
   }
-  /** Sets the temporary location field (chainable). */
+  /**
+   * PV1-11 Temporary Location (chainable).
+   * @param pointOfCare - PV1-11.1 Point of Care
+   * @param room - PV1-11.2 Room
+   * @param bed - PV1-11.3 Bed
+   */
   temporaryLocation(pointOfCare?: string, room?: string, bed?: string): this {
     const components = [];
     if (pointOfCare) components.push(pointOfCare);
@@ -137,9 +171,9 @@ export class PV1 extends BaseSegment {
     this.fields[18] = this.createField(components);
     return this;
   }
-  /** Sets the admit date time field (chainable). */
+  /** PV1-44 Admit Date/Time (chainable). */
   admitDateTime(value: string, format?: never): this;
-  /** Sets the admit date time field (chainable). */
+  /** PV1-44 Admit Date/Time (chainable). */
   admitDateTime(value: Date, format?: HL7DateTimeLayout): this;
   admitDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
     this.fields[44] = this.createField(
@@ -147,9 +181,9 @@ export class PV1 extends BaseSegment {
     );
     return this;
   }
-  /** Sets the discharge date time field (chainable). */
+  /** PV1-45 Discharge Date/Time (chainable). */
   dischargeDateTime(value: string, format?: never): this;
-  /** Sets the discharge date time field (chainable). */
+  /** PV1-45 Discharge Date/Time (chainable). */
   dischargeDateTime(value: Date, format?: HL7DateTimeLayout): this;
   dischargeDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
     this.fields[45] = this.createField(

@@ -27,27 +27,23 @@ export class PR1 extends BaseSegment {
     this.fields = [];
   }
 
-  /**
-   * PR1-1: Set ID (SI, required)
-   * Sequence number of this segment within the message.
-   */
+  /** PR1-1 Set ID (chainable). */
   setId(value: string): this {
     this.fields[0] = this.createField(value);
     return this;
   }
 
-  /**
-   * PR1-2: Procedure Coding Method (IS, optional, deprecated)
-   * Retained for backward compatibility; use PR1-3 coding system instead.
-   */
+  /** PR1-2 Procedure Coding Method (chainable). */
   procedureCodingMethod(value: string): this {
     this.fields[1] = this.createField(value);
     return this;
   }
 
   /**
-   * PR1-3: Procedure Code (CNE, required)
-   * Unique identifier for the procedure (e.g., codingSystem "I10P" for ICD-10-PCS).
+   * PR1-3 Procedure Code (chainable).
+   * @param code - PR1-3.1 Code
+   * @param text - PR1-3.2 Text
+   * @param codingSystem - PR1-3.3 Coding System
    */
   procedureCode(code: string, text?: string, codingSystem?: string): this {
     const components = [code, text || "", codingSystem || ""];
@@ -55,21 +51,15 @@ export class PR1 extends BaseSegment {
     return this;
   }
 
-  /**
-   * PR1-4: Procedure Description (ST, optional, deprecated)
-   * Retained for backward compatibility; use PR1-3 text component instead.
-   */
+  /** PR1-4 Procedure Description (chainable). */
   procedureDescription(value: string): this {
     this.fields[3] = this.createField(value);
     return this;
   }
 
-  /**
-   * PR1-5: Procedure Date/Time (TS, required)
-   * The date/time the procedure was performed.
-   */
+  /** PR1-5 Procedure Date/Time (chainable). */
   procedureDateTime(value: string, format?: never): this;
-  /** Sets the procedure date time field (chainable). */
+  /** PR1-5 Procedure Date/Time (chainable). */
   procedureDateTime(value: Date, format?: HL7DateTimeLayout): this;
   procedureDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
     this.fields[4] = this.createField(
@@ -78,27 +68,23 @@ export class PR1 extends BaseSegment {
     return this;
   }
 
-  /**
-   * PR1-6: Procedure Functional Type (IS, optional)
-   * Type of procedure (e.g., A=Anesthesia, D=Diagnostic, I=Invasive, N=Non-invasive, P=Psychiatric, T=Therapeutic).
-   */
+  /** PR1-6 Procedure Functional Type (chainable). */
   procedureFunctionalType(value: string): this {
     this.fields[5] = this.createField(value);
     return this;
   }
 
-  /**
-   * PR1-7: Procedure Minutes (NM, optional)
-   * The length of the procedure in minutes.
-   */
+  /** PR1-7 Procedure Minutes (chainable). */
   procedureMinutes(value: string): this {
     this.fields[6] = this.createField(value);
     return this;
   }
 
   /**
-   * PR1-8: Anesthesiologist (XCN, optional)
-   * The anesthesiologist who performed the anesthesia.
+   * PR1-8 Anesthesiologist (chainable).
+   * @param id - PR1-8.1 ID Number
+   * @param familyName - PR1-8.2 Family Name
+   * @param givenName - PR1-8.3 Given Name
    */
   anesthesiologist(id: string, familyName?: string, givenName?: string): this {
     const components = [id, familyName || "", givenName || ""];
@@ -106,27 +92,23 @@ export class PR1 extends BaseSegment {
     return this;
   }
 
-  /**
-   * PR1-9: Anesthesia Code (IS, optional)
-   * The anesthesia code for the procedure.
-   */
+  /** PR1-9 Anesthesia Code (chainable). */
   anesthesiaCode(value: string): this {
     this.fields[8] = this.createField(value);
     return this;
   }
 
-  /**
-   * PR1-10: Anesthesia Minutes (NM, optional)
-   * The length of the anesthesia in minutes.
-   */
+  /** PR1-10 Anesthesia Minutes (chainable). */
   anesthesiaMinutes(value: string): this {
     this.fields[9] = this.createField(value);
     return this;
   }
 
   /**
-   * PR1-11: Surgeon (XCN, optional)
-   * The surgeon who performed the procedure.
+   * PR1-11 Surgeon (chainable).
+   * @param id - PR1-11.1 ID Number
+   * @param familyName - PR1-11.2 Family Name
+   * @param givenName - PR1-11.3 Given Name
    */
   surgeon(id: string, familyName?: string, givenName?: string): this {
     const components = [id, familyName || "", givenName || ""];
@@ -135,8 +117,10 @@ export class PR1 extends BaseSegment {
   }
 
   /**
-   * PR1-12: Procedure Practitioner (XCN, optional)
-   * The practitioner associated with the procedure.
+   * PR1-12 Procedure Practitioner (chainable).
+   * @param id - PR1-12.1 ID Number
+   * @param familyName - PR1-12.2 Family Name
+   * @param givenName - PR1-12.3 Given Name
    */
   procedurePractitioner(
     id: string,
@@ -149,8 +133,10 @@ export class PR1 extends BaseSegment {
   }
 
   /**
-   * PR1-13: Consent Code (CE, optional)
-   * The type of consent obtained for the procedure.
+   * PR1-13 Consent Code (chainable).
+   * @param code - PR1-13.1 Code
+   * @param text - PR1-13.2 Text
+   * @param codingSystem - PR1-13.3 Coding System
    */
   consentCode(code: string, text?: string, codingSystem?: string): this {
     const components = [code, text || "", codingSystem || ""];
@@ -158,18 +144,17 @@ export class PR1 extends BaseSegment {
     return this;
   }
 
-  /**
-   * PR1-14: Procedure Priority (NM, optional)
-   * The priority ranking of this procedure (1=highest).
-   */
+  /** PR1-14 Procedure Priority (chainable). */
   procedurePriority(value: string): this {
     this.fields[13] = this.createField(value);
     return this;
   }
 
   /**
-   * PR1-15: Associated Diagnosis Code (CE, optional)
-   * The diagnosis associated with this procedure.
+   * PR1-15 Associated Diagnosis Code (chainable).
+   * @param code - PR1-15.1 Code
+   * @param text - PR1-15.2 Text
+   * @param codingSystem - PR1-15.3 Coding System
    */
   associatedDiagnosisCode(
     code: string,

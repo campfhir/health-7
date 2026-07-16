@@ -22,57 +22,57 @@ export class ORC extends BaseSegment {
     this.fields = [];
   }
 
-  /** Sets the order control field (chainable). */
+  /** ORC-1 Order Control (chainable). */
   orderControl(value: string): this {
     this.fields[0] = this.createField(value);
     return this;
   }
 
-  /** Sets the placer order number field (chainable). */
+  /** ORC-2 Placer Order Number (chainable). */
   placerOrderNumber(value: string): this {
     this.fields[1] = this.createField(value);
     return this;
   }
 
-  /** Sets the filler order number field (chainable). */
+  /** ORC-3 Filler Order Number (chainable). */
   fillerOrderNumber(value: string): this {
     this.fields[2] = this.createField(value);
     return this;
   }
 
-  /** Sets the placer group number field (chainable). */
+  /** ORC-4 Placer Group Number (chainable). */
   placerGroupNumber(value: string): this {
     this.fields[3] = this.createField(value);
     return this;
   }
 
-  /** Sets the order status field (chainable). */
+  /** ORC-5 Order Status (chainable). */
   orderStatus(value: string): this {
     this.fields[4] = this.createField(value);
     return this;
   }
 
-  /** Sets the response flag field (chainable). */
+  /** ORC-6 Response Flag (chainable). */
   responseFlag(value: string): this {
     this.fields[5] = this.createField(value);
     return this;
   }
 
-  /** Sets the quantity timing field (chainable). */
+  /** ORC-7 Quantity Timing (chainable). */
   quantityTiming(value: string): this {
     this.fields[6] = this.createField(value);
     return this;
   }
 
-  /** Sets the parent field (chainable). */
+  /** ORC-8 Parent (chainable). */
   parent(value: string): this {
     this.fields[7] = this.createField(value);
     return this;
   }
 
-  /** Sets the date time of transaction field (chainable). */
+  /** ORC-9 Date Time Of Transaction (chainable). */
   dateTimeOfTransaction(value: string, format?: never): this;
-  /** Sets the date time of transaction field (chainable). */
+  /** ORC-9 Date Time Of Transaction (chainable). */
   dateTimeOfTransaction(value: Date, format?: HL7DateTimeLayout): this;
   dateTimeOfTransaction(value: string | Date, format?: HL7DateTimeLayout): this {
     this.fields[8] = this.createField(
@@ -81,7 +81,12 @@ export class ORC extends BaseSegment {
     return this;
   }
 
-  /** Sets the entered by field (chainable). */
+  /**
+   * ORC-10 Entered By (chainable).
+   * @param id - ORC-10.1 ID Number
+   * @param familyName - ORC-10.2 Family Name
+   * @param givenName - ORC-10.3 Given Name
+   */
   enteredBy(id: string, familyName?: string, givenName?: string): this {
     const components = [id];
     if (familyName) components.push(familyName);
@@ -91,7 +96,12 @@ export class ORC extends BaseSegment {
     return this;
   }
 
-  /** Sets the verified by field (chainable). */
+  /**
+   * ORC-11 Verified By (chainable).
+   * @param id - ORC-11.1 ID Number
+   * @param familyName - ORC-11.2 Family Name
+   * @param givenName - ORC-11.3 Given Name
+   */
   verifiedBy(id: string, familyName?: string, givenName?: string): this {
     const components = [id];
     if (familyName) components.push(familyName);
@@ -101,7 +111,12 @@ export class ORC extends BaseSegment {
     return this;
   }
 
-  /** Sets the ordering provider field (chainable). */
+  /**
+   * ORC-12 Ordering Provider (chainable).
+   * @param id - ORC-12.1 ID Number
+   * @param familyName - ORC-12.2 Family Name
+   * @param givenName - ORC-12.3 Given Name
+   */
   orderingProvider(id: string, familyName?: string, givenName?: string): this {
     const components = [id];
     if (familyName) components.push(familyName);
@@ -111,21 +126,21 @@ export class ORC extends BaseSegment {
     return this;
   }
 
-  /** Sets the enterers location field (chainable). */
+  /** ORC-13 Enterers Location (chainable). */
   enterersLocation(value: string): this {
     this.fields[12] = this.createField(value);
     return this;
   }
 
-  /** Sets the call back phone number field (chainable). */
+  /** ORC-14 Call Back Phone Number (chainable). */
   callBackPhoneNumber(value: string): this {
     this.fields[13] = this.createField(value);
     return this;
   }
 
-  /** Sets the order effective date time field (chainable). */
+  /** ORC-15 Order Effective Date Time (chainable). */
   orderEffectiveDateTime(value: string, format?: never): this;
-  /** Sets the order effective date time field (chainable). */
+  /** ORC-15 Order Effective Date Time (chainable). */
   orderEffectiveDateTime(value: Date, format?: HL7DateTimeLayout): this;
   orderEffectiveDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
     this.fields[14] = this.createField(
@@ -134,25 +149,30 @@ export class ORC extends BaseSegment {
     return this;
   }
 
-  /** Sets the order control code reason field (chainable). */
+  /** ORC-16 Order Control Code Reason (chainable). */
   orderControlCodeReason(value: string): this {
     this.fields[15] = this.createField(value);
     return this;
   }
 
-  /** Sets the entering organization field (chainable). */
+  /** ORC-17 Entering Organization (chainable). */
   enteringOrganization(value: string): this {
     this.fields[16] = this.createField(value);
     return this;
   }
 
-  /** Sets the entering device field (chainable). */
+  /** ORC-18 Entering Device (chainable). */
   enteringDevice(value: string): this {
     this.fields[17] = this.createField(value);
     return this;
   }
 
-  /** Sets the action by field (chainable). */
+  /**
+   * ORC-19 Action By (chainable).
+   * @param id - ORC-19.1 ID Number
+   * @param familyName - ORC-19.2 Family Name
+   * @param givenName - ORC-19.3 Given Name
+   */
   actionBy(id: string, familyName?: string, givenName?: string): this {
     const components = [id];
     if (familyName) components.push(familyName);

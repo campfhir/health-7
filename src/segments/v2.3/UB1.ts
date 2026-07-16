@@ -27,111 +27,119 @@ export class UB1 extends BaseSegment {
     this.fields = [];
   }
 
-  /** UB1-1: Set ID (SI) */
+  /** UB1-1 Set ID (chainable). */
   setId(value: string): this {
     this.fields[0] = this.createField(value);
     return this;
   }
 
-  /** UB1-2: Blood Deductible (NM) - UB82 field 8 */
+  /** UB1-2 Blood Deductible (chainable). */
   bloodDeductible(value: string): this {
     this.fields[1] = this.createField(value);
     return this;
   }
 
-  /** UB1-3: Blood Furnished Pints Of (NM) - UB82 field 9a */
+  /** UB1-3 Blood Furnished Pints Of (chainable). */
   bloodFurnishedPints(value: string): this {
     this.fields[2] = this.createField(value);
     return this;
   }
 
-  /** UB1-4: Blood Replaced Pints (NM) - UB82 field 9b */
+  /** UB1-4 Blood Replaced Pints (chainable). */
   bloodReplacedPints(value: string): this {
     this.fields[3] = this.createField(value);
     return this;
   }
 
-  /** UB1-5: Blood Not Replaced Pints (NM) - UB82 field 9c */
+  /** UB1-5 Blood Not Replaced Pints (chainable). */
   bloodNotReplacedPints(value: string): this {
     this.fields[4] = this.createField(value);
     return this;
   }
 
-  /** UB1-6: Co-Insurance Days (NM) - UB82 field 12 */
+  /** UB1-6 Co-Insurance Days (chainable). */
   coInsuranceDays(value: string): this {
     this.fields[5] = this.createField(value);
     return this;
   }
 
-  /** UB1-7: Condition Code (ID) - UB82 fields 24-30 */
+  /** UB1-7 Condition Code (chainable). */
   conditionCode(value: string): this {
     this.fields[6] = this.createField(value);
     return this;
   }
 
-  /** UB1-8: Covered Days (NM) - UB82 field 23 */
+  /** UB1-8 Covered Days (chainable). */
   coveredDays(value: string): this {
     this.fields[7] = this.createField(value);
     return this;
   }
 
-  /** UB1-9: Non Covered Days (NM) - UB82 field 24 */
+  /** UB1-9 Non Covered Days (chainable). */
   nonCoveredDays(value: string): this {
     this.fields[8] = this.createField(value);
     return this;
   }
 
-  /** UB1-10: Value Amount and Code (UVC) - UB82 fields 39-41 */
+  /**
+   * UB1-10 Value Amount and Code (chainable).
+   * @param code - UB1-10.1 Code
+   * @param amount - UB1-10.2 Amount
+   */
   valueAmountCode(code: string, amount?: string): this {
     this.fields[9] = this.createField([code, amount || ""]);
     return this;
   }
 
-  /** UB1-11: Number Of Grace Days (NM) - UB82 field 90 */
+  /** UB1-11 Number Of Grace Days (chainable). */
   numberOfGraceDays(value: string): this {
     this.fields[10] = this.createField(value);
     return this;
   }
 
-  /** UB1-12: Special Program Indicator (CE) - UB82 field 44 */
+  /**
+   * UB1-12 Special Program Indicator (chainable).
+   * @param code - UB1-12.1 Code
+   * @param text - UB1-12.2 Text
+   */
   specialProgramIndicator(code: string, text?: string): this {
     this.fields[11] = this.createField([code, text || ""]);
     return this;
   }
 
-  /** UB1-13: PSRO/UR Approval Indicator (ID) - UB82 field 87 */
+  /** UB1-13 PSRO/UR Approval Indicator (chainable). */
   psroUrApprovalIndicator(value: string): this {
     this.fields[12] = this.createField(value);
     return this;
   }
 
-  /** UB1-14: PSRO/UR Approved Stay-Fm (DT) - UB82 field 88 */
+  /** UB1-14 PSRO/UR Approved Stay-Fm (chainable). */
   psroUrApprovedStayFrom(value: string): this {
     this.fields[13] = this.createField(value);
     return this;
   }
 
-  /** UB1-15: PSRO/UR Approved Stay-To (DT) - UB82 field 88 */
+  /** UB1-15 PSRO/UR Approved Stay-To (chainable). */
   psroUrApprovedStayTo(value: string): this {
     this.fields[14] = this.createField(value);
     return this;
   }
 
-  /** UB1-16: Occurrence (OCD) - UB82 fields 32-35 */
+  /** UB1-16 Occurrence (chainable). */
   occurrence(value: string): this {
     this.fields[15] = this.createField(value);
     return this;
   }
 
-  /** UB1-17: Occurrence Span (OSP) - UB82 field 36 */
+  /** UB1-17 Occurrence Span (chainable). */
   occurrenceSpan(value: string): this {
     this.fields[16] = this.createField(value);
     return this;
   }
 
-  /** UB1-18: Occur Span Start Date (DT) - UB82 field 36 */
+  /** UB1-18 Occur Span Start Date (chainable). */
   occurSpanStartDate(value: string, format?: never): this;
-  /** Sets the occur span start date field (chainable). */
+  /** UB1-18 Occur Span Start Date (chainable). */
   occurSpanStartDate(value: Date, format?: HL7DateLayout): this;
   occurSpanStartDate(value: string | Date, format?: HL7DateLayout): this {
     this.fields[17] = this.createField(
@@ -140,9 +148,9 @@ export class UB1 extends BaseSegment {
     return this;
   }
 
-  /** UB1-19: Occur Span End Date (DT) - UB82 field 36 */
+  /** UB1-19 Occur Span End Date (chainable). */
   occurSpanEndDate(value: string, format?: never): this;
-  /** Sets the occur span end date field (chainable). */
+  /** UB1-19 Occur Span End Date (chainable). */
   occurSpanEndDate(value: Date, format?: HL7DateLayout): this;
   occurSpanEndDate(value: string | Date, format?: HL7DateLayout): this {
     this.fields[18] = this.createField(
@@ -151,25 +159,25 @@ export class UB1 extends BaseSegment {
     return this;
   }
 
-  /** UB1-20: UB-82 Locator 2 (ST) */
+  /** UB1-20 UB-82 Locator 2 (chainable). */
   ub82Locator2(value: string): this {
     this.fields[19] = this.createField(value);
     return this;
   }
 
-  /** UB1-21: UB-82 Locator 9 (ST) */
+  /** UB1-21 UB-82 Locator 9 (chainable). */
   ub82Locator9(value: string): this {
     this.fields[20] = this.createField(value);
     return this;
   }
 
-  /** UB1-22: UB-82 Locator 27 (ST) */
+  /** UB1-22 UB-82 Locator 27 (chainable). */
   ub82Locator27(value: string): this {
     this.fields[21] = this.createField(value);
     return this;
   }
 
-  /** UB1-23: UB-82 Locator 45 (ST) */
+  /** UB1-23 UB-82 Locator 45 (chainable). */
   ub82Locator45(value: string): this {
     this.fields[22] = this.createField(value);
     return this;

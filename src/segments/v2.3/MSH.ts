@@ -44,33 +44,33 @@ export class MSH extends BaseSegment {
     this._encoding = encoding;
   }
 
-  /** Sets the sending application field (chainable). */
+  /** MSH-3 Sending Application (chainable). */
   sendingApplication(value: string): this {
     this.fields[1] = this.createField(value);
     return this;
   }
 
-  /** Sets the sending facility field (chainable). */
+  /** MSH-4 Sending Facility (chainable). */
   sendingFacility(value: string): this {
     this.fields[2] = this.createField(value);
     return this;
   }
 
-  /** Sets the receiving application field (chainable). */
+  /** MSH-5 Receiving Application (chainable). */
   receivingApplication(value: string): this {
     this.fields[3] = this.createField(value);
     return this;
   }
 
-  /** Sets the receiving facility field (chainable). */
+  /** MSH-6 Receiving Facility (chainable). */
   receivingFacility(value: string): this {
     this.fields[4] = this.createField(value);
     return this;
   }
 
-  /** Sets the date time of message field (chainable). */
+  /** MSH-7 Date/Time of Message (chainable). */
   dateTimeOfMessage(value: string, format?: never): this;
-  /** Sets the date time of message field (chainable). */
+  /** MSH-7 Date/Time of Message (chainable). */
   dateTimeOfMessage(value: Date, format?: HL7DateTimeLayout): this;
   dateTimeOfMessage(value: string | Date, format?: HL7DateTimeLayout): this {
     this.fields[5] = this.createField(
@@ -79,13 +79,18 @@ export class MSH extends BaseSegment {
     return this;
   }
 
-  /** Sets the security field (chainable). */
+  /** MSH-8 Security (chainable). */
   security(value: string): this {
     this.fields[6] = this.createField(value);
     return this;
   }
 
-  /** Message type. */
+  /**
+   * MSH-9 Message Type (chainable).
+   * @param messageCode - MSH-9.1 Message Code
+   * @param triggerEvent - MSH-9.2 Trigger Event
+   * @param messageStructure - MSH-9.3 Message Structure
+   */
   messageType(
     messageCode: string,
     triggerEvent: string,
@@ -98,49 +103,49 @@ export class MSH extends BaseSegment {
     return this;
   }
 
-  /** Sets the message control id field (chainable). */
+  /** MSH-10 Message Control ID (chainable). */
   messageControlId(value: string): this {
     this.fields[8] = this.createField(value);
     return this;
   }
 
-  /** Sets the processing id field (chainable). */
+  /** MSH-11 Processing ID (chainable). */
   processingId(value: string): this {
     this.fields[9] = this.createField(value);
     return this;
   }
 
-  /** Sets the version id field (chainable). */
+  /** MSH-12 Version ID (chainable). */
   versionId(value: string): this {
     this.fields[10] = this.createField(value);
     return this;
   }
 
-  /** Sets the sequence number field (chainable). */
+  /** MSH-13 Sequence Number (chainable). */
   sequenceNumber(value: string): this {
     this.fields[11] = this.createField(value);
     return this;
   }
 
-  /** Sets the continuation pointer field (chainable). */
+  /** MSH-14 Continuation Pointer (chainable). */
   continuationPointer(value: string): this {
     this.fields[12] = this.createField(value);
     return this;
   }
 
-  /** Sets the accept acknowledgment type field (chainable). */
+  /** MSH-15 Accept Acknowledgment Type (chainable). */
   acceptAcknowledgmentType(value: string): this {
     this.fields[13] = this.createField(value);
     return this;
   }
 
-  /** Sets the application acknowledgment type field (chainable). */
+  /** MSH-16 Application Acknowledgment Type (chainable). */
   applicationAcknowledgmentType(value: string): this {
     this.fields[14] = this.createField(value);
     return this;
   }
 
-  /** Sets the country code field (chainable). */
+  /** MSH-17 Country Code (chainable). */
   countryCode(value: string): this {
     this.fields[15] = this.createField(value);
     return this;

@@ -27,27 +27,23 @@ export class DG1 extends BaseSegment {
     this.fields = [];
   }
 
-  /**
-   * DG1-1: Set ID (SI, required)
-   * Sequence number of this segment within the message.
-   */
+  /** DG1-1 Set ID (chainable). */
   setId(value: string): this {
     this.fields[0] = this.createField(value);
     return this;
   }
 
-  /**
-   * DG1-2: Diagnosis Coding Method (ID, optional, deprecated)
-   * Retained for backward compatibility; use DG1-3 coding system instead.
-   */
+  /** DG1-2 Diagnosis Coding Method (chainable). */
   diagnosisCodingMethod(value: string): this {
     this.fields[1] = this.createField(value);
     return this;
   }
 
   /**
-   * DG1-3: Diagnosis Code (CE, required)
-   * The diagnosis code (e.g., codingSystem "I10" for ICD-10).
+   * DG1-3 Diagnosis Code (chainable).
+   * @param code - DG1-3.1 Code
+   * @param text - DG1-3.2 Text
+   * @param codingSystem - DG1-3.3 Coding System
    */
   diagnosisCode(code: string, text?: string, codingSystem?: string): this {
     const components = [code, text || "", codingSystem || ""];
@@ -55,21 +51,15 @@ export class DG1 extends BaseSegment {
     return this;
   }
 
-  /**
-   * DG1-4: Diagnosis Description (ST, optional, deprecated)
-   * Retained for backward compatibility; use DG1-3 text component instead.
-   */
+  /** DG1-4 Diagnosis Description (chainable). */
   diagnosisDescription(value: string): this {
     this.fields[3] = this.createField(value);
     return this;
   }
 
-  /**
-   * DG1-5: Diagnosis Date/Time (TS, optional)
-   * The date/time the diagnosis was determined.
-   */
+  /** DG1-5 Diagnosis Date/Time (chainable). */
   diagnosisDateTime(value: string, format?: never): this;
-  /** Sets the diagnosis date time field (chainable). */
+  /** DG1-5 Diagnosis Date/Time (chainable). */
   diagnosisDateTime(value: Date, format?: HL7DateTimeLayout): this;
   diagnosisDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
     this.fields[4] = this.createField(
@@ -78,99 +68,71 @@ export class DG1 extends BaseSegment {
     return this;
   }
 
-  /**
-   * DG1-6: Diagnosis Type (IS, required)
-   * The type of diagnosis (e.g., A=Admitting, W=Working, F=Final).
-   */
+  /** DG1-6 Diagnosis Type (chainable). */
   diagnosisType(value: string): this {
     this.fields[5] = this.createField(value);
     return this;
   }
 
-  /**
-   * DG1-7: Major Diagnostic Category (CE, optional)
-   * The major diagnostic category (MDC) for this diagnosis.
-   */
+  /** DG1-7 Major Diagnostic Category (chainable). */
   majorDiagnosticCategory(value: string): this {
     this.fields[6] = this.createField(value);
     return this;
   }
 
-  /**
-   * DG1-8: Diagnostic Related Group (CE, optional)
-   * The DRG assigned to this diagnosis.
-   */
+  /** DG1-8 Diagnostic Related Group (chainable). */
   diagnosticRelatedGroup(value: string): this {
     this.fields[7] = this.createField(value);
     return this;
   }
 
-  /**
-   * DG1-9: DRG Approval Indicator (ID, optional)
-   * Indicates whether the DRG has been approved (Y/N).
-   */
+  /** DG1-9 DRG Approval Indicator (chainable). */
   drgApprovalIndicator(value: string): this {
     this.fields[8] = this.createField(value);
     return this;
   }
 
-  /**
-   * DG1-10: DRG Grouper Review Code (IS, optional)
-   * Code indicating the DRG grouper review result.
-   */
+  /** DG1-10 DRG Grouper Review Code (chainable). */
   drgGrouperReviewCode(value: string): this {
     this.fields[9] = this.createField(value);
     return this;
   }
 
-  /**
-   * DG1-11: Outlier Type (CE, optional)
-   * The type of outlier (cost or day) that occurred.
-   */
+  /** DG1-11 Outlier Type (chainable). */
   outlierType(value: string): this {
     this.fields[10] = this.createField(value);
     return this;
   }
 
-  /**
-   * DG1-12: Outlier Days (NM, optional)
-   * The number of outlier days.
-   */
+  /** DG1-12 Outlier Days (chainable). */
   outlierDays(value: string): this {
     this.fields[11] = this.createField(value);
     return this;
   }
 
-  /**
-   * DG1-13: Outlier Cost (CP, optional)
-   * The amount of money associated with the outlier.
-   */
+  /** DG1-13 Outlier Cost (chainable). */
   outlierCost(value: string): this {
     this.fields[12] = this.createField(value);
     return this;
   }
 
-  /**
-   * DG1-14: Grouper Version And Type (ST, optional)
-   * The version and type of the DRG grouper.
-   */
+  /** DG1-14 Grouper Version And Type (chainable). */
   grouperVersionAndType(value: string): this {
     this.fields[13] = this.createField(value);
     return this;
   }
 
-  /**
-   * DG1-15: Diagnosis Priority (NM, optional)
-   * The priority ranking of this diagnosis (1=highest).
-   */
+  /** DG1-15 Diagnosis Priority (chainable). */
   diagnosisPriority(value: string): this {
     this.fields[14] = this.createField(value);
     return this;
   }
 
   /**
-   * DG1-16: Diagnosing Clinician (XCN, optional)
-   * The clinician who made the diagnosis.
+   * DG1-16 Diagnosing Clinician (chainable).
+   * @param id - DG1-16.1 ID Number
+   * @param familyName - DG1-16.2 Family Name
+   * @param givenName - DG1-16.3 Given Name
    */
   diagnosingClinician(
     id: string,
@@ -182,30 +144,21 @@ export class DG1 extends BaseSegment {
     return this;
   }
 
-  /**
-   * DG1-17: Diagnosis Classification (IS, optional)
-   * Classification of the diagnosis (e.g., C=Consultation, D=Diagnosis, M=Medication).
-   */
+  /** DG1-17 Diagnosis Classification (chainable). */
   diagnosisClassification(value: string): this {
     this.fields[16] = this.createField(value);
     return this;
   }
 
-  /**
-   * DG1-18: Confidential Indicator (ID, optional)
-   * Indicates whether the diagnosis is confidential (Y/N).
-   */
+  /** DG1-18 Confidential Indicator (chainable). */
   confidentialIndicator(value: string): this {
     this.fields[17] = this.createField(value);
     return this;
   }
 
-  /**
-   * DG1-19: Attestation Date/Time (TS, optional)
-   * The date/time the diagnosis was attested.
-   */
+  /** DG1-19 Attestation Date/Time (chainable). */
   attestationDateTime(value: string, format?: never): this;
-  /** Sets the attestation date time field (chainable). */
+  /** DG1-19 Attestation Date/Time (chainable). */
   attestationDateTime(value: Date, format?: HL7DateTimeLayout): this;
   attestationDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
     this.fields[18] = this.createField(

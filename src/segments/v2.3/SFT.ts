@@ -26,39 +26,39 @@ export class SFT extends BaseSegment {
     this.fields = [];
   }
 
-  /** SFT-1: Software Vendor Organization (XON) */
+  /** SFT-1 Software Vendor Organization (chainable). */
   softwareVendorOrganization(value: string): this {
     this.fields[0] = this.createField(value);
     return this;
   }
 
-  /** SFT-2: Software Certified Version or Release Number (ST) */
+  /** SFT-2 Software Certified Version or Release Number (chainable). */
   softwareVersion(value: string): this {
     this.fields[1] = this.createField(value);
     return this;
   }
 
-  /** SFT-3: Software Product Name (ST) */
+  /** SFT-3 Software Product Name (chainable). */
   softwareProductName(value: string): this {
     this.fields[2] = this.createField(value);
     return this;
   }
 
-  /** SFT-4: Software Binary ID (ST) */
+  /** SFT-4 Software Binary ID (chainable). */
   softwareBinaryId(value: string): this {
     this.fields[3] = this.createField(value);
     return this;
   }
 
-  /** SFT-5: Software Product Information (TX) */
+  /** SFT-5 Software Product Information (chainable). */
   softwareProductInfo(value: string): this {
     this.fields[4] = this.createField(value);
     return this;
   }
 
-  /** SFT-6: Software Install Date (TS) */
+  /** SFT-6 Software Install Date (chainable). */
   softwareInstallDate(value: string, format?: never): this;
-  /** Sets the software install date field (chainable). */
+  /** SFT-6 Software Install Date (chainable). */
   softwareInstallDate(value: Date, format?: HL7DateLayout): this;
   softwareInstallDate(value: string | Date, format?: HL7DateLayout): this {
     this.fields[5] = this.createField(

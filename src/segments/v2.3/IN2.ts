@@ -27,19 +27,24 @@ export class IN2 extends BaseSegment {
     this.fields = [];
   }
 
-  /** IN2-1: Insured's Employee ID (CX) */
+  /** IN2-1 Insured's Employee ID (chainable). */
   insuredEmployeeId(value: string): this {
     this.fields[0] = this.createField(value);
     return this;
   }
 
-  /** IN2-2: Insured's Social Security Number (ST) */
+  /** IN2-2 Insured's Social Security Number (chainable). */
   insuredSsn(value: string): this {
     this.fields[1] = this.createField(value);
     return this;
   }
 
-  /** IN2-3: Insured's Employer's Name and ID (XCN) */
+  /**
+   * IN2-3 Insured's Employer's Name and ID (chainable).
+   * @param id - IN2-3.1 ID Number
+   * @param familyName - IN2-3.2 Family Name
+   * @param givenName - IN2-3.3 Given Name
+   */
   insuredEmployerName(
     id: string,
     familyName?: string,
@@ -49,33 +54,37 @@ export class IN2 extends BaseSegment {
     return this;
   }
 
-  /** IN2-4: Employer Information Data (IS) */
+  /** IN2-4 Employer Information Data (chainable). */
   employerInfoData(value: string): this {
     this.fields[3] = this.createField(value);
     return this;
   }
 
-  /** IN2-6: Medicare Health Ins Card Number (ST) */
+  /** IN2-6 Medicare Health Ins Card Number (chainable). */
   medicareHicNumber(value: string): this {
     this.fields[5] = this.createField(value);
     return this;
   }
 
-  /** IN2-7: Medicaid Case Name (XPN) */
+  /**
+   * IN2-7 Medicaid Case Name (chainable).
+   * @param familyName - IN2-7.1 Family Name
+   * @param givenName - IN2-7.2 Given Name
+   */
   medicaidCaseName(familyName: string, givenName?: string): this {
     this.fields[6] = this.createField([[familyName, givenName || ""]]);
     return this;
   }
 
-  /** IN2-8: Medicaid Case Number (ST) */
+  /** IN2-8 Medicaid Case Number (chainable). */
   medicaidCaseNumber(value: string): this {
     this.fields[7] = this.createField(value);
     return this;
   }
 
-  /** IN2-26: Relationship to the Patient Start Date (DT) */
+  /** IN2-26 Relationship to the Patient Start Date (chainable). */
   relationshipStartDate(value: string, format?: never): this;
-  /** Sets the relationship start date field (chainable). */
+  /** IN2-26 Relationship to the Patient Start Date (chainable). */
   relationshipStartDate(value: Date, format?: HL7DateLayout): this;
   relationshipStartDate(value: string | Date, format?: HL7DateLayout): this {
     this.fields[25] = this.createField(
@@ -84,9 +93,9 @@ export class IN2 extends BaseSegment {
     return this;
   }
 
-  /** IN2-27: Relationship to the Patient Stop Date (DT) */
+  /** IN2-27 Relationship to the Patient Stop Date (chainable). */
   relationshipStopDate(value: string, format?: never): this;
-  /** Sets the relationship stop date field (chainable). */
+  /** IN2-27 Relationship to the Patient Stop Date (chainable). */
   relationshipStopDate(value: Date, format?: HL7DateLayout): this;
   relationshipStopDate(value: string | Date, format?: HL7DateLayout): this {
     this.fields[26] = this.createField(
@@ -95,25 +104,33 @@ export class IN2 extends BaseSegment {
     return this;
   }
 
-  /** IN2-29: Medicaid Eligibility Status (IS) */
+  /** IN2-29 Medicaid Eligibility Status (chainable). */
   medicaidEligibilityStatus(value: string): this {
     this.fields[28] = this.createField(value);
     return this;
   }
 
-  /** IN2-63: Insured's Sex (IS) - e.g. M/F/U */
+  /** IN2-63 Insured's Sex (chainable). */
   insuredSex(value: string): this {
     this.fields[62] = this.createField(value);
     return this;
   }
 
-  /** IN2-69: Relationship to the Patient (CE) */
+  /**
+   * IN2-69 Relationship to the Patient (chainable).
+   * @param code - IN2-69.1 Code
+   * @param text - IN2-69.2 Text
+   */
   relationshipToPatient(code: string, text?: string): this {
     this.fields[68] = this.createField([code, text || ""]);
     return this;
   }
 
-  /** IN2-72: Insured's Employment Status (CE) */
+  /**
+   * IN2-72 Insured's Employment Status (chainable).
+   * @param code - IN2-72.1 Code
+   * @param text - IN2-72.2 Text
+   */
   insuredEmploymentStatus(code: string, text?: string): this {
     this.fields[71] = this.createField([code, text || ""]);
     return this;

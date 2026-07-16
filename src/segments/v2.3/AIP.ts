@@ -26,19 +26,24 @@ export class AIP extends BaseSegment {
     this.fields = [];
   }
 
-  /** AIP-1: Set ID (SI, required) */
+  /** AIP-1 Set ID (chainable). */
   setId(value: string): this {
     this.fields[0] = this.createField(value);
     return this;
   }
 
-  /** AIP-2: Segment Action Code (ID) */
+  /** AIP-2 Segment Action Code (chainable). */
   segmentActionCode(value: string): this {
     this.fields[1] = this.createField(value);
     return this;
   }
 
-  /** AIP-3: Personnel Resource ID (XCN) */
+  /**
+   * AIP-3 Personnel Resource ID (chainable).
+   * @param id - AIP-3.1 ID Number
+   * @param familyName - AIP-3.2 Family Name
+   * @param givenName - AIP-3.3 Given Name
+   */
   personnelResourceId(
     id: string,
     familyName?: string,
@@ -54,7 +59,12 @@ export class AIP extends BaseSegment {
     return this;
   }
 
-  /** AIP-4: Resource Type (CE, required) */
+  /**
+   * AIP-4 Resource Type (chainable).
+   * @param code - AIP-4.1 Code
+   * @param text - AIP-4.2 Text
+   * @param codingSystem - AIP-4.3 Coding System
+   */
   resourceType(code: string, text?: string, codingSystem?: string): this {
     if (text || codingSystem) {
       this.fields[3] = this.createField([
@@ -66,7 +76,11 @@ export class AIP extends BaseSegment {
     return this;
   }
 
-  /** AIP-5: Resource Group (CE) */
+  /**
+   * AIP-5 Resource Group (chainable).
+   * @param code - AIP-5.1 Code
+   * @param text - AIP-5.2 Text
+   */
   resourceGroup(code: string, text?: string): this {
     if (text) {
       this.fields[4] = this.createField([[code, text]]);
@@ -76,9 +90,9 @@ export class AIP extends BaseSegment {
     return this;
   }
 
-  /** AIP-6: Start Date/Time (TS) */
+  /** AIP-6 Start Date/Time (chainable). */
   startDateTime(value: string, format?: never): this;
-  /** Sets the start date time field (chainable). */
+  /** AIP-6 Start Date/Time (chainable). */
   startDateTime(value: Date, format?: HL7DateTimeLayout): this;
   startDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
     this.fields[5] = this.createField(
@@ -87,13 +101,17 @@ export class AIP extends BaseSegment {
     return this;
   }
 
-  /** AIP-7: Start Date/Time Offset (NM) */
+  /** AIP-7 Start Date/Time Offset (chainable). */
   startDateTimeOffset(value: string): this {
     this.fields[6] = this.createField(value);
     return this;
   }
 
-  /** AIP-8: Start Date/Time Offset Units (CE) */
+  /**
+   * AIP-8 Start Date/Time Offset Units (chainable).
+   * @param code - AIP-8.1 Code
+   * @param text - AIP-8.2 Text
+   */
   startDateTimeOffsetUnits(code: string, text?: string): this {
     if (text) {
       this.fields[7] = this.createField([[code, text]]);
@@ -103,13 +121,17 @@ export class AIP extends BaseSegment {
     return this;
   }
 
-  /** AIP-9: Duration (NM) */
+  /** AIP-9 Duration (chainable). */
   duration(value: string): this {
     this.fields[8] = this.createField(value);
     return this;
   }
 
-  /** AIP-10: Duration Units (CE) */
+  /**
+   * AIP-10 Duration Units (chainable).
+   * @param code - AIP-10.1 Code
+   * @param text - AIP-10.2 Text
+   */
   durationUnits(code: string, text?: string): this {
     if (text) {
       this.fields[9] = this.createField([[code, text]]);
@@ -119,13 +141,17 @@ export class AIP extends BaseSegment {
     return this;
   }
 
-  /** AIP-11: Allow Substitution Code (IS) */
+  /** AIP-11 Allow Substitution Code (chainable). */
   allowSubstitutionCode(value: string): this {
     this.fields[10] = this.createField(value);
     return this;
   }
 
-  /** AIP-12: Filler Status Code (CE) */
+  /**
+   * AIP-12 Filler Status Code (chainable).
+   * @param code - AIP-12.1 Code
+   * @param text - AIP-12.2 Text
+   */
   fillerStatusCode(code: string, text?: string): this {
     if (text) {
       this.fields[11] = this.createField([[code, text]]);

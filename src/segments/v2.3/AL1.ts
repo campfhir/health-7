@@ -27,27 +27,23 @@ export class AL1 extends BaseSegment {
     this.fields = [];
   }
 
-  /**
-   * AL1-1: Set ID (SI, required)
-   * Sequence number of this segment within the message.
-   */
+  /** AL1-1 Set ID (chainable). */
   setId(value: string): this {
     this.fields[0] = this.createField(value);
     return this;
   }
 
-  /**
-   * AL1-2: Allergen Type Code (IS, optional)
-   * Type of allergy (e.g., DA=Drug, FA=Food, EA=Environmental, MA=Miscellaneous).
-   */
+  /** AL1-2 Allergen Type Code (chainable). */
   allergenTypeCode(value: string): this {
     this.fields[1] = this.createField(value);
     return this;
   }
 
   /**
-   * AL1-3: Allergen Code/Mnemonic/Description (CE, required)
-   * Uniquely identifies the allergen.
+   * AL1-3 Allergen Code/Mnemonic/Description (chainable).
+   * @param code - AL1-3.1 Code
+   * @param text - AL1-3.2 Text
+   * @param codingSystem - AL1-3.3 Coding System
    */
   allergen(code: string, text?: string, codingSystem?: string): this {
     const components = [code, text || "", codingSystem || ""];
@@ -55,30 +51,21 @@ export class AL1 extends BaseSegment {
     return this;
   }
 
-  /**
-   * AL1-4: Allergy Severity Code (IS, optional)
-   * Severity of the allergy (e.g., SV=Severe, MO=Moderate, MI=Mild, U=Unknown).
-   */
+  /** AL1-4 Allergy Severity Code (chainable). */
   allergySeverityCode(value: string): this {
     this.fields[3] = this.createField(value);
     return this;
   }
 
-  /**
-   * AL1-5: Allergy Reaction Code (ST, optional, repeating)
-   * Describes the reaction caused by the allergen.
-   */
+  /** AL1-5 Allergy Reaction Code (chainable). */
   allergyReaction(value: string): this {
     this.fields[4] = this.createField(value);
     return this;
   }
 
-  /**
-   * AL1-6: Identification Date (DT, optional)
-   * The date the allergy was identified.
-   */
+  /** AL1-6 Identification Date (chainable). */
   identificationDate(value: string, format?: never): this;
-  /** Sets the identification date field (chainable). */
+  /** AL1-6 Identification Date (chainable). */
   identificationDate(value: Date, format?: HL7DateLayout): this;
   identificationDate(value: string | Date, format?: HL7DateLayout): this {
     this.fields[5] = this.createField(
