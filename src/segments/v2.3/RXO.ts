@@ -84,6 +84,18 @@ export class RXO extends BaseSegment {
     return this;
   }
 
+  /** RXO-8 Deliver-To Location (chainable). */
+  deliverToLocation(value: string): this {
+    this.fields[7] = this.createField(value);
+    return this;
+  }
+
+  /** RXO-9 Allow Substitutions (chainable). */
+  allowSubstitutions(value: string): this {
+    this.fields[8] = this.createField(value);
+    return this;
+  }
+
   /**
    * RXO-10 Requested Dispense Code (chainable).
    * @param code - RXO-10.1 Code
@@ -141,6 +153,40 @@ export class RXO extends BaseSegment {
   /** RXO-16 Needs Human Review (chainable). */
   needsHumanReview(value: string): this {
     this.fields[15] = this.createField(value);
+    return this;
+  }
+
+  /** RXO-17 Requested Give Per (Time Unit) (chainable). */
+  requestedGivePerTimeUnit(value: string): this {
+    this.fields[16] = this.createField(value);
+    return this;
+  }
+
+  /** RXO-18 Requested Give Strength (chainable). */
+  requestedGiveStrength(value: string): this {
+    this.fields[17] = this.createField(value);
+    return this;
+  }
+
+  /**
+   * RXO-19 Requested Give Strength Units (chainable).
+   * @param code - RXO-19.1 Identifier
+   * @param text - RXO-19.2 Text
+   * @param codingSystem - RXO-19.3 Name of Coding System
+   */
+  requestedGiveStrengthUnits(code: string, text?: string, codingSystem?: string): this {
+    this.fields[18] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+
+  /**
+   * RXO-20 Indication (chainable).
+   * @param code - RXO-20.1 Identifier
+   * @param text - RXO-20.2 Text
+   * @param codingSystem - RXO-20.3 Name of Coding System
+   */
+  indication(code: string, text?: string, codingSystem?: string): this {
+    this.fields[19] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
 

@@ -48,6 +48,16 @@ export class SCH extends BaseSegment {
   }
 
   /**
+   * SCH-4 Placer Group Number (chainable).
+   * @param entityIdentifier - SCH-4.1 Entity Identifier
+   * @param namespaceId - SCH-4.2 Namespace ID
+   */
+  placerGroupNumber(entityIdentifier: string, namespaceId?: string): this {
+    this.fields[3] = this.createComponentsField([entityIdentifier, namespaceId]);
+    return this;
+  }
+
+  /**
    * SCH-5 Schedule ID (chainable).
    * @param code - SCH-5.1 Code
    * @param text - SCH-5.2 Text
@@ -122,6 +132,49 @@ export class SCH extends BaseSegment {
     return this;
   }
 
+  /** SCH-13 Placer Contact Phone Number (chainable). */
+  placerContactPhoneNumber(value: string): this {
+    this.fields[12] = this.createField(value);
+    return this;
+  }
+
+  /**
+   * SCH-14 Placer Contact Address (chainable).
+   * @param street - SCH-14.1 Street Address
+   * @param otherDesignation - SCH-14.2 Other Designation
+   * @param city - SCH-14.3 City
+   * @param state - SCH-14.4 State/Province
+   * @param zip - SCH-14.5 Zip or Postal Code
+   * @param country - SCH-14.6 Country
+   */
+  placerContactAddress(
+    street: string,
+    otherDesignation?: string,
+    city?: string,
+    state?: string,
+    zip?: string,
+    country?: string,
+  ): this {
+    this.fields[13] = this.createComponentsField([
+      street,
+      otherDesignation,
+      city,
+      state,
+      zip,
+      country,
+    ]);
+    return this;
+  }
+
+  /**
+   * SCH-15 Placer Contact Location (chainable).
+   * @param pointOfCare - SCH-15.1 Point of Care
+   */
+  placerContactLocation(pointOfCare: string): this {
+    this.fields[14] = this.createComponentsField([pointOfCare]);
+    return this;
+  }
+
   /**
    * SCH-16 Filler Contact Person (chainable).
    * @param id - SCH-16.1 ID Number
@@ -133,6 +186,49 @@ export class SCH extends BaseSegment {
     return this;
   }
 
+  /** SCH-17 Filler Contact Phone Number (chainable). */
+  fillerContactPhoneNumber(value: string): this {
+    this.fields[16] = this.createField(value);
+    return this;
+  }
+
+  /**
+   * SCH-18 Filler Contact Address (chainable).
+   * @param street - SCH-18.1 Street Address
+   * @param otherDesignation - SCH-18.2 Other Designation
+   * @param city - SCH-18.3 City
+   * @param state - SCH-18.4 State/Province
+   * @param zip - SCH-18.5 Zip or Postal Code
+   * @param country - SCH-18.6 Country
+   */
+  fillerContactAddress(
+    street: string,
+    otherDesignation?: string,
+    city?: string,
+    state?: string,
+    zip?: string,
+    country?: string,
+  ): this {
+    this.fields[17] = this.createComponentsField([
+      street,
+      otherDesignation,
+      city,
+      state,
+      zip,
+      country,
+    ]);
+    return this;
+  }
+
+  /**
+   * SCH-19 Filler Contact Location (chainable).
+   * @param pointOfCare - SCH-19.1 Point of Care
+   */
+  fillerContactLocation(pointOfCare: string): this {
+    this.fields[18] = this.createComponentsField([pointOfCare]);
+    return this;
+  }
+
   /**
    * SCH-20 Entered By Person (chainable).
    * @param id - SCH-20.1 ID Number
@@ -141,6 +237,47 @@ export class SCH extends BaseSegment {
    */
   enteredByPerson(id: string, familyName?: string, givenName?: string): this {
     this.fields[19] = this.createComponentsField([id, familyName, givenName]);
+    return this;
+  }
+
+  /** SCH-21 Entered By Phone Number (chainable). */
+  enteredByPhoneNumber(value: string): this {
+    this.fields[20] = this.createField(value);
+    return this;
+  }
+
+  /**
+   * SCH-22 Entered By Location (chainable).
+   * @param pointOfCare - SCH-22.1 Point of Care
+   */
+  enteredByLocation(pointOfCare: string): this {
+    this.fields[21] = this.createComponentsField([pointOfCare]);
+    return this;
+  }
+
+  /**
+   * SCH-23 Parent Placer Appointment ID (chainable).
+   * @param entityIdentifier - SCH-23.1 Entity Identifier
+   * @param namespaceId - SCH-23.2 Namespace ID
+   */
+  parentPlacerAppointmentId(
+    entityIdentifier: string,
+    namespaceId?: string,
+  ): this {
+    this.fields[22] = this.createComponentsField([entityIdentifier, namespaceId]);
+    return this;
+  }
+
+  /**
+   * SCH-24 Parent Filler Appointment ID (chainable).
+   * @param entityIdentifier - SCH-24.1 Entity Identifier
+   * @param namespaceId - SCH-24.2 Namespace ID
+   */
+  parentFillerAppointmentId(
+    entityIdentifier: string,
+    namespaceId?: string,
+  ): this {
+    this.fields[23] = this.createComponentsField([entityIdentifier, namespaceId]);
     return this;
   }
 

@@ -8,6 +8,11 @@ import type { Result } from "../../types/result.ts";
 import { BaseSegment } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
+import {
+  DateTimeLayout,
+  formatHL7Date,
+  type HL7DateTimeLayout,
+} from "../../utils/hl7DateUtils.ts";
 
 /**
  * RXE - Pharmacy/Treatment Encoded Order Segment (HL7 v2.3)
@@ -80,6 +85,18 @@ export class RXE extends BaseSegment {
     return this;
   }
 
+  /** RXE-8 Deliver-To Location (chainable). */
+  deliverToLocation(value: string): this {
+    this.fields[7] = this.createField(value);
+    return this;
+  }
+
+  /** RXE-9 Substitution Status (chainable). */
+  substitutionStatus(value: string): this {
+    this.fields[8] = this.createField(value);
+    return this;
+  }
+
   /** RXE-10 Dispense Amount (chainable). */
   dispenseAmount(value: string): this {
     this.fields[9] = this.createField(value);
@@ -136,6 +153,60 @@ export class RXE extends BaseSegment {
     return this;
   }
 
+  /** RXE-17 Number of Refills/Doses Dispensed (chainable). */
+  numberOfRefillsDosesDispensed(value: string): this {
+    this.fields[16] = this.createField(value);
+    return this;
+  }
+
+  /** RXE-18 Date/Time of Most Recent Refill or Dose Dispensed (chainable). */
+  dateTimeMostRecentRefillOrDoseDispensed(value: string, format?: never): this;
+  /** RXE-18 Date/Time of Most Recent Refill or Dose Dispensed (chainable). */
+  dateTimeMostRecentRefillOrDoseDispensed(
+    value: Date,
+    format?: HL7DateTimeLayout,
+  ): this;
+  dateTimeMostRecentRefillOrDoseDispensed(
+    value: string | Date,
+    format?: HL7DateTimeLayout,
+  ): this {
+    this.fields[17] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
+    return this;
+  }
+
+  /**
+   * RXE-19 Total Daily Dose (chainable).
+   * @param quantity - RXE-19.1 Quantity
+   * @param units - RXE-19.2 Units
+   */
+  totalDailyDose(quantity: string, units?: string): this {
+    this.fields[18] = this.createComponentsField([quantity, units]);
+    return this;
+  }
+
+  /** RXE-20 Needs Human Review (chainable). */
+  needsHumanReview(value: string): this {
+    this.fields[19] = this.createField(value);
+    return this;
+  }
+
+  /**
+   * RXE-21 Pharmacy/Treatment Supplier's Special Dispensing Instructions (chainable).
+   * @param code - RXE-21.1 Identifier
+   * @param text - RXE-21.2 Text
+   * @param codingSystem - RXE-21.3 Name of Coding System
+   */
+  specialDispensingInstructions(
+    code: string,
+    text?: string,
+    codingSystem?: string,
+  ): this {
+    this.fields[20] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+
   /** RXE-22 Give Per (Time Unit) (chainable). */
   givePer(value: string): this {
     this.fields[21] = this.createField(value);
@@ -171,6 +242,44 @@ export class RXE extends BaseSegment {
    */
   giveStrengthUnits(code: string, text?: string): this {
     this.fields[25] = this.createComponentsField([code, text]);
+    return this;
+  }
+
+  /**
+   * RXE-27 Give Indication (chainable).
+   * @param code - RXE-27.1 Identifier
+   * @param text - RXE-27.2 Text
+   * @param codingSystem - RXE-27.3 Name of Coding System
+   */
+  giveIndication(code: string, text?: string, codingSystem?: string): this {
+    this.fields[26] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+
+  /** RXE-28 Dispense Package Size (chainable). */
+  dispensePackageSize(value: string): this {
+    this.fields[27] = this.createField(value);
+    return this;
+  }
+
+  /**
+   * RXE-29 Dispense Package Size Unit (chainable).
+   * @param code - RXE-29.1 Identifier
+   * @param text - RXE-29.2 Text
+   * @param codingSystem - RXE-29.3 Name of Coding System
+   */
+  dispensePackageSizeUnit(
+    code: string,
+    text?: string,
+    codingSystem?: string,
+  ): this {
+    this.fields[28] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+
+  /** RXE-30 Dispense Package Method (chainable). */
+  dispensePackageMethod(value: string): this {
+    this.fields[29] = this.createField(value);
     return this;
   }
 

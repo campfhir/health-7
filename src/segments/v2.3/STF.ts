@@ -151,15 +151,146 @@ export class STF extends BaseSegment {
     return this;
   }
 
+  /**
+   * STF-12 Institution Activation Date (chainable).
+   * @param date - STF-12.1 Date
+   * @param institutionName - STF-12.2 Institution Name
+   */
+  institutionActivationDate(date: string, institutionName?: string): this {
+    this.fields[11] = this.createComponentsField([date, institutionName]);
+    return this;
+  }
+
+  /**
+   * STF-13 Institution Inactivation Date (chainable).
+   * @param date - STF-13.1 Date
+   * @param institutionName - STF-13.2 Institution Name
+   */
+  institutionInactivationDate(date: string, institutionName?: string): this {
+    this.fields[12] = this.createComponentsField([date, institutionName]);
+    return this;
+  }
+
+  /**
+   * STF-14 Backup Person ID (chainable).
+   * @param code - STF-14.1 Identifier
+   * @param text - STF-14.2 Text
+   * @param codingSystem - STF-14.3 Name of Coding System
+   */
+  backupPersonId(code: string, text?: string, codingSystem?: string): this {
+    this.fields[13] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+
   /** STF-15 E-Mail Address (chainable). */
   emailAddress(value: string): this {
     this.fields[14] = this.createField(value);
     return this;
   }
 
+  /**
+   * STF-16 Preferred Method of Contact (chainable).
+   * @param code - STF-16.1 Identifier
+   * @param text - STF-16.2 Text
+   * @param codingSystem - STF-16.3 Name of Coding System
+   */
+  preferredMethodOfContact(
+    code: string,
+    text?: string,
+    codingSystem?: string,
+  ): this {
+    this.fields[15] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+
+  /**
+   * STF-17 Marital Status (chainable).
+   * @param code - STF-17.1 Identifier
+   * @param text - STF-17.2 Text
+   * @param codingSystem - STF-17.3 Name of Coding System
+   */
+  maritalStatus(code: string, text?: string, codingSystem?: string): this {
+    this.fields[16] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+
   /** STF-18 Job Title (chainable). */
   jobTitle(value: string): this {
     this.fields[17] = this.createField(value);
+    return this;
+  }
+
+  /**
+   * STF-19 Job Code/Class (chainable).
+   * @param jobCode - STF-19.1 Job Code
+   * @param jobClass - STF-19.2 Job Class
+   */
+  jobCodeClass(jobCode: string, jobClass?: string): this {
+    this.fields[18] = this.createComponentsField([jobCode, jobClass]);
+    return this;
+  }
+
+  /**
+   * STF-20 Employment Status Code (chainable).
+   * @param code - STF-20.1 Identifier
+   * @param text - STF-20.2 Text
+   * @param codingSystem - STF-20.3 Name of Coding System
+   */
+  employmentStatusCode(
+    code: string,
+    text?: string,
+    codingSystem?: string,
+  ): this {
+    this.fields[19] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+
+  /** STF-21 Additional Insured on Auto (chainable). */
+  additionalInsuredOnAuto(value: string): this {
+    this.fields[20] = this.createField(value);
+    return this;
+  }
+
+  /**
+   * STF-22 Driver's License Number - Staff (chainable).
+   * @param licenseNumber - STF-22.1 License Number
+   * @param issuingAuthority - STF-22.2 Issuing State, Province, Country
+   * @param expirationDate - STF-22.3 Expiration Date
+   */
+  driversLicenseNumber(
+    licenseNumber: string,
+    issuingAuthority?: string,
+    expirationDate?: string,
+  ): this {
+    this.fields[21] = this.createComponentsField([
+      licenseNumber,
+      issuingAuthority,
+      expirationDate,
+    ]);
+    return this;
+  }
+
+  /** STF-23 Copy Auto Ins (chainable). */
+  copyAutoIns(value: string): this {
+    this.fields[22] = this.createField(value);
+    return this;
+  }
+
+  /** STF-24 Auto Ins. Expires (chainable). */
+  autoInsExpires(value: string): this {
+    this.fields[23] = this.createField(value);
+    return this;
+  }
+
+  /** STF-25 Date Last DMV Review (chainable). */
+  dateLastDmvReview(value: string): this {
+    this.fields[24] = this.createField(value);
+    return this;
+  }
+
+  /** STF-26 Date Next DMV Review (chainable). */
+  dateNextDmvReview(value: string): this {
+    this.fields[25] = this.createField(value);
     return this;
   }
 

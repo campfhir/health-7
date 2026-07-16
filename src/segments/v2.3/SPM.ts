@@ -215,6 +215,107 @@ export class SPM extends BaseSegment {
     return this;
   }
 
+  /**
+   * SPM-15 Specimen Handling Code (chainable).
+   * @param code - SPM-15.1 Identifier
+   * @param text - SPM-15.2 Text
+   * @param codingSystem - SPM-15.3 Name of Coding System
+   */
+  specimenHandlingCode(code: string, text?: string, codingSystem?: string): this {
+    this.fields[14] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+
+  /**
+   * SPM-16 Specimen Risk Code (chainable).
+   * @param code - SPM-16.1 Identifier
+   * @param text - SPM-16.2 Text
+   * @param codingSystem - SPM-16.3 Name of Coding System
+   */
+  specimenRiskCode(code: string, text?: string, codingSystem?: string): this {
+    this.fields[15] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+
+  /** SPM-19 Specimen Expiration Date/Time (chainable). */
+  specimenExpirationDateTime(value: string, format?: never): this;
+  /** SPM-19 Specimen Expiration Date/Time (chainable). */
+  specimenExpirationDateTime(value: Date, format?: HL7DateTimeLayout): this;
+  specimenExpirationDateTime(
+    value: string | Date,
+    format?: HL7DateTimeLayout,
+  ): this {
+    this.fields[18] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
+    return this;
+  }
+
+  /**
+   * SPM-22 Specimen Quality (chainable).
+   * @param code - SPM-22.1 Identifier
+   * @param text - SPM-22.2 Text
+   * @param codingSystem - SPM-22.3 Name of Coding System
+   */
+  specimenQuality(code: string, text?: string, codingSystem?: string): this {
+    this.fields[21] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+
+  /**
+   * SPM-23 Specimen Appropriateness (chainable).
+   * @param code - SPM-23.1 Identifier
+   * @param text - SPM-23.2 Text
+   * @param codingSystem - SPM-23.3 Name of Coding System
+   */
+  specimenAppropriateness(
+    code: string,
+    text?: string,
+    codingSystem?: string,
+  ): this {
+    this.fields[22] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+
+  /** SPM-26 Number of Specimen Containers (chainable). */
+  numberOfSpecimenContainers(value: string): this {
+    this.fields[25] = this.createField(value);
+    return this;
+  }
+
+  /**
+   * SPM-27 Container Type (chainable).
+   * @param code - SPM-27.1 Identifier
+   * @param text - SPM-27.2 Text
+   * @param codingSystem - SPM-27.3 Name of Coding System
+   */
+  containerType(code: string, text?: string, codingSystem?: string): this {
+    this.fields[26] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+
+  /**
+   * SPM-28 Container Condition (chainable).
+   * @param code - SPM-28.1 Identifier
+   * @param text - SPM-28.2 Text
+   * @param codingSystem - SPM-28.3 Name of Coding System
+   */
+  containerCondition(code: string, text?: string, codingSystem?: string): this {
+    this.fields[27] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+
+  /**
+   * SPM-29 Specimen Child Role (chainable).
+   * @param code - SPM-29.1 Identifier
+   * @param text - SPM-29.2 Text
+   * @param codingSystem - SPM-29.3 Name of Coding System
+   */
+  specimenChildRole(code: string, text?: string, codingSystem?: string): this {
+    this.fields[28] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+
   /** Parses the input string into a structured instance. */
   static parse(
     segmentString: string,

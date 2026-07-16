@@ -151,6 +151,27 @@ export class MSH extends BaseSegment {
     return this;
   }
 
+  /** MSH-18 Character Set (chainable). */
+  characterSet(value: string): this {
+    this.fields[16] = this.createField(value);
+    return this;
+  }
+
+  /**
+   * MSH-19 Principal Language Of Message (chainable).
+   * @param code - MSH-19.1 Identifier
+   * @param text - MSH-19.2 Text
+   * @param codingSystem - MSH-19.3 Name of Coding System
+   */
+  principalLanguageOfMessage(
+    code: string,
+    text?: string,
+    codingSystem?: string,
+  ): this {
+    this.fields[17] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+
   /**
    * Get message type from MSH-9
    * Returns an object with messageCode, triggerEvent, and messageStructure

@@ -14,6 +14,30 @@ import { IN1 as IN1_base } from "../v2.3/IN1.ts";
  * Extends v2.3 IN1. Add v2.5.1-specific fields here as needed.
  */
 export class IN1 extends IN1_base {
+  /** IN1-50 Signature Code (chainable). */
+  signatureCode(value: string): this {
+    this.fields[49] = this.createField(value);
+    return this;
+  }
+
+  /** IN1-51 Signature Code Date (chainable). */
+  signatureCodeDate(value: string): this {
+    this.fields[50] = this.createField(value);
+    return this;
+  }
+
+  /** IN1-52 Insured's Birth Place (chainable). */
+  insuredBirthPlace(value: string): this {
+    this.fields[51] = this.createField(value);
+    return this;
+  }
+
+  /** IN1-53 VIP Indicator (chainable). */
+  vipIndicator(value: string): this {
+    this.fields[52] = this.createField(value);
+    return this;
+  }
+
   /** Parses the input string into a structured instance. */
   static override parse(
     segmentString: string,

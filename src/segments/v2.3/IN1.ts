@@ -10,8 +10,10 @@ import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 import {
   DateLayout,
+  DateTimeLayout,
   formatHL7Date,
   type HL7DateLayout,
+  type HL7DateTimeLayout,
 } from "../../utils/hl7DateUtils.ts";
 
 /**
@@ -283,6 +285,206 @@ export class IN1 extends BaseSegment {
   /** IN1-37 Policy Deductible (chainable). */
   policyDeductible(value: string): this {
     this.fields[36] = this.createField(value);
+    return this;
+  }
+
+  /** IN1-24 Notice Of Admission Date (chainable). */
+  noticeOfAdmissionDate(value: string): this {
+    this.fields[23] = this.createField(value);
+    return this;
+  }
+
+  /** IN1-25 Report Of Eligibility Flag (chainable). */
+  reportOfEligibilityFlag(value: string): this {
+    this.fields[24] = this.createField(value);
+    return this;
+  }
+
+  /** IN1-26 Report Of Eligibility Date (chainable). */
+  reportOfEligibilityDate(value: string): this {
+    this.fields[25] = this.createField(value);
+    return this;
+  }
+
+  /** IN1-27 Release Information Code (chainable). */
+  releaseInformationCode(value: string): this {
+    this.fields[26] = this.createField(value);
+    return this;
+  }
+
+  /** IN1-28 Pre-Admit Cert (PAC) (chainable). */
+  preAdmitCert(value: string): this {
+    this.fields[27] = this.createField(value);
+    return this;
+  }
+
+  /** IN1-29 Verification Date/Time (chainable). */
+  verificationDateTime(value: string, format?: never): this;
+  /** IN1-29 Verification Date/Time (chainable). */
+  verificationDateTime(value: Date, format?: HL7DateTimeLayout): this;
+  verificationDateTime(
+    value: string | Date,
+    format?: HL7DateTimeLayout,
+  ): this {
+    this.fields[28] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
+    return this;
+  }
+
+  /**
+   * IN1-30 Verification By (chainable).
+   * @param id - IN1-30.1 ID Number
+   * @param familyName - IN1-30.2 Family Name
+   * @param givenName - IN1-30.3 Given Name
+   */
+  verificationBy(id: string, familyName?: string, givenName?: string): this {
+    this.fields[29] = this.createComponentsField([id, familyName, givenName]);
+    return this;
+  }
+
+  /** IN1-31 Type Of Agreement Code (chainable). */
+  typeOfAgreementCode(value: string): this {
+    this.fields[30] = this.createField(value);
+    return this;
+  }
+
+  /** IN1-32 Billing Status (chainable). */
+  billingStatus(value: string): this {
+    this.fields[31] = this.createField(value);
+    return this;
+  }
+
+  /** IN1-33 Lifetime Reserve Days (chainable). */
+  lifetimeReserveDays(value: string): this {
+    this.fields[32] = this.createField(value);
+    return this;
+  }
+
+  /** IN1-34 Delay Before L.R. Day (chainable). */
+  delayBeforeLRDay(value: string): this {
+    this.fields[33] = this.createField(value);
+    return this;
+  }
+
+  /** IN1-35 Company Plan Code (chainable). */
+  companyPlanCode(value: string): this {
+    this.fields[34] = this.createField(value);
+    return this;
+  }
+
+  /**
+   * IN1-38 Policy Limit - Amount (chainable).
+   * @param price - IN1-38.1 Price
+   */
+  policyLimitAmount(price: string): this {
+    this.fields[37] = this.createComponentsField([price]);
+    return this;
+  }
+
+  /** IN1-39 Policy Limit - Days (chainable). */
+  policyLimitDays(value: string): this {
+    this.fields[38] = this.createField(value);
+    return this;
+  }
+
+  /**
+   * IN1-40 Room Rate - Semi-Private (chainable).
+   * @param price - IN1-40.1 Price
+   */
+  roomRateSemiPrivate(price: string): this {
+    this.fields[39] = this.createComponentsField([price]);
+    return this;
+  }
+
+  /**
+   * IN1-41 Room Rate - Private (chainable).
+   * @param price - IN1-41.1 Price
+   */
+  roomRatePrivate(price: string): this {
+    this.fields[40] = this.createComponentsField([price]);
+    return this;
+  }
+
+  /**
+   * IN1-42 Insured's Employment Status (chainable).
+   * @param code - IN1-42.1 Identifier
+   * @param text - IN1-42.2 Text
+   * @param codingSystem - IN1-42.3 Name of Coding System
+   */
+  insuredEmploymentStatus(
+    code: string,
+    text?: string,
+    codingSystem?: string,
+  ): this {
+    this.fields[41] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+
+  /** IN1-43 Insured's Administrative Sex (chainable). */
+  insuredAdministrativeSex(value: string): this {
+    this.fields[42] = this.createField(value);
+    return this;
+  }
+
+  /**
+   * IN1-44 Insured's Employer's Address (chainable).
+   * @param street - IN1-44.1 Street
+   * @param otherDesignation - IN1-44.2 Other Designation
+   * @param city - IN1-44.3 City
+   * @param state - IN1-44.4 State/Province
+   * @param zip - IN1-44.5 Zip
+   * @param country - IN1-44.6 Country
+   */
+  insuredEmployerAddress(
+    street: string,
+    otherDesignation?: string,
+    city?: string,
+    state?: string,
+    zip?: string,
+    country?: string,
+  ): this {
+    this.fields[43] = this.createComponentsField([
+      street,
+      otherDesignation,
+      city,
+      state,
+      zip,
+      country,
+    ]);
+    return this;
+  }
+
+  /** IN1-45 Verification Status (chainable). */
+  verificationStatus(value: string): this {
+    this.fields[44] = this.createField(value);
+    return this;
+  }
+
+  /** IN1-46 Prior Insurance Plan ID (chainable). */
+  priorInsurancePlanId(value: string): this {
+    this.fields[45] = this.createField(value);
+    return this;
+  }
+
+  /**
+   * IN1-49 Insured's ID Number (chainable).
+   * @param id - IN1-49.1 ID Number
+   * @param assigningAuthority - IN1-49.4 Assigning Authority
+   * @param identifierTypeCode - IN1-49.5 Identifier Type Code
+   */
+  insuredIdNumber(
+    id: string,
+    assigningAuthority?: string,
+    identifierTypeCode?: string,
+  ): this {
+    this.fields[48] = this.createComponentsField([
+      id,
+      undefined,
+      undefined,
+      assigningAuthority,
+      identifierTypeCode,
+    ]);
     return this;
   }
 

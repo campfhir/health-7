@@ -3,7 +3,7 @@
  *
  * @module
  */
-import type { MSH } from "../../segments/v2.5.1/MSH.ts";
+import type { MSH } from "../../segments/v2.3/MSH.ts";
 import type { MFI } from "../../segments/v2.3/MFI.ts";
 import type { MFE } from "../../segments/v2.3/MFE.ts";
 import type { STF } from "../../segments/v2.3/STF.ts";

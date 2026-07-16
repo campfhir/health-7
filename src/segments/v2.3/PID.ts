@@ -10,8 +10,10 @@ import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 import {
   DateLayout,
+  DateTimeLayout,
   formatHL7Date,
   type HL7DateLayout,
+  type HL7DateTimeLayout,
 } from "../../utils/hl7DateUtils.ts";
 
 /**
@@ -192,6 +194,121 @@ export class PID extends BaseSegment {
   /** PID-19 SSN (chainable). */
   ssn(value: string): this {
     this.fields[18] = this.createField(value);
+    return this;
+  }
+  /**
+   * PID-20 Driver's License Number (chainable).
+   * @param licenseNumber - PID-20.1 Driver's License Number
+   * @param issuingAuthority - PID-20.2 Issuing State, Province, Country
+   * @param expirationDate - PID-20.3 Expiration Date
+   */
+  driversLicenseNumber(
+    licenseNumber: string,
+    issuingAuthority?: string,
+    expirationDate?: string,
+  ): this {
+    this.fields[19] = this.createComponentsField([
+      licenseNumber,
+      issuingAuthority,
+      expirationDate,
+    ]);
+    return this;
+  }
+  /**
+   * PID-21 Mother's Identifier (chainable).
+   * @param id - PID-21.1 ID Number
+   * @param assigningAuthority - PID-21.4 Assigning Authority
+   * @param identifierTypeCode - PID-21.5 Identifier Type Code
+   */
+  mothersIdentifier(
+    id: string,
+    assigningAuthority?: string,
+    identifierTypeCode?: string,
+  ): this {
+    this.fields[20] = this.createComponentsField([
+      id,
+      undefined,
+      undefined,
+      assigningAuthority,
+      identifierTypeCode,
+    ]);
+    return this;
+  }
+  /**
+   * PID-22 Ethnic Group (chainable).
+   * @param code - PID-22.1 Identifier
+   * @param text - PID-22.2 Text
+   * @param codingSystem - PID-22.3 Name of Coding System
+   */
+  ethnicGroup(code: string, text?: string, codingSystem?: string): this {
+    this.fields[21] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+  /** PID-23 Birth Place (chainable). */
+  birthPlace(value: string): this {
+    this.fields[22] = this.createField(value);
+    return this;
+  }
+  /** PID-24 Multiple Birth Indicator (chainable). */
+  multipleBirthIndicator(value: string): this {
+    this.fields[23] = this.createField(value);
+    return this;
+  }
+  /** PID-25 Birth Order (chainable). */
+  birthOrder(value: string): this {
+    this.fields[24] = this.createField(value);
+    return this;
+  }
+  /**
+   * PID-26 Citizenship (chainable).
+   * @param code - PID-26.1 Identifier
+   * @param text - PID-26.2 Text
+   * @param codingSystem - PID-26.3 Name of Coding System
+   */
+  citizenship(code: string, text?: string, codingSystem?: string): this {
+    this.fields[25] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+  /**
+   * PID-27 Veterans Military Status (chainable).
+   * @param code - PID-27.1 Identifier
+   * @param text - PID-27.2 Text
+   * @param codingSystem - PID-27.3 Name of Coding System
+   */
+  veteransMilitaryStatus(
+    code: string,
+    text?: string,
+    codingSystem?: string,
+  ): this {
+    this.fields[26] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+  /**
+   * PID-28 Nationality (chainable).
+   * @param code - PID-28.1 Identifier
+   * @param text - PID-28.2 Text
+   * @param codingSystem - PID-28.3 Name of Coding System
+   */
+  nationality(code: string, text?: string, codingSystem?: string): this {
+    this.fields[27] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+  /** PID-29 Patient Death Date and Time (chainable). */
+  patientDeathDateAndTime(value: string, format?: never): this;
+  /** PID-29 Patient Death Date and Time (chainable). */
+  patientDeathDateAndTime(value: Date, format?: HL7DateTimeLayout): this;
+  patientDeathDateAndTime(
+    value: string | Date,
+    format?: HL7DateTimeLayout,
+  ): this {
+    this.fields[28] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
+    return this;
+  }
+  /** PID-30 Patient Death Indicator (chainable). */
+  patientDeathIndicator(value: string): this {
+    this.fields[29] = this.createField(value);
     return this;
   }
 

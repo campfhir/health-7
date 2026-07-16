@@ -14,6 +14,18 @@ import { GT1 as GT1_base } from "../v2.3/GT1.ts";
  * Extends v2.3 GT1. Add v2.5.1-specific fields here as needed.
  */
 export class GT1 extends GT1_base {
+  /** GT1-56 Guarantor Birth Place (chainable). */
+  guarantorBirthPlace(value: string): this {
+    this.fields[55] = this.createField(value);
+    return this;
+  }
+
+  /** GT1-57 VIP Indicator (chainable). */
+  vipIndicator(value: string): this {
+    this.fields[56] = this.createField(value);
+    return this;
+  }
+
   /** Parses the input string into a structured instance. */
   static override parse(
     segmentString: string,

@@ -258,6 +258,125 @@ export class PV2 extends BaseSegment {
     return this;
   }
 
+  /**
+   * PV2-23 Clinic Organization Name (chainable).
+   * @param organizationName - PV2-23.1 Organization Name
+   */
+  clinicOrganizationName(organizationName: string): this {
+    this.fields[22] = this.createComponentsField([organizationName]);
+    return this;
+  }
+
+  /** PV2-24 Patient Status Code (chainable). */
+  patientStatusCode(value: string): this {
+    this.fields[23] = this.createField(value);
+    return this;
+  }
+
+  /** PV2-26 Previous Treatment Date (chainable). */
+  previousTreatmentDate(value: string, format?: never): this;
+  /** PV2-26 Previous Treatment Date (chainable). */
+  previousTreatmentDate(value: Date, format?: HL7DateLayout): this;
+  previousTreatmentDate(value: string | Date, format?: HL7DateLayout): this {
+    this.fields[25] = this.createField(
+      formatHL7Date(value, format ?? DateLayout),
+    );
+    return this;
+  }
+
+  /** PV2-27 Expected Discharge Disposition (chainable). */
+  expectedDischargeDisposition(value: string): this {
+    this.fields[26] = this.createField(value);
+    return this;
+  }
+
+  /** PV2-28 Signature on File Date (chainable). */
+  signatureOnFileDate(value: string, format?: never): this;
+  /** PV2-28 Signature on File Date (chainable). */
+  signatureOnFileDate(value: Date, format?: HL7DateLayout): this;
+  signatureOnFileDate(value: string | Date, format?: HL7DateLayout): this {
+    this.fields[27] = this.createField(
+      formatHL7Date(value, format ?? DateLayout),
+    );
+    return this;
+  }
+
+  /** PV2-29 First Similar Illness Date (chainable). */
+  firstSimilarIllnessDate(value: string, format?: never): this;
+  /** PV2-29 First Similar Illness Date (chainable). */
+  firstSimilarIllnessDate(value: Date, format?: HL7DateLayout): this;
+  firstSimilarIllnessDate(value: string | Date, format?: HL7DateLayout): this {
+    this.fields[28] = this.createField(
+      formatHL7Date(value, format ?? DateLayout),
+    );
+    return this;
+  }
+
+  /**
+   * PV2-30 Patient Charge Adjustment Code (chainable).
+   * @param code - PV2-30.1 Identifier
+   * @param text - PV2-30.2 Text
+   * @param codingSystem - PV2-30.3 Name of Coding System
+   */
+  patientChargeAdjustmentCode(
+    code: string,
+    text?: string,
+    codingSystem?: string,
+  ): this {
+    this.fields[29] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+
+  /** PV2-31 Recurring Service Code (chainable). */
+  recurringServiceCode(value: string): this {
+    this.fields[30] = this.createField(value);
+    return this;
+  }
+
+  /** PV2-32 Billing Media Code (chainable). */
+  billingMediaCode(value: string): this {
+    this.fields[31] = this.createField(value);
+    return this;
+  }
+
+  /** PV2-33 Expected Surgery Date and Time (chainable). */
+  expectedSurgeryDateAndTime(value: string, format?: never): this;
+  /** PV2-33 Expected Surgery Date and Time (chainable). */
+  expectedSurgeryDateAndTime(value: Date, format?: HL7DateTimeLayout): this;
+  expectedSurgeryDateAndTime(
+    value: string | Date,
+    format?: HL7DateTimeLayout,
+  ): this {
+    this.fields[32] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
+    return this;
+  }
+
+  /** PV2-34 Military Partnership Code (chainable). */
+  militaryPartnershipCode(value: string): this {
+    this.fields[33] = this.createField(value);
+    return this;
+  }
+
+  /** PV2-35 Military Non-Availability Code (chainable). */
+  militaryNonAvailabilityCode(value: string): this {
+    this.fields[34] = this.createField(value);
+    return this;
+  }
+
+  /** PV2-36 Newborn Baby Indicator (chainable). */
+  newbornBabyIndicator(value: string): this {
+    this.fields[35] = this.createField(value);
+    return this;
+  }
+
+  /** PV2-37 Baby Detained Indicator (chainable). */
+  babyDetainedIndicator(value: string): this {
+    this.fields[36] = this.createField(value);
+    return this;
+  }
+
   /** Parses the input string into a structured instance. */
   static parse(
     segmentString: string,

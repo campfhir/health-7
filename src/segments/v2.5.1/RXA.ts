@@ -14,6 +14,48 @@ import { RXA as RXA_base } from "../v2.3/RXA.ts";
  * Extends v2.3 RXA. Add v2.5.1-specific fields here as needed.
  */
 export class RXA extends RXA_base {
+  /** RXA-23 Administered Drug Strength Volume (chainable). */
+  administeredDrugStrengthVolume(value: string): this {
+    this.fields[22] = this.createField(value);
+    return this;
+  }
+
+  /**
+   * RXA-24 Administered Drug Strength Volume Units (chainable).
+   * @param code - RXA-24.1 Identifier
+   * @param text - RXA-24.2 Text
+   * @param codingSystem - RXA-24.3 Name of Coding System
+   */
+  administeredDrugStrengthVolumeUnits(
+    code: string,
+    text?: string,
+    codingSystem?: string,
+  ): this {
+    this.fields[23] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+
+  /**
+   * RXA-25 Administered Barcode Identifier (chainable).
+   * @param code - RXA-25.1 Identifier
+   * @param text - RXA-25.2 Text
+   * @param codingSystem - RXA-25.3 Name of Coding System
+   */
+  administeredBarcodeIdentifier(
+    code: string,
+    text?: string,
+    codingSystem?: string,
+  ): this {
+    this.fields[24] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+
+  /** RXA-26 Pharmacy Order Type (chainable). */
+  pharmacyOrderType(value: string): this {
+    this.fields[25] = this.createField(value);
+    return this;
+  }
+
   /** Parses the input string into a structured instance. */
   static override parse(
     segmentString: string,

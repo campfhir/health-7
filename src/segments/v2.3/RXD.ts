@@ -121,6 +121,60 @@ export class RXD extends BaseSegment {
     return this;
   }
 
+  /**
+   * RXD-12 Total Daily Dose (chainable).
+   * @param quantity - RXD-12.1 Quantity
+   * @param units - RXD-12.2 Units
+   */
+  totalDailyDose(quantity: string, units?: string): this {
+    this.fields[11] = this.createComponentsField([quantity, units]);
+    return this;
+  }
+
+  /** RXD-13 Dispense-to Location (chainable). */
+  dispenseToLocation(value: string): this {
+    this.fields[12] = this.createField(value);
+    return this;
+  }
+
+  /** RXD-14 Needs Human Review (chainable). */
+  needsHumanReview(value: string): this {
+    this.fields[13] = this.createField(value);
+    return this;
+  }
+
+  /**
+   * RXD-15 Pharmacy/Treatment Supplier's Special Dispensing Instructions (chainable).
+   * @param code - RXD-15.1 Identifier
+   * @param text - RXD-15.2 Text
+   * @param codingSystem - RXD-15.3 Name of Coding System
+   */
+  specialDispensingInstructions(
+    code: string,
+    text?: string,
+    codingSystem?: string,
+  ): this {
+    this.fields[14] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+
+  /** RXD-16 Actual Strength (chainable). */
+  actualStrength(value: string): this {
+    this.fields[15] = this.createField(value);
+    return this;
+  }
+
+  /**
+   * RXD-17 Actual Strength Unit (chainable).
+   * @param code - RXD-17.1 Identifier
+   * @param text - RXD-17.2 Text
+   * @param codingSystem - RXD-17.3 Name of Coding System
+   */
+  actualStrengthUnit(code: string, text?: string, codingSystem?: string): this {
+    this.fields[16] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+
   /** RXD-18 Substance Lot Number (chainable). */
   substanceLotNumber(value: string): this {
     this.fields[17] = this.createField(value);
@@ -145,6 +199,44 @@ export class RXD extends BaseSegment {
    */
   substanceManufacturerName(code: string, text?: string): this {
     this.fields[19] = this.createComponentsField([code, text]);
+    return this;
+  }
+
+  /**
+   * RXD-21 Indication (chainable).
+   * @param code - RXD-21.1 Identifier
+   * @param text - RXD-21.2 Text
+   * @param codingSystem - RXD-21.3 Name of Coding System
+   */
+  indication(code: string, text?: string, codingSystem?: string): this {
+    this.fields[20] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+
+  /** RXD-22 Dispense Package Size (chainable). */
+  dispensePackageSize(value: string): this {
+    this.fields[21] = this.createField(value);
+    return this;
+  }
+
+  /**
+   * RXD-23 Dispense Package Size Unit (chainable).
+   * @param code - RXD-23.1 Identifier
+   * @param text - RXD-23.2 Text
+   * @param codingSystem - RXD-23.3 Name of Coding System
+   */
+  dispensePackageSizeUnit(
+    code: string,
+    text?: string,
+    codingSystem?: string,
+  ): this {
+    this.fields[22] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+
+  /** RXD-24 Dispense Package Method (chainable). */
+  dispensePackageMethod(value: string): this {
+    this.fields[23] = this.createField(value);
     return this;
   }
 

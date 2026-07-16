@@ -212,6 +212,240 @@ export class OBR extends BaseSegment {
     this.fields[24] = this.createField(value);
     return this;
   }
+  /**
+   * OBR-26 Parent Result (chainable).
+   * @param parentObservationIdentifier - OBR-26.1 Parent Observation Identifier
+   * @param parentObservationSubIdentifier - OBR-26.2 Parent Observation Sub-Identifier
+   * @param parentObservationValueDescriptor - OBR-26.3 Parent Observation Value Descriptor
+   */
+  parentResult(
+    parentObservationIdentifier: string,
+    parentObservationSubIdentifier?: string,
+    parentObservationValueDescriptor?: string,
+  ): this {
+    this.fields[25] = this.createComponentsField([
+      parentObservationIdentifier,
+      parentObservationSubIdentifier,
+      parentObservationValueDescriptor,
+    ]);
+    return this;
+  }
+  /**
+   * OBR-27 Quantity/Timing (chainable).
+   * @param quantity - OBR-27.1 Quantity
+   * @param interval - OBR-27.2 Interval
+   * @param duration - OBR-27.3 Duration
+   * @param startDateTime - OBR-27.4 Start Date/Time
+   * @param endDateTime - OBR-27.5 End Date/Time
+   * @param priority - OBR-27.6 Priority
+   */
+  quantityTiming(
+    quantity: string,
+    interval?: string,
+    duration?: string,
+    startDateTime?: string,
+    endDateTime?: string,
+    priority?: string,
+  ): this {
+    this.fields[26] = this.createComponentsField([
+      quantity,
+      interval,
+      duration,
+      startDateTime,
+      endDateTime,
+      priority,
+    ]);
+    return this;
+  }
+  /**
+   * OBR-28 Result Copies To (chainable).
+   * @param id - OBR-28.1 ID Number
+   * @param familyName - OBR-28.2 Family Name
+   * @param givenName - OBR-28.3 Given Name
+   */
+  resultCopiesTo(id: string, familyName?: string, givenName?: string): this {
+    this.fields[27] = this.createComponentsField([id, familyName, givenName]);
+    return this;
+  }
+  /**
+   * OBR-29 Parent (chainable).
+   * @param placerAssignedIdentifier - OBR-29.1 Placer Assigned Identifier
+   * @param fillerAssignedIdentifier - OBR-29.2 Filler Assigned Identifier
+   */
+  parent(
+    placerAssignedIdentifier: string,
+    fillerAssignedIdentifier?: string,
+  ): this {
+    this.fields[28] = this.createComponentsField([
+      placerAssignedIdentifier,
+      fillerAssignedIdentifier,
+    ]);
+    return this;
+  }
+  /** OBR-30 Transportation Mode (chainable). */
+  transportationMode(value: string): this {
+    this.fields[29] = this.createField(value);
+    return this;
+  }
+  /**
+   * OBR-31 Reason for Study (chainable).
+   * @param code - OBR-31.1 Identifier
+   * @param text - OBR-31.2 Text
+   * @param codingSystem - OBR-31.3 Name of Coding System
+   */
+  reasonForStudy(code: string, text?: string, codingSystem?: string): this {
+    this.fields[30] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+  /**
+   * OBR-32 Principal Result Interpreter (chainable).
+   * @param name - OBR-32.1 Name
+   * @param startDateTime - OBR-32.2 Start Date/Time
+   * @param endDateTime - OBR-32.3 End Date/Time
+   */
+  principalResultInterpreter(
+    name: string,
+    startDateTime?: string,
+    endDateTime?: string,
+  ): this {
+    this.fields[31] = this.createComponentsField([
+      name,
+      startDateTime,
+      endDateTime,
+    ]);
+    return this;
+  }
+  /**
+   * OBR-33 Assistant Result Interpreter (chainable).
+   * @param name - OBR-33.1 Name
+   * @param startDateTime - OBR-33.2 Start Date/Time
+   * @param endDateTime - OBR-33.3 End Date/Time
+   */
+  assistantResultInterpreter(
+    name: string,
+    startDateTime?: string,
+    endDateTime?: string,
+  ): this {
+    this.fields[32] = this.createComponentsField([
+      name,
+      startDateTime,
+      endDateTime,
+    ]);
+    return this;
+  }
+  /**
+   * OBR-34 Technician (chainable).
+   * @param name - OBR-34.1 Name
+   * @param startDateTime - OBR-34.2 Start Date/Time
+   * @param endDateTime - OBR-34.3 End Date/Time
+   */
+  technician(
+    name: string,
+    startDateTime?: string,
+    endDateTime?: string,
+  ): this {
+    this.fields[33] = this.createComponentsField([
+      name,
+      startDateTime,
+      endDateTime,
+    ]);
+    return this;
+  }
+  /**
+   * OBR-35 Transcriptionist (chainable).
+   * @param name - OBR-35.1 Name
+   * @param startDateTime - OBR-35.2 Start Date/Time
+   * @param endDateTime - OBR-35.3 End Date/Time
+   */
+  transcriptionist(
+    name: string,
+    startDateTime?: string,
+    endDateTime?: string,
+  ): this {
+    this.fields[34] = this.createComponentsField([
+      name,
+      startDateTime,
+      endDateTime,
+    ]);
+    return this;
+  }
+  /** OBR-36 Scheduled Date Time (chainable). */
+  scheduledDateTime(value: string, format?: never): this;
+  /** OBR-36 Scheduled Date Time (chainable). */
+  scheduledDateTime(value: Date, format?: HL7DateTimeLayout): this;
+  scheduledDateTime(value: string | Date, format?: HL7DateTimeLayout): this {
+    this.fields[35] = this.createField(
+      formatHL7Date(value, format ?? DateTimeLayout),
+    );
+    return this;
+  }
+  /** OBR-37 Number of Sample Containers (chainable). */
+  numberOfSampleContainers(value: string): this {
+    this.fields[36] = this.createField(value);
+    return this;
+  }
+  /**
+   * OBR-38 Transport Logistics of Collected Sample (chainable).
+   * @param code - OBR-38.1 Identifier
+   * @param text - OBR-38.2 Text
+   * @param codingSystem - OBR-38.3 Name of Coding System
+   */
+  transportLogisticsOfCollectedSample(
+    code: string,
+    text?: string,
+    codingSystem?: string,
+  ): this {
+    this.fields[37] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+  /**
+   * OBR-39 Collector's Comment (chainable).
+   * @param code - OBR-39.1 Identifier
+   * @param text - OBR-39.2 Text
+   * @param codingSystem - OBR-39.3 Name of Coding System
+   */
+  collectorsComment(code: string, text?: string, codingSystem?: string): this {
+    this.fields[38] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+  /**
+   * OBR-40 Transport Arrangement Responsibility (chainable).
+   * @param code - OBR-40.1 Identifier
+   * @param text - OBR-40.2 Text
+   * @param codingSystem - OBR-40.3 Name of Coding System
+   */
+  transportArrangementResponsibility(
+    code: string,
+    text?: string,
+    codingSystem?: string,
+  ): this {
+    this.fields[39] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+  /** OBR-41 Transport Arranged (chainable). */
+  transportArranged(value: string): this {
+    this.fields[40] = this.createField(value);
+    return this;
+  }
+  /** OBR-42 Escort Required (chainable). */
+  escortRequired(value: string): this {
+    this.fields[41] = this.createField(value);
+    return this;
+  }
+  /**
+   * OBR-43 Planned Patient Transport Comment (chainable).
+   * @param code - OBR-43.1 Identifier
+   * @param text - OBR-43.2 Text
+   * @param codingSystem - OBR-43.3 Name of Coding System
+   */
+  plannedPatientTransportComment(
+    code: string,
+    text?: string,
+    codingSystem?: string,
+  ): this {
+    this.fields[42] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
 
   /** Parses the input string into a structured instance. */
   static parse(

@@ -137,9 +137,60 @@ export class NK1 extends BaseSegment {
     return this;
   }
 
+  /**
+   * NK1-11 Next of Kin / Associated Parties Job Code/Class (chainable).
+   * @param jobCode - NK1-11.1 Job Code
+   * @param jobClass - NK1-11.2 Job Class
+   * @param jobDescription - NK1-11.3 Job Description Text
+   */
+  jobCodeClass(
+    jobCode: string,
+    jobClass?: string,
+    jobDescription?: string,
+  ): this {
+    this.fields[10] = this.createComponentsField([
+      jobCode,
+      jobClass,
+      jobDescription,
+    ]);
+    return this;
+  }
+
+  /**
+   * NK1-12 Next of Kin / Associated Parties Employee Number (chainable).
+   * @param id - NK1-12.1 ID Number
+   * @param assigningAuthority - NK1-12.4 Assigning Authority
+   * @param identifierTypeCode - NK1-12.5 Identifier Type Code
+   */
+  employeeNumber(
+    id: string,
+    assigningAuthority?: string,
+    identifierTypeCode?: string,
+  ): this {
+    this.fields[11] = this.createComponentsField([
+      id,
+      undefined,
+      undefined,
+      assigningAuthority,
+      identifierTypeCode,
+    ]);
+    return this;
+  }
+
   /** NK1-13 Organization Name (chainable). */
   organizationName(name: string): this {
     this.fields[12] = this.createField(name);
+    return this;
+  }
+
+  /**
+   * NK1-14 Marital Status (chainable).
+   * @param code - NK1-14.1 Identifier
+   * @param text - NK1-14.2 Text
+   * @param codingSystem - NK1-14.3 Name of Coding System
+   */
+  maritalStatus(code: string, text?: string, codingSystem?: string): this {
+    this.fields[13] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
 
@@ -152,6 +203,247 @@ export class NK1 extends BaseSegment {
   /** NK1-16 Date/Time of Birth (chainable). */
   dateTimeOfBirth(dateTime: string): this {
     this.fields[15] = this.createField(dateTime);
+    return this;
+  }
+
+  /** NK1-17 Living Dependency (chainable). */
+  livingDependency(value: string): this {
+    this.fields[16] = this.createField(value);
+    return this;
+  }
+
+  /** NK1-18 Ambulatory Status (chainable). */
+  ambulatoryStatus(value: string): this {
+    this.fields[17] = this.createField(value);
+    return this;
+  }
+
+  /**
+   * NK1-19 Citizenship (chainable).
+   * @param code - NK1-19.1 Identifier
+   * @param text - NK1-19.2 Text
+   * @param codingSystem - NK1-19.3 Name of Coding System
+   */
+  citizenship(code: string, text?: string, codingSystem?: string): this {
+    this.fields[18] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+
+  /**
+   * NK1-20 Primary Language (chainable).
+   * @param code - NK1-20.1 Identifier
+   * @param text - NK1-20.2 Text
+   * @param codingSystem - NK1-20.3 Name of Coding System
+   */
+  primaryLanguage(code: string, text?: string, codingSystem?: string): this {
+    this.fields[19] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+
+  /** NK1-21 Living Arrangement (chainable). */
+  livingArrangement(value: string): this {
+    this.fields[20] = this.createField(value);
+    return this;
+  }
+
+  /**
+   * NK1-22 Publicity Code (chainable).
+   * @param code - NK1-22.1 Identifier
+   * @param text - NK1-22.2 Text
+   * @param codingSystem - NK1-22.3 Name of Coding System
+   */
+  publicityCode(code: string, text?: string, codingSystem?: string): this {
+    this.fields[21] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+
+  /** NK1-23 Protection Indicator (chainable). */
+  protectionIndicator(value: string): this {
+    this.fields[22] = this.createField(value);
+    return this;
+  }
+
+  /** NK1-24 Student Indicator (chainable). */
+  studentIndicator(value: string): this {
+    this.fields[23] = this.createField(value);
+    return this;
+  }
+
+  /**
+   * NK1-25 Religion (chainable).
+   * @param code - NK1-25.1 Identifier
+   * @param text - NK1-25.2 Text
+   * @param codingSystem - NK1-25.3 Name of Coding System
+   */
+  religion(code: string, text?: string, codingSystem?: string): this {
+    this.fields[24] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+
+  /**
+   * NK1-26 Mother's Maiden Name (chainable).
+   * @param familyName - NK1-26.1 Family Name
+   * @param givenName - NK1-26.2 Given Name
+   * @param middleName - NK1-26.3 Middle Name
+   * @param suffix - NK1-26.4 Suffix
+   * @param prefix - NK1-26.5 Prefix
+   */
+  mothersMaidenName(
+    familyName: string,
+    givenName?: string,
+    middleName?: string,
+    suffix?: string,
+    prefix?: string,
+  ): this {
+    this.fields[25] = this.createComponentsField([
+      familyName,
+      givenName,
+      middleName,
+      suffix,
+      prefix,
+    ]);
+    return this;
+  }
+
+  /**
+   * NK1-27 Nationality (chainable).
+   * @param code - NK1-27.1 Identifier
+   * @param text - NK1-27.2 Text
+   * @param codingSystem - NK1-27.3 Name of Coding System
+   */
+  nationality(code: string, text?: string, codingSystem?: string): this {
+    this.fields[26] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+
+  /**
+   * NK1-28 Ethnic Group (chainable).
+   * @param code - NK1-28.1 Identifier
+   * @param text - NK1-28.2 Text
+   * @param codingSystem - NK1-28.3 Name of Coding System
+   */
+  ethnicGroup(code: string, text?: string, codingSystem?: string): this {
+    this.fields[27] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+
+  /**
+   * NK1-29 Contact Reason (chainable).
+   * @param code - NK1-29.1 Identifier
+   * @param text - NK1-29.2 Text
+   * @param codingSystem - NK1-29.3 Name of Coding System
+   */
+  contactReason(code: string, text?: string, codingSystem?: string): this {
+    this.fields[28] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+
+  /**
+   * NK1-30 Contact Person's Name (chainable).
+   * @param familyName - NK1-30.1 Family Name
+   * @param givenName - NK1-30.2 Given Name
+   * @param middleName - NK1-30.3 Middle Name
+   * @param suffix - NK1-30.4 Suffix
+   * @param prefix - NK1-30.5 Prefix
+   */
+  contactPersonName(
+    familyName: string,
+    givenName?: string,
+    middleName?: string,
+    suffix?: string,
+    prefix?: string,
+  ): this {
+    this.fields[29] = this.createComponentsField([
+      familyName,
+      givenName,
+      middleName,
+      suffix,
+      prefix,
+    ]);
+    return this;
+  }
+
+  /** NK1-31 Contact Person's Telephone Number (chainable). */
+  contactPersonTelephoneNumber(value: string): this {
+    this.fields[30] = this.createField(value);
+    return this;
+  }
+
+  /**
+   * NK1-32 Contact Person's Address (chainable).
+   * @param street - NK1-32.1 Street Address
+   * @param otherDesignation - NK1-32.2 Other Designation
+   * @param city - NK1-32.3 City
+   * @param state - NK1-32.4 State or Province
+   * @param zip - NK1-32.5 Zip or Postal Code
+   * @param country - NK1-32.6 Country
+   */
+  contactPersonAddress(
+    street: string,
+    otherDesignation?: string,
+    city?: string,
+    state?: string,
+    zip?: string,
+    country?: string,
+  ): this {
+    this.fields[31] = this.createComponentsField([
+      street,
+      otherDesignation,
+      city,
+      state,
+      zip,
+      country,
+    ]);
+    return this;
+  }
+
+  /**
+   * NK1-33 Next of Kin/Associated Party's Identifiers (chainable).
+   * @param id - NK1-33.1 ID Number
+   * @param assigningAuthority - NK1-33.4 Assigning Authority
+   * @param identifierTypeCode - NK1-33.5 Identifier Type Code
+   */
+  associatedPartysIdentifiers(
+    id: string,
+    assigningAuthority?: string,
+    identifierTypeCode?: string,
+  ): this {
+    this.fields[32] = this.createComponentsField([
+      id,
+      undefined,
+      undefined,
+      assigningAuthority,
+      identifierTypeCode,
+    ]);
+    return this;
+  }
+
+  /** NK1-34 Job Status (chainable). */
+  jobStatus(value: string): this {
+    this.fields[33] = this.createField(value);
+    return this;
+  }
+
+  /**
+   * NK1-35 Race (chainable).
+   * @param code - NK1-35.1 Identifier
+   * @param text - NK1-35.2 Text
+   * @param codingSystem - NK1-35.3 Name of Coding System
+   */
+  race(code: string, text?: string, codingSystem?: string): this {
+    this.fields[34] = this.createComponentsField([code, text, codingSystem]);
+    return this;
+  }
+
+  /** NK1-36 Handicap (chainable). */
+  handicap(value: string): this {
+    this.fields[35] = this.createField(value);
+    return this;
+  }
+
+  /** NK1-37 Contact Person Social Security Number (chainable). */
+  contactPersonSocialSecurityNumber(value: string): this {
+    this.fields[36] = this.createField(value);
     return this;
   }
 

@@ -14,6 +14,25 @@ import { DG1 as DG1_base } from "../v2.3/DG1.ts";
  * Extends v2.3 DG1. Add v2.5.1-specific fields here as needed.
  */
 export class DG1 extends DG1_base {
+  /**
+   * DG1-20 Diagnosis Identifier (chainable).
+   * @param entityIdentifier - DG1-20.1 Entity Identifier
+   * @param namespaceId - DG1-20.2 Namespace ID
+   */
+  diagnosisIdentifier(entityIdentifier: string, namespaceId?: string): this {
+    this.fields[19] = this.createComponentsField([
+      entityIdentifier,
+      namespaceId,
+    ]);
+    return this;
+  }
+
+  /** DG1-21 Diagnosis Action Code (chainable). */
+  diagnosisActionCode(value: string): this {
+    this.fields[20] = this.createField(value);
+    return this;
+  }
+
   /** Parses the input string into a structured instance. */
   static override parse(
     segmentString: string,
