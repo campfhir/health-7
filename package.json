@@ -92,7 +92,8 @@
     "prepublishOnly": "pnpm run build && pnpm test",
     "convert": "node excel-to-hl7/dist/index.js convert",
     "verify": "node excel-to-hl7/dist/index.js verify",
-    "codegen": "tsx codegen/generate.ts"
+    "codegen": "tsx codegen/generate.ts",
+    "test:positions": "tsx codegen/generate-field-position-tests.ts"
   },
   "keywords": [
     "hl7",
