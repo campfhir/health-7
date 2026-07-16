@@ -36,6 +36,40 @@ test("BaseSegment createField with 2D string array (components with subcomponent
   expect(field.components[1].subComponents[0]).toBe("sub3");
 });
 
+test("BaseSegment createComponentsField preserves interior gaps (CX-style)", () => {
+  const segment = new TestSegment();
+  // CX: id at .1, assigning authority at .4, identifier type at .5.
+  const field = segment["createComponentsField"](["id", undefined, undefined, "AUTH", "MR"]);
+  const encoded = segment["encodeField"](field, DEFAULT_ENCODING);
+  expect(encoded).toBe("id^^^AUTH^MR");
+});
+
+test("BaseSegment createComponentsField trims trailing empties", () => {
+  const segment = new TestSegment();
+  const field = segment["createComponentsField"](["only", undefined, undefined]);
+  expect(segment["encodeField"](field, DEFAULT_ENCODING)).toBe("only");
+});
+
+test("BaseSegment createComponentsField keeps interior gap, trims trailing (XPN-style)", () => {
+  const segment = new TestSegment();
+  // family at .1, suffix at .4, no given/middle, no prefix.
+  const field = segment["createComponentsField"](["Doe", "", "", "Jr", ""]);
+  expect(segment["encodeField"](field, DEFAULT_ENCODING)).toBe("Doe^^^Jr");
+});
+
+test("BaseSegment createComponentsField encodes coded element as components (CE)", () => {
+  const segment = new TestSegment();
+  const field = segment["createComponentsField"](["A", "B", "C"]);
+  // components (^), NOT subcomponents (&)
+  expect(segment["encodeField"](field, DEFAULT_ENCODING)).toBe("A^B^C");
+});
+
+test("BaseSegment createComponentsField all-empty yields empty field", () => {
+  const segment = new TestSegment();
+  const field = segment["createComponentsField"]([undefined, ""]);
+  expect(segment["encodeField"](field, DEFAULT_ENCODING)).toBe("");
+});
+
 test("BaseSegment createEmptyField", () => {
   const segment = new TestSegment();
   const field = segment["createEmptyField"]();

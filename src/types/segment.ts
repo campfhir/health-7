@@ -78,6 +78,29 @@ export abstract class BaseSegment implements Segment {
     };
   }
 
+  /**
+   * Build a field from positional components.
+   *
+   * Each array element maps to the HL7 component at that position (index 0 ->
+   * component 1). Nullish/omitted entries become empty components, which
+   * PRESERVES interior gaps — e.g. a CX where the assigning authority is
+   * component 4 is written as `id, undefined, undefined, authority` and encodes
+   * as `id^^^authority`. Trailing empty components are trimmed so a single
+   * value encodes as just `id`, not `id^^^`.
+   *
+   * Use this for any composite field (CE, CX, XPN, XAD, XCN, …). Do NOT build
+   * fields with `if (x) components.push(x)` — that collapses gaps and shifts
+   * later components to the wrong position.
+   */
+  protected createComponentsField(
+    values: readonly (string | undefined | null)[],
+  ): Field {
+    const comps = values.map((v) => v ?? "");
+    while (comps.length > 0 && comps[comps.length - 1] === "") comps.pop();
+    if (comps.length === 0) return this.createEmptyField();
+    return { components: comps.map((v) => ({ subComponents: [v] })) };
+  }
+
   /** Create empty field. */
   protected createEmptyField(): Field {
     return {
