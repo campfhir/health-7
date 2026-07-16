@@ -41,13 +41,7 @@ export class RXD extends BaseSegment {
    * @param codingSystem - RXD-2.3 Coding System
    */
   dispenseGiveCode(code: string, text?: string, codingSystem?: string): this {
-    if (text || codingSystem) {
-      this.fields[1] = this.createField([
-        [code, text || "", codingSystem || ""],
-      ]);
-    } else {
-      this.fields[1] = this.createField(code);
-    }
+    this.fields[1] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
 
@@ -74,11 +68,7 @@ export class RXD extends BaseSegment {
    * @param text - RXD-5.2 Text
    */
   actualDispenseUnits(code: string, text?: string): this {
-    if (text) {
-      this.fields[4] = this.createField([[code, text]]);
-    } else {
-      this.fields[4] = this.createField(code);
-    }
+    this.fields[4] = this.createComponentsField([code, text]);
     return this;
   }
 
@@ -88,11 +78,7 @@ export class RXD extends BaseSegment {
    * @param text - RXD-6.2 Text
    */
   actualDosageForm(code: string, text?: string): this {
-    if (text) {
-      this.fields[5] = this.createField([[code, text]]);
-    } else {
-      this.fields[5] = this.createField(code);
-    }
+    this.fields[5] = this.createComponentsField([code, text]);
     return this;
   }
 
@@ -125,13 +111,7 @@ export class RXD extends BaseSegment {
     familyName?: string,
     givenName?: string,
   ): this {
-    if (familyName || givenName) {
-      this.fields[9] = this.createField([
-        [id, familyName || "", givenName || ""],
-      ]);
-    } else {
-      this.fields[9] = this.createField(id);
-    }
+    this.fields[9] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }
 
@@ -164,11 +144,7 @@ export class RXD extends BaseSegment {
    * @param text - RXD-20.2 Text
    */
   substanceManufacturerName(code: string, text?: string): this {
-    if (text) {
-      this.fields[19] = this.createField([[code, text]]);
-    } else {
-      this.fields[19] = this.createField(code);
-    }
+    this.fields[19] = this.createComponentsField([code, text]);
     return this;
   }
 

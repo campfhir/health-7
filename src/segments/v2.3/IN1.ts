@@ -50,7 +50,12 @@ export class IN1 extends BaseSegment {
    * @param assigningAuthority - IN1-3.4 Assigning Authority
    */
   insuranceCompanyId(id: string, assigningAuthority?: string): this {
-    this.fields[2] = this.createField([[id, "", "", assigningAuthority || ""]]);
+    this.fields[2] = this.createComponentsField([
+      id,
+      "",
+      "",
+      assigningAuthority || "",
+    ]);
     return this;
   }
 
@@ -73,8 +78,12 @@ export class IN1 extends BaseSegment {
     state?: string,
     zip?: string,
   ): this {
-    this.fields[4] = this.createField([
-      [street, "", city || "", state || "", zip || ""],
+    this.fields[4] = this.createComponentsField([
+      street,
+      "",
+      city || "",
+      state || "",
+      zip || "",
     ]);
     return this;
   }
@@ -85,7 +94,7 @@ export class IN1 extends BaseSegment {
    * @param givenName - IN1-6.2 Given Name
    */
   insuranceContactPerson(familyName: string, givenName?: string): this {
-    this.fields[5] = this.createField([[familyName, givenName || ""]]);
+    this.fields[5] = this.createComponentsField([familyName, givenName || ""]);
     return this;
   }
 
@@ -152,8 +161,10 @@ export class IN1 extends BaseSegment {
     date?: string,
     source?: string,
   ): this {
-    this.fields[13] = this.createField([
-      [authorizationNumber, date || "", source || ""],
+    this.fields[13] = this.createComponentsField([
+      authorizationNumber,
+      date || "",
+      source || "",
     ]);
     return this;
   }
@@ -175,8 +186,10 @@ export class IN1 extends BaseSegment {
     givenName?: string,
     middleName?: string,
   ): this {
-    this.fields[15] = this.createField([
-      [familyName, givenName || "", middleName || ""],
+    this.fields[15] = this.createComponentsField([
+      familyName,
+      givenName || "",
+      middleName || "",
     ]);
     return this;
   }
@@ -215,8 +228,12 @@ export class IN1 extends BaseSegment {
     state?: string,
     zip?: string,
   ): this {
-    this.fields[18] = this.createField([
-      [street, "", city || "", state || "", zip || ""],
+    this.fields[18] = this.createComponentsField([
+      street,
+      "",
+      city || "",
+      state || "",
+      zip || "",
     ]);
     return this;
   }

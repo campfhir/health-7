@@ -49,11 +49,11 @@ export class OBX extends BaseSegment {
     text?: string,
     nameOfCodingSystem?: string,
   ): this {
-    const components = [identifier];
-    if (text) components.push(text);
-    if (nameOfCodingSystem) components.push(nameOfCodingSystem);
-
-    this.fields[2] = this.createField(components);
+    this.fields[2] = this.createComponentsField([
+      identifier,
+      text,
+      nameOfCodingSystem,
+    ]);
     return this;
   }
   /** OBX-4 Observation Sub ID (chainable). */
@@ -73,12 +73,11 @@ export class OBX extends BaseSegment {
    * @param nameOfCodingSystem - OBX-6.3 Name of Coding System
    */
   units(identifier?: string, text?: string, nameOfCodingSystem?: string): this {
-    const components = [];
-    if (identifier) components.push(identifier);
-    if (text) components.push(text);
-    if (nameOfCodingSystem) components.push(nameOfCodingSystem);
-
-    this.fields[5] = this.createField(components);
+    this.fields[5] = this.createComponentsField([
+      identifier,
+      text,
+      nameOfCodingSystem,
+    ]);
     return this;
   }
   /** OBX-7 Reference Range (chainable). */
@@ -153,11 +152,7 @@ export class OBX extends BaseSegment {
     familyName?: string,
     givenName?: string,
   ): this {
-    const components = [id];
-    if (familyName) components.push(familyName);
-    if (givenName) components.push(givenName);
-
-    this.fields[15] = this.createField(components);
+    this.fields[15] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }
   /**
@@ -171,12 +166,11 @@ export class OBX extends BaseSegment {
     text?: string,
     nameOfCodingSystem?: string,
   ): this {
-    const components = [];
-    if (identifier) components.push(identifier);
-    if (text) components.push(text);
-    if (nameOfCodingSystem) components.push(nameOfCodingSystem);
-
-    this.fields[16] = this.createField(components);
+    this.fields[16] = this.createComponentsField([
+      identifier,
+      text,
+      nameOfCodingSystem,
+    ]);
     return this;
   }
 

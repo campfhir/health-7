@@ -51,8 +51,11 @@ export class AIL extends BaseSegment {
     bed?: string,
     facility?: string,
   ): this {
-    this.fields[2] = this.createField([
-      [pointOfCare, room || "", bed || "", facility || ""],
+    this.fields[2] = this.createComponentsField([
+      pointOfCare,
+      room || "",
+      bed || "",
+      facility || "",
     ]);
     return this;
   }
@@ -63,11 +66,7 @@ export class AIL extends BaseSegment {
    * @param text - AIL-4.2 Text
    */
   locationType(code: string, text?: string): this {
-    if (text) {
-      this.fields[3] = this.createField([[code, text]]);
-    } else {
-      this.fields[3] = this.createField(code);
-    }
+    this.fields[3] = this.createComponentsField([code, text]);
     return this;
   }
 
@@ -77,11 +76,7 @@ export class AIL extends BaseSegment {
    * @param text - AIL-5.2 Text
    */
   locationGroup(code: string, text?: string): this {
-    if (text) {
-      this.fields[4] = this.createField([[code, text]]);
-    } else {
-      this.fields[4] = this.createField(code);
-    }
+    this.fields[4] = this.createComponentsField([code, text]);
     return this;
   }
 
@@ -108,11 +103,7 @@ export class AIL extends BaseSegment {
    * @param text - AIL-8.2 Text
    */
   startDateTimeOffsetUnits(code: string, text?: string): this {
-    if (text) {
-      this.fields[7] = this.createField([[code, text]]);
-    } else {
-      this.fields[7] = this.createField(code);
-    }
+    this.fields[7] = this.createComponentsField([code, text]);
     return this;
   }
 
@@ -128,11 +119,7 @@ export class AIL extends BaseSegment {
    * @param text - AIL-10.2 Text
    */
   durationUnits(code: string, text?: string): this {
-    if (text) {
-      this.fields[9] = this.createField([[code, text]]);
-    } else {
-      this.fields[9] = this.createField(code);
-    }
+    this.fields[9] = this.createComponentsField([code, text]);
     return this;
   }
 
@@ -148,11 +135,7 @@ export class AIL extends BaseSegment {
    * @param text - AIL-12.2 Text
    */
   fillerStatusCode(code: string, text?: string): this {
-    if (text) {
-      this.fields[11] = this.createField([[code, text]]);
-    } else {
-      this.fields[11] = this.createField(code);
-    }
+    this.fields[11] = this.createComponentsField([code, text]);
     return this;
   }
 

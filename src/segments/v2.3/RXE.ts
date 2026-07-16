@@ -34,11 +34,7 @@ export class RXE extends BaseSegment {
    * @param codingSystem - RXE-2.3 Coding System
    */
   giveCode(code: string, text?: string, codingSystem?: string): this {
-    if (text || codingSystem) {
-      this.fields[1] = this.createField([[code, text || "", codingSystem || ""]]);
-    } else {
-      this.fields[1] = this.createField(code);
-    }
+    this.fields[1] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
 
@@ -60,11 +56,7 @@ export class RXE extends BaseSegment {
    * @param text - RXE-5.2 Text
    */
   giveUnits(code: string, text?: string): this {
-    if (text) {
-      this.fields[4] = this.createField([[code, text]]);
-    } else {
-      this.fields[4] = this.createField(code);
-    }
+    this.fields[4] = this.createComponentsField([code, text]);
     return this;
   }
 
@@ -74,11 +66,7 @@ export class RXE extends BaseSegment {
    * @param text - RXE-6.2 Text
    */
   giveDosageForm(code: string, text?: string): this {
-    if (text) {
-      this.fields[5] = this.createField([[code, text]]);
-    } else {
-      this.fields[5] = this.createField(code);
-    }
+    this.fields[5] = this.createComponentsField([code, text]);
     return this;
   }
 
@@ -88,11 +76,7 @@ export class RXE extends BaseSegment {
    * @param text - RXE-7.2 Text
    */
   providerAdminInstructions(code: string, text?: string): this {
-    if (text) {
-      this.fields[6] = this.createField([[code, text]]);
-    } else {
-      this.fields[6] = this.createField(code);
-    }
+    this.fields[6] = this.createComponentsField([code, text]);
     return this;
   }
 
@@ -108,11 +92,7 @@ export class RXE extends BaseSegment {
    * @param text - RXE-11.2 Text
    */
   dispenseUnits(code: string, text?: string): this {
-    if (text) {
-      this.fields[10] = this.createField([[code, text]]);
-    } else {
-      this.fields[10] = this.createField(code);
-    }
+    this.fields[10] = this.createComponentsField([code, text]);
     return this;
   }
 
@@ -129,11 +109,7 @@ export class RXE extends BaseSegment {
    * @param givenName - RXE-13.3 Given Name
    */
   orderingProviderDeaNumber(id: string, familyName?: string, givenName?: string): this {
-    if (familyName || givenName) {
-      this.fields[12] = this.createField([[id, familyName || "", givenName || ""]]);
-    } else {
-      this.fields[12] = this.createField(id);
-    }
+    this.fields[12] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }
 
@@ -144,11 +120,7 @@ export class RXE extends BaseSegment {
    * @param givenName - RXE-14.3 Given Name
    */
   pharmacistVerifierId(id: string, familyName?: string, givenName?: string): this {
-    if (familyName || givenName) {
-      this.fields[13] = this.createField([[id, familyName || "", givenName || ""]]);
-    } else {
-      this.fields[13] = this.createField(id);
-    }
+    this.fields[13] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }
 
@@ -182,11 +154,7 @@ export class RXE extends BaseSegment {
    * @param text - RXE-24.2 Text
    */
   giveRateUnits(code: string, text?: string): this {
-    if (text) {
-      this.fields[23] = this.createField([[code, text]]);
-    } else {
-      this.fields[23] = this.createField(code);
-    }
+    this.fields[23] = this.createComponentsField([code, text]);
     return this;
   }
 
@@ -202,11 +170,7 @@ export class RXE extends BaseSegment {
    * @param text - RXE-26.2 Text
    */
   giveStrengthUnits(code: string, text?: string): this {
-    if (text) {
-      this.fields[25] = this.createField([[code, text]]);
-    } else {
-      this.fields[25] = this.createField(code);
-    }
+    this.fields[25] = this.createComponentsField([code, text]);
     return this;
   }
 

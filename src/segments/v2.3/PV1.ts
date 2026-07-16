@@ -53,15 +53,14 @@ export class PV1 extends BaseSegment {
     locationStatus?: string,
     personLocationType?: string,
   ): this {
-    const components = [];
-    if (pointOfCare) components.push(pointOfCare);
-    if (room) components.push(room);
-    if (bed) components.push(bed);
-    if (facility) components.push(facility);
-    if (locationStatus) components.push(locationStatus);
-    if (personLocationType) components.push(personLocationType);
-
-    this.fields[2] = this.createField(components);
+    this.fields[2] = this.createComponentsField([
+      pointOfCare,
+      room,
+      bed,
+      facility,
+      locationStatus,
+      personLocationType,
+    ]);
     return this;
   }
   /** PV1-4 Admission Type (chainable). */
@@ -87,13 +86,12 @@ export class PV1 extends BaseSegment {
     bed?: string,
     facility?: string,
   ): this {
-    const components = [];
-    if (pointOfCare) components.push(pointOfCare);
-    if (room) components.push(room);
-    if (bed) components.push(bed);
-    if (facility) components.push(facility);
-
-    this.fields[5] = this.createField(components);
+    this.fields[5] = this.createComponentsField([
+      pointOfCare,
+      room,
+      bed,
+      facility,
+    ]);
     return this;
   }
   /**
@@ -103,11 +101,7 @@ export class PV1 extends BaseSegment {
    * @param givenName - PV1-7.3 Given Name
    */
   attendingDoctor(id: string, familyName?: string, givenName?: string): this {
-    const components = [id];
-    if (familyName) components.push(familyName);
-    if (givenName) components.push(givenName);
-
-    this.fields[6] = this.createField(components);
+    this.fields[6] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }
   /**
@@ -117,11 +111,7 @@ export class PV1 extends BaseSegment {
    * @param givenName - PV1-8.3 Given Name
    */
   referringDoctor(id: string, familyName?: string, givenName?: string): this {
-    const components = [id];
-    if (familyName) components.push(familyName);
-    if (givenName) components.push(givenName);
-
-    this.fields[7] = this.createField(components);
+    this.fields[7] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }
   /**
@@ -131,11 +121,7 @@ export class PV1 extends BaseSegment {
    * @param givenName - PV1-9.3 Given Name
    */
   consultingDoctor(id: string, familyName?: string, givenName?: string): this {
-    const components = [id];
-    if (familyName) components.push(familyName);
-    if (givenName) components.push(givenName);
-
-    this.fields[8] = this.createField(components);
+    this.fields[8] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }
   /** PV1-10 Hospital Service (chainable). */
@@ -150,12 +136,7 @@ export class PV1 extends BaseSegment {
    * @param bed - PV1-11.3 Bed
    */
   temporaryLocation(pointOfCare?: string, room?: string, bed?: string): this {
-    const components = [];
-    if (pointOfCare) components.push(pointOfCare);
-    if (room) components.push(room);
-    if (bed) components.push(bed);
-
-    this.fields[10] = this.createField(components);
+    this.fields[10] = this.createComponentsField([pointOfCare, room, bed]);
     return this;
   }
   /**
@@ -174,17 +155,13 @@ export class PV1 extends BaseSegment {
     assigningAuthority?: string,
     identifierType?: string,
   ): this {
-    const components = [value];
-    if (assigningAuthority || identifierType) {
-      components[1] = ""; // CX.2 Check Digit
-      components[2] = ""; // CX.3 Check Digit Scheme
-      components[3] = assigningAuthority ?? ""; // CX.4 Assigning Authority
-    }
-    if (identifierType) {
-      components[4] = identifierType; // CX.5 Identifier Type Code
-    }
-
-    this.fields[18] = this.createField(components);
+    this.fields[18] = this.createComponentsField([
+      value,
+      undefined,
+      undefined,
+      assigningAuthority,
+      identifierType,
+    ]);
     return this;
   }
   /** PV1-44 Admit Date/Time (chainable). */

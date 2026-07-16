@@ -28,7 +28,11 @@ export class RXR extends BaseSegment {
    * @param codingSystem - RXR-1.3 Coding System
    */
   route(code: string, text?: string, codingSystem?: string): this {
-    this.fields[0] = this.createField([[code, text || "", codingSystem || ""]]);
+    this.fields[0] = this.createComponentsField([
+      code,
+      text || "",
+      codingSystem || "",
+    ]);
     return this;
   }
 
@@ -38,7 +42,7 @@ export class RXR extends BaseSegment {
    * @param text - RXR-2.2 Text
    */
   administrationSite(code: string, text?: string): this {
-    this.fields[1] = this.createField([[code, text || ""]]);
+    this.fields[1] = this.createComponentsField([code, text || ""]);
     return this;
   }
 
@@ -48,7 +52,7 @@ export class RXR extends BaseSegment {
    * @param text - RXR-3.2 Text
    */
   administrationDevice(code: string, text?: string): this {
-    this.fields[2] = this.createField([[code, text || ""]]);
+    this.fields[2] = this.createComponentsField([code, text || ""]);
     return this;
   }
 
@@ -58,7 +62,7 @@ export class RXR extends BaseSegment {
    * @param text - RXR-4.2 Text
    */
   administrationMethod(code: string, text?: string): this {
-    this.fields[3] = this.createField([[code, text || ""]]);
+    this.fields[3] = this.createComponentsField([code, text || ""]);
     return this;
   }
 
@@ -68,7 +72,7 @@ export class RXR extends BaseSegment {
    * @param text - RXR-5.2 Text
    */
   routingInstruction(code: string, text?: string): this {
-    this.fields[4] = this.createField([[code, text || ""]]);
+    this.fields[4] = this.createComponentsField([code, text || ""]);
     return this;
   }
 
@@ -78,7 +82,7 @@ export class RXR extends BaseSegment {
    * @param text - RXR-6.2 Text
    */
   administrationSiteModifier(code: string, text?: string): this {
-    this.fields[5] = this.createField([[code, text || ""]]);
+    this.fields[5] = this.createComponentsField([code, text || ""]);
     return this;
   }
 

@@ -49,13 +49,11 @@ export class NTE extends BaseSegment {
    * @param codingSystem - NTE-4.3 Coding System
    */
   commentType(identifier: string, text?: string, codingSystem?: string): this {
-    if (text || codingSystem) {
-      this.fields[3] = this.createField([
-        [identifier, text || "", codingSystem || ""],
-      ]);
-    } else {
-      this.fields[3] = this.createField(identifier);
-    }
+    this.fields[3] = this.createComponentsField([
+      identifier,
+      text,
+      codingSystem,
+    ]);
     return this;
   }
 

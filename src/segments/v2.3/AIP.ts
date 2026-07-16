@@ -49,13 +49,11 @@ export class AIP extends BaseSegment {
     familyName?: string,
     givenName?: string,
   ): this {
-    if (familyName || givenName) {
-      this.fields[2] = this.createField([
-        [id, familyName || "", givenName || ""],
-      ]);
-    } else {
-      this.fields[2] = this.createField(id);
-    }
+    this.fields[2] = this.createComponentsField([
+      id,
+      familyName || "",
+      givenName || "",
+    ]);
     return this;
   }
 
@@ -66,13 +64,11 @@ export class AIP extends BaseSegment {
    * @param codingSystem - AIP-4.3 Coding System
    */
   resourceType(code: string, text?: string, codingSystem?: string): this {
-    if (text || codingSystem) {
-      this.fields[3] = this.createField([
-        [code, text || "", codingSystem || ""],
-      ]);
-    } else {
-      this.fields[3] = this.createField(code);
-    }
+    this.fields[3] = this.createComponentsField([
+      code,
+      text || "",
+      codingSystem || "",
+    ]);
     return this;
   }
 
@@ -82,11 +78,7 @@ export class AIP extends BaseSegment {
    * @param text - AIP-5.2 Text
    */
   resourceGroup(code: string, text?: string): this {
-    if (text) {
-      this.fields[4] = this.createField([[code, text]]);
-    } else {
-      this.fields[4] = this.createField(code);
-    }
+    this.fields[4] = this.createComponentsField([code, text]);
     return this;
   }
 
@@ -113,11 +105,7 @@ export class AIP extends BaseSegment {
    * @param text - AIP-8.2 Text
    */
   startDateTimeOffsetUnits(code: string, text?: string): this {
-    if (text) {
-      this.fields[7] = this.createField([[code, text]]);
-    } else {
-      this.fields[7] = this.createField(code);
-    }
+    this.fields[7] = this.createComponentsField([code, text]);
     return this;
   }
 
@@ -133,11 +121,7 @@ export class AIP extends BaseSegment {
    * @param text - AIP-10.2 Text
    */
   durationUnits(code: string, text?: string): this {
-    if (text) {
-      this.fields[9] = this.createField([[code, text]]);
-    } else {
-      this.fields[9] = this.createField(code);
-    }
+    this.fields[9] = this.createComponentsField([code, text]);
     return this;
   }
 
@@ -153,11 +137,7 @@ export class AIP extends BaseSegment {
    * @param text - AIP-12.2 Text
    */
   fillerStatusCode(code: string, text?: string): this {
-    if (text) {
-      this.fields[11] = this.createField([[code, text]]);
-    } else {
-      this.fields[11] = this.createField(code);
-    }
+    this.fields[11] = this.createComponentsField([code, text]);
     return this;
   }
 

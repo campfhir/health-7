@@ -50,13 +50,11 @@ export class PD1 extends BaseSegment {
     idNumber?: string,
     checkDigit?: string,
   ): this {
-    if (idNumber || checkDigit) {
-      this.fields[2] = this.createField([
-        [organizationName, idNumber || "", checkDigit || ""],
-      ]);
-    } else {
-      this.fields[2] = this.createField(organizationName);
-    }
+    this.fields[2] = this.createComponentsField([
+      organizationName,
+      idNumber,
+      checkDigit,
+    ]);
     return this;
   }
 
@@ -73,8 +71,11 @@ export class PD1 extends BaseSegment {
     givenName?: string,
     middleName?: string,
   ): this {
-    this.fields[3] = this.createField([
-      [id, familyName, givenName || "", middleName || ""],
+    this.fields[3] = this.createComponentsField([
+      id,
+      familyName,
+      givenName || "",
+      middleName || "",
     ]);
     return this;
   }
@@ -115,11 +116,12 @@ export class PD1 extends BaseSegment {
    * @param assigningAuthority - PD1-10.4 Assigning Authority
    */
   duplicatePatient(id: string, assigningAuthority?: string): this {
-    if (assigningAuthority) {
-      this.fields[9] = this.createField([[id, "", "", assigningAuthority]]);
-    } else {
-      this.fields[9] = this.createField(id);
-    }
+    this.fields[9] = this.createComponentsField([
+      id,
+      "",
+      "",
+      assigningAuthority,
+    ]);
     return this;
   }
 
@@ -130,13 +132,7 @@ export class PD1 extends BaseSegment {
    * @param codingSystem - PD1-11.3 Coding System
    */
   publicityCode(code: string, text?: string, codingSystem?: string): this {
-    if (text || codingSystem) {
-      this.fields[10] = this.createField([
-        [code, text || "", codingSystem || ""],
-      ]);
-    } else {
-      this.fields[10] = this.createField(code);
-    }
+    this.fields[10] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
 
@@ -169,13 +165,7 @@ export class PD1 extends BaseSegment {
     text?: string,
     codingSystem?: string,
   ): this {
-    if (text || codingSystem) {
-      this.fields[14] = this.createField([
-        [code, text || "", codingSystem || ""],
-      ]);
-    } else {
-      this.fields[14] = this.createField(code);
-    }
+    this.fields[14] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
 

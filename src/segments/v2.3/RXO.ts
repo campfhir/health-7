@@ -28,11 +28,7 @@ export class RXO extends BaseSegment {
    * @param codingSystem - RXO-1.3 Coding System
    */
   requestedGiveCode(code: string, text?: string, codingSystem?: string): this {
-    if (text || codingSystem) {
-      this.fields[0] = this.createField([[code, text || "", codingSystem || ""]]);
-    } else {
-      this.fields[0] = this.createField(code);
-    }
+    this.fields[0] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
 
@@ -54,11 +50,7 @@ export class RXO extends BaseSegment {
    * @param text - RXO-4.2 Text
    */
   requestedGiveUnits(code: string, text?: string): this {
-    if (text) {
-      this.fields[3] = this.createField([[code, text]]);
-    } else {
-      this.fields[3] = this.createField(code);
-    }
+    this.fields[3] = this.createComponentsField([code, text]);
     return this;
   }
 
@@ -68,11 +60,7 @@ export class RXO extends BaseSegment {
    * @param text - RXO-5.2 Text
    */
   requestedDosageForm(code: string, text?: string): this {
-    if (text) {
-      this.fields[4] = this.createField([[code, text]]);
-    } else {
-      this.fields[4] = this.createField(code);
-    }
+    this.fields[4] = this.createComponentsField([code, text]);
     return this;
   }
 
@@ -82,11 +70,7 @@ export class RXO extends BaseSegment {
    * @param text - RXO-6.2 Text
    */
   providerPharmacyInstructions(code: string, text?: string): this {
-    if (text) {
-      this.fields[5] = this.createField([[code, text]]);
-    } else {
-      this.fields[5] = this.createField(code);
-    }
+    this.fields[5] = this.createComponentsField([code, text]);
     return this;
   }
 
@@ -96,11 +80,7 @@ export class RXO extends BaseSegment {
    * @param text - RXO-7.2 Text
    */
   providerAdminInstructions(code: string, text?: string): this {
-    if (text) {
-      this.fields[6] = this.createField([[code, text]]);
-    } else {
-      this.fields[6] = this.createField(code);
-    }
+    this.fields[6] = this.createComponentsField([code, text]);
     return this;
   }
 
@@ -110,11 +90,7 @@ export class RXO extends BaseSegment {
    * @param text - RXO-10.2 Text
    */
   requestedDispenseCode(code: string, text?: string): this {
-    if (text) {
-      this.fields[9] = this.createField([[code, text]]);
-    } else {
-      this.fields[9] = this.createField(code);
-    }
+    this.fields[9] = this.createComponentsField([code, text]);
     return this;
   }
 
@@ -130,11 +106,7 @@ export class RXO extends BaseSegment {
    * @param text - RXO-12.2 Text
    */
   requestedDispenseUnits(code: string, text?: string): this {
-    if (text) {
-      this.fields[11] = this.createField([[code, text]]);
-    } else {
-      this.fields[11] = this.createField(code);
-    }
+    this.fields[11] = this.createComponentsField([code, text]);
     return this;
   }
 
@@ -151,11 +123,7 @@ export class RXO extends BaseSegment {
    * @param givenName - RXO-14.3 Given Name
    */
   orderingProviderDeaNumber(id: string, familyName?: string, givenName?: string): this {
-    if (familyName || givenName) {
-      this.fields[13] = this.createField([[id, familyName || "", givenName || ""]]);
-    } else {
-      this.fields[13] = this.createField(id);
-    }
+    this.fields[13] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }
 
@@ -166,11 +134,7 @@ export class RXO extends BaseSegment {
    * @param givenName - RXO-15.3 Given Name
    */
   pharmacistVerifierId(id: string, familyName?: string, givenName?: string): this {
-    if (familyName || givenName) {
-      this.fields[14] = this.createField([[id, familyName || "", givenName || ""]]);
-    } else {
-      this.fields[14] = this.createField(id);
-    }
+    this.fields[14] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }
 
@@ -192,11 +156,7 @@ export class RXO extends BaseSegment {
    * @param text - RXO-22.2 Text
    */
   requestedGiveRateUnits(code: string, text?: string): this {
-    if (text) {
-      this.fields[21] = this.createField([[code, text]]);
-    } else {
-      this.fields[21] = this.createField(code);
-    }
+    this.fields[21] = this.createComponentsField([code, text]);
     return this;
   }
 

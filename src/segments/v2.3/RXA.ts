@@ -75,7 +75,11 @@ export class RXA extends BaseSegment {
    * @param codingSystem - RXA-5.3 Coding System
    */
   administeredCode(code: string, text?: string, codingSystem?: string): this {
-    this.fields[4] = this.createField([[code, text || "", codingSystem || ""]]);
+    this.fields[4] = this.createComponentsField([
+      code,
+      text || "",
+      codingSystem || "",
+    ]);
     return this;
   }
 
@@ -92,7 +96,11 @@ export class RXA extends BaseSegment {
    * @param codingSystem - RXA-7.3 Coding System
    */
   administeredUnits(code: string, text?: string, codingSystem?: string): this {
-    this.fields[6] = this.createField([[code, text || "", codingSystem || ""]]);
+    this.fields[6] = this.createComponentsField([
+      code,
+      text || "",
+      codingSystem || "",
+    ]);
     return this;
   }
 
@@ -102,7 +110,7 @@ export class RXA extends BaseSegment {
    * @param text - RXA-8.2 Text
    */
   administeredDosageForm(code: string, text?: string): this {
-    this.fields[7] = this.createField([[code, text || ""]]);
+    this.fields[7] = this.createComponentsField([code, text || ""]);
     return this;
   }
 
@@ -112,7 +120,7 @@ export class RXA extends BaseSegment {
    * @param text - RXA-9.2 Text
    */
   administrationNotes(code: string, text?: string): this {
-    this.fields[8] = this.createField([[code, text || ""]]);
+    this.fields[8] = this.createComponentsField([code, text || ""]);
     return this;
   }
 
@@ -127,8 +135,10 @@ export class RXA extends BaseSegment {
     familyName?: string,
     givenName?: string,
   ): this {
-    this.fields[9] = this.createField([
-      [id, familyName || "", givenName || ""],
+    this.fields[9] = this.createComponentsField([
+      id,
+      familyName || "",
+      givenName || "",
     ]);
     return this;
   }
@@ -157,7 +167,7 @@ export class RXA extends BaseSegment {
    * @param text - RXA-14.2 Text
    */
   administeredStrengthUnits(code: string, text?: string): this {
-    this.fields[13] = this.createField([[code, text || ""]]);
+    this.fields[13] = this.createComponentsField([code, text || ""]);
     return this;
   }
 
@@ -184,7 +194,7 @@ export class RXA extends BaseSegment {
    * @param text - RXA-17.2 Text
    */
   substanceManufacturerName(code: string, text?: string): this {
-    this.fields[16] = this.createField([[code, text || ""]]);
+    this.fields[16] = this.createComponentsField([code, text || ""]);
     return this;
   }
 
@@ -194,7 +204,7 @@ export class RXA extends BaseSegment {
    * @param text - RXA-18.2 Text
    */
   substanceRefusalReason(code: string, text?: string): this {
-    this.fields[17] = this.createField([[code, text || ""]]);
+    this.fields[17] = this.createComponentsField([code, text || ""]);
     return this;
   }
 
@@ -204,7 +214,7 @@ export class RXA extends BaseSegment {
    * @param text - RXA-19.2 Text
    */
   indication(code: string, text?: string): this {
-    this.fields[18] = this.createField([[code, text || ""]]);
+    this.fields[18] = this.createComponentsField([code, text || ""]);
     return this;
   }
 

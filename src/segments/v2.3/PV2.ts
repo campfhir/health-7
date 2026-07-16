@@ -41,8 +41,11 @@ export class PV2 extends BaseSegment {
     bed?: string,
     facility?: string,
   ): this {
-    this.fields[0] = this.createField([
-      [pointOfCare, room || "", bed || "", facility || ""],
+    this.fields[0] = this.createComponentsField([
+      pointOfCare,
+      room || "",
+      bed || "",
+      facility || "",
     ]);
     return this;
   }
@@ -54,7 +57,11 @@ export class PV2 extends BaseSegment {
    * @param codingSystem - PV2-2.3 Coding System
    */
   accommodationCode(code: string, text?: string, codingSystem?: string): this {
-    this.fields[1] = this.createField([[code, text || "", codingSystem || ""]]);
+    this.fields[1] = this.createComponentsField([
+      code,
+      text || "",
+      codingSystem || "",
+    ]);
     return this;
   }
 
@@ -65,7 +72,11 @@ export class PV2 extends BaseSegment {
    * @param codingSystem - PV2-3.3 Coding System
    */
   admitReason(code: string, text?: string, codingSystem?: string): this {
-    this.fields[2] = this.createField([[code, text || "", codingSystem || ""]]);
+    this.fields[2] = this.createComponentsField([
+      code,
+      text || "",
+      codingSystem || "",
+    ]);
     return this;
   }
 
@@ -76,7 +87,11 @@ export class PV2 extends BaseSegment {
    * @param codingSystem - PV2-4.3 Coding System
    */
   transferReason(code: string, text?: string, codingSystem?: string): this {
-    this.fields[3] = this.createField([[code, text || "", codingSystem || ""]]);
+    this.fields[3] = this.createComponentsField([
+      code,
+      text || "",
+      codingSystem || "",
+    ]);
     return this;
   }
 
@@ -155,8 +170,10 @@ export class PV2 extends BaseSegment {
     familyName?: string,
     givenName?: string,
   ): this {
-    this.fields[12] = this.createField([
-      [id, familyName || "", givenName || ""],
+    this.fields[12] = this.createComponentsField([
+      id,
+      familyName || "",
+      givenName || "",
     ]);
     return this;
   }
@@ -237,7 +254,7 @@ export class PV2 extends BaseSegment {
    * @param text - PV2-38.2 Text
    */
   modeOfArrivalCode(code: string, text?: string): this {
-    this.fields[37] = this.createField([[code, text || ""]]);
+    this.fields[37] = this.createComponentsField([code, text || ""]);
     return this;
   }
 

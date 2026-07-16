@@ -52,11 +52,11 @@ export class OBR extends BaseSegment {
     text?: string,
     nameOfCodingSystem?: string,
   ): this {
-    const components = [identifier];
-    if (text) components.push(text);
-    if (nameOfCodingSystem) components.push(nameOfCodingSystem);
-
-    this.fields[3] = this.createField(components);
+    this.fields[3] = this.createComponentsField([
+      identifier,
+      text,
+      nameOfCodingSystem,
+    ]);
     return this;
   }
   /** OBR-5 Priority (chainable). */
@@ -113,11 +113,7 @@ export class OBR extends BaseSegment {
     familyName?: string,
     givenName?: string,
   ): this {
-    const components = [id];
-    if (familyName) components.push(familyName);
-    if (givenName) components.push(givenName);
-
-    this.fields[9] = this.createField(components);
+    this.fields[9] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }
   /** OBR-11 Specimen Action Code (chainable). */
@@ -160,11 +156,7 @@ export class OBR extends BaseSegment {
    * @param givenName - OBR-16.3 Given Name
    */
   orderingProvider(id: string, familyName?: string, givenName?: string): this {
-    const components = [id];
-    if (familyName) components.push(familyName);
-    if (givenName) components.push(givenName);
-
-    this.fields[15] = this.createField(components);
+    this.fields[15] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }
   /** OBR-17 Order Callback Phone Number (chainable). */

@@ -88,11 +88,7 @@ export class ORC extends BaseSegment {
    * @param givenName - ORC-10.3 Given Name
    */
   enteredBy(id: string, familyName?: string, givenName?: string): this {
-    const components = [id];
-    if (familyName) components.push(familyName);
-    if (givenName) components.push(givenName);
-
-    this.fields[9] = this.createField(components);
+    this.fields[9] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }
 
@@ -103,11 +99,7 @@ export class ORC extends BaseSegment {
    * @param givenName - ORC-11.3 Given Name
    */
   verifiedBy(id: string, familyName?: string, givenName?: string): this {
-    const components = [id];
-    if (familyName) components.push(familyName);
-    if (givenName) components.push(givenName);
-
-    this.fields[10] = this.createField(components);
+    this.fields[10] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }
 
@@ -118,11 +110,7 @@ export class ORC extends BaseSegment {
    * @param givenName - ORC-12.3 Given Name
    */
   orderingProvider(id: string, familyName?: string, givenName?: string): this {
-    const components = [id];
-    if (familyName) components.push(familyName);
-    if (givenName) components.push(givenName);
-
-    this.fields[11] = this.createField(components);
+    this.fields[11] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }
 
@@ -174,11 +162,7 @@ export class ORC extends BaseSegment {
    * @param givenName - ORC-19.3 Given Name
    */
   actionBy(id: string, familyName?: string, givenName?: string): this {
-    const components = [id];
-    if (familyName) components.push(familyName);
-    if (givenName) components.push(givenName);
-
-    this.fields[18] = this.createField(components);
+    this.fields[18] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }
 

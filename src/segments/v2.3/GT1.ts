@@ -39,7 +39,7 @@ export class GT1 extends BaseSegment {
    * @param assigningAuthority - GT1-2.4 Assigning Authority
    */
   guarantorNumber(id: string, assigningAuthority?: string): this {
-    this.fields[1] = this.createField([[id, "", "", assigningAuthority || ""]]);
+    this.fields[1] = this.createComponentsField([id, "", "", assigningAuthority || ""]);
     return this;
   }
 
@@ -54,9 +54,7 @@ export class GT1 extends BaseSegment {
     givenName?: string,
     middleName?: string,
   ): this {
-    this.fields[2] = this.createField([
-      [familyName, givenName || "", middleName || ""],
-    ]);
+    this.fields[2] = this.createComponentsField([familyName, givenName || "", middleName || ""]);
     return this;
   }
 
@@ -66,7 +64,7 @@ export class GT1 extends BaseSegment {
    * @param givenName - GT1-4.2 Given Name
    */
   guarantorSpouseName(familyName: string, givenName?: string): this {
-    this.fields[3] = this.createField([[familyName, givenName || ""]]);
+    this.fields[3] = this.createComponentsField([familyName, givenName || ""]);
     return this;
   }
 
@@ -85,9 +83,7 @@ export class GT1 extends BaseSegment {
     zip?: string,
     country?: string,
   ): this {
-    this.fields[4] = this.createField([
-      [street, "", city || "", state || "", zip || "", country || ""],
-    ]);
+    this.fields[4] = this.createComponentsField([street, "", city || "", state || "", zip || "", country || ""]);
     return this;
   }
 
@@ -189,9 +185,7 @@ export class GT1 extends BaseSegment {
     state?: string,
     zip?: string,
   ): this {
-    this.fields[16] = this.createField([
-      [street, "", city || "", state || "", zip || ""],
-    ]);
+    this.fields[16] = this.createComponentsField([street, "", city || "", state || "", zip || ""]);
     return this;
   }
 

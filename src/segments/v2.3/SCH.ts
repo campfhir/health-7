@@ -27,7 +27,7 @@ export class SCH extends BaseSegment {
    * @param namespaceId - SCH-1.2 Namespace ID
    */
   placerAppointmentId(entityId: string, namespaceId?: string): this {
-    this.fields[0] = this.createField([[entityId, namespaceId || ""]]);
+    this.fields[0] = this.createComponentsField([entityId, namespaceId || ""]);
     return this;
   }
 
@@ -37,7 +37,7 @@ export class SCH extends BaseSegment {
    * @param namespaceId - SCH-2.2 Namespace ID
    */
   fillerAppointmentId(entityId: string, namespaceId?: string): this {
-    this.fields[1] = this.createField([[entityId, namespaceId || ""]]);
+    this.fields[1] = this.createComponentsField([entityId, namespaceId || ""]);
     return this;
   }
 
@@ -53,11 +53,7 @@ export class SCH extends BaseSegment {
    * @param text - SCH-5.2 Text
    */
   scheduleId(code: string, text?: string): this {
-    if (text) {
-      this.fields[4] = this.createField([[code, text]]);
-    } else {
-      this.fields[4] = this.createField(code);
-    }
+    this.fields[4] = this.createComponentsField([code, text]);
     return this;
   }
 
@@ -68,11 +64,7 @@ export class SCH extends BaseSegment {
    * @param codingSystem - SCH-6.3 Coding System
    */
   eventReason(code: string, text?: string, codingSystem?: string): this {
-    if (text || codingSystem) {
-      this.fields[5] = this.createField([[code, text || "", codingSystem || ""]]);
-    } else {
-      this.fields[5] = this.createField(code);
-    }
+    this.fields[5] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
 
@@ -83,11 +75,7 @@ export class SCH extends BaseSegment {
    * @param codingSystem - SCH-7.3 Coding System
    */
   appointmentReason(code: string, text?: string, codingSystem?: string): this {
-    if (text || codingSystem) {
-      this.fields[6] = this.createField([[code, text || "", codingSystem || ""]]);
-    } else {
-      this.fields[6] = this.createField(code);
-    }
+    this.fields[6] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
 
@@ -97,11 +85,7 @@ export class SCH extends BaseSegment {
    * @param text - SCH-8.2 Text
    */
   appointmentType(code: string, text?: string): this {
-    if (text) {
-      this.fields[7] = this.createField([[code, text]]);
-    } else {
-      this.fields[7] = this.createField(code);
-    }
+    this.fields[7] = this.createComponentsField([code, text]);
     return this;
   }
 
@@ -117,11 +101,7 @@ export class SCH extends BaseSegment {
    * @param text - SCH-10.2 Text
    */
   appointmentDurationUnits(code: string, text?: string): this {
-    if (text) {
-      this.fields[9] = this.createField([[code, text]]);
-    } else {
-      this.fields[9] = this.createField(code);
-    }
+    this.fields[9] = this.createComponentsField([code, text]);
     return this;
   }
 
@@ -138,11 +118,7 @@ export class SCH extends BaseSegment {
    * @param givenName - SCH-12.3 Given Name
    */
   placerContactPerson(id: string, familyName?: string, givenName?: string): this {
-    if (familyName || givenName) {
-      this.fields[11] = this.createField([[id, familyName || "", givenName || ""]]);
-    } else {
-      this.fields[11] = this.createField(id);
-    }
+    this.fields[11] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }
 
@@ -153,11 +129,7 @@ export class SCH extends BaseSegment {
    * @param givenName - SCH-16.3 Given Name
    */
   fillerContactPerson(id: string, familyName?: string, givenName?: string): this {
-    if (familyName || givenName) {
-      this.fields[15] = this.createField([[id, familyName || "", givenName || ""]]);
-    } else {
-      this.fields[15] = this.createField(id);
-    }
+    this.fields[15] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }
 
@@ -168,11 +140,7 @@ export class SCH extends BaseSegment {
    * @param givenName - SCH-20.3 Given Name
    */
   enteredByPerson(id: string, familyName?: string, givenName?: string): this {
-    if (familyName || givenName) {
-      this.fields[19] = this.createField([[id, familyName || "", givenName || ""]]);
-    } else {
-      this.fields[19] = this.createField(id);
-    }
+    this.fields[19] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }
 
@@ -182,11 +150,7 @@ export class SCH extends BaseSegment {
    * @param text - SCH-25.2 Text
    */
   fillerStatusCode(code: string, text?: string): this {
-    if (text) {
-      this.fields[24] = this.createField([[code, text]]);
-    } else {
-      this.fields[24] = this.createField(code);
-    }
+    this.fields[24] = this.createComponentsField([code, text]);
     return this;
   }
 

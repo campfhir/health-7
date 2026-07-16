@@ -42,13 +42,11 @@ export class PRA extends BaseSegment {
     text?: string,
     codingSystem?: string,
   ): this {
-    if (text || codingSystem) {
-      this.fields[0] = this.createField([
-        [identifier, text || "", codingSystem || ""],
-      ]);
-    } else {
-      this.fields[0] = this.createField(identifier);
-    }
+    this.fields[0] = this.createComponentsField([
+      identifier,
+      text,
+      codingSystem,
+    ]);
     return this;
   }
 

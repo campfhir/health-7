@@ -119,8 +119,12 @@ export class ACC extends BaseSegment {
     state?: string,
     zip?: string,
   ): this {
-    this.fields[10] = this.createField([
-      [street, "", city || "", state || "", zip || ""],
+    this.fields[10] = this.createComponentsField([
+      street,
+      "",
+      city || "",
+      state || "",
+      zip || "",
     ]);
     return this;
   }

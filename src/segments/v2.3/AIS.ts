@@ -45,13 +45,11 @@ export class AIS extends BaseSegment {
    * @param codingSystem - AIS-3.3 Coding System
    */
   universalServiceId(code: string, text?: string, codingSystem?: string): this {
-    if (text || codingSystem) {
-      this.fields[2] = this.createField([
-        [code, text || "", codingSystem || ""],
-      ]);
-    } else {
-      this.fields[2] = this.createField(code);
-    }
+    this.fields[2] = this.createComponentsField([
+      code,
+      text || "",
+      codingSystem || "",
+    ]);
     return this;
   }
 
@@ -78,11 +76,7 @@ export class AIS extends BaseSegment {
    * @param text - AIS-6.2 Text
    */
   startDateTimeOffsetUnits(code: string, text?: string): this {
-    if (text) {
-      this.fields[5] = this.createField([[code, text]]);
-    } else {
-      this.fields[5] = this.createField(code);
-    }
+    this.fields[5] = this.createComponentsField([code, text]);
     return this;
   }
 
@@ -98,11 +92,7 @@ export class AIS extends BaseSegment {
    * @param text - AIS-8.2 Text
    */
   durationUnits(code: string, text?: string): this {
-    if (text) {
-      this.fields[7] = this.createField([[code, text]]);
-    } else {
-      this.fields[7] = this.createField(code);
-    }
+    this.fields[7] = this.createComponentsField([code, text]);
     return this;
   }
 
@@ -118,11 +108,7 @@ export class AIS extends BaseSegment {
    * @param text - AIS-10.2 Text
    */
   fillerStatusCode(code: string, text?: string): this {
-    if (text) {
-      this.fields[9] = this.createField([[code, text]]);
-    } else {
-      this.fields[9] = this.createField(code);
-    }
+    this.fields[9] = this.createComponentsField([code, text]);
     return this;
   }
 
@@ -132,11 +118,7 @@ export class AIS extends BaseSegment {
    * @param text - AIS-11.2 Text
    */
   placerSupplementalInfo(code: string, text?: string): this {
-    if (text) {
-      this.fields[10] = this.createField([[code, text]]);
-    } else {
-      this.fields[10] = this.createField(code);
-    }
+    this.fields[10] = this.createComponentsField([code, text]);
     return this;
   }
 
@@ -146,11 +128,7 @@ export class AIS extends BaseSegment {
    * @param text - AIS-12.2 Text
    */
   fillerSupplementalInfo(code: string, text?: string): this {
-    if (text) {
-      this.fields[11] = this.createField([[code, text]]);
-    } else {
-      this.fields[11] = this.createField(code);
-    }
+    this.fields[11] = this.createComponentsField([code, text]);
     return this;
   }
 

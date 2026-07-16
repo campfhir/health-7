@@ -32,11 +32,7 @@ export class CTI extends BaseSegment {
    * @param universalIdType - CTI-1.4 Universal ID Type
    */
   sponsorStudyId(entityIdentifier: string, namespaceId?: string, universalId?: string, universalIdType?: string): this {
-    if (namespaceId || universalId || universalIdType) {
-      this.fields[0] = this.createField([[entityIdentifier, namespaceId || "", universalId || "", universalIdType || ""]]);
-    } else {
-      this.fields[0] = this.createField(entityIdentifier);
-    }
+    this.fields[0] = this.createComponentsField([entityIdentifier, namespaceId, universalId, universalIdType]);
     return this;
   }
 
@@ -47,11 +43,7 @@ export class CTI extends BaseSegment {
    * @param codingSystem - CTI-2.3 Coding System
    */
   studyPhaseIdentifier(identifier: string, text?: string, codingSystem?: string): this {
-    if (text || codingSystem) {
-      this.fields[1] = this.createField([[identifier, text || "", codingSystem || ""]]);
-    } else {
-      this.fields[1] = this.createField(identifier);
-    }
+    this.fields[1] = this.createComponentsField([identifier, text, codingSystem]);
     return this;
   }
 
@@ -62,11 +54,7 @@ export class CTI extends BaseSegment {
    * @param codingSystem - CTI-3.3 Coding System
    */
   studyScheduledTimePoint(identifier: string, text?: string, codingSystem?: string): this {
-    if (text || codingSystem) {
-      this.fields[2] = this.createField([[identifier, text || "", codingSystem || ""]]);
-    } else {
-      this.fields[2] = this.createField(identifier);
-    }
+    this.fields[2] = this.createComponentsField([identifier, text, codingSystem]);
     return this;
   }
 

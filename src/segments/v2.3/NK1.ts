@@ -45,14 +45,12 @@ export class NK1 extends BaseSegment {
     suffix?: string,
     prefix?: string,
   ): this {
-    this.fields[1] = this.createField([
-      [
-        familyName,
-        givenName || "",
-        middleName || "",
-        suffix || "",
-        prefix || "",
-      ],
+    this.fields[1] = this.createComponentsField([
+      familyName,
+      givenName || "",
+      middleName || "",
+      suffix || "",
+      prefix || "",
     ]);
     return this;
   }
@@ -64,13 +62,7 @@ export class NK1 extends BaseSegment {
    * @param codingSystem - NK1-3.3 Coding System
    */
   relationship(code: string, text?: string, codingSystem?: string): this {
-    if (text || codingSystem) {
-      this.fields[2] = this.createField([
-        [code, text || "", codingSystem || ""],
-      ]);
-    } else {
-      this.fields[2] = this.createField(code);
-    }
+    this.fields[2] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
 
@@ -89,8 +81,13 @@ export class NK1 extends BaseSegment {
     zip?: string,
     country?: string,
   ): this {
-    this.fields[3] = this.createField([
-      [street, "", city || "", state || "", zip || "", country || ""],
+    this.fields[3] = this.createComponentsField([
+      street,
+      "",
+      city || "",
+      state || "",
+      zip || "",
+      country || "",
     ]);
     return this;
   }
@@ -101,11 +98,7 @@ export class NK1 extends BaseSegment {
    * @param use - NK1-5.2 Use
    */
   phoneNumber(number: string, use?: string): this {
-    if (use) {
-      this.fields[4] = this.createField([[number, use]]);
-    } else {
-      this.fields[4] = this.createField(number);
-    }
+    this.fields[4] = this.createComponentsField([number, use]);
     return this;
   }
 
@@ -122,13 +115,7 @@ export class NK1 extends BaseSegment {
    * @param codingSystem - NK1-7.3 Coding System
    */
   contactRole(code: string, text?: string, codingSystem?: string): this {
-    if (text || codingSystem) {
-      this.fields[6] = this.createField([
-        [code, text || "", codingSystem || ""],
-      ]);
-    } else {
-      this.fields[6] = this.createField(code);
-    }
+    this.fields[6] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
 

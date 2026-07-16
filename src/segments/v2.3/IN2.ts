@@ -72,7 +72,7 @@ export class IN2 extends BaseSegment {
    * @param givenName - IN2-7.2 Given Name
    */
   medicaidCaseName(familyName: string, givenName?: string): this {
-    this.fields[6] = this.createField([[familyName, givenName || ""]]);
+    this.fields[6] = this.createComponentsField([familyName, givenName || ""]);
     return this;
   }
 

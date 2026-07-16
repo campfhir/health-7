@@ -51,13 +51,13 @@ export class PID extends BaseSegment {
     assigningAuthority?: string,
     identifierTypeCode?: string,
   ): this {
-    const components = [id];
-    if (checkDigit) components.push(checkDigit);
-    if (checkDigitScheme) components.push(checkDigitScheme);
-    if (assigningAuthority) components.push(assigningAuthority);
-    if (identifierTypeCode) components.push(identifierTypeCode);
-
-    this.fields[2] = this.createField(components);
+    this.fields[2] = this.createComponentsField([
+      id,
+      checkDigit,
+      checkDigitScheme,
+      assigningAuthority,
+      identifierTypeCode,
+    ]);
     return this;
   }
   /** PID-4 Alternate Patient ID (chainable). */
@@ -80,13 +80,13 @@ export class PID extends BaseSegment {
     suffix?: string,
     prefix?: string,
   ): this {
-    const components = [familyName];
-    if (givenName) components.push(givenName);
-    if (middleName) components.push(middleName);
-    if (suffix) components.push(suffix);
-    if (prefix) components.push(prefix);
-
-    this.fields[4] = this.createField(components);
+    this.fields[4] = this.createComponentsField([
+      familyName,
+      givenName,
+      middleName,
+      suffix,
+      prefix,
+    ]);
     return this;
   }
   /**
@@ -95,9 +95,7 @@ export class PID extends BaseSegment {
    * @param givenName - PID-6.2 Given Name
    */
   mothersMaidenName(familyName: string, givenName?: string): this {
-    const components = [familyName];
-    if (givenName) components.push(givenName);
-    this.fields[5] = this.createField(components);
+    this.fields[5] = this.createComponentsField([familyName, givenName]);
     return this;
   }
   /** PID-7 Date Time Of Birth (chainable). */
@@ -121,9 +119,7 @@ export class PID extends BaseSegment {
    * @param givenName - PID-9.2 Given Name
    */
   patientAlias(familyName: string, givenName?: string): this {
-    const components = [familyName];
-    if (givenName) components.push(givenName);
-    this.fields[8] = this.createField(components);
+    this.fields[8] = this.createComponentsField([familyName, givenName]);
     return this;
   }
   /** PID-10 Race (chainable). */
@@ -148,15 +144,14 @@ export class PID extends BaseSegment {
     zip?: string,
     country?: string,
   ): this {
-    const components = [];
-    if (streetAddress) components.push(streetAddress);
-    if (otherDesignation) components.push(otherDesignation);
-    if (city) components.push(city);
-    if (state) components.push(state);
-    if (zip) components.push(zip);
-    if (country) components.push(country);
-
-    this.fields[10] = this.createField(components);
+    this.fields[10] = this.createComponentsField([
+      streetAddress,
+      otherDesignation,
+      city,
+      state,
+      zip,
+      country,
+    ]);
     return this;
   }
   /** PID-12 County Code (chainable). */
