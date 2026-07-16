@@ -26,20 +26,20 @@ export class MRG extends BaseSegment {
    * MRG-1 Prior Patient Identifier List (chainable).
    * @param id - MRG-1.1 ID Number
    * @param assigningAuthority - MRG-1.4 Assigning Authority
-   * @param identifierTypeCode - MRG-1.6 Identifier Type Code
+   * @param identifierTypeCode - MRG-1.5 Identifier Type Code
    */
   priorPatientId(
     id: string,
     assigningAuthority?: string,
     identifierTypeCode?: string,
   ): this {
-    this.fields[0] = this.createField([
+    // CX: ID Number (.1), Assigning Authority (.4), Identifier Type Code (.5).
+    this.fields[0] = this.createComponentsField([
       id,
-      "",
-      "",
-      assigningAuthority || "",
-      "",
-      identifierTypeCode || "",
+      undefined,
+      undefined,
+      assigningAuthority,
+      identifierTypeCode,
     ]);
     return this;
   }
