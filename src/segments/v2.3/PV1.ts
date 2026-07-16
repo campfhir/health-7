@@ -158,15 +158,31 @@ export class PV1 extends BaseSegment {
     this.fields[10] = this.createField(components);
     return this;
   }
-  /** Visit number. */
+  /**
+   * PV1-19 Visit Number (chainable).
+   *
+   * Encoded as a CX data type. The assigning authority and identifier type
+   * code occupy CX.4 and CX.5, so the intervening CX.2/CX.3 components are
+   * padded to keep the component positions correct.
+   *
+   * @param value - PV1-19.1 ID Number
+   * @param assigningAuthority - PV1-19.4 Assigning Authority
+   * @param identifierType - PV1-19.5 Identifier Type Code
+   */
   visitNumber(
     value: string,
     assigningAuthority?: string,
     identifierType?: string,
   ): this {
     const components = [value];
-    if (assigningAuthority) components.push(assigningAuthority);
-    if (identifierType) components.push(identifierType);
+    if (assigningAuthority || identifierType) {
+      components[1] = ""; // CX.2 Check Digit
+      components[2] = ""; // CX.3 Check Digit Scheme
+      components[3] = assigningAuthority ?? ""; // CX.4 Assigning Authority
+    }
+    if (identifierType) {
+      components[4] = identifierType; // CX.5 Identifier Type Code
+    }
 
     this.fields[18] = this.createField(components);
     return this;
