@@ -1,6 +1,6 @@
 {
   "name": "@campfhir/hl7",
-  "version": "0.6.2",
+  "version": "0.7.0",
   "description": "Zero-dependency TypeScript library for building and parsing HL7v2 messages (v2.3 & v2.5.1). Runs on Node.js, Deno, Bun, browsers, and Cloudflare Workers.",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
