@@ -20,17 +20,17 @@ function assertField(seg: ORC, splitIndex: number): void {
 
 describe("ORC field positions", () => {
   test("ORC-20 Advanced Beneficiary Notice Code", () => {
-    const parts = new ORC().advancedBeneficiaryNoticeCode("C1", "C2", "C3").encode().split("|");
+    const parts = new ORC().advancedBeneficiaryNoticeCode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[20]).toBe("C1^C2^C3");
   });
 
   test("ORC-21 Ordering Facility Name", () => {
-    const parts = new ORC().orderingFacilityName("C1", "C2", "C3").encode().split("|");
+    const parts = new ORC().orderingFacilityName({ organizationName: "C1", organizationNameTypeCode: "C2", idNumber: "C3" }).encode().split("|");
     expect(parts[21]).toBe("C1^C2^C3");
   });
 
   test("ORC-22 Ordering Facility Address", () => {
-    const parts = new ORC().orderingFacilityAddress("C1", "C2", "C3", "C4", "C5", "C6").encode().split("|");
+    const parts = new ORC().orderingFacilityAddress({ street: "C1", otherDesignation: "C2", city: "C3", state: "C4", zip: "C5", country: "C6" }).encode().split("|");
     expect(parts[22]).toBe("C1^C2^C3^C4^C5^C6");
   });
 
@@ -39,17 +39,17 @@ describe("ORC field positions", () => {
   });
 
   test("ORC-24 Ordering Provider Address", () => {
-    const parts = new ORC().orderingProviderAddress("C1", "C2", "C3", "C4", "C5", "C6").encode().split("|");
+    const parts = new ORC().orderingProviderAddress({ street: "C1", otherDesignation: "C2", city: "C3", state: "C4", zip: "C5", country: "C6" }).encode().split("|");
     expect(parts[24]).toBe("C1^C2^C3^C4^C5^C6");
   });
 
   test("ORC-25 Order Status Modifier", () => {
-    const parts = new ORC().orderStatusModifier("C1", "C2", "C3").encode().split("|");
+    const parts = new ORC().orderStatusModifier({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[25]).toBe("C1^C2^C3");
   });
 
   test("ORC-26 Advanced Beneficiary Notice Override Reason", () => {
-    const parts = new ORC().advancedBeneficiaryNoticeOverrideReason("C1", "C2", "C3").encode().split("|");
+    const parts = new ORC().advancedBeneficiaryNoticeOverrideReason({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[26]).toBe("C1^C2^C3");
   });
 
@@ -58,22 +58,22 @@ describe("ORC field positions", () => {
   });
 
   test("ORC-28 Confidentiality Code", () => {
-    const parts = new ORC().confidentialityCode("C1", "C2", "C3").encode().split("|");
+    const parts = new ORC().confidentialityCode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[28]).toBe("C1^C2^C3");
   });
 
   test("ORC-29 Order Type", () => {
-    const parts = new ORC().orderType("C1", "C2", "C3").encode().split("|");
+    const parts = new ORC().orderType({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[29]).toBe("C1^C2^C3");
   });
 
   test("ORC-30 Enterer Authorization Mode", () => {
-    const parts = new ORC().entererAuthorizationMode("C1", "C2", "C3").encode().split("|");
+    const parts = new ORC().entererAuthorizationMode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[30]).toBe("C1^C2^C3");
   });
 
   test("ORC-31 Parent Universal Service Identifier", () => {
-    const parts = new ORC().parentUniversalServiceIdentifier("C1", "C2", "C3").encode().split("|");
+    const parts = new ORC().parentUniversalServiceIdentifier({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[31]).toBe("C1^C2^C3");
   });
 });

@@ -45,7 +45,7 @@ export class PR1 extends BaseSegment {
    * @param text - PR1-3.2 Text
    * @param codingSystem - PR1-3.3 Coding System
    */
-  procedureCode(code: string, text?: string, codingSystem?: string): this {
+  procedureCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     const components = [code, text || "", codingSystem || ""];
     this.fields[2] = this.createField(components);
     return this;
@@ -86,7 +86,7 @@ export class PR1 extends BaseSegment {
    * @param familyName - PR1-8.2 Family Name
    * @param givenName - PR1-8.3 Given Name
    */
-  anesthesiologist(id: string, familyName?: string, givenName?: string): this {
+  anesthesiologist({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
     const components = [id, familyName || "", givenName || ""];
     this.fields[7] = this.createField(components);
     return this;
@@ -110,7 +110,7 @@ export class PR1 extends BaseSegment {
    * @param familyName - PR1-11.2 Family Name
    * @param givenName - PR1-11.3 Given Name
    */
-  surgeon(id: string, familyName?: string, givenName?: string): this {
+  surgeon({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
     const components = [id, familyName || "", givenName || ""];
     this.fields[10] = this.createField(components);
     return this;
@@ -122,11 +122,7 @@ export class PR1 extends BaseSegment {
    * @param familyName - PR1-12.2 Family Name
    * @param givenName - PR1-12.3 Given Name
    */
-  procedurePractitioner(
-    id: string,
-    familyName?: string,
-    givenName?: string,
-  ): this {
+  procedurePractitioner({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
     const components = [id, familyName || "", givenName || ""];
     this.fields[11] = this.createField(components);
     return this;
@@ -138,7 +134,7 @@ export class PR1 extends BaseSegment {
    * @param text - PR1-13.2 Text
    * @param codingSystem - PR1-13.3 Coding System
    */
-  consentCode(code: string, text?: string, codingSystem?: string): this {
+  consentCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     const components = [code, text || "", codingSystem || ""];
     this.fields[12] = this.createField(components);
     return this;
@@ -156,11 +152,7 @@ export class PR1 extends BaseSegment {
    * @param text - PR1-15.2 Text
    * @param codingSystem - PR1-15.3 Coding System
    */
-  associatedDiagnosisCode(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  associatedDiagnosisCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     const components = [code, text || "", codingSystem || ""];
     this.fields[14] = this.createField(components);
     return this;

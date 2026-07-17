@@ -44,7 +44,7 @@ export class AIS extends BaseSegment {
    * @param text - AIS-3.2 Text
    * @param codingSystem - AIS-3.3 Coding System
    */
-  universalServiceId(code: string, text?: string, codingSystem?: string): this {
+  universalServiceId({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[2] = this.createComponentsField([
       code,
       text || "",
@@ -75,7 +75,7 @@ export class AIS extends BaseSegment {
    * @param code - AIS-6.1 Code
    * @param text - AIS-6.2 Text
    */
-  startDateTimeOffsetUnits(code: string, text?: string): this {
+  startDateTimeOffsetUnits({ code, text }: { code: string; text?: string }): this {
     this.fields[5] = this.createComponentsField([code, text]);
     return this;
   }
@@ -91,7 +91,7 @@ export class AIS extends BaseSegment {
    * @param code - AIS-8.1 Code
    * @param text - AIS-8.2 Text
    */
-  durationUnits(code: string, text?: string): this {
+  durationUnits({ code, text }: { code: string; text?: string }): this {
     this.fields[7] = this.createComponentsField([code, text]);
     return this;
   }
@@ -107,7 +107,7 @@ export class AIS extends BaseSegment {
    * @param code - AIS-10.1 Code
    * @param text - AIS-10.2 Text
    */
-  fillerStatusCode(code: string, text?: string): this {
+  fillerStatusCode({ code, text }: { code: string; text?: string }): this {
     this.fields[9] = this.createComponentsField([code, text]);
     return this;
   }
@@ -117,7 +117,7 @@ export class AIS extends BaseSegment {
    * @param code - AIS-11.1 Code
    * @param text - AIS-11.2 Text
    */
-  placerSupplementalInfo(code: string, text?: string): this {
+  placerSupplementalInfo({ code, text }: { code: string; text?: string }): this {
     this.fields[10] = this.createComponentsField([code, text]);
     return this;
   }
@@ -127,7 +127,7 @@ export class AIS extends BaseSegment {
    * @param code - AIS-12.1 Code
    * @param text - AIS-12.2 Text
    */
-  fillerSupplementalInfo(code: string, text?: string): this {
+  fillerSupplementalInfo({ code, text }: { code: string; text?: string }): this {
     this.fields[11] = this.createComponentsField([code, text]);
     return this;
   }

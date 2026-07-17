@@ -19,7 +19,7 @@ export class DG1 extends DG1_base {
    * @param entityIdentifier - DG1-20.1 Entity Identifier
    * @param namespaceId - DG1-20.2 Namespace ID
    */
-  diagnosisIdentifier(entityIdentifier: string, namespaceId?: string): this {
+  diagnosisIdentifier({ entityIdentifier, namespaceId }: { entityIdentifier: string; namespaceId?: string }): this {
     this.fields[19] = this.createComponentsField([
       entityIdentifier,
       namespaceId,

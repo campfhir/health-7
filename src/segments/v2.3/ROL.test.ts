@@ -20,7 +20,7 @@ function assertField(seg: ROL, splitIndex: number): void {
 
 describe("ROL field positions", () => {
   test("ROL-1 Role Instance ID", () => {
-    const parts = new ROL().roleInstanceId("C1", "C2", "C3", "C4").encode().split("|");
+    const parts = new ROL().roleInstanceId({ entityId: "C1", namespaceId: "C2", universalId: "C3", universalIdType: "C4" }).encode().split("|");
     expect(parts[1]).toBe("C1^C2^C3^C4");
   });
 
@@ -29,12 +29,12 @@ describe("ROL field positions", () => {
   });
 
   test("ROL-3 Role", () => {
-    const parts = new ROL().role("C1", "C2", "C3").encode().split("|");
+    const parts = new ROL().role({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[3]).toBe("C1^C2^C3");
   });
 
   test("ROL-4 Role Person", () => {
-    const parts = new ROL().rolePerson("C1", "C2", "C3", "C4").encode().split("|");
+    const parts = new ROL().rolePerson({ id: "C1", familyName: "C2", givenName: "C3", middleName: "C4" }).encode().split("|");
     expect(parts[4]).toBe("C1^C2^C3^C4");
   });
 
@@ -47,27 +47,27 @@ describe("ROL field positions", () => {
   });
 
   test("ROL-7 Role Duration", () => {
-    const parts = new ROL().roleDuration("C1", "C2").encode().split("|");
+    const parts = new ROL().roleDuration({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[7]).toBe("C1^C2");
   });
 
   test("ROL-8 Role Action Reason", () => {
-    const parts = new ROL().roleActionReason("C1", "C2").encode().split("|");
+    const parts = new ROL().roleActionReason({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[8]).toBe("C1^C2");
   });
 
   test("ROL-9 Provider Type", () => {
-    const parts = new ROL().providerType("C1", "C2").encode().split("|");
+    const parts = new ROL().providerType({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[9]).toBe("C1^C2");
   });
 
   test("ROL-10 Organization Unit Type", () => {
-    const parts = new ROL().organizationUnitType("C1", "C2").encode().split("|");
+    const parts = new ROL().organizationUnitType({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[10]).toBe("C1^C2");
   });
 
   test("ROL-11 Office Address", () => {
-    const parts = new ROL().officeAddress("C1", "C2", "C3", "C4").encode().split("|");
+    const parts = new ROL().officeAddress({ street: "C1", city: "C2", state: "C3", zip: "C4" }).encode().split("|");
     expect(parts[11]).toBe("C1^^C2^C3^C4");
   });
 

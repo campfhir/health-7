@@ -20,7 +20,7 @@ export class RXD extends RXD_base {
    * @param text - RXD-25.2 Text
    * @param codingSystem - RXD-25.3 Name of Coding System
    */
-  supplementaryCode(code: string, text?: string, codingSystem?: string): this {
+  supplementaryCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[24] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -31,7 +31,7 @@ export class RXD extends RXD_base {
    * @param text - RXD-26.2 Text
    * @param codingSystem - RXD-26.3 Name of Coding System
    */
-  initiatingLocation(code: string, text?: string, codingSystem?: string): this {
+  initiatingLocation({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[25] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -42,11 +42,7 @@ export class RXD extends RXD_base {
    * @param text - RXD-27.2 Text
    * @param codingSystem - RXD-27.3 Name of Coding System
    */
-  packagingAssemblyLocation(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  packagingAssemblyLocation({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[26] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -63,11 +59,7 @@ export class RXD extends RXD_base {
    * @param text - RXD-29.2 Text
    * @param codingSystem - RXD-29.3 Name of Coding System
    */
-  actualDrugStrengthVolumeUnits(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  actualDrugStrengthVolumeUnits({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[28] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -78,7 +70,7 @@ export class RXD extends RXD_base {
    * @param text - RXD-30.2 Text
    * @param codingSystem - RXD-30.3 Name of Coding System
    */
-  dispenseToPharmacy(code: string, text?: string, codingSystem?: string): this {
+  dispenseToPharmacy({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[29] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -92,14 +84,7 @@ export class RXD extends RXD_base {
    * @param zip - RXD-31.5 Zip or Postal Code
    * @param country - RXD-31.6 Country
    */
-  dispenseToPharmacyAddress(
-    street: string,
-    otherDesignation?: string,
-    city?: string,
-    state?: string,
-    zip?: string,
-    country?: string,
-  ): this {
+  dispenseToPharmacyAddress({ street, otherDesignation, city, state, zip, country }: { street: string; otherDesignation?: string; city?: string; state?: string; zip?: string; country?: string }): this {
     this.fields[30] = this.createComponentsField([
       street,
       otherDesignation,
@@ -123,7 +108,7 @@ export class RXD extends RXD_base {
    * @param text - RXD-33.2 Text
    * @param codingSystem - RXD-33.3 Name of Coding System
    */
-  dispenseType(code: string, text?: string, codingSystem?: string): this {
+  dispenseType({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[32] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }

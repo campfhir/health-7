@@ -20,7 +20,7 @@ export class ERR extends ERR_base {
    * @param text - ERR-10.2 Text
    * @param codingSystem - ERR-10.3 Name of Coding System
    */
-  overrideType(code: string, text?: string, codingSystem?: string): this {
+  overrideType({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[9] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -31,7 +31,7 @@ export class ERR extends ERR_base {
    * @param text - ERR-11.2 Text
    * @param codingSystem - ERR-11.3 Name of Coding System
    */
-  overrideReasonCode(code: string, text?: string, codingSystem?: string): this {
+  overrideReasonCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[10] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }

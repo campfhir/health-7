@@ -24,7 +24,7 @@ describe("ACC field positions", () => {
   });
 
   test("ACC-2 Accident Code", () => {
-    const parts = new ACC().accidentCode("C1", "C2", "C3").encode().split("|");
+    const parts = new ACC().accidentCode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[2]).toBe("C1^C2^C3");
   });
 
@@ -33,7 +33,7 @@ describe("ACC field positions", () => {
   });
 
   test("ACC-4 Auto Accident State", () => {
-    const parts = new ACC().autoAccidentState("C1", "C2").encode().split("|");
+    const parts = new ACC().autoAccidentState({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[4]).toBe("C1^C2");
   });
 
@@ -46,7 +46,7 @@ describe("ACC field positions", () => {
   });
 
   test("ACC-7 Entered By", () => {
-    const parts = new ACC().enteredBy("C1", "C2", "C3").encode().split("|");
+    const parts = new ACC().enteredBy({ id: "C1", familyName: "C2", givenName: "C3" }).encode().split("|");
     expect(parts[7]).toBe("C1^C2^C3");
   });
 
@@ -63,7 +63,7 @@ describe("ACC field positions", () => {
   });
 
   test("ACC-11 Accident Address", () => {
-    const parts = new ACC().accidentAddress("C1", "C2", "C3", "C4").encode().split("|");
+    const parts = new ACC().accidentAddress({ street: "C1", city: "C2", state: "C3", zip: "C4" }).encode().split("|");
     expect(parts[11]).toBe("C1^^C2^C3^C4");
   });
 });

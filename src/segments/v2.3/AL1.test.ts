@@ -28,7 +28,7 @@ describe("AL1 field positions", () => {
   });
 
   test("AL1-3 Allergen", () => {
-    assertField(new AL1().allergen(SENTINEL), 3);
+    assertField(new AL1().allergen({ code: SENTINEL, text: "", codingSystem: "" }), 3);
   });
 
   test("AL1-4 Allergy Severity Code", () => {

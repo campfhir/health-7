@@ -45,7 +45,7 @@ export class DG1 extends BaseSegment {
    * @param text - DG1-3.2 Text
    * @param codingSystem - DG1-3.3 Coding System
    */
-  diagnosisCode(code: string, text?: string, codingSystem?: string): this {
+  diagnosisCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     const components = [code, text || "", codingSystem || ""];
     this.fields[2] = this.createField(components);
     return this;
@@ -134,11 +134,7 @@ export class DG1 extends BaseSegment {
    * @param familyName - DG1-16.2 Family Name
    * @param givenName - DG1-16.3 Given Name
    */
-  diagnosingClinician(
-    id: string,
-    familyName?: string,
-    givenName?: string,
-  ): this {
+  diagnosingClinician({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
     const components = [id, familyName || "", givenName || ""];
     this.fields[15] = this.createField(components);
     return this;

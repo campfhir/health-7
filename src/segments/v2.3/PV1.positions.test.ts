@@ -28,7 +28,7 @@ describe("PV1 field positions", () => {
   });
 
   test("PV1-3 Assigned Patient Location", () => {
-    const parts = new PV1().assignedPatientLocation("C1", "C2", "C3", "C4", "C5", "C6").encode().split("|");
+    const parts = new PV1().assignedPatientLocation({ pointOfCare: "C1", room: "C2", bed: "C3", facility: "C4", locationStatus: "C5", personLocationType: "C6" }).encode().split("|");
     expect(parts[3]).toBe("C1^C2^C3^C4^C5^C6");
   });
 
@@ -41,22 +41,22 @@ describe("PV1 field positions", () => {
   });
 
   test("PV1-6 Prior Patient Location", () => {
-    const parts = new PV1().priorPatientLocation("C1", "C2", "C3", "C4").encode().split("|");
+    const parts = new PV1().priorPatientLocation({ pointOfCare: "C1", room: "C2", bed: "C3", facility: "C4" }).encode().split("|");
     expect(parts[6]).toBe("C1^C2^C3^C4");
   });
 
   test("PV1-7 Attending Doctor", () => {
-    const parts = new PV1().attendingDoctor("C1", "C2", "C3").encode().split("|");
+    const parts = new PV1().attendingDoctor({ id: "C1", familyName: "C2", givenName: "C3" }).encode().split("|");
     expect(parts[7]).toBe("C1^C2^C3");
   });
 
   test("PV1-8 Referring Doctor", () => {
-    const parts = new PV1().referringDoctor("C1", "C2", "C3").encode().split("|");
+    const parts = new PV1().referringDoctor({ id: "C1", familyName: "C2", givenName: "C3" }).encode().split("|");
     expect(parts[8]).toBe("C1^C2^C3");
   });
 
   test("PV1-9 Consulting Doctor", () => {
-    const parts = new PV1().consultingDoctor("C1", "C2", "C3").encode().split("|");
+    const parts = new PV1().consultingDoctor({ id: "C1", familyName: "C2", givenName: "C3" }).encode().split("|");
     expect(parts[9]).toBe("C1^C2^C3");
   });
 
@@ -65,7 +65,7 @@ describe("PV1 field positions", () => {
   });
 
   test("PV1-11 Temporary Location", () => {
-    const parts = new PV1().temporaryLocation("C1", "C2", "C3").encode().split("|");
+    const parts = new PV1().temporaryLocation({ pointOfCare: "C1", room: "C2", bed: "C3" }).encode().split("|");
     expect(parts[11]).toBe("C1^C2^C3");
   });
 
@@ -90,7 +90,7 @@ describe("PV1 field positions", () => {
   });
 
   test("PV1-17 Admitting Doctor", () => {
-    const parts = new PV1().admittingDoctor("C1", "C2", "C3").encode().split("|");
+    const parts = new PV1().admittingDoctor({ id: "C1", familyName: "C2", givenName: "C3" }).encode().split("|");
     expect(parts[17]).toBe("C1^C2^C3");
   });
 
@@ -99,12 +99,12 @@ describe("PV1 field positions", () => {
   });
 
   test("PV1-19 Visit Number", () => {
-    const parts = new PV1().visitNumber("C1", "C2", "C3").encode().split("|");
+    const parts = new PV1().visitNumber({ value: "C1", assigningAuthority: "C2", identifierType: "C3" }).encode().split("|");
     expect(parts[19]).toBe("C1^^^C2^C3");
   });
 
   test("PV1-20 Financial Class", () => {
-    const parts = new PV1().financialClass("C1", "C2").encode().split("|");
+    const parts = new PV1().financialClass({ financialClassCode: "C1", effectiveDate: "C2" }).encode().split("|");
     expect(parts[20]).toBe("C1^C2");
   });
 
@@ -173,12 +173,12 @@ describe("PV1 field positions", () => {
   });
 
   test("PV1-37 Discharged To Location", () => {
-    const parts = new PV1().dischargedToLocation("C1", "C2").encode().split("|");
+    const parts = new PV1().dischargedToLocation({ dischargeToLocation: "C1", effectiveDate: "C2" }).encode().split("|");
     expect(parts[37]).toBe("C1^C2");
   });
 
   test("PV1-38 Diet Type", () => {
-    const parts = new PV1().dietType("C1", "C2", "C3").encode().split("|");
+    const parts = new PV1().dietType({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[38]).toBe("C1^C2^C3");
   });
 
@@ -195,12 +195,12 @@ describe("PV1 field positions", () => {
   });
 
   test("PV1-42 Pending Location", () => {
-    const parts = new PV1().pendingLocation("C1", "C2", "C3", "C4", "C5", "C6").encode().split("|");
+    const parts = new PV1().pendingLocation({ pointOfCare: "C1", room: "C2", bed: "C3", facility: "C4", locationStatus: "C5", personLocationType: "C6" }).encode().split("|");
     expect(parts[42]).toBe("C1^C2^C3^C4^C5^C6");
   });
 
   test("PV1-43 Prior Temporary Location", () => {
-    const parts = new PV1().priorTemporaryLocation("C1", "C2", "C3", "C4", "C5", "C6").encode().split("|");
+    const parts = new PV1().priorTemporaryLocation({ pointOfCare: "C1", room: "C2", bed: "C3", facility: "C4", locationStatus: "C5", personLocationType: "C6" }).encode().split("|");
     expect(parts[43]).toBe("C1^C2^C3^C4^C5^C6");
   });
 
@@ -229,7 +229,7 @@ describe("PV1 field positions", () => {
   });
 
   test("PV1-50 Alternate Visit ID", () => {
-    const parts = new PV1().alternateVisitId("C1", "C2", "C3").encode().split("|");
+    const parts = new PV1().alternateVisitId({ value: "C1", assigningAuthority: "C2", identifierType: "C3" }).encode().split("|");
     expect(parts[50]).toBe("C1^^^C2^C3");
   });
 
@@ -238,7 +238,7 @@ describe("PV1 field positions", () => {
   });
 
   test("PV1-52 Other Healthcare Provider", () => {
-    const parts = new PV1().otherHealthcareProvider("C1", "C2", "C3").encode().split("|");
+    const parts = new PV1().otherHealthcareProvider({ id: "C1", familyName: "C2", givenName: "C3" }).encode().split("|");
     expect(parts[52]).toBe("C1^C2^C3");
   });
 });

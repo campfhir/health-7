@@ -47,11 +47,7 @@ export class OBR extends BaseSegment {
    * @param text - OBR-4.2 Text
    * @param nameOfCodingSystem - OBR-4.3 Name of Coding System
    */
-  universalServiceIdentifier(
-    identifier: string,
-    text?: string,
-    nameOfCodingSystem?: string,
-  ): this {
+  universalServiceIdentifier({ identifier, text, nameOfCodingSystem }: { identifier: string; text?: string; nameOfCodingSystem?: string }): this {
     this.fields[3] = this.createComponentsField([
       identifier,
       text,
@@ -108,11 +104,7 @@ export class OBR extends BaseSegment {
    * @param familyName - OBR-10.2 Family Name
    * @param givenName - OBR-10.3 Given Name
    */
-  collectorIdentifier(
-    id: string,
-    familyName?: string,
-    givenName?: string,
-  ): this {
+  collectorIdentifier({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
     this.fields[9] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }
@@ -155,7 +147,7 @@ export class OBR extends BaseSegment {
    * @param familyName - OBR-16.2 Family Name
    * @param givenName - OBR-16.3 Given Name
    */
-  orderingProvider(id: string, familyName?: string, givenName?: string): this {
+  orderingProvider({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
     this.fields[15] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }
@@ -218,11 +210,7 @@ export class OBR extends BaseSegment {
    * @param parentObservationSubIdentifier - OBR-26.2 Parent Observation Sub-Identifier
    * @param parentObservationValueDescriptor - OBR-26.3 Parent Observation Value Descriptor
    */
-  parentResult(
-    parentObservationIdentifier: string,
-    parentObservationSubIdentifier?: string,
-    parentObservationValueDescriptor?: string,
-  ): this {
+  parentResult({ parentObservationIdentifier, parentObservationSubIdentifier, parentObservationValueDescriptor }: { parentObservationIdentifier: string; parentObservationSubIdentifier?: string; parentObservationValueDescriptor?: string }): this {
     this.fields[25] = this.createComponentsField([
       parentObservationIdentifier,
       parentObservationSubIdentifier,
@@ -239,14 +227,7 @@ export class OBR extends BaseSegment {
    * @param endDateTime - OBR-27.5 End Date/Time
    * @param priority - OBR-27.6 Priority
    */
-  quantityTiming(
-    quantity: string,
-    interval?: string,
-    duration?: string,
-    startDateTime?: string,
-    endDateTime?: string,
-    priority?: string,
-  ): this {
+  quantityTiming({ quantity, interval, duration, startDateTime, endDateTime, priority }: { quantity: string; interval?: string; duration?: string; startDateTime?: string; endDateTime?: string; priority?: string }): this {
     this.fields[26] = this.createComponentsField([
       quantity,
       interval,
@@ -263,7 +244,7 @@ export class OBR extends BaseSegment {
    * @param familyName - OBR-28.2 Family Name
    * @param givenName - OBR-28.3 Given Name
    */
-  resultCopiesTo(id: string, familyName?: string, givenName?: string): this {
+  resultCopiesTo({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
     this.fields[27] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }
@@ -272,10 +253,7 @@ export class OBR extends BaseSegment {
    * @param placerAssignedIdentifier - OBR-29.1 Placer Assigned Identifier
    * @param fillerAssignedIdentifier - OBR-29.2 Filler Assigned Identifier
    */
-  parent(
-    placerAssignedIdentifier: string,
-    fillerAssignedIdentifier?: string,
-  ): this {
+  parent({ placerAssignedIdentifier, fillerAssignedIdentifier }: { placerAssignedIdentifier: string; fillerAssignedIdentifier?: string }): this {
     this.fields[28] = this.createComponentsField([
       placerAssignedIdentifier,
       fillerAssignedIdentifier,
@@ -293,7 +271,7 @@ export class OBR extends BaseSegment {
    * @param text - OBR-31.2 Text
    * @param codingSystem - OBR-31.3 Name of Coding System
    */
-  reasonForStudy(code: string, text?: string, codingSystem?: string): this {
+  reasonForStudy({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[30] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -303,11 +281,7 @@ export class OBR extends BaseSegment {
    * @param startDateTime - OBR-32.2 Start Date/Time
    * @param endDateTime - OBR-32.3 End Date/Time
    */
-  principalResultInterpreter(
-    name: string,
-    startDateTime?: string,
-    endDateTime?: string,
-  ): this {
+  principalResultInterpreter({ name, startDateTime, endDateTime }: { name: string; startDateTime?: string; endDateTime?: string }): this {
     this.fields[31] = this.createComponentsField([
       name,
       startDateTime,
@@ -321,11 +295,7 @@ export class OBR extends BaseSegment {
    * @param startDateTime - OBR-33.2 Start Date/Time
    * @param endDateTime - OBR-33.3 End Date/Time
    */
-  assistantResultInterpreter(
-    name: string,
-    startDateTime?: string,
-    endDateTime?: string,
-  ): this {
+  assistantResultInterpreter({ name, startDateTime, endDateTime }: { name: string; startDateTime?: string; endDateTime?: string }): this {
     this.fields[32] = this.createComponentsField([
       name,
       startDateTime,
@@ -339,11 +309,7 @@ export class OBR extends BaseSegment {
    * @param startDateTime - OBR-34.2 Start Date/Time
    * @param endDateTime - OBR-34.3 End Date/Time
    */
-  technician(
-    name: string,
-    startDateTime?: string,
-    endDateTime?: string,
-  ): this {
+  technician({ name, startDateTime, endDateTime }: { name: string; startDateTime?: string; endDateTime?: string }): this {
     this.fields[33] = this.createComponentsField([
       name,
       startDateTime,
@@ -357,11 +323,7 @@ export class OBR extends BaseSegment {
    * @param startDateTime - OBR-35.2 Start Date/Time
    * @param endDateTime - OBR-35.3 End Date/Time
    */
-  transcriptionist(
-    name: string,
-    startDateTime?: string,
-    endDateTime?: string,
-  ): this {
+  transcriptionist({ name, startDateTime, endDateTime }: { name: string; startDateTime?: string; endDateTime?: string }): this {
     this.fields[34] = this.createComponentsField([
       name,
       startDateTime,
@@ -390,11 +352,7 @@ export class OBR extends BaseSegment {
    * @param text - OBR-38.2 Text
    * @param codingSystem - OBR-38.3 Name of Coding System
    */
-  transportLogisticsOfCollectedSample(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  transportLogisticsOfCollectedSample({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[37] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -404,7 +362,7 @@ export class OBR extends BaseSegment {
    * @param text - OBR-39.2 Text
    * @param codingSystem - OBR-39.3 Name of Coding System
    */
-  collectorsComment(code: string, text?: string, codingSystem?: string): this {
+  collectorsComment({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[38] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -414,11 +372,7 @@ export class OBR extends BaseSegment {
    * @param text - OBR-40.2 Text
    * @param codingSystem - OBR-40.3 Name of Coding System
    */
-  transportArrangementResponsibility(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  transportArrangementResponsibility({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[39] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -438,11 +392,7 @@ export class OBR extends BaseSegment {
    * @param text - OBR-43.2 Text
    * @param codingSystem - OBR-43.3 Name of Coding System
    */
-  plannedPatientTransportComment(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  plannedPatientTransportComment({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[42] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }

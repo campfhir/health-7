@@ -37,11 +37,7 @@ export class PRA extends BaseSegment {
    * @param text - PRA-1.2 Text
    * @param codingSystem - PRA-1.3 Coding System
    */
-  primaryKeyValue(
-    identifier: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  primaryKeyValue({ identifier, text, codingSystem }: { identifier: string; text?: string; codingSystem?: string }): this {
     this.fields[0] = this.createComponentsField([
       identifier,
       text,
@@ -55,7 +51,7 @@ export class PRA extends BaseSegment {
    * @param identifier - PRA-2.1 Identifier
    * @param text - PRA-2.2 Text
    */
-  practitionerGroup(identifier: string, text?: string): this {
+  practitionerGroup({ identifier, text }: { identifier: string; text?: string }): this {
     if (text) {
       this.fields[1] = this.createField([identifier, text]);
     } else {
@@ -83,12 +79,7 @@ export class PRA extends BaseSegment {
    * @param eligibleOrCertified - PRA-5.3 Eligible Or Certified
    * @param dateOfCertification - PRA-5.4 Date Of Certification
    */
-  specialty(
-    specialtyName: string,
-    governingBoard?: string,
-    eligibleOrCertified?: string,
-    dateOfCertification?: string,
-  ): this {
+  specialty({ specialtyName, governingBoard, eligibleOrCertified, dateOfCertification }: { specialtyName: string; governingBoard?: string; eligibleOrCertified?: string; dateOfCertification?: string }): this {
     const components = [
       specialtyName,
       governingBoard ?? "",
@@ -106,12 +97,7 @@ export class PRA extends BaseSegment {
    * @param stateOrQualifying - PRA-6.3 State Or Qualifying
    * @param expireDate - PRA-6.4 Expire Date
    */
-  practitionerIdNumbers(
-    idNumber: string,
-    typeOfIdNumber?: string,
-    stateOrQualifying?: string,
-    expireDate?: string,
-  ): this {
+  practitionerIdNumbers({ idNumber, typeOfIdNumber, stateOrQualifying, expireDate }: { idNumber: string; typeOfIdNumber?: string; stateOrQualifying?: string; expireDate?: string }): this {
     const components = [
       idNumber,
       typeOfIdNumber ?? "",

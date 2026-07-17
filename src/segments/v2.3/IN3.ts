@@ -47,7 +47,7 @@ export class IN3 extends BaseSegment {
    * @param familyName - IN3-3.2 Family Name
    * @param givenName - IN3-3.3 Given Name
    */
-  certifiedBy(id: string, familyName?: string, givenName?: string): this {
+  certifiedBy({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
     this.fields[2] = this.createField([id, familyName || "", givenName || ""]);
     return this;
   }
@@ -98,7 +98,7 @@ export class IN3 extends BaseSegment {
    * @param familyName - IN3-8.2 Family Name
    * @param givenName - IN3-8.3 Given Name
    */
-  operator(id: string, familyName?: string, givenName?: string): this {
+  operator({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
     this.fields[7] = this.createField([id, familyName || "", givenName || ""]);
     return this;
   }
@@ -136,7 +136,7 @@ export class IN3 extends BaseSegment {
    * @param code - IN3-12.1 Code
    * @param text - IN3-12.2 Text
    */
-  nonConcurCodeDescription(code: string, text?: string): this {
+  nonConcurCodeDescription({ code, text }: { code: string; text?: string }): this {
     this.fields[11] = this.createField([code, text || ""]);
     return this;
   }
@@ -161,7 +161,7 @@ export class IN3 extends BaseSegment {
    * @param familyName - IN3-14.2 Family Name
    * @param givenName - IN3-14.3 Given Name
    */
-  physicianReviewer(id: string, familyName?: string, givenName?: string): this {
+  physicianReviewer({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
     this.fields[13] = this.createField([id, familyName || "", givenName || ""]);
     return this;
   }
@@ -183,7 +183,7 @@ export class IN3 extends BaseSegment {
    * @param code - IN3-17.1 Code
    * @param text - IN3-17.2 Text
    */
-  appealReason(code: string, text?: string): this {
+  appealReason({ code, text }: { code: string; text?: string }): this {
     this.fields[16] = this.createField([code, text || ""]);
     return this;
   }
@@ -193,7 +193,7 @@ export class IN3 extends BaseSegment {
    * @param code - IN3-18.1 Code
    * @param text - IN3-18.2 Text
    */
-  certificationAgency(code: string, text?: string): this {
+  certificationAgency({ code, text }: { code: string; text?: string }): this {
     this.fields[17] = this.createField([code, text || ""]);
     return this;
   }
@@ -245,11 +245,7 @@ export class IN3 extends BaseSegment {
    * @param familyName - IN3-25.2 Family Name
    * @param givenName - IN3-25.3 Given Name
    */
-  secondOpinionPhysician(
-    id: string,
-    familyName?: string,
-    givenName?: string,
-  ): this {
+  secondOpinionPhysician({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
     this.fields[24] = this.createField([id, familyName || "", givenName || ""]);
     return this;
   }

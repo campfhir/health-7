@@ -24,7 +24,7 @@ describe("TQ1 field positions", () => {
   });
 
   test("TQ1-2 Quantity", () => {
-    const parts = new TQ1().quantity("C1", "C2").encode().split("|");
+    const parts = new TQ1().quantity({ value: "C1", units: "C2" }).encode().split("|");
     expect(parts[2]).toBe("C1^C2");
   });
 
@@ -37,12 +37,12 @@ describe("TQ1 field positions", () => {
   });
 
   test("TQ1-5 Relative Time", () => {
-    const parts = new TQ1().relativeTime("C1", "C2").encode().split("|");
+    const parts = new TQ1().relativeTime({ value: "C1", units: "C2" }).encode().split("|");
     expect(parts[5]).toBe("C1^C2");
   });
 
   test("TQ1-6 Service Duration", () => {
-    const parts = new TQ1().serviceDuration("C1", "C2").encode().split("|");
+    const parts = new TQ1().serviceDuration({ value: "C1", units: "C2" }).encode().split("|");
     expect(parts[6]).toBe("C1^C2");
   });
 
@@ -55,7 +55,7 @@ describe("TQ1 field positions", () => {
   });
 
   test("TQ1-9 Priority", () => {
-    const parts = new TQ1().priority("C1", "C2", "C3").encode().split("|");
+    const parts = new TQ1().priority({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[9]).toBe("C1^C2^C3");
   });
 
@@ -72,7 +72,7 @@ describe("TQ1 field positions", () => {
   });
 
   test("TQ1-13 Occurrence Duration", () => {
-    const parts = new TQ1().occurrenceDuration("C1", "C2").encode().split("|");
+    const parts = new TQ1().occurrenceDuration({ value: "C1", units: "C2" }).encode().split("|");
     expect(parts[13]).toBe("C1^C2");
   });
 

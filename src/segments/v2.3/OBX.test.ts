@@ -28,7 +28,7 @@ describe("OBX field positions", () => {
   });
 
   test("OBX-3 Observation Identifier", () => {
-    const parts = new OBX().observationIdentifier("C1", "C2", "C3").encode().split("|");
+    const parts = new OBX().observationIdentifier({ identifier: "C1", text: "C2", nameOfCodingSystem: "C3" }).encode().split("|");
     expect(parts[3]).toBe("C1^C2^C3");
   });
 
@@ -41,7 +41,7 @@ describe("OBX field positions", () => {
   });
 
   test("OBX-6 Units", () => {
-    const parts = new OBX().units("C1", "C2", "C3").encode().split("|");
+    const parts = new OBX().units({ identifier: "C1", text: "C2", nameOfCodingSystem: "C3" }).encode().split("|");
     expect(parts[6]).toBe("C1^C2^C3");
   });
 
@@ -82,12 +82,12 @@ describe("OBX field positions", () => {
   });
 
   test("OBX-16 Responsible Observer", () => {
-    const parts = new OBX().responsibleObserver("C1", "C2", "C3").encode().split("|");
+    const parts = new OBX().responsibleObserver({ id: "C1", familyName: "C2", givenName: "C3" }).encode().split("|");
     expect(parts[16]).toBe("C1^C2^C3");
   });
 
   test("OBX-17 Observation Method", () => {
-    const parts = new OBX().observationMethod("C1", "C2", "C3").encode().split("|");
+    const parts = new OBX().observationMethod({ identifier: "C1", text: "C2", nameOfCodingSystem: "C3" }).encode().split("|");
     expect(parts[17]).toBe("C1^C2^C3");
   });
 });

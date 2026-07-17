@@ -67,7 +67,7 @@ export class EVN extends BaseSegment {
    * @param familyName - EVN-5.2 Family Name
    * @param givenName - EVN-5.3 Given Name
    */
-  operatorId(id: string, familyName?: string, givenName?: string): this {
+  operatorId({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
     const components = [id, familyName || "", givenName || ""];
     this.fields[4] = this.createField(components);
     return this;
@@ -90,11 +90,7 @@ export class EVN extends BaseSegment {
    * @param universalId - EVN-7.2 Universal ID
    * @param universalIdType - EVN-7.3 Universal ID Type
    */
-  eventFacility(
-    namespaceId: string,
-    universalId?: string,
-    universalIdType?: string,
-  ): this {
+  eventFacility({ namespaceId, universalId, universalIdType }: { namespaceId: string; universalId?: string; universalIdType?: string }): this {
     const components = [namespaceId, universalId || "", universalIdType || ""];
     this.fields[6] = this.createField(components);
     return this;

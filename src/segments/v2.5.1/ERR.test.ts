@@ -20,12 +20,12 @@ function assertField(seg: ERR, splitIndex: number): void {
 
 describe("ERR field positions", () => {
   test("ERR-10 Override Type", () => {
-    const parts = new ERR().overrideType("C1", "C2", "C3").encode().split("|");
+    const parts = new ERR().overrideType({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[10]).toBe("C1^C2^C3");
   });
 
   test("ERR-11 Override Reason Code", () => {
-    const parts = new ERR().overrideReasonCode("C1", "C2", "C3").encode().split("|");
+    const parts = new ERR().overrideReasonCode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[11]).toBe("C1^C2^C3");
   });
 

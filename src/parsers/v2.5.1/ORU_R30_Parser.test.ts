@@ -290,17 +290,17 @@ describe("ORU_R30_Parser", () => {
         .sendingFacility("Bedside Lab")
         .receivingApplication("LIS")
         .receivingFacility("Main Lab")
-        .messageType("ORU", "R30")
+        .messageType({ messageCode: "ORU", triggerEvent: "R30" })
         .messageControlId("MSG12345")
         .versionId("2.5.1");
       const pid = new PID()
         .setId("1")
-        .patientIdentifierList("98765", "", "", "MRN", "MR")
-        .patientName("Smith", "Jane", "M");
+        .patientIdentifierList({ id: "98765", checkDigit: "", checkDigitScheme: "", assigningAuthority: "MRN", identifierTypeCode: "MR" })
+        .patientName({ familyName: "Smith", givenName: "Jane", middleName: "M" });
       const pv1 = new PV1()
         .setId("1")
         .patientClass("E")
-        .assignedPatientLocation("ER", "5", "B");
+        .assignedPatientLocation({ pointOfCare: "ER", room: "5", bed: "B" });
       const orc = new ORC()
         .orderControl("NW")
         .placerOrderNumber("POC12345")
@@ -308,14 +308,14 @@ describe("ORU_R30_Parser", () => {
       const obr = new OBR()
         .setId("1")
         .placerOrderNumber("POC12345")
-        .universalServiceIdentifier("GLUC", "Glucose", "LN");
+        .universalServiceIdentifier({ identifier: "GLUC", text: "Glucose", nameOfCodingSystem: "LN" });
       const obx = new OBX()
         .setId("1")
         .valueType("NM")
-        .observationIdentifier("2339-0", "Glucose POC", "LN")
+        .observationIdentifier({ identifier: "2339-0", text: "Glucose POC", nameOfCodingSystem: "LN" })
         .observationSubId("1")
         .observationValue("185")
-        .units("mg/dL");
+        .units({ identifier: "mg/dL" });
       const message = createORU_R30(msh, [
         {
           pid,
@@ -337,22 +337,22 @@ describe("ORU_R30_Parser", () => {
     it("should maintain data through build->encode->parse->encode cycle for R31", () => {
       const msh = new MSH()
         .sendingApplication("POC_DEVICE")
-        .messageType("ORU", "R31")
+        .messageType({ messageCode: "ORU", triggerEvent: "R31" })
         .messageControlId("MSG12345")
         .versionId("2.5.1");
       const pid = new PID()
         .setId("1")
-        .patientIdentifierList("98765", "", "", "MRN")
-        .patientName("Smith", "Jane");
+        .patientIdentifierList({ id: "98765", checkDigit: "", checkDigitScheme: "", assigningAuthority: "MRN" })
+        .patientName({ familyName: "Smith", givenName: "Jane" });
       const orc = new ORC().orderControl("NW").placerOrderNumber("POC12345");
       const obr = new OBR()
         .setId("1")
         .placerOrderNumber("POC12345")
-        .universalServiceIdentifier("GLUC", "Glucose", "LN");
+        .universalServiceIdentifier({ identifier: "GLUC", text: "Glucose", nameOfCodingSystem: "LN" });
       const obx = new OBX()
         .setId("1")
         .valueType("NM")
-        .observationIdentifier("2339-0", "Glucose", "LN")
+        .observationIdentifier({ identifier: "2339-0", text: "Glucose", nameOfCodingSystem: "LN" })
         .observationValue("185");
       const message = createORU_R31(msh, [
         {
@@ -374,22 +374,22 @@ describe("ORU_R30_Parser", () => {
     it("should maintain data through build->encode->parse->encode cycle for R32", () => {
       const msh = new MSH()
         .sendingApplication("POC_DEVICE")
-        .messageType("ORU", "R32")
+        .messageType({ messageCode: "ORU", triggerEvent: "R32" })
         .messageControlId("MSG12345")
         .versionId("2.5.1");
       const pid = new PID()
         .setId("1")
-        .patientIdentifierList("98765", "", "", "MRN")
-        .patientName("Smith", "Jane");
+        .patientIdentifierList({ id: "98765", checkDigit: "", checkDigitScheme: "", assigningAuthority: "MRN" })
+        .patientName({ familyName: "Smith", givenName: "Jane" });
       const orc = new ORC().orderControl("NW").placerOrderNumber("POC12345");
       const obr = new OBR()
         .setId("1")
         .placerOrderNumber("POC12345")
-        .universalServiceIdentifier("GLUC", "Glucose", "LN");
+        .universalServiceIdentifier({ identifier: "GLUC", text: "Glucose", nameOfCodingSystem: "LN" });
       const obx = new OBX()
         .setId("1")
         .valueType("NM")
-        .observationIdentifier("2339-0", "Glucose", "LN")
+        .observationIdentifier({ identifier: "2339-0", text: "Glucose", nameOfCodingSystem: "LN" })
         .observationValue("185");
       const message = createORU_R32(msh, [
         {
@@ -411,27 +411,27 @@ describe("ORU_R30_Parser", () => {
     it("should handle multiple patients round-trip", () => {
       const msh = new MSH()
         .sendingApplication("POC_DEVICE")
-        .messageType("ORU", "R30")
+        .messageType({ messageCode: "ORU", triggerEvent: "R30" })
         .messageControlId("MSG12345")
         .versionId("2.5.1");
       const pid1 = new PID()
         .setId("1")
-        .patientIdentifierList("98765", "", "", "MRN")
-        .patientName("Smith", "Jane");
+        .patientIdentifierList({ id: "98765", checkDigit: "", checkDigitScheme: "", assigningAuthority: "MRN" })
+        .patientName({ familyName: "Smith", givenName: "Jane" });
       const orc1 = new ORC().orderControl("NW").placerOrderNumber("POC12345");
       const obr1 = new OBR()
         .setId("1")
         .placerOrderNumber("POC12345")
-        .universalServiceIdentifier("GLUC", "Glucose", "LN");
+        .universalServiceIdentifier({ identifier: "GLUC", text: "Glucose", nameOfCodingSystem: "LN" });
       const pid2 = new PID()
         .setId("1")
-        .patientIdentifierList("98766", "", "", "MRN")
-        .patientName("Doe", "John");
+        .patientIdentifierList({ id: "98766", checkDigit: "", checkDigitScheme: "", assigningAuthority: "MRN" })
+        .patientName({ familyName: "Doe", givenName: "John" });
       const orc2 = new ORC().orderControl("NW").placerOrderNumber("POC12346");
       const obr2 = new OBR()
         .setId("1")
         .placerOrderNumber("POC12346")
-        .universalServiceIdentifier("HGB", "Hemoglobin", "LN");
+        .universalServiceIdentifier({ identifier: "HGB", text: "Hemoglobin", nameOfCodingSystem: "LN" });
       const message = createORU_R30(msh, [
         {
           pid: pid1,

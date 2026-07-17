@@ -20,7 +20,7 @@ export class OBR extends OBR_base {
    * @param text - OBR-44.2 Text
    * @param codingSystem - OBR-44.3 Name of Coding System
    */
-  procedureCode(code: string, text?: string, codingSystem?: string): this {
+  procedureCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[43] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -30,11 +30,7 @@ export class OBR extends OBR_base {
    * @param text - OBR-45.2 Text
    * @param codingSystem - OBR-45.3 Name of Coding System
    */
-  procedureCodeModifier(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  procedureCodeModifier({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[44] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -44,11 +40,7 @@ export class OBR extends OBR_base {
    * @param text - OBR-46.2 Text
    * @param codingSystem - OBR-46.3 Name of Coding System
    */
-  placerSupplementalServiceInformation(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  placerSupplementalServiceInformation({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[45] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -58,11 +50,7 @@ export class OBR extends OBR_base {
    * @param text - OBR-47.2 Text
    * @param codingSystem - OBR-47.3 Name of Coding System
    */
-  fillerSupplementalServiceInformation(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  fillerSupplementalServiceInformation({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[46] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -72,11 +60,7 @@ export class OBR extends OBR_base {
    * @param text - OBR-48.2 Text
    * @param codingSystem - OBR-48.3 Name of Coding System
    */
-  medicallyNecessaryDuplicateProcedureReason(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  medicallyNecessaryDuplicateProcedureReason({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[47] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -91,11 +75,7 @@ export class OBR extends OBR_base {
    * @param text - OBR-50.2 Text
    * @param codingSystem - OBR-50.3 Name of Coding System
    */
-  parentUniversalServiceIdentifier(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  parentUniversalServiceIdentifier({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[49] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }

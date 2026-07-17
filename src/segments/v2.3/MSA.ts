@@ -56,7 +56,7 @@ export class MSA extends BaseSegment {
    * @param code - MSA-6.1 Code
    * @param text - MSA-6.2 Text
    */
-  errorCondition(code: string, text?: string): this {
+  errorCondition({ code, text }: { code: string; text?: string }): this {
     this.fields[5] = this.createComponentsField([code, text || ""]);
     return this;
   }

@@ -45,7 +45,7 @@ export class AL1 extends BaseSegment {
    * @param text - AL1-3.2 Text
    * @param codingSystem - AL1-3.3 Coding System
    */
-  allergen(code: string, text?: string, codingSystem?: string): this {
+  allergen({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     const components = [code, text || "", codingSystem || ""];
     this.fields[2] = this.createField(components);
     return this;

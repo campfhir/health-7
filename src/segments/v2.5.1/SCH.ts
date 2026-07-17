@@ -19,7 +19,7 @@ export class SCH extends SCH_base {
    * @param entityIdentifier - SCH-26.1 Entity Identifier
    * @param namespaceId - SCH-26.2 Namespace ID
    */
-  placerOrderNumber(entityIdentifier: string, namespaceId?: string): this {
+  placerOrderNumber({ entityIdentifier, namespaceId }: { entityIdentifier: string; namespaceId?: string }): this {
     this.fields[25] = this.createComponentsField([entityIdentifier, namespaceId]);
     return this;
   }
@@ -29,7 +29,7 @@ export class SCH extends SCH_base {
    * @param entityIdentifier - SCH-27.1 Entity Identifier
    * @param namespaceId - SCH-27.2 Namespace ID
    */
-  fillerOrderNumber(entityIdentifier: string, namespaceId?: string): this {
+  fillerOrderNumber({ entityIdentifier, namespaceId }: { entityIdentifier: string; namespaceId?: string }): this {
     this.fields[26] = this.createComponentsField([entityIdentifier, namespaceId]);
     return this;
   }

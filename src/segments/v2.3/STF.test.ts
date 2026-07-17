@@ -20,7 +20,7 @@ function assertField(seg: STF, splitIndex: number): void {
 
 describe("STF field positions", () => {
   test("STF-1 Primary Key Value", () => {
-    const parts = new STF().primaryKeyValue("C1", "C2", "C3").encode().split("|");
+    const parts = new STF().primaryKeyValue({ identifier: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[1]).toBe("C1^C2^C3");
   });
 
@@ -29,7 +29,7 @@ describe("STF field positions", () => {
   });
 
   test("STF-3 Staff Name", () => {
-    assertField(new STF().staffName(SENTINEL), 3);
+    assertField(new STF().staffName({ familyName: SENTINEL, givenName: "", middleName: "", suffix: "", prefix: "" }), 3);
   });
 
   test("STF-4 Staff Type", () => {
@@ -49,12 +49,12 @@ describe("STF field positions", () => {
   });
 
   test("STF-8 Department", () => {
-    const parts = new STF().department("C1", "C2").encode().split("|");
+    const parts = new STF().department({ identifier: "C1", text: "C2" }).encode().split("|");
     expect(parts[8]).toBe("C1^C2");
   });
 
   test("STF-9 Hospital Service", () => {
-    const parts = new STF().hospitalService("C1", "C2").encode().split("|");
+    const parts = new STF().hospitalService({ identifier: "C1", text: "C2" }).encode().split("|");
     expect(parts[9]).toBe("C1^C2");
   });
 
@@ -67,17 +67,17 @@ describe("STF field positions", () => {
   });
 
   test("STF-12 Institution Activation Date", () => {
-    const parts = new STF().institutionActivationDate("C1", "C2").encode().split("|");
+    const parts = new STF().institutionActivationDate({ date: "C1", institutionName: "C2" }).encode().split("|");
     expect(parts[12]).toBe("C1^C2");
   });
 
   test("STF-13 Institution Inactivation Date", () => {
-    const parts = new STF().institutionInactivationDate("C1", "C2").encode().split("|");
+    const parts = new STF().institutionInactivationDate({ date: "C1", institutionName: "C2" }).encode().split("|");
     expect(parts[13]).toBe("C1^C2");
   });
 
   test("STF-14 Backup Person ID", () => {
-    const parts = new STF().backupPersonId("C1", "C2", "C3").encode().split("|");
+    const parts = new STF().backupPersonId({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[14]).toBe("C1^C2^C3");
   });
 
@@ -86,12 +86,12 @@ describe("STF field positions", () => {
   });
 
   test("STF-16 Preferred Method Of Contact", () => {
-    const parts = new STF().preferredMethodOfContact("C1", "C2", "C3").encode().split("|");
+    const parts = new STF().preferredMethodOfContact({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[16]).toBe("C1^C2^C3");
   });
 
   test("STF-17 Marital Status", () => {
-    const parts = new STF().maritalStatus("C1", "C2", "C3").encode().split("|");
+    const parts = new STF().maritalStatus({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[17]).toBe("C1^C2^C3");
   });
 
@@ -100,12 +100,12 @@ describe("STF field positions", () => {
   });
 
   test("STF-19 Job Code Class", () => {
-    const parts = new STF().jobCodeClass("C1", "C2").encode().split("|");
+    const parts = new STF().jobCodeClass({ jobCode: "C1", jobClass: "C2" }).encode().split("|");
     expect(parts[19]).toBe("C1^C2");
   });
 
   test("STF-20 Employment Status Code", () => {
-    const parts = new STF().employmentStatusCode("C1", "C2", "C3").encode().split("|");
+    const parts = new STF().employmentStatusCode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[20]).toBe("C1^C2^C3");
   });
 
@@ -114,7 +114,7 @@ describe("STF field positions", () => {
   });
 
   test("STF-22 Drivers License Number", () => {
-    const parts = new STF().driversLicenseNumber("C1", "C2", "C3").encode().split("|");
+    const parts = new STF().driversLicenseNumber({ licenseNumber: "C1", issuingAuthority: "C2", expirationDate: "C3" }).encode().split("|");
     expect(parts[22]).toBe("C1^C2^C3");
   });
 

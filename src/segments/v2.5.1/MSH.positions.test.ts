@@ -27,7 +27,7 @@ describe("MSH field positions", () => {
   });
 
   test("MSH-21 Message Profile Identifier", () => {
-    const parts = new MSH().messageProfileIdentifier("C1", "C2").encode().split("|");
+    const parts = new MSH().messageProfileIdentifier({ entityIdentifier: "C1", namespaceId: "C2" }).encode().split("|");
     expect(parts[20]).toBe("C1^C2");
   });
 });

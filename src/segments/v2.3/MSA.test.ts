@@ -40,7 +40,7 @@ describe("MSA field positions", () => {
   });
 
   test("MSA-6 Error Condition", () => {
-    const parts = new MSA().errorCondition("C1", "C2").encode().split("|");
+    const parts = new MSA().errorCondition({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[6]).toBe("C1^C2");
   });
 });

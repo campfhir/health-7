@@ -17,13 +17,13 @@ import { GT1 } from "../../segments/v2.3/GT1.ts";
 import { parseADT_A28 } from "../../parsers/v2.5.1/ADT_A28_Parser.ts";
 
 function makeMSH() {
-  return new MSH().sendingApplication("TEST").messageType("ADT", "A28");
+  return new MSH().sendingApplication("TEST").messageType({ messageCode: "ADT", triggerEvent: "A28" });
 }
 function makeEVN() {
   return new EVN().eventTypeCode("A28").recordedDateTime("20231015120000");
 }
 function makePID() {
-  return new PID().setId("1").patientName("Doe", "John");
+  return new PID().setId("1").patientName({ familyName: "Doe", givenName: "John" });
 }
 function makePV1() {
   return new PV1().patientClass("O");
@@ -162,7 +162,7 @@ test("encode() interleaves ROL inside procedure group", () => {
 
 test("encode() places GT1 before insurance groups", () => {
   const gt1 = new GT1().setId("1");
-  const in1 = new IN1().setId("1").insurancePlanId("PPO");
+  const in1 = new IN1().setId("1").insurancePlanId({ code: "PPO" });
   const msg = createADT_A28(makeMSH(), makeEVN(), makePID(), makePV1(), {
     gt1List: [gt1],
     insuranceGroups: [{ in1 }],
@@ -174,7 +174,7 @@ test("encode() places GT1 before insurance groups", () => {
 });
 
 test("encode() interleaves IN2 and IN3 inside insurance group", () => {
-  const in1 = new IN1().setId("1").insurancePlanId("PPO");
+  const in1 = new IN1().setId("1").insurancePlanId({ code: "PPO" });
   const in2 = new IN2().insuredSsn("SSN12345");
   const in3 = new IN3().setId("1");
   const msg = createADT_A28(makeMSH(), makeEVN(), makePID(), makePV1(), {
@@ -191,8 +191,8 @@ test("encode() interleaves IN2 and IN3 inside insurance group", () => {
 });
 
 test("encode() handles multiple insurance groups in order", () => {
-  const in1a = new IN1().setId("1").insurancePlanId("PPO");
-  const in1b = new IN1().setId("2").insurancePlanId("HMO");
+  const in1a = new IN1().setId("1").insurancePlanId({ code: "PPO" });
+  const in1b = new IN1().setId("2").insurancePlanId({ code: "HMO" });
   const msg = createADT_A28(makeMSH(), makeEVN(), makePID(), makePV1(), {
     insuranceGroups: [{ in1: in1a }, { in1: in1b }],
   });
@@ -203,7 +203,7 @@ test("encode() handles multiple insurance groups in order", () => {
 
 test("round-trip: build → encode → parse", () => {
   const pr1 = new PR1().setId("1");
-  const in1 = new IN1().setId("1").insurancePlanId("PPO");
+  const in1 = new IN1().setId("1").insurancePlanId({ code: "PPO" });
   const nk1 = new NK1().setId("1");
   const al1 = new AL1().setId("1");
 

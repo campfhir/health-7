@@ -24,10 +24,7 @@ export class OBX extends OBX_base {
    * @param entityIdentifier - OBX-18.1 Entity Identifier
    * @param namespaceId - OBX-18.2 Namespace ID
    */
-  equipmentInstanceIdentifier(
-    entityIdentifier: string,
-    namespaceId?: string,
-  ): this {
+  equipmentInstanceIdentifier({ entityIdentifier, namespaceId }: { entityIdentifier: string; namespaceId?: string }): this {
     this.fields[17] = this.createComponentsField([entityIdentifier, namespaceId]);
     return this;
   }
@@ -50,11 +47,7 @@ export class OBX extends OBX_base {
    * @param organizationNameTypeCode - OBX-23.2 Organization Name Type Code
    * @param idNumber - OBX-23.3 ID Number
    */
-  performingOrganizationName(
-    organizationName: string,
-    organizationNameTypeCode?: string,
-    idNumber?: string,
-  ): this {
+  performingOrganizationName({ organizationName, organizationNameTypeCode, idNumber }: { organizationName: string; organizationNameTypeCode?: string; idNumber?: string }): this {
     this.fields[22] = this.createComponentsField([
       organizationName,
       organizationNameTypeCode,
@@ -71,14 +64,7 @@ export class OBX extends OBX_base {
    * @param zip - OBX-24.5 Zip or Postal Code
    * @param country - OBX-24.6 Country
    */
-  performingOrganizationAddress(
-    street: string,
-    otherDesignation?: string,
-    city?: string,
-    state?: string,
-    zip?: string,
-    country?: string,
-  ): this {
+  performingOrganizationAddress({ street, otherDesignation, city, state, zip, country }: { street: string; otherDesignation?: string; city?: string; state?: string; zip?: string; country?: string }): this {
     this.fields[23] = this.createComponentsField([
       street,
       otherDesignation,
@@ -95,11 +81,7 @@ export class OBX extends OBX_base {
    * @param familyName - OBX-25.2 Family Name
    * @param givenName - OBX-25.3 Given Name
    */
-  performingOrganizationMedicalDirector(
-    id: string,
-    familyName?: string,
-    givenName?: string,
-  ): this {
+  performingOrganizationMedicalDirector({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
     this.fields[24] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }

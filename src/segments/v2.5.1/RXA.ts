@@ -26,11 +26,7 @@ export class RXA extends RXA_base {
    * @param text - RXA-24.2 Text
    * @param codingSystem - RXA-24.3 Name of Coding System
    */
-  administeredDrugStrengthVolumeUnits(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  administeredDrugStrengthVolumeUnits({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[23] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -41,11 +37,7 @@ export class RXA extends RXA_base {
    * @param text - RXA-25.2 Text
    * @param codingSystem - RXA-25.3 Name of Coding System
    */
-  administeredBarcodeIdentifier(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  administeredBarcodeIdentifier({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[24] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }

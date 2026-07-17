@@ -24,7 +24,7 @@ describe("SPM field positions", () => {
   });
 
   test("SPM-2 Specimen ID", () => {
-    const parts = new SPM().specimenId("C1", "C2").encode().split("|");
+    const parts = new SPM().specimenId({ placerAssignedId: "C1", fillerAssignedId: "C2" }).encode().split("|");
     expect(parts[2]).toBe("C1^C2");
   });
 
@@ -33,47 +33,47 @@ describe("SPM field positions", () => {
   });
 
   test("SPM-4 Specimen Type", () => {
-    const parts = new SPM().specimenType("C1", "C2", "C3").encode().split("|");
+    const parts = new SPM().specimenType({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[4]).toBe("C1^C2^C3");
   });
 
   test("SPM-5 Specimen Type Modifier", () => {
-    const parts = new SPM().specimenTypeModifier("C1", "C2").encode().split("|");
+    const parts = new SPM().specimenTypeModifier({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[5]).toBe("C1^C2");
   });
 
   test("SPM-6 Specimen Additives", () => {
-    const parts = new SPM().specimenAdditives("C1", "C2").encode().split("|");
+    const parts = new SPM().specimenAdditives({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[6]).toBe("C1^C2");
   });
 
   test("SPM-7 Specimen Collection Method", () => {
-    const parts = new SPM().specimenCollectionMethod("C1", "C2").encode().split("|");
+    const parts = new SPM().specimenCollectionMethod({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[7]).toBe("C1^C2");
   });
 
   test("SPM-8 Specimen Source Site", () => {
-    const parts = new SPM().specimenSourceSite("C1", "C2", "C3").encode().split("|");
+    const parts = new SPM().specimenSourceSite({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[8]).toBe("C1^C2^C3");
   });
 
   test("SPM-9 Specimen Source Site Modifier", () => {
-    const parts = new SPM().specimenSourceSiteModifier("C1", "C2").encode().split("|");
+    const parts = new SPM().specimenSourceSiteModifier({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[9]).toBe("C1^C2");
   });
 
   test("SPM-10 Specimen Collection Site", () => {
-    const parts = new SPM().specimenCollectionSite("C1", "C2").encode().split("|");
+    const parts = new SPM().specimenCollectionSite({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[10]).toBe("C1^C2");
   });
 
   test("SPM-11 Specimen Role", () => {
-    const parts = new SPM().specimenRole("C1", "C2").encode().split("|");
+    const parts = new SPM().specimenRole({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[11]).toBe("C1^C2");
   });
 
   test("SPM-12 Specimen Collection Amount", () => {
-    const parts = new SPM().specimenCollectionAmount("C1", "C2").encode().split("|");
+    const parts = new SPM().specimenCollectionAmount({ value: "C1", units: "C2" }).encode().split("|");
     expect(parts[12]).toBe("C1^C2");
   });
 
@@ -86,7 +86,7 @@ describe("SPM field positions", () => {
   });
 
   test("SPM-17 Specimen Collection Date Time", () => {
-    const parts = new SPM().specimenCollectionDateTime("C1", "C2").encode().split("|");
+    const parts = new SPM().specimenCollectionDateTime({ rangeStart: "C1", rangeEnd: "C2" }).encode().split("|");
     expect(parts[17]).toBe("C1^C2");
   });
 
@@ -99,27 +99,27 @@ describe("SPM field positions", () => {
   });
 
   test("SPM-25 Specimen Current Quantity", () => {
-    const parts = new SPM().specimenCurrentQuantity("C1", "C2").encode().split("|");
+    const parts = new SPM().specimenCurrentQuantity({ value: "C1", units: "C2" }).encode().split("|");
     expect(parts[25]).toBe("C1^C2");
   });
 
   test("SPM-24 Specimen Condition", () => {
-    const parts = new SPM().specimenCondition("C1", "C2").encode().split("|");
+    const parts = new SPM().specimenCondition({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[24]).toBe("C1^C2");
   });
 
   test("SPM-21 Specimen Reject Reason", () => {
-    const parts = new SPM().specimenRejectReason("C1", "C2").encode().split("|");
+    const parts = new SPM().specimenRejectReason({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[21]).toBe("C1^C2");
   });
 
   test("SPM-15 Specimen Handling Code", () => {
-    const parts = new SPM().specimenHandlingCode("C1", "C2", "C3").encode().split("|");
+    const parts = new SPM().specimenHandlingCode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[15]).toBe("C1^C2^C3");
   });
 
   test("SPM-16 Specimen Risk Code", () => {
-    const parts = new SPM().specimenRiskCode("C1", "C2", "C3").encode().split("|");
+    const parts = new SPM().specimenRiskCode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[16]).toBe("C1^C2^C3");
   });
 
@@ -128,12 +128,12 @@ describe("SPM field positions", () => {
   });
 
   test("SPM-22 Specimen Quality", () => {
-    const parts = new SPM().specimenQuality("C1", "C2", "C3").encode().split("|");
+    const parts = new SPM().specimenQuality({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[22]).toBe("C1^C2^C3");
   });
 
   test("SPM-23 Specimen Appropriateness", () => {
-    const parts = new SPM().specimenAppropriateness("C1", "C2", "C3").encode().split("|");
+    const parts = new SPM().specimenAppropriateness({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[23]).toBe("C1^C2^C3");
   });
 
@@ -142,17 +142,17 @@ describe("SPM field positions", () => {
   });
 
   test("SPM-27 Container Type", () => {
-    const parts = new SPM().containerType("C1", "C2", "C3").encode().split("|");
+    const parts = new SPM().containerType({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[27]).toBe("C1^C2^C3");
   });
 
   test("SPM-28 Container Condition", () => {
-    const parts = new SPM().containerCondition("C1", "C2", "C3").encode().split("|");
+    const parts = new SPM().containerCondition({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[28]).toBe("C1^C2^C3");
   });
 
   test("SPM-29 Specimen Child Role", () => {
-    const parts = new SPM().specimenChildRole("C1", "C2", "C3").encode().split("|");
+    const parts = new SPM().specimenChildRole({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[29]).toBe("C1^C2^C3");
   });
 });

@@ -91,11 +91,7 @@ export class MSH extends BaseSegment {
    * @param triggerEvent - MSH-9.2 Trigger Event
    * @param messageStructure - MSH-9.3 Message Structure
    */
-  messageType(
-    messageCode: string,
-    triggerEvent: string,
-    messageStructure?: string,
-  ): this {
+  messageType({ messageCode, triggerEvent, messageStructure }: { messageCode: string; triggerEvent: string; messageStructure?: string }): this {
     const components = messageStructure
       ? [messageCode, triggerEvent, messageStructure]
       : [messageCode, triggerEvent];
@@ -163,11 +159,7 @@ export class MSH extends BaseSegment {
    * @param text - MSH-19.2 Text
    * @param codingSystem - MSH-19.3 Name of Coding System
    */
-  principalLanguageOfMessage(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  principalLanguageOfMessage({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[17] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }

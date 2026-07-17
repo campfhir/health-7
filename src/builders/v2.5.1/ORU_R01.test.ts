@@ -7,7 +7,7 @@ import { OBR } from "../../segments/v2.5.1/OBR.ts";
 import { OBX } from "../../segments/v2.5.1/OBX.ts";
 
 test("createORU_R01 returns ORU_R01 instance", () => {
-  const msh = new MSH().sendingApplication("APP").messageType("ORU", "R01");
+  const msh = new MSH().sendingApplication("APP").messageType({ messageCode: "ORU", triggerEvent: "R01" });
   const message = createORU_R01(msh);
 
   expect(message instanceof ORU_R01).toBeTruthy();
@@ -23,7 +23,7 @@ test("ORU_R01 verify() detects missing MSH segment", () => {
 });
 
 test("ORU_R01 verify() detects missing patient results", () => {
-  const msh = new MSH().sendingApplication("APP").messageType("ORU", "R01");
+  const msh = new MSH().sendingApplication("APP").messageType({ messageCode: "ORU", triggerEvent: "R01" });
   const message = createORU_R01(msh, []);
 
   const result = message.verify();
@@ -35,8 +35,8 @@ test("ORU_R01 verify() detects missing patient results", () => {
 });
 
 test("ORU_R01 verify() detects missing order observations", () => {
-  const msh = new MSH().sendingApplication("APP").messageType("ORU", "R01");
-  const pid = new PID().patientName("Doe", "John");
+  const msh = new MSH().sendingApplication("APP").messageType({ messageCode: "ORU", triggerEvent: "R01" });
+  const pid = new PID().patientName({ familyName: "Doe", givenName: "John" });
 
   const message = createORU_R01(msh, [
     {
@@ -54,9 +54,9 @@ test("ORU_R01 verify() detects missing order observations", () => {
 });
 
 test("ORU_R01 encodes valid message with minimal data", () => {
-  const msh = new MSH().sendingApplication("APP").messageType("ORU", "R01");
+  const msh = new MSH().sendingApplication("APP").messageType({ messageCode: "ORU", triggerEvent: "R01" });
 
-  const pid = new PID().patientName("Doe", "John");
+  const pid = new PID().patientName({ familyName: "Doe", givenName: "John" });
   const obr = new OBR().setId("1");
   const obx = new OBX().setId("1").valueType("NM");
 
@@ -78,9 +78,9 @@ test("ORU_R01 encodes valid message with minimal data", () => {
 });
 
 test("ORU_R01 encodes message with PV1", () => {
-  const msh = new MSH().sendingApplication("APP").messageType("ORU", "R01");
+  const msh = new MSH().sendingApplication("APP").messageType({ messageCode: "ORU", triggerEvent: "R01" });
 
-  const pid = new PID().patientName("Doe", "John");
+  const pid = new PID().patientName({ familyName: "Doe", givenName: "John" });
   const pv1 = new PV1().patientClass("I");
   const obr = new OBR().setId("1");
   const obx = new OBX().setId("1").valueType("NM");
@@ -101,9 +101,9 @@ test("ORU_R01 encodes message with PV1", () => {
 });
 
 test("ORU_R01 handles multiple OBX segments", () => {
-  const msh = new MSH().sendingApplication("APP").messageType("ORU", "R01");
+  const msh = new MSH().sendingApplication("APP").messageType({ messageCode: "ORU", triggerEvent: "R01" });
 
-  const pid = new PID().patientName("Doe", "John");
+  const pid = new PID().patientName({ familyName: "Doe", givenName: "John" });
   const obr = new OBR().setId("1");
   const obx1 = new OBX().setId("1").valueType("NM");
   const obx2 = new OBX().setId("2").valueType("NM");
@@ -123,9 +123,9 @@ test("ORU_R01 handles multiple OBX segments", () => {
 });
 
 test("ORU_R01 handles multiple order observations", () => {
-  const msh = new MSH().sendingApplication("APP").messageType("ORU", "R01");
+  const msh = new MSH().sendingApplication("APP").messageType({ messageCode: "ORU", triggerEvent: "R01" });
 
-  const pid = new PID().patientName("Doe", "John");
+  const pid = new PID().patientName({ familyName: "Doe", givenName: "John" });
 
   const obr1 = new OBR().setId("1");
   const obx1 = new OBX().setId("1").valueType("NM");
@@ -150,13 +150,13 @@ test("ORU_R01 handles multiple order observations", () => {
 });
 
 test("ORU_R01 handles multiple patient results", () => {
-  const msh = new MSH().sendingApplication("APP").messageType("ORU", "R01");
+  const msh = new MSH().sendingApplication("APP").messageType({ messageCode: "ORU", triggerEvent: "R01" });
 
-  const pid1 = new PID().patientName("Doe", "John");
+  const pid1 = new PID().patientName({ familyName: "Doe", givenName: "John" });
   const obr1 = new OBR().setId("1");
   const obx1 = new OBX().setId("1").valueType("NM");
 
-  const pid2 = new PID().patientName("Smith", "Jane");
+  const pid2 = new PID().patientName({ familyName: "Smith", givenName: "Jane" });
   const obr2 = new OBR().setId("1");
   const obx2 = new OBX().setId("1").valueType("NM");
 
@@ -182,23 +182,23 @@ test("ORU_R01 encodes to valid HL7 string", () => {
     .sendingApplication("LAB")
     .receivingApplication("EMR")
     .dateTimeOfMessage("20250119120000")
-    .messageType("ORU", "R01")
+    .messageType({ messageCode: "ORU", triggerEvent: "R01" })
     .messageControlId("MSG001")
     .processingId("P")
     .versionId("2.5.1");
 
   const pid = new PID()
-    .patientIdentifierList("12345")
-    .patientName("Doe", "John");
+    .patientIdentifierList({ id: "12345" })
+    .patientName({ familyName: "Doe", givenName: "John" });
 
   const obr = new OBR()
     .setId("1")
-    .universalServiceIdentifier("CBC", "Complete Blood Count", "LN");
+    .universalServiceIdentifier({ identifier: "CBC", text: "Complete Blood Count", nameOfCodingSystem: "LN" });
 
   const obx = new OBX()
     .setId("1")
     .valueType("NM")
-    .observationIdentifier("718-7", "Hemoglobin", "LN")
+    .observationIdentifier({ identifier: "718-7", text: "Hemoglobin", nameOfCodingSystem: "LN" })
     .observationValue("15.5");
 
   const message = createORU_R01(msh, [
@@ -217,7 +217,7 @@ test("ORU_R01 encodes to valid HL7 string", () => {
 });
 
 test("ORU_R01 handles patient result without PID", () => {
-  const msh = new MSH().sendingApplication("APP").messageType("ORU", "R01");
+  const msh = new MSH().sendingApplication("APP").messageType({ messageCode: "ORU", triggerEvent: "R01" });
 
   const obr = new OBR().setId("1");
   const obx = new OBX().setId("1").valueType("NM");

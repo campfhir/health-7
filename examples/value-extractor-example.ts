@@ -1,4 +1,4 @@
-import { extractValue, ValueExtractor } from '../src';
+import { extractValue, ValueExtractor } from '../src/index.ts';
 
 // Sample HL7 ORU^R01 message
 const sampleMessage = `MSH|^~\\&|LAB|General Hospital|EMR|Main Campus|20250119120000||ORU^R01^ORU_R01|MSG001|P|2.5.1

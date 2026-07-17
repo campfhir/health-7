@@ -45,14 +45,7 @@ export class PV1 extends BaseSegment {
    * @param locationStatus - PV1-3.5 Location Status
    * @param personLocationType - PV1-3.6 Person Location Type
    */
-  assignedPatientLocation(
-    pointOfCare?: string,
-    room?: string,
-    bed?: string,
-    facility?: string,
-    locationStatus?: string,
-    personLocationType?: string,
-  ): this {
+  assignedPatientLocation({ pointOfCare, room, bed, facility, locationStatus, personLocationType }: { pointOfCare?: string; room?: string; bed?: string; facility?: string; locationStatus?: string; personLocationType?: string }): this {
     this.fields[2] = this.createComponentsField([
       pointOfCare,
       room,
@@ -80,12 +73,7 @@ export class PV1 extends BaseSegment {
    * @param bed - PV1-6.3 Bed
    * @param facility - PV1-6.4 Facility
    */
-  priorPatientLocation(
-    pointOfCare?: string,
-    room?: string,
-    bed?: string,
-    facility?: string,
-  ): this {
+  priorPatientLocation({ pointOfCare, room, bed, facility }: { pointOfCare?: string; room?: string; bed?: string; facility?: string }): this {
     this.fields[5] = this.createComponentsField([
       pointOfCare,
       room,
@@ -100,7 +88,7 @@ export class PV1 extends BaseSegment {
    * @param familyName - PV1-7.2 Family Name
    * @param givenName - PV1-7.3 Given Name
    */
-  attendingDoctor(id: string, familyName?: string, givenName?: string): this {
+  attendingDoctor({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
     this.fields[6] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }
@@ -110,7 +98,7 @@ export class PV1 extends BaseSegment {
    * @param familyName - PV1-8.2 Family Name
    * @param givenName - PV1-8.3 Given Name
    */
-  referringDoctor(id: string, familyName?: string, givenName?: string): this {
+  referringDoctor({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
     this.fields[7] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }
@@ -120,7 +108,7 @@ export class PV1 extends BaseSegment {
    * @param familyName - PV1-9.2 Family Name
    * @param givenName - PV1-9.3 Given Name
    */
-  consultingDoctor(id: string, familyName?: string, givenName?: string): this {
+  consultingDoctor({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
     this.fields[8] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }
@@ -135,7 +123,7 @@ export class PV1 extends BaseSegment {
    * @param room - PV1-11.2 Room
    * @param bed - PV1-11.3 Bed
    */
-  temporaryLocation(pointOfCare?: string, room?: string, bed?: string): this {
+  temporaryLocation({ pointOfCare, room, bed }: { pointOfCare?: string; room?: string; bed?: string }): this {
     this.fields[10] = this.createComponentsField([pointOfCare, room, bed]);
     return this;
   }
@@ -170,7 +158,7 @@ export class PV1 extends BaseSegment {
    * @param familyName - PV1-17.2 Family Name
    * @param givenName - PV1-17.3 Given Name
    */
-  admittingDoctor(id: string, familyName?: string, givenName?: string): this {
+  admittingDoctor({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
     this.fields[16] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }
@@ -190,11 +178,7 @@ export class PV1 extends BaseSegment {
    * @param assigningAuthority - PV1-19.4 Assigning Authority
    * @param identifierType - PV1-19.5 Identifier Type Code
    */
-  visitNumber(
-    value: string,
-    assigningAuthority?: string,
-    identifierType?: string,
-  ): this {
+  visitNumber({ value, assigningAuthority, identifierType }: { value: string; assigningAuthority?: string; identifierType?: string }): this {
     this.fields[18] = this.createComponentsField([
       value,
       undefined,
@@ -209,7 +193,7 @@ export class PV1 extends BaseSegment {
    * @param financialClassCode - PV1-20.1 Financial Class Code
    * @param effectiveDate - PV1-20.2 Effective Date
    */
-  financialClass(financialClassCode: string, effectiveDate?: string): this {
+  financialClass({ financialClassCode, effectiveDate }: { financialClassCode: string; effectiveDate?: string }): this {
     this.fields[19] = this.createComponentsField([
       financialClassCode,
       effectiveDate,
@@ -301,10 +285,7 @@ export class PV1 extends BaseSegment {
    * @param dischargeToLocation - PV1-37.1 Discharge to Location
    * @param effectiveDate - PV1-37.2 Effective Date
    */
-  dischargedToLocation(
-    dischargeToLocation: string,
-    effectiveDate?: string,
-  ): this {
+  dischargedToLocation({ dischargeToLocation, effectiveDate }: { dischargeToLocation: string; effectiveDate?: string }): this {
     this.fields[36] = this.createComponentsField([
       dischargeToLocation,
       effectiveDate,
@@ -317,7 +298,7 @@ export class PV1 extends BaseSegment {
    * @param text - PV1-38.2 Text
    * @param codingSystem - PV1-38.3 Name of Coding System
    */
-  dietType(code: string, text?: string, codingSystem?: string): this {
+  dietType({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[37] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -345,14 +326,7 @@ export class PV1 extends BaseSegment {
    * @param locationStatus - PV1-42.5 Location Status
    * @param personLocationType - PV1-42.6 Person Location Type
    */
-  pendingLocation(
-    pointOfCare?: string,
-    room?: string,
-    bed?: string,
-    facility?: string,
-    locationStatus?: string,
-    personLocationType?: string,
-  ): this {
+  pendingLocation({ pointOfCare, room, bed, facility, locationStatus, personLocationType }: { pointOfCare?: string; room?: string; bed?: string; facility?: string; locationStatus?: string; personLocationType?: string }): this {
     this.fields[41] = this.createComponentsField([
       pointOfCare,
       room,
@@ -372,14 +346,7 @@ export class PV1 extends BaseSegment {
    * @param locationStatus - PV1-43.5 Location Status
    * @param personLocationType - PV1-43.6 Person Location Type
    */
-  priorTemporaryLocation(
-    pointOfCare?: string,
-    room?: string,
-    bed?: string,
-    facility?: string,
-    locationStatus?: string,
-    personLocationType?: string,
-  ): this {
+  priorTemporaryLocation({ pointOfCare, room, bed, facility, locationStatus, personLocationType }: { pointOfCare?: string; room?: string; bed?: string; facility?: string; locationStatus?: string; personLocationType?: string }): this {
     this.fields[42] = this.createComponentsField([
       pointOfCare,
       room,
@@ -441,11 +408,7 @@ export class PV1 extends BaseSegment {
    * @param assigningAuthority - PV1-50.4 Assigning Authority
    * @param identifierType - PV1-50.5 Identifier Type Code
    */
-  alternateVisitId(
-    value: string,
-    assigningAuthority?: string,
-    identifierType?: string,
-  ): this {
+  alternateVisitId({ value, assigningAuthority, identifierType }: { value: string; assigningAuthority?: string; identifierType?: string }): this {
     this.fields[49] = this.createComponentsField([
       value,
       undefined,
@@ -466,11 +429,7 @@ export class PV1 extends BaseSegment {
    * @param familyName - PV1-52.2 Family Name
    * @param givenName - PV1-52.3 Given Name
    */
-  otherHealthcareProvider(
-    id: string,
-    familyName?: string,
-    givenName?: string,
-  ): this {
+  otherHealthcareProvider({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
     this.fields[51] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }

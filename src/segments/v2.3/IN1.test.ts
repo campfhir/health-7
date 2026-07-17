@@ -24,12 +24,12 @@ describe("IN1 field positions", () => {
   });
 
   test("IN1-2 Insurance Plan ID", () => {
-    const parts = new IN1().insurancePlanId("C1", "C2", "C3").encode().split("|");
+    const parts = new IN1().insurancePlanId({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[2]).toBe("C1^C2^C3");
   });
 
   test("IN1-3 Insurance Company ID", () => {
-    const parts = new IN1().insuranceCompanyId("C1", "C2").encode().split("|");
+    const parts = new IN1().insuranceCompanyId({ id: "C1", assigningAuthority: "C2" }).encode().split("|");
     expect(parts[3]).toBe("C1^^^C2");
   });
 
@@ -38,12 +38,12 @@ describe("IN1 field positions", () => {
   });
 
   test("IN1-5 Insurance Company Address", () => {
-    const parts = new IN1().insuranceCompanyAddress("C1", "C2", "C3", "C4").encode().split("|");
+    const parts = new IN1().insuranceCompanyAddress({ street: "C1", city: "C2", state: "C3", zip: "C4" }).encode().split("|");
     expect(parts[5]).toBe("C1^^C2^C3^C4");
   });
 
   test("IN1-6 Insurance Contact Person", () => {
-    const parts = new IN1().insuranceContactPerson("C1", "C2").encode().split("|");
+    const parts = new IN1().insuranceContactPerson({ familyName: "C1", givenName: "C2" }).encode().split("|");
     expect(parts[6]).toBe("C1^C2");
   });
 
@@ -76,7 +76,7 @@ describe("IN1 field positions", () => {
   });
 
   test("IN1-14 Authorization Info", () => {
-    const parts = new IN1().authorizationInfo("C1", "C2", "C3").encode().split("|");
+    const parts = new IN1().authorizationInfo({ authorizationNumber: "C1", date: "C2", source: "C3" }).encode().split("|");
     expect(parts[14]).toBe("C1^C2^C3");
   });
 
@@ -85,12 +85,12 @@ describe("IN1 field positions", () => {
   });
 
   test("IN1-16 Name Of Insured", () => {
-    const parts = new IN1().nameOfInsured("C1", "C2", "C3").encode().split("|");
+    const parts = new IN1().nameOfInsured({ familyName: "C1", givenName: "C2", middleName: "C3" }).encode().split("|");
     expect(parts[16]).toBe("C1^C2^C3");
   });
 
   test("IN1-17 Insured Relationship", () => {
-    const parts = new IN1().insuredRelationship("C1", "C2").encode().split("|");
+    const parts = new IN1().insuredRelationship({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[17]).toBe("C1^C2");
   });
 
@@ -99,7 +99,7 @@ describe("IN1 field positions", () => {
   });
 
   test("IN1-19 Insured Address", () => {
-    const parts = new IN1().insuredAddress("C1", "C2", "C3", "C4").encode().split("|");
+    const parts = new IN1().insuredAddress({ street: "C1", city: "C2", state: "C3", zip: "C4" }).encode().split("|");
     expect(parts[19]).toBe("C1^^C2^C3^C4");
   });
 
@@ -160,7 +160,7 @@ describe("IN1 field positions", () => {
   });
 
   test("IN1-30 Verification By", () => {
-    const parts = new IN1().verificationBy("C1", "C2", "C3").encode().split("|");
+    const parts = new IN1().verificationBy({ id: "C1", familyName: "C2", givenName: "C3" }).encode().split("|");
     expect(parts[30]).toBe("C1^C2^C3");
   });
 
@@ -185,7 +185,7 @@ describe("IN1 field positions", () => {
   });
 
   test("IN1-38 Policy Limit Amount", () => {
-    const parts = new IN1().policyLimitAmount("C1", "C2").encode().split("|");
+    const parts = new IN1().policyLimitAmount({ price: "C1", priceType: "C2" }).encode().split("|");
     expect(parts[38]).toBe("C1^C2");
   });
 
@@ -194,17 +194,17 @@ describe("IN1 field positions", () => {
   });
 
   test("IN1-40 Room Rate Semi Private", () => {
-    const parts = new IN1().roomRateSemiPrivate("C1", "C2").encode().split("|");
+    const parts = new IN1().roomRateSemiPrivate({ price: "C1", priceType: "C2" }).encode().split("|");
     expect(parts[40]).toBe("C1^C2");
   });
 
   test("IN1-41 Room Rate Private", () => {
-    const parts = new IN1().roomRatePrivate("C1", "C2").encode().split("|");
+    const parts = new IN1().roomRatePrivate({ price: "C1", priceType: "C2" }).encode().split("|");
     expect(parts[41]).toBe("C1^C2");
   });
 
   test("IN1-42 Insured Employment Status", () => {
-    const parts = new IN1().insuredEmploymentStatus("C1", "C2", "C3").encode().split("|");
+    const parts = new IN1().insuredEmploymentStatus({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[42]).toBe("C1^C2^C3");
   });
 
@@ -213,7 +213,7 @@ describe("IN1 field positions", () => {
   });
 
   test("IN1-44 Insured Employer Address", () => {
-    const parts = new IN1().insuredEmployerAddress("C1", "C2", "C3", "C4", "C5", "C6").encode().split("|");
+    const parts = new IN1().insuredEmployerAddress({ street: "C1", otherDesignation: "C2", city: "C3", state: "C4", zip: "C5", country: "C6" }).encode().split("|");
     expect(parts[44]).toBe("C1^C2^C3^C4^C5^C6");
   });
 
@@ -226,7 +226,7 @@ describe("IN1 field positions", () => {
   });
 
   test("IN1-49 Insured ID Number", () => {
-    const parts = new IN1().insuredIdNumber("C1", "C2", "C3").encode().split("|");
+    const parts = new IN1().insuredIdNumber({ id: "C1", assigningAuthority: "C2", identifierTypeCode: "C3" }).encode().split("|");
     expect(parts[49]).toBe("C1^^^C2^C3");
   });
 });

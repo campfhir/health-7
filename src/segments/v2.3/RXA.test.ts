@@ -36,7 +36,7 @@ describe("RXA field positions", () => {
   });
 
   test("RXA-5 Administered Code", () => {
-    const parts = new RXA().administeredCode("C1", "C2", "C3").encode().split("|");
+    const parts = new RXA().administeredCode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[5]).toBe("C1^C2^C3");
   });
 
@@ -45,27 +45,27 @@ describe("RXA field positions", () => {
   });
 
   test("RXA-7 Administered Units", () => {
-    const parts = new RXA().administeredUnits("C1", "C2", "C3").encode().split("|");
+    const parts = new RXA().administeredUnits({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[7]).toBe("C1^C2^C3");
   });
 
   test("RXA-8 Administered Dosage Form", () => {
-    const parts = new RXA().administeredDosageForm("C1", "C2").encode().split("|");
+    const parts = new RXA().administeredDosageForm({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[8]).toBe("C1^C2");
   });
 
   test("RXA-9 Administration Notes", () => {
-    const parts = new RXA().administrationNotes("C1", "C2").encode().split("|");
+    const parts = new RXA().administrationNotes({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[9]).toBe("C1^C2");
   });
 
   test("RXA-10 Administering Provider", () => {
-    const parts = new RXA().administeringProvider("C1", "C2", "C3").encode().split("|");
+    const parts = new RXA().administeringProvider({ id: "C1", familyName: "C2", givenName: "C3" }).encode().split("|");
     expect(parts[10]).toBe("C1^C2^C3");
   });
 
   test("RXA-11 Administered At Location", () => {
-    const parts = new RXA().administeredAtLocation("C1", "C2", "C3", "C4").encode().split("|");
+    const parts = new RXA().administeredAtLocation({ pointOfCare: "C1", room: "C2", bed: "C3", facility: "C4" }).encode().split("|");
     expect(parts[11]).toBe("C1^C2^C3^C4");
   });
 
@@ -78,7 +78,7 @@ describe("RXA field positions", () => {
   });
 
   test("RXA-14 Administered Strength Units", () => {
-    const parts = new RXA().administeredStrengthUnits("C1", "C2").encode().split("|");
+    const parts = new RXA().administeredStrengthUnits({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[14]).toBe("C1^C2");
   });
 
@@ -91,17 +91,17 @@ describe("RXA field positions", () => {
   });
 
   test("RXA-17 Substance Manufacturer Name", () => {
-    const parts = new RXA().substanceManufacturerName("C1", "C2").encode().split("|");
+    const parts = new RXA().substanceManufacturerName({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[17]).toBe("C1^C2");
   });
 
   test("RXA-18 Substance Refusal Reason", () => {
-    const parts = new RXA().substanceRefusalReason("C1", "C2").encode().split("|");
+    const parts = new RXA().substanceRefusalReason({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[18]).toBe("C1^C2");
   });
 
   test("RXA-19 Indication", () => {
-    const parts = new RXA().indication("C1", "C2").encode().split("|");
+    const parts = new RXA().indication({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[19]).toBe("C1^C2");
   });
 

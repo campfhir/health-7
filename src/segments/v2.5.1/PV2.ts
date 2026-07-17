@@ -27,11 +27,7 @@ export class PV2 extends PV2_base {
    * @param text - PV2-39.2 Text
    * @param codingSystem - PV2-39.3 Name of Coding System
    */
-  recreationalDrugUseCode(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  recreationalDrugUseCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[38] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -42,11 +38,7 @@ export class PV2 extends PV2_base {
    * @param text - PV2-40.2 Text
    * @param codingSystem - PV2-40.3 Name of Coding System
    */
-  admissionLevelOfCareCode(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  admissionLevelOfCareCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[39] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -57,7 +49,7 @@ export class PV2 extends PV2_base {
    * @param text - PV2-41.2 Text
    * @param codingSystem - PV2-41.3 Name of Coding System
    */
-  precautionCode(code: string, text?: string, codingSystem?: string): this {
+  precautionCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[40] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -68,11 +60,7 @@ export class PV2 extends PV2_base {
    * @param text - PV2-42.2 Text
    * @param codingSystem - PV2-42.3 Name of Coding System
    */
-  patientConditionCode(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  patientConditionCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[41] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -95,11 +83,7 @@ export class PV2 extends PV2_base {
    * @param text - PV2-45.2 Text
    * @param codingSystem - PV2-45.3 Name of Coding System
    */
-  advanceDirectiveCode(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  advanceDirectiveCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[44] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }

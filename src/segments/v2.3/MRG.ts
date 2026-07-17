@@ -28,11 +28,7 @@ export class MRG extends BaseSegment {
    * @param assigningAuthority - MRG-1.4 Assigning Authority
    * @param identifierTypeCode - MRG-1.5 Identifier Type Code
    */
-  priorPatientId(
-    id: string,
-    assigningAuthority?: string,
-    identifierTypeCode?: string,
-  ): this {
+  priorPatientId({ id, assigningAuthority, identifierTypeCode }: { id: string; assigningAuthority?: string; identifierTypeCode?: string }): this {
     // CX: ID Number (.1), Assigning Authority (.4), Identifier Type Code (.5).
     this.fields[0] = this.createComponentsField([
       id,
@@ -79,7 +75,7 @@ export class MRG extends BaseSegment {
    * @param familyName - MRG-7.1 Family Name
    * @param givenName - MRG-7.2 Given Name
    */
-  priorPatientName(familyName: string, givenName?: string): this {
+  priorPatientName({ familyName, givenName }: { familyName: string; givenName?: string }): this {
     this.fields[6] = this.createField([familyName, givenName || ""]);
     return this;
   }

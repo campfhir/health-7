@@ -20,22 +20,22 @@ function assertField(seg: PV2, splitIndex: number): void {
 
 describe("PV2 field positions", () => {
   test("PV2-1 Prior Pending Location", () => {
-    const parts = new PV2().priorPendingLocation("C1", "C2", "C3", "C4").encode().split("|");
+    const parts = new PV2().priorPendingLocation({ pointOfCare: "C1", room: "C2", bed: "C3", facility: "C4" }).encode().split("|");
     expect(parts[1]).toBe("C1^C2^C3^C4");
   });
 
   test("PV2-2 Accommodation Code", () => {
-    const parts = new PV2().accommodationCode("C1", "C2", "C3").encode().split("|");
+    const parts = new PV2().accommodationCode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[2]).toBe("C1^C2^C3");
   });
 
   test("PV2-3 Admit Reason", () => {
-    const parts = new PV2().admitReason("C1", "C2", "C3").encode().split("|");
+    const parts = new PV2().admitReason({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[3]).toBe("C1^C2^C3");
   });
 
   test("PV2-4 Transfer Reason", () => {
-    const parts = new PV2().transferReason("C1", "C2", "C3").encode().split("|");
+    const parts = new PV2().transferReason({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[4]).toBe("C1^C2^C3");
   });
 
@@ -72,7 +72,7 @@ describe("PV2 field positions", () => {
   });
 
   test("PV2-13 Referral Source Code", () => {
-    const parts = new PV2().referralSourceCode("C1", "C2", "C3").encode().split("|");
+    const parts = new PV2().referralSourceCode({ id: "C1", familyName: "C2", givenName: "C3" }).encode().split("|");
     expect(parts[13]).toBe("C1^C2^C3");
   });
 
@@ -117,7 +117,7 @@ describe("PV2 field positions", () => {
   });
 
   test("PV2-38 Mode Of Arrival Code", () => {
-    const parts = new PV2().modeOfArrivalCode("C1", "C2").encode().split("|");
+    const parts = new PV2().modeOfArrivalCode({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[38]).toBe("C1^C2");
   });
 
@@ -146,7 +146,7 @@ describe("PV2 field positions", () => {
   });
 
   test("PV2-30 Patient Charge Adjustment Code", () => {
-    const parts = new PV2().patientChargeAdjustmentCode("C1", "C2", "C3").encode().split("|");
+    const parts = new PV2().patientChargeAdjustmentCode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[30]).toBe("C1^C2^C3");
   });
 

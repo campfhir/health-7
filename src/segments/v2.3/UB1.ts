@@ -86,7 +86,7 @@ export class UB1 extends BaseSegment {
    * @param code - UB1-10.1 Code
    * @param amount - UB1-10.2 Amount
    */
-  valueAmountCode(code: string, amount?: string): this {
+  valueAmountCode({ code, amount }: { code: string; amount?: string }): this {
     this.fields[9] = this.createField([code, amount || ""]);
     return this;
   }
@@ -102,7 +102,7 @@ export class UB1 extends BaseSegment {
    * @param code - UB1-12.1 Code
    * @param text - UB1-12.2 Text
    */
-  specialProgramIndicator(code: string, text?: string): this {
+  specialProgramIndicator({ code, text }: { code: string; text?: string }): this {
     this.fields[11] = this.createField([code, text || ""]);
     return this;
   }

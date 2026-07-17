@@ -28,7 +28,7 @@ describe("PR1 field positions", () => {
   });
 
   test("PR1-3 Procedure Code", () => {
-    assertField(new PR1().procedureCode(SENTINEL), 3);
+    assertField(new PR1().procedureCode({ code: SENTINEL, text: "", codingSystem: "" }), 3);
   });
 
   test("PR1-4 Procedure Description", () => {
@@ -48,7 +48,7 @@ describe("PR1 field positions", () => {
   });
 
   test("PR1-8 Anesthesiologist", () => {
-    assertField(new PR1().anesthesiologist(SENTINEL), 8);
+    assertField(new PR1().anesthesiologist({ id: SENTINEL, familyName: "", givenName: "" }), 8);
   });
 
   test("PR1-9 Anesthesia Code", () => {
@@ -60,15 +60,15 @@ describe("PR1 field positions", () => {
   });
 
   test("PR1-11 Surgeon", () => {
-    assertField(new PR1().surgeon(SENTINEL), 11);
+    assertField(new PR1().surgeon({ id: SENTINEL, familyName: "", givenName: "" }), 11);
   });
 
   test("PR1-12 Procedure Practitioner", () => {
-    assertField(new PR1().procedurePractitioner(SENTINEL), 12);
+    assertField(new PR1().procedurePractitioner({ id: SENTINEL, familyName: "", givenName: "" }), 12);
   });
 
   test("PR1-13 Consent Code", () => {
-    assertField(new PR1().consentCode(SENTINEL), 13);
+    assertField(new PR1().consentCode({ code: SENTINEL, text: "", codingSystem: "" }), 13);
   });
 
   test("PR1-14 Procedure Priority", () => {
@@ -76,6 +76,6 @@ describe("PR1 field positions", () => {
   });
 
   test("PR1-15 Associated Diagnosis Code", () => {
-    assertField(new PR1().associatedDiagnosisCode(SENTINEL), 15);
+    assertField(new PR1().associatedDiagnosisCode({ code: SENTINEL, text: "", codingSystem: "" }), 15);
   });
 });

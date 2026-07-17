@@ -20,7 +20,7 @@ function assertField(seg: RXE, splitIndex: number): void {
 
 describe("RXE field positions", () => {
   test("RXE-31 Supplementary Code", () => {
-    const parts = new RXE().supplementaryCode("C1", "C2", "C3").encode().split("|");
+    const parts = new RXE().supplementaryCode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[31]).toBe("C1^C2^C3");
   });
 
@@ -33,12 +33,12 @@ describe("RXE field positions", () => {
   });
 
   test("RXE-34 Give Drug Strength Volume Units", () => {
-    const parts = new RXE().giveDrugStrengthVolumeUnits("C1", "C2", "C3").encode().split("|");
+    const parts = new RXE().giveDrugStrengthVolumeUnits({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[34]).toBe("C1^C2^C3");
   });
 
   test("RXE-35 Controlled Substance Schedule", () => {
-    const parts = new RXE().controlledSubstanceSchedule("C1", "C2", "C3").encode().split("|");
+    const parts = new RXE().controlledSubstanceSchedule({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[35]).toBe("C1^C2^C3");
   });
 
@@ -47,12 +47,12 @@ describe("RXE field positions", () => {
   });
 
   test("RXE-37 Pharmaceutical Substance Alternative", () => {
-    const parts = new RXE().pharmaceuticalSubstanceAlternative("C1", "C2", "C3").encode().split("|");
+    const parts = new RXE().pharmaceuticalSubstanceAlternative({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[37]).toBe("C1^C2^C3");
   });
 
   test("RXE-38 Pharmacy Of Most Recent Fill", () => {
-    const parts = new RXE().pharmacyOfMostRecentFill("C1", "C2", "C3").encode().split("|");
+    const parts = new RXE().pharmacyOfMostRecentFill({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[38]).toBe("C1^C2^C3");
   });
 
@@ -61,22 +61,22 @@ describe("RXE field positions", () => {
   });
 
   test("RXE-40 Dispensing Pharmacy", () => {
-    const parts = new RXE().dispensingPharmacy("C1", "C2", "C3").encode().split("|");
+    const parts = new RXE().dispensingPharmacy({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[40]).toBe("C1^C2^C3");
   });
 
   test("RXE-41 Dispensing Pharmacy Address", () => {
-    const parts = new RXE().dispensingPharmacyAddress("C1", "C2", "C3", "C4", "C5", "C6").encode().split("|");
+    const parts = new RXE().dispensingPharmacyAddress({ street: "C1", otherDesignation: "C2", city: "C3", state: "C4", zip: "C5", country: "C6" }).encode().split("|");
     expect(parts[41]).toBe("C1^C2^C3^C4^C5^C6");
   });
 
   test("RXE-42 Deliver To Patient Location", () => {
-    const parts = new RXE().deliverToPatientLocation("C1", "C2", "C3", "C4", "C5", "C6").encode().split("|");
+    const parts = new RXE().deliverToPatientLocation({ pointOfCare: "C1", room: "C2", bed: "C3", facility: "C4", locationStatus: "C5", personLocationType: "C6" }).encode().split("|");
     expect(parts[42]).toBe("C1^C2^C3^C4^C5^C6");
   });
 
   test("RXE-43 Deliver To Address", () => {
-    const parts = new RXE().deliverToAddress("C1", "C2", "C3", "C4", "C5", "C6").encode().split("|");
+    const parts = new RXE().deliverToAddress({ street: "C1", otherDesignation: "C2", city: "C3", state: "C4", zip: "C5", country: "C6" }).encode().split("|");
     expect(parts[43]).toBe("C1^C2^C3^C4^C5^C6");
   });
 

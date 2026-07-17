@@ -28,7 +28,7 @@ describe("IN2 field positions", () => {
   });
 
   test("IN2-3 Insured Employer Name", () => {
-    const parts = new IN2().insuredEmployerName("C1", "C2", "C3").encode().split("|");
+    const parts = new IN2().insuredEmployerName({ id: "C1", familyName: "C2", givenName: "C3" }).encode().split("|");
     expect(parts[3]).toBe("C1^C2^C3");
   });
 
@@ -45,7 +45,7 @@ describe("IN2 field positions", () => {
   });
 
   test("IN2-7 Medicaid Case Name", () => {
-    const parts = new IN2().medicaidCaseName("C1", "C2").encode().split("|");
+    const parts = new IN2().medicaidCaseName({ familyName: "C1", givenName: "C2" }).encode().split("|");
     expect(parts[7]).toBe("C1^C2");
   });
 
@@ -54,7 +54,7 @@ describe("IN2 field positions", () => {
   });
 
   test("IN2-9 Military Sponsor Name", () => {
-    const parts = new IN2().militarySponsorName("C1", "C2", "C3", "C4", "C5").encode().split("|");
+    const parts = new IN2().militarySponsorName({ familyName: "C1", givenName: "C2", middleName: "C3", suffix: "C4", prefix: "C5" }).encode().split("|");
     expect(parts[9]).toBe("C1^C2^C3^C4^C5");
   });
 
@@ -63,7 +63,7 @@ describe("IN2 field positions", () => {
   });
 
   test("IN2-11 Dependent Of Military Recipient", () => {
-    const parts = new IN2().dependentOfMilitaryRecipient("C1", "C2", "C3").encode().split("|");
+    const parts = new IN2().dependentOfMilitaryRecipient({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[11]).toBe("C1^C2^C3");
   });
 
@@ -108,7 +108,7 @@ describe("IN2 field positions", () => {
   });
 
   test("IN2-22 Special Coverage Approval Name", () => {
-    const parts = new IN2().specialCoverageApprovalName("C1", "C2", "C3", "C4", "C5").encode().split("|");
+    const parts = new IN2().specialCoverageApprovalName({ familyName: "C1", givenName: "C2", middleName: "C3", suffix: "C4", prefix: "C5" }).encode().split("|");
     expect(parts[22]).toBe("C1^C2^C3^C4^C5");
   });
 
@@ -121,12 +121,12 @@ describe("IN2 field positions", () => {
   });
 
   test("IN2-25 Payor ID", () => {
-    const parts = new IN2().payorId("C1", "C2", "C3").encode().split("|");
+    const parts = new IN2().payorId({ id: "C1", assigningAuthority: "C2", identifierTypeCode: "C3" }).encode().split("|");
     expect(parts[25]).toBe("C1^^^C2^C3");
   });
 
   test("IN2-26 Payor Subscriber ID", () => {
-    const parts = new IN2().payorSubscriberId("C1", "C2", "C3").encode().split("|");
+    const parts = new IN2().payorSubscriberId({ id: "C1", assigningAuthority: "C2", identifierTypeCode: "C3" }).encode().split("|");
     expect(parts[26]).toBe("C1^^^C2^C3");
   });
 
@@ -135,17 +135,17 @@ describe("IN2 field positions", () => {
   });
 
   test("IN2-28 Room Coverage Type Amount", () => {
-    const parts = new IN2().roomCoverageTypeAmount("C1", "C2", "C3").encode().split("|");
+    const parts = new IN2().roomCoverageTypeAmount({ roomType: "C1", amountType: "C2", coverageAmount: "C3" }).encode().split("|");
     expect(parts[28]).toBe("C1^C2^C3");
   });
 
   test("IN2-29 Policy Type Amount", () => {
-    const parts = new IN2().policyTypeAmount("C1", "C2", "C3").encode().split("|");
+    const parts = new IN2().policyTypeAmount({ policyType: "C1", amountClass: "C2", amount: "C3" }).encode().split("|");
     expect(parts[29]).toBe("C1^C2^C3");
   });
 
   test("IN2-30 Daily Deductible", () => {
-    const parts = new IN2().dailyDeductible("C1", "C2", "C3").encode().split("|");
+    const parts = new IN2().dailyDeductible({ delayDays: "C1", amount: "C2", numberOfDays: "C3" }).encode().split("|");
     expect(parts[30]).toBe("C1^C2^C3");
   });
 
@@ -158,12 +158,12 @@ describe("IN2 field positions", () => {
   });
 
   test("IN2-33 Citizenship", () => {
-    const parts = new IN2().citizenship("C1", "C2", "C3").encode().split("|");
+    const parts = new IN2().citizenship({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[33]).toBe("C1^C2^C3");
   });
 
   test("IN2-34 Primary Language", () => {
-    const parts = new IN2().primaryLanguage("C1", "C2", "C3").encode().split("|");
+    const parts = new IN2().primaryLanguage({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[34]).toBe("C1^C2^C3");
   });
 
@@ -172,7 +172,7 @@ describe("IN2 field positions", () => {
   });
 
   test("IN2-36 Publicity Code", () => {
-    const parts = new IN2().publicityCode("C1", "C2", "C3").encode().split("|");
+    const parts = new IN2().publicityCode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[36]).toBe("C1^C2^C3");
   });
 
@@ -185,27 +185,27 @@ describe("IN2 field positions", () => {
   });
 
   test("IN2-39 Religion", () => {
-    const parts = new IN2().religion("C1", "C2", "C3").encode().split("|");
+    const parts = new IN2().religion({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[39]).toBe("C1^C2^C3");
   });
 
   test("IN2-40 Mothers Maiden Name", () => {
-    const parts = new IN2().mothersMaidenName("C1", "C2", "C3", "C4", "C5").encode().split("|");
+    const parts = new IN2().mothersMaidenName({ familyName: "C1", givenName: "C2", middleName: "C3", suffix: "C4", prefix: "C5" }).encode().split("|");
     expect(parts[40]).toBe("C1^C2^C3^C4^C5");
   });
 
   test("IN2-41 Nationality", () => {
-    const parts = new IN2().nationality("C1", "C2", "C3").encode().split("|");
+    const parts = new IN2().nationality({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[41]).toBe("C1^C2^C3");
   });
 
   test("IN2-42 Ethnic Group", () => {
-    const parts = new IN2().ethnicGroup("C1", "C2", "C3").encode().split("|");
+    const parts = new IN2().ethnicGroup({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[42]).toBe("C1^C2^C3");
   });
 
   test("IN2-43 Marital Status", () => {
-    const parts = new IN2().maritalStatus("C1", "C2", "C3").encode().split("|");
+    const parts = new IN2().maritalStatus({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[43]).toBe("C1^C2^C3");
   });
 
@@ -222,7 +222,7 @@ describe("IN2 field positions", () => {
   });
 
   test("IN2-47 Job Code Class", () => {
-    const parts = new IN2().jobCodeClass("C1", "C2").encode().split("|");
+    const parts = new IN2().jobCodeClass({ jobCode: "C1", jobClass: "C2" }).encode().split("|");
     expect(parts[47]).toBe("C1^C2");
   });
 
@@ -231,7 +231,7 @@ describe("IN2 field positions", () => {
   });
 
   test("IN2-49 Employer Contact Person Name", () => {
-    const parts = new IN2().employerContactPersonName("C1", "C2", "C3", "C4", "C5").encode().split("|");
+    const parts = new IN2().employerContactPersonName({ familyName: "C1", givenName: "C2", middleName: "C3", suffix: "C4", prefix: "C5" }).encode().split("|");
     expect(parts[49]).toBe("C1^C2^C3^C4^C5");
   });
 
@@ -244,7 +244,7 @@ describe("IN2 field positions", () => {
   });
 
   test("IN2-52 Insureds Contact Person Name", () => {
-    const parts = new IN2().insuredsContactPersonName("C1", "C2", "C3", "C4", "C5").encode().split("|");
+    const parts = new IN2().insuredsContactPersonName({ familyName: "C1", givenName: "C2", middleName: "C3", suffix: "C4", prefix: "C5" }).encode().split("|");
     expect(parts[52]).toBe("C1^C2^C3^C4^C5");
   });
 
@@ -281,12 +281,12 @@ describe("IN2 field positions", () => {
   });
 
   test("IN2-61 Patient Member Number", () => {
-    const parts = new IN2().patientMemberNumber("C1", "C2", "C3").encode().split("|");
+    const parts = new IN2().patientMemberNumber({ id: "C1", assigningAuthority: "C2", identifierTypeCode: "C3" }).encode().split("|");
     expect(parts[61]).toBe("C1^^^C2^C3");
   });
 
   test("IN2-62 Guarantors Relationship To Insured", () => {
-    const parts = new IN2().guarantorsRelationshipToInsured("C1", "C2", "C3").encode().split("|");
+    const parts = new IN2().guarantorsRelationshipToInsured({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[62]).toBe("C1^C2^C3");
   });
 
@@ -299,7 +299,7 @@ describe("IN2 field positions", () => {
   });
 
   test("IN2-65 Military Handicapped Program", () => {
-    const parts = new IN2().militaryHandicappedProgram("C1", "C2", "C3").encode().split("|");
+    const parts = new IN2().militaryHandicappedProgram({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[65]).toBe("C1^C2^C3");
   });
 
@@ -316,22 +316,22 @@ describe("IN2 field positions", () => {
   });
 
   test("IN2-69 Insured Organization Name And ID", () => {
-    const parts = new IN2().insuredOrganizationNameAndId("C1", "C2", "C3").encode().split("|");
+    const parts = new IN2().insuredOrganizationNameAndId({ organizationName: "C1", organizationNameTypeCode: "C2", idNumber: "C3" }).encode().split("|");
     expect(parts[69]).toBe("C1^C2^C3");
   });
 
   test("IN2-70 Insured Employer Organization Name And ID", () => {
-    const parts = new IN2().insuredEmployerOrganizationNameAndId("C1", "C2", "C3").encode().split("|");
+    const parts = new IN2().insuredEmployerOrganizationNameAndId({ organizationName: "C1", organizationNameTypeCode: "C2", idNumber: "C3" }).encode().split("|");
     expect(parts[70]).toBe("C1^C2^C3");
   });
 
   test("IN2-71 Race", () => {
-    const parts = new IN2().race("C1", "C2", "C3").encode().split("|");
+    const parts = new IN2().race({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[71]).toBe("C1^C2^C3");
   });
 
   test("IN2-72 Relationship To Patient", () => {
-    const parts = new IN2().relationshipToPatient("C1", "C2").encode().split("|");
+    const parts = new IN2().relationshipToPatient({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[72]).toBe("C1^C2");
   });
 });

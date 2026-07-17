@@ -55,7 +55,7 @@ describe("ORC Segment Builder", () => {
     it("should create ORC segment with entered by", () => {
       const orc = new ORC()
         .orderControl("NW")
-        .enteredBy("1234", "Smith", "John");
+        .enteredBy({ id: "1234", familyName: "Smith", givenName: "John" });
       const encoded = orc.encode();
       const fields = encoded.split("|");
       expect(fields[10]).toBe("1234^Smith^John");
@@ -64,7 +64,7 @@ describe("ORC Segment Builder", () => {
     it("should create ORC segment with ordering provider", () => {
       const orc = new ORC()
         .orderControl("NW")
-        .orderingProvider("5678", "Johnson", "Robert");
+        .orderingProvider({ id: "5678", familyName: "Johnson", givenName: "Robert" });
       const encoded = orc.encode();
       const fields = encoded.split("|");
       expect(fields[12]).toBe("5678^Johnson^Robert");
@@ -77,7 +77,7 @@ describe("ORC Segment Builder", () => {
         .fillerOrderNumber("FILLER456")
         .orderStatus("CM")
         .dateTimeOfTransaction("20251119120000")
-        .orderingProvider("5678", "Johnson", "Robert");
+        .orderingProvider({ id: "5678", familyName: "Johnson", givenName: "Robert" });
       const encoded = orc.encode();
       expect(encoded).toMatch(/^ORC\|NW\|ORDER123\|FILLER456/);
       const fields = encoded.split("|");
@@ -155,7 +155,7 @@ describe("ORC Segment Builder", () => {
         .placerOrderNumber("POC12345")
         .orderStatus("CM")
         .dateTimeOfTransaction("20251119120000")
-        .orderingProvider("5678", "Johnson", "Robert");
+        .orderingProvider({ id: "5678", familyName: "Johnson", givenName: "Robert" });
       const encoded = orc.encode();
       const fields = encoded.split("|");
 
@@ -170,7 +170,7 @@ describe("ORC Segment Builder", () => {
     it("should handle multiple provider name components", () => {
       const orc = new ORC()
         .orderControl("NW")
-        .orderingProvider("5678", "Johnson", "Robert");
+        .orderingProvider({ id: "5678", familyName: "Johnson", givenName: "Robert" });
       const encoded = orc.encode();
       const fields = encoded.split("|");
       expect(fields[12]).toBe("5678^Johnson^Robert");
@@ -259,7 +259,7 @@ describe("ORC.parse", () => {
     it("should maintain data through build->encode->parse->encode cycle", () => {
       const original = new ORC()
         .orderControl("NW").placerOrderNumber("ORDER123").orderStatus("CM")
-        .dateTimeOfTransaction("20251119120000").orderingProvider("5678", "Johnson", "Robert");
+        .dateTimeOfTransaction("20251119120000").orderingProvider({ id: "5678", familyName: "Johnson", givenName: "Robert" });
       const encoded1 = original.encode();
       const parseResult = ORC.parse(encoded1, DEFAULT_ENCODING);
       expect(parseResult.ok).toBe(true);
@@ -272,7 +272,7 @@ describe("ORC.parse", () => {
       const original = new ORC()
         .orderControl("NW").placerOrderNumber("POC12345").fillerOrderNumber("FILLER456")
         .orderStatus("CM").quantityTiming("BID").dateTimeOfTransaction("20251119120000")
-        .enteredBy("1234", "Smith", "John").orderingProvider("5678", "Johnson", "Robert");
+        .enteredBy({ id: "1234", familyName: "Smith", givenName: "John" }).orderingProvider({ id: "5678", familyName: "Johnson", givenName: "Robert" });
       const encoded1 = original.encode();
       const parseResult = ORC.parse(encoded1, DEFAULT_ENCODING);
       expect(parseResult.ok).toBe(true);

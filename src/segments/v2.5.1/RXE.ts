@@ -25,7 +25,7 @@ export class RXE extends RXE_base {
    * @param text - RXE-31.2 Text
    * @param codingSystem - RXE-31.3 Name of Coding System
    */
-  supplementaryCode(code: string, text?: string, codingSystem?: string): this {
+  supplementaryCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[30] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -56,11 +56,7 @@ export class RXE extends RXE_base {
    * @param text - RXE-34.2 Text
    * @param codingSystem - RXE-34.3 Name of Coding System
    */
-  giveDrugStrengthVolumeUnits(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  giveDrugStrengthVolumeUnits({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[33] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -71,11 +67,7 @@ export class RXE extends RXE_base {
    * @param text - RXE-35.2 Text
    * @param codingSystem - RXE-35.3 Name of Coding System
    */
-  controlledSubstanceSchedule(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  controlledSubstanceSchedule({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[34] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -92,11 +84,7 @@ export class RXE extends RXE_base {
    * @param text - RXE-37.2 Text
    * @param codingSystem - RXE-37.3 Name of Coding System
    */
-  pharmaceuticalSubstanceAlternative(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  pharmaceuticalSubstanceAlternative({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[36] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -107,11 +95,7 @@ export class RXE extends RXE_base {
    * @param text - RXE-38.2 Text
    * @param codingSystem - RXE-38.3 Name of Coding System
    */
-  pharmacyOfMostRecentFill(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  pharmacyOfMostRecentFill({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[37] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -128,7 +112,7 @@ export class RXE extends RXE_base {
    * @param text - RXE-40.2 Text
    * @param codingSystem - RXE-40.3 Name of Coding System
    */
-  dispensingPharmacy(code: string, text?: string, codingSystem?: string): this {
+  dispensingPharmacy({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[39] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -142,14 +126,7 @@ export class RXE extends RXE_base {
    * @param zip - RXE-41.5 Zip or Postal Code
    * @param country - RXE-41.6 Country
    */
-  dispensingPharmacyAddress(
-    street: string,
-    otherDesignation?: string,
-    city?: string,
-    state?: string,
-    zip?: string,
-    country?: string,
-  ): this {
+  dispensingPharmacyAddress({ street, otherDesignation, city, state, zip, country }: { street: string; otherDesignation?: string; city?: string; state?: string; zip?: string; country?: string }): this {
     this.fields[40] = this.createComponentsField([
       street,
       otherDesignation,
@@ -170,14 +147,7 @@ export class RXE extends RXE_base {
    * @param locationStatus - RXE-42.5 Location Status
    * @param personLocationType - RXE-42.6 Person Location Type
    */
-  deliverToPatientLocation(
-    pointOfCare: string,
-    room?: string,
-    bed?: string,
-    facility?: string,
-    locationStatus?: string,
-    personLocationType?: string,
-  ): this {
+  deliverToPatientLocation({ pointOfCare, room, bed, facility, locationStatus, personLocationType }: { pointOfCare: string; room?: string; bed?: string; facility?: string; locationStatus?: string; personLocationType?: string }): this {
     this.fields[41] = this.createComponentsField([
       pointOfCare,
       room,
@@ -198,14 +168,7 @@ export class RXE extends RXE_base {
    * @param zip - RXE-43.5 Zip or Postal Code
    * @param country - RXE-43.6 Country
    */
-  deliverToAddress(
-    street: string,
-    otherDesignation?: string,
-    city?: string,
-    state?: string,
-    zip?: string,
-    country?: string,
-  ): this {
+  deliverToAddress({ street, otherDesignation, city, state, zip, country }: { street: string; otherDesignation?: string; city?: string; state?: string; zip?: string; country?: string }): this {
     this.fields[42] = this.createComponentsField([
       street,
       otherDesignation,

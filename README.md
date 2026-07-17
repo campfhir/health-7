@@ -164,15 +164,15 @@ const msh = new MSH()
   .receivingApplication('EMR')
   .receivingFacility('Main Campus')
   .dateTimeOfMessage('20250119120000')
-  .messageType('ORU', 'R01', 'ORU_R01')
+  .messageType({ messageCode: 'ORU', triggerEvent: 'R01', messageStructure: 'ORU_R01' })
   .messageControlId('MSG00001')
   .processingId('P')
   .versionId('2.5.1');
 
 const pid = new PID()
   .setId('1')
-  .patientIdentifierList('12345', '', '', 'MRN', 'MR')
-  .patientName('Doe', 'John', 'Q')
+  .patientIdentifierList({ id: '12345', checkDigit: '', checkDigitScheme: '', assigningAuthority: 'MRN', identifierTypeCode: 'MR' })
+  .patientName({ familyName: 'Doe', givenName: 'John', middleName: 'Q' })
   .dateTimeOfBirth(new Date(1980, 0, 15))   // Date object — formatted as YYYYMMDD
   // .dateTimeOfBirth('19800115')            // pre-formatted string also accepted
   .administrativeSex('M');
@@ -180,23 +180,23 @@ const pid = new PID()
 const pv1 = new PV1()
   .setId('1')
   .patientClass('I')
-  .assignedPatientLocation('ICU', '101', 'A', 'Main')
-  .attendingDoctor('1234', 'Smith', 'Jane');
+  .assignedPatientLocation({ pointOfCare: 'ICU', room: '101', bed: 'A', facility: 'Main' })
+  .attendingDoctor({ id: '1234', familyName: 'Smith', givenName: 'Jane' });
 
 const obr = new OBR()
   .setId('1')
   .placerOrderNumber('ORD123456')
   .fillerOrderNumber('LAB987654')
-  .universalServiceIdentifier('CBC', 'Complete Blood Count', 'LN')
+  .universalServiceIdentifier({ identifier: 'CBC', text: 'Complete Blood Count', nameOfCodingSystem: 'LN' })
   .observationDateTime('20250119120000')
   .resultStatus('F');
 
 const obx = new OBX()
   .setId('1')
   .valueType('NM')
-  .observationIdentifier('718-7', 'Hemoglobin', 'LN')
+  .observationIdentifier({ identifier: '718-7', text: 'Hemoglobin', nameOfCodingSystem: 'LN' })
   .observationValue('15.5')
-  .units('g/dL', 'grams per deciliter', 'UCUM')
+  .units({ identifier: 'g/dL', text: 'grams per deciliter', nameOfCodingSystem: 'UCUM' })
   .referenceRange('13.5-17.5')
   .observationResultStatus('F');
 

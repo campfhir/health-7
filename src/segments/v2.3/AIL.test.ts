@@ -28,17 +28,17 @@ describe("AIL field positions", () => {
   });
 
   test("AIL-3 Location Resource ID", () => {
-    const parts = new AIL().locationResourceId("C1", "C2", "C3", "C4").encode().split("|");
+    const parts = new AIL().locationResourceId({ pointOfCare: "C1", room: "C2", bed: "C3", facility: "C4" }).encode().split("|");
     expect(parts[3]).toBe("C1^C2^C3^C4");
   });
 
   test("AIL-4 Location Type", () => {
-    const parts = new AIL().locationType("C1", "C2").encode().split("|");
+    const parts = new AIL().locationType({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[4]).toBe("C1^C2");
   });
 
   test("AIL-5 Location Group", () => {
-    const parts = new AIL().locationGroup("C1", "C2").encode().split("|");
+    const parts = new AIL().locationGroup({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[5]).toBe("C1^C2");
   });
 
@@ -51,7 +51,7 @@ describe("AIL field positions", () => {
   });
 
   test("AIL-8 Start Date Time Offset Units", () => {
-    const parts = new AIL().startDateTimeOffsetUnits("C1", "C2").encode().split("|");
+    const parts = new AIL().startDateTimeOffsetUnits({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[8]).toBe("C1^C2");
   });
 
@@ -60,7 +60,7 @@ describe("AIL field positions", () => {
   });
 
   test("AIL-10 Duration Units", () => {
-    const parts = new AIL().durationUnits("C1", "C2").encode().split("|");
+    const parts = new AIL().durationUnits({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[10]).toBe("C1^C2");
   });
 
@@ -69,7 +69,7 @@ describe("AIL field positions", () => {
   });
 
   test("AIL-12 Filler Status Code", () => {
-    const parts = new AIL().fillerStatusCode("C1", "C2").encode().split("|");
+    const parts = new AIL().fillerStatusCode({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[12]).toBe("C1^C2");
   });
 });

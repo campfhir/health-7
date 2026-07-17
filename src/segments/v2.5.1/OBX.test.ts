@@ -5,16 +5,16 @@ test("OBX builder creates valid segment", () => {
   const obx = new OBX()
     .setId("1")
     .valueType("NM")
-    .observationIdentifier("718-7", "Hemoglobin", "LN")
+    .observationIdentifier({ identifier: "718-7", text: "Hemoglobin", nameOfCodingSystem: "LN" })
     .observationValue("15.5")
-    .units("g/dL", "grams per deciliter", "UCUM")
+    .units({ identifier: "g/dL", text: "grams per deciliter", nameOfCodingSystem: "UCUM" })
     .observationResultStatus("F");
   expect(obx.name).toBe("OBX");
   expect(obx.fields.length > 0).toBeTruthy();
 });
 
 test("OBX encodes observation identifier", () => {
-  const obx = new OBX().observationIdentifier("718-7", "Hemoglobin", "LN");
+  const obx = new OBX().observationIdentifier({ identifier: "718-7", text: "Hemoglobin", nameOfCodingSystem: "LN" });
   const encoded = obx.encode();
   expect(encoded.includes("718-7^Hemoglobin^LN")).toBeTruthy();
 });
@@ -27,7 +27,7 @@ test("OBX encodes numeric value", () => {
 });
 
 test("OBX encodes units", () => {
-  const obx = new OBX().units("g/dL", "grams per deciliter", "UCUM");
+  const obx = new OBX().units({ identifier: "g/dL", text: "grams per deciliter", nameOfCodingSystem: "UCUM" });
   const encoded = obx.encode();
   expect(encoded.includes("g/dL^grams per deciliter^UCUM")).toBeTruthy();
 });
@@ -51,13 +51,13 @@ test("OBX encodes observation date time", () => {
 });
 
 test("OBX encodes responsible observer", () => {
-  const obx = new OBX().responsibleObserver("1234", "Smith", "John");
+  const obx = new OBX().responsibleObserver({ id: "1234", familyName: "Smith", givenName: "John" });
   const encoded = obx.encode();
   expect(encoded.includes("1234^Smith^John")).toBeTruthy();
 });
 
 test("OBX encodes observation method", () => {
-  const obx = new OBX().observationMethod("AUTO", "Automated", "L");
+  const obx = new OBX().observationMethod({ identifier: "AUTO", text: "Automated", nameOfCodingSystem: "L" });
   const encoded = obx.encode();
   expect(encoded.includes("AUTO^Automated^L")).toBeTruthy();
 });
@@ -80,10 +80,10 @@ test("OBX with complete observation", () => {
   const obx = new OBX()
     .setId("1")
     .valueType("NM")
-    .observationIdentifier("789-8", "RBC", "LN")
+    .observationIdentifier({ identifier: "789-8", text: "RBC", nameOfCodingSystem: "LN" })
     .observationSubId("1")
     .observationValue("5.2")
-    .units("10*6/uL", "million per microliter", "UCUM")
+    .units({ identifier: "10*6/uL", text: "million per microliter", nameOfCodingSystem: "UCUM" })
     .referenceRange("4.5-5.9")
     .abnormalFlags("N")
     .observationResultStatus("F")

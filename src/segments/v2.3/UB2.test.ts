@@ -40,17 +40,17 @@ describe("UB2 field positions", () => {
   });
 
   test("UB2-6 Value Amount Code", () => {
-    const parts = new UB2().valueAmountCode("C1", "C2").encode().split("|");
+    const parts = new UB2().valueAmountCode({ code: "C1", amount: "C2" }).encode().split("|");
     expect(parts[6]).toBe("C1^C2");
   });
 
   test("UB2-7 Occurrence Code Date", () => {
-    const parts = new UB2().occurrenceCodeDate("C1", "C2").encode().split("|");
+    const parts = new UB2().occurrenceCodeDate({ code: "C1", date: "C2" }).encode().split("|");
     expect(parts[7]).toBe("C1^C2");
   });
 
   test("UB2-8 Occurrence Span Code Dates", () => {
-    const parts = new UB2().occurrenceSpanCodeDates("C1", "C2", "C3").encode().split("|");
+    const parts = new UB2().occurrenceSpanCodeDates({ code: "C1", startDate: "C2", endDate: "C3" }).encode().split("|");
     expect(parts[8]).toBe("C1^C2^C3");
   });
 

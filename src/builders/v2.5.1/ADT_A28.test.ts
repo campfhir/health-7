@@ -14,13 +14,13 @@ import { GT1 } from "../../segments/v2.5.1/GT1.ts";
 import { parseADT_A28 } from "../../parsers/v2.5.1/ADT_A28_Parser.ts";
 
 function makeMSH() {
-  return new MSH().sendingApplication("TEST").messageType("ADT", "A28", "ADT_A28");
+  return new MSH().sendingApplication("TEST").messageType({ messageCode: "ADT", triggerEvent: "A28", messageStructure: "ADT_A28" });
 }
 function makeEVN() {
   return new EVN().eventTypeCode("A28").recordedDateTime("20231015120000");
 }
 function makePID() {
-  return new PID().setId("1").patientName("Doe", "John");
+  return new PID().setId("1").patientName({ familyName: "Doe", givenName: "John" });
 }
 function makePV1() {
   return new PV1().patientClass("O");
@@ -91,7 +91,7 @@ test("encode() places procedure groups after PV1", () => {
 test("encode() places GT1 before IN1", () => {
   const msg = createADT_A28(makeMSH(), makeEVN(), makePID(), makePV1(), {
     gt1List: [new GT1().setId("1")],
-    insuranceGroups: [{ in1: new IN1().setId("1").insurancePlanId("PPO") }],
+    insuranceGroups: [{ in1: new IN1().setId("1").insurancePlanId({ code: "PPO" }) }],
   });
   const names = msg.encode().split("\r").map((s) => s.substring(0, 3));
   expect(names.indexOf("GT1")).toBeLessThan(names.indexOf("IN1"));
@@ -100,7 +100,7 @@ test("encode() places GT1 before IN1", () => {
 test("encode() interleaves IN2 and IN3 inside insurance group", () => {
   const msg = createADT_A28(makeMSH(), makeEVN(), makePID(), makePV1(), {
     insuranceGroups: [{
-      in1: new IN1().setId("1").insurancePlanId("PPO"),
+      in1: new IN1().setId("1").insurancePlanId({ code: "PPO" }),
       in2: new IN2().insuredSsn("SSN123"),
       in3List: [new IN3().setId("1")],
     }],
@@ -124,7 +124,7 @@ test("round-trip: build → encode → parse", () => {
     nk1List: [new NK1().setId("1")],
     al1List: [new AL1().setId("1")],
     procedures: [{ pr1: new PR1().setId("1") }],
-    insuranceGroups: [{ in1: new IN1().setId("1").insurancePlanId("PPO") }],
+    insuranceGroups: [{ in1: new IN1().setId("1").insurancePlanId({ code: "PPO" }) }],
   });
 
   const parsed = parseADT_A28(msg.encode());

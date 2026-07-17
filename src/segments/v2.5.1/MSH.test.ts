@@ -9,7 +9,7 @@ test("MSH builder creates valid segment", () => {
     .receivingApplication("EMR")
     .receivingFacility("Clinic")
     .dateTimeOfMessage("20250119120000")
-    .messageType("ORU", "R01", "ORU_R01")
+    .messageType({ messageCode: "ORU", triggerEvent: "R01", messageStructure: "ORU_R01" })
     .messageControlId("MSG001")
     .processingId("P")
     .versionId("2.5.1");
@@ -24,7 +24,7 @@ test("MSH encodes correctly with all fields", () => {
     .receivingApplication("EMR")
     .receivingFacility("Clinic")
     .dateTimeOfMessage("20250119120000")
-    .messageType("ORU", "R01", "ORU_R01")
+    .messageType({ messageCode: "ORU", triggerEvent: "R01", messageStructure: "ORU_R01" })
     .messageControlId("MSG001")
     .processingId("P")
     .versionId("2.5.1");
@@ -41,7 +41,7 @@ test("MSH encodes correctly with all fields", () => {
 });
 
 test("MSH messageType with two components", () => {
-  const msh = new MSH().sendingApplication("APP").messageType("ADT", "A01");
+  const msh = new MSH().sendingApplication("APP").messageType({ messageCode: "ADT", triggerEvent: "A01" });
   const encoded = msh.encode();
   expect(encoded.includes("ADT^A01")).toBeTruthy();
 });
@@ -49,7 +49,7 @@ test("MSH messageType with two components", () => {
 test("MSH messageType with three components", () => {
   const msh = new MSH()
     .sendingApplication("APP")
-    .messageType("ORU", "R01", "ORU_R01");
+    .messageType({ messageCode: "ORU", triggerEvent: "R01", messageStructure: "ORU_R01" });
   const encoded = msh.encode();
   expect(encoded.includes("ORU^R01^ORU_R01")).toBeTruthy();
 });

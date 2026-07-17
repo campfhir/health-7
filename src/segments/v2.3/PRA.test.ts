@@ -20,12 +20,12 @@ function assertField(seg: PRA, splitIndex: number): void {
 
 describe("PRA field positions", () => {
   test("PRA-1 Primary Key Value", () => {
-    const parts = new PRA().primaryKeyValue("C1", "C2", "C3").encode().split("|");
+    const parts = new PRA().primaryKeyValue({ identifier: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[1]).toBe("C1^C2^C3");
   });
 
   test("PRA-2 Practitioner Group", () => {
-    const parts = new PRA().practitionerGroup("C1", "C2").encode().split("|");
+    const parts = new PRA().practitionerGroup({ identifier: "C1", text: "C2" }).encode().split("|");
     expect(parts[2]).toBe("C1^C2");
   });
 
@@ -38,11 +38,11 @@ describe("PRA field positions", () => {
   });
 
   test("PRA-5 Specialty", () => {
-    assertField(new PRA().specialty(SENTINEL), 5);
+    assertField(new PRA().specialty({ specialtyName: SENTINEL, governingBoard: "", eligibleOrCertified: "", dateOfCertification: "" }), 5);
   });
 
   test("PRA-6 Practitioner ID Numbers", () => {
-    assertField(new PRA().practitionerIdNumbers(SENTINEL), 6);
+    assertField(new PRA().practitionerIdNumbers({ idNumber: SENTINEL, typeOfIdNumber: "", stateOrQualifying: "", expireDate: "" }), 6);
   });
 
   test("PRA-8 Date Entered Practice", () => {

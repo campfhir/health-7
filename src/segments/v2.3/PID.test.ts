@@ -28,7 +28,7 @@ describe("PID field positions", () => {
   });
 
   test("PID-3 Patient Identifier List", () => {
-    const parts = new PID().patientIdentifierList("C1", "C2", "C3", "C4", "C5").encode().split("|");
+    const parts = new PID().patientIdentifierList({ id: "C1", checkDigit: "C2", checkDigitScheme: "C3", assigningAuthority: "C4", identifierTypeCode: "C5" }).encode().split("|");
     expect(parts[3]).toBe("C1^C2^C3^C4^C5");
   });
 
@@ -37,12 +37,12 @@ describe("PID field positions", () => {
   });
 
   test("PID-5 Patient Name", () => {
-    const parts = new PID().patientName("C1", "C2", "C3", "C4", "C5").encode().split("|");
+    const parts = new PID().patientName({ familyName: "C1", givenName: "C2", middleName: "C3", suffix: "C4", prefix: "C5" }).encode().split("|");
     expect(parts[5]).toBe("C1^C2^C3^C4^C5");
   });
 
   test("PID-6 Mothers Maiden Name", () => {
-    const parts = new PID().mothersMaidenName("C1", "C2").encode().split("|");
+    const parts = new PID().mothersMaidenName({ familyName: "C1", givenName: "C2" }).encode().split("|");
     expect(parts[6]).toBe("C1^C2");
   });
 
@@ -55,7 +55,7 @@ describe("PID field positions", () => {
   });
 
   test("PID-9 Patient Alias", () => {
-    const parts = new PID().patientAlias("C1", "C2").encode().split("|");
+    const parts = new PID().patientAlias({ familyName: "C1", givenName: "C2" }).encode().split("|");
     expect(parts[9]).toBe("C1^C2");
   });
 
@@ -64,7 +64,7 @@ describe("PID field positions", () => {
   });
 
   test("PID-11 Patient Address", () => {
-    const parts = new PID().patientAddress("C1", "C2", "C3", "C4", "C5", "C6").encode().split("|");
+    const parts = new PID().patientAddress({ streetAddress: "C1", otherDesignation: "C2", city: "C3", state: "C4", zip: "C5", country: "C6" }).encode().split("|");
     expect(parts[11]).toBe("C1^C2^C3^C4^C5^C6");
   });
 
@@ -101,17 +101,17 @@ describe("PID field positions", () => {
   });
 
   test("PID-20 Drivers License Number", () => {
-    const parts = new PID().driversLicenseNumber("C1", "C2", "C3").encode().split("|");
+    const parts = new PID().driversLicenseNumber({ licenseNumber: "C1", issuingAuthority: "C2", expirationDate: "C3" }).encode().split("|");
     expect(parts[20]).toBe("C1^C2^C3");
   });
 
   test("PID-21 Mothers Identifier", () => {
-    const parts = new PID().mothersIdentifier("C1", "C2", "C3").encode().split("|");
+    const parts = new PID().mothersIdentifier({ id: "C1", assigningAuthority: "C2", identifierTypeCode: "C3" }).encode().split("|");
     expect(parts[21]).toBe("C1^^^C2^C3");
   });
 
   test("PID-22 Ethnic Group", () => {
-    const parts = new PID().ethnicGroup("C1", "C2", "C3").encode().split("|");
+    const parts = new PID().ethnicGroup({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[22]).toBe("C1^C2^C3");
   });
 
@@ -128,17 +128,17 @@ describe("PID field positions", () => {
   });
 
   test("PID-26 Citizenship", () => {
-    const parts = new PID().citizenship("C1", "C2", "C3").encode().split("|");
+    const parts = new PID().citizenship({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[26]).toBe("C1^C2^C3");
   });
 
   test("PID-27 Veterans Military Status", () => {
-    const parts = new PID().veteransMilitaryStatus("C1", "C2", "C3").encode().split("|");
+    const parts = new PID().veteransMilitaryStatus({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[27]).toBe("C1^C2^C3");
   });
 
   test("PID-28 Nationality", () => {
-    const parts = new PID().nationality("C1", "C2", "C3").encode().split("|");
+    const parts = new PID().nationality({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[28]).toBe("C1^C2^C3");
   });
 

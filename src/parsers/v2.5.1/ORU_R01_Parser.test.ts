@@ -376,24 +376,24 @@ OBX|1|NM|2345-7^Glucose^LN|1|95|mg/dL|70-100|N|||F`;
       .setId("99")
       .placerOrderNumber("NEWORDER")
       .fillerOrderNumber("NEWLAB")
-      .universalServiceIdentifier("NA", "Sodium", "L")
+      .universalServiceIdentifier({ identifier: "NA", text: "Sodium", nameOfCodingSystem: "L" })
       .observationDateTime("20231115110000");
     const newObx = new OBX()
       .setId("99")
       .valueType("NM")
-      .observationIdentifier("2951-2", "Sodium", "LN")
+      .observationIdentifier({ identifier: "2951-2", text: "Sodium", nameOfCodingSystem: "LN" })
       .observationSubId("1")
       .observationValue("140")
-      .units("mmol/L");
+      .units({ identifier: "mmol/L" });
     patient.orderObservations.unshift({ obr: newObr, obxList: [newObx] });
 
     const anotherObx = new OBX()
       .setId("77")
       .valueType("NM")
-      .observationIdentifier("2823-3", "Potassium", "LN")
+      .observationIdentifier({ identifier: "2823-3", text: "Potassium", nameOfCodingSystem: "LN" })
       .observationSubId("1")
       .observationValue("4.2")
-      .units("mmol/L");
+      .units({ identifier: "mmol/L" });
     patient.orderObservations[1].obxList.splice(1, 0, anotherObx);
 
     const reParseResult = parseORU_R01(
@@ -462,15 +462,15 @@ OBX|1|NM|2345-7^Glucose^LN|1|95|mg/dL|70-100|N|||F`;
       .setId("99")
       .placerOrderNumber("NEWORDER")
       .fillerOrderNumber("NEWLAB")
-      .universalServiceIdentifier("NA", "Sodium", "L")
+      .universalServiceIdentifier({ identifier: "NA", text: "Sodium", nameOfCodingSystem: "L" })
       .observationDateTime("20231115110000");
     const newObx = new OBX()
       .setId("99")
       .valueType("NM")
-      .observationIdentifier("2951-2", "Sodium", "LN")
+      .observationIdentifier({ identifier: "2951-2", text: "Sodium", nameOfCodingSystem: "LN" })
       .observationSubId("1")
       .observationValue("140")
-      .units("mmol/L");
+      .units({ identifier: "mmol/L" });
     patient.orderObservations.unshift({ obr: newObr, obxList: [newObx] });
 
     const reParseResult = parseORU_R01(
@@ -517,10 +517,10 @@ OBX|1|NM|2345-7^Glucose^LN|1|95|mg/dL|70-100|N|||F`;
     const newObx = new OBX()
       .setId("77")
       .valueType("NM")
-      .observationIdentifier("2823-3", "Potassium", "LN")
+      .observationIdentifier({ identifier: "2823-3", text: "Potassium", nameOfCodingSystem: "LN" })
       .observationSubId("1")
       .observationValue("4.2")
-      .units("mmol/L");
+      .units({ identifier: "mmol/L" });
     firstOrder.obxList.splice(1, 0, newObx);
 
     const reParseResult = parseORU_R01(
@@ -563,15 +563,15 @@ OBX|1|NM|2345-7^Glucose^LN|1|95|mg/dL|70-100|N|||F`;
       .setId("1")
       .placerOrderNumber("NEWORDER")
       .fillerOrderNumber("NEWLAB")
-      .universalServiceIdentifier("NA", "Sodium", "L")
+      .universalServiceIdentifier({ identifier: "NA", text: "Sodium", nameOfCodingSystem: "L" })
       .observationDateTime("20231115110000");
     const newObx = new OBX()
       .setId("1")
       .valueType("NM")
-      .observationIdentifier("2951-2", "Sodium", "LN")
+      .observationIdentifier({ identifier: "2951-2", text: "Sodium", nameOfCodingSystem: "LN" })
       .observationSubId("1")
       .observationValue("140")
-      .units("mmol/L");
+      .units({ identifier: "mmol/L" });
 
     patient.orderObservations[0].obr.setId("2");
     patient.orderObservations[1].obr.setId("3");
@@ -613,10 +613,10 @@ OBX|1|NM|2345-7^Glucose^LN|1|95|mg/dL|70-100|N|||F`;
     const newObx = new OBX()
       .setId("2")
       .valueType("NM")
-      .observationIdentifier("2823-3", "Potassium", "LN")
+      .observationIdentifier({ identifier: "2823-3", text: "Potassium", nameOfCodingSystem: "LN" })
       .observationSubId("1")
       .observationValue("4.2")
-      .units("mmol/L");
+      .units({ identifier: "mmol/L" });
     firstOrder.obxList[1].setId("3");
     firstOrder.obxList.splice(1, 0, newObx);
 

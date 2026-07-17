@@ -28,17 +28,17 @@ describe("AIG field positions", () => {
   });
 
   test("AIG-3 Resource ID", () => {
-    const parts = new AIG().resourceId("C1", "C2", "C3").encode().split("|");
+    const parts = new AIG().resourceId({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[3]).toBe("C1^C2^C3");
   });
 
   test("AIG-4 Resource Type", () => {
-    const parts = new AIG().resourceType("C1", "C2", "C3").encode().split("|");
+    const parts = new AIG().resourceType({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[4]).toBe("C1^C2^C3");
   });
 
   test("AIG-5 Resource Group", () => {
-    const parts = new AIG().resourceGroup("C1", "C2").encode().split("|");
+    const parts = new AIG().resourceGroup({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[5]).toBe("C1^C2");
   });
 
@@ -47,7 +47,7 @@ describe("AIG field positions", () => {
   });
 
   test("AIG-7 Resource Quantity Units", () => {
-    const parts = new AIG().resourceQuantityUnits("C1", "C2").encode().split("|");
+    const parts = new AIG().resourceQuantityUnits({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[7]).toBe("C1^C2");
   });
 
@@ -60,7 +60,7 @@ describe("AIG field positions", () => {
   });
 
   test("AIG-10 Start Date Time Offset Units", () => {
-    const parts = new AIG().startDateTimeOffsetUnits("C1", "C2").encode().split("|");
+    const parts = new AIG().startDateTimeOffsetUnits({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[10]).toBe("C1^C2");
   });
 
@@ -69,7 +69,7 @@ describe("AIG field positions", () => {
   });
 
   test("AIG-12 Duration Units", () => {
-    const parts = new AIG().durationUnits("C1", "C2").encode().split("|");
+    const parts = new AIG().durationUnits({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[12]).toBe("C1^C2");
   });
 
@@ -78,7 +78,7 @@ describe("AIG field positions", () => {
   });
 
   test("AIG-14 Filler Status Code", () => {
-    const parts = new AIG().fillerStatusCode("C1", "C2").encode().split("|");
+    const parts = new AIG().fillerStatusCode({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[14]).toBe("C1^C2");
   });
 });

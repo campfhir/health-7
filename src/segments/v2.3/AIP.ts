@@ -44,11 +44,7 @@ export class AIP extends BaseSegment {
    * @param familyName - AIP-3.2 Family Name
    * @param givenName - AIP-3.3 Given Name
    */
-  personnelResourceId(
-    id: string,
-    familyName?: string,
-    givenName?: string,
-  ): this {
+  personnelResourceId({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
     this.fields[2] = this.createComponentsField([
       id,
       familyName || "",
@@ -63,7 +59,7 @@ export class AIP extends BaseSegment {
    * @param text - AIP-4.2 Text
    * @param codingSystem - AIP-4.3 Coding System
    */
-  resourceType(code: string, text?: string, codingSystem?: string): this {
+  resourceType({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[3] = this.createComponentsField([
       code,
       text || "",
@@ -77,7 +73,7 @@ export class AIP extends BaseSegment {
    * @param code - AIP-5.1 Code
    * @param text - AIP-5.2 Text
    */
-  resourceGroup(code: string, text?: string): this {
+  resourceGroup({ code, text }: { code: string; text?: string }): this {
     this.fields[4] = this.createComponentsField([code, text]);
     return this;
   }
@@ -104,7 +100,7 @@ export class AIP extends BaseSegment {
    * @param code - AIP-8.1 Code
    * @param text - AIP-8.2 Text
    */
-  startDateTimeOffsetUnits(code: string, text?: string): this {
+  startDateTimeOffsetUnits({ code, text }: { code: string; text?: string }): this {
     this.fields[7] = this.createComponentsField([code, text]);
     return this;
   }
@@ -120,7 +116,7 @@ export class AIP extends BaseSegment {
    * @param code - AIP-10.1 Code
    * @param text - AIP-10.2 Text
    */
-  durationUnits(code: string, text?: string): this {
+  durationUnits({ code, text }: { code: string; text?: string }): this {
     this.fields[9] = this.createComponentsField([code, text]);
     return this;
   }
@@ -136,7 +132,7 @@ export class AIP extends BaseSegment {
    * @param code - AIP-12.1 Code
    * @param text - AIP-12.2 Text
    */
-  fillerStatusCode(code: string, text?: string): this {
+  fillerStatusCode({ code, text }: { code: string; text?: string }): this {
     this.fields[11] = this.createComponentsField([code, text]);
     return this;
   }

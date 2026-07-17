@@ -47,7 +47,7 @@ describe("MSH field positions", () => {
   });
 
   test("MSH-9 Message Type", () => {
-    assertField(new MSH().messageType(SENTINEL, SENTINEL), 8);
+    assertField(new MSH().messageType({ messageCode: SENTINEL, triggerEvent: "", messageStructure: "" }), 8);
   });
 
   test("MSH-10 Message Control ID", () => {
@@ -87,7 +87,7 @@ describe("MSH field positions", () => {
   });
 
   test("MSH-19 Principal Language Of Message", () => {
-    const parts = new MSH().principalLanguageOfMessage("C1", "C2", "C3").encode().split("|");
+    const parts = new MSH().principalLanguageOfMessage({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[18]).toBe("C1^C2^C3");
   });
 });

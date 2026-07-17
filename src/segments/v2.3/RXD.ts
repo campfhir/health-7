@@ -40,7 +40,7 @@ export class RXD extends BaseSegment {
    * @param text - RXD-2.2 Text
    * @param codingSystem - RXD-2.3 Coding System
    */
-  dispenseGiveCode(code: string, text?: string, codingSystem?: string): this {
+  dispenseGiveCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[1] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -67,7 +67,7 @@ export class RXD extends BaseSegment {
    * @param code - RXD-5.1 Code
    * @param text - RXD-5.2 Text
    */
-  actualDispenseUnits(code: string, text?: string): this {
+  actualDispenseUnits({ code, text }: { code: string; text?: string }): this {
     this.fields[4] = this.createComponentsField([code, text]);
     return this;
   }
@@ -77,7 +77,7 @@ export class RXD extends BaseSegment {
    * @param code - RXD-6.1 Code
    * @param text - RXD-6.2 Text
    */
-  actualDosageForm(code: string, text?: string): this {
+  actualDosageForm({ code, text }: { code: string; text?: string }): this {
     this.fields[5] = this.createComponentsField([code, text]);
     return this;
   }
@@ -106,11 +106,7 @@ export class RXD extends BaseSegment {
    * @param familyName - RXD-10.2 Family Name
    * @param givenName - RXD-10.3 Given Name
    */
-  dispensingProvider(
-    id: string,
-    familyName?: string,
-    givenName?: string,
-  ): this {
+  dispensingProvider({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
     this.fields[9] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }
@@ -126,7 +122,7 @@ export class RXD extends BaseSegment {
    * @param quantity - RXD-12.1 Quantity
    * @param units - RXD-12.2 Units
    */
-  totalDailyDose(quantity: string, units?: string): this {
+  totalDailyDose({ quantity, units }: { quantity: string; units?: string }): this {
     this.fields[11] = this.createComponentsField([quantity, units]);
     return this;
   }
@@ -138,12 +134,7 @@ export class RXD extends BaseSegment {
    * @param bed - RXD-13.3 Bed
    * @param facility - RXD-13.4 Facility
    */
-  dispenseToLocation(
-    pointOfCare: string,
-    room?: string,
-    bed?: string,
-    facility?: string,
-  ): this {
+  dispenseToLocation({ pointOfCare, room, bed, facility }: { pointOfCare: string; room?: string; bed?: string; facility?: string }): this {
     this.fields[12] = this.createComponentsField([
       pointOfCare,
       room,
@@ -165,11 +156,7 @@ export class RXD extends BaseSegment {
    * @param text - RXD-15.2 Text
    * @param codingSystem - RXD-15.3 Name of Coding System
    */
-  specialDispensingInstructions(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  specialDispensingInstructions({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[14] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -186,7 +173,7 @@ export class RXD extends BaseSegment {
    * @param text - RXD-17.2 Text
    * @param codingSystem - RXD-17.3 Name of Coding System
    */
-  actualStrengthUnit(code: string, text?: string, codingSystem?: string): this {
+  actualStrengthUnit({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[16] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -213,7 +200,7 @@ export class RXD extends BaseSegment {
    * @param code - RXD-20.1 Code
    * @param text - RXD-20.2 Text
    */
-  substanceManufacturerName(code: string, text?: string): this {
+  substanceManufacturerName({ code, text }: { code: string; text?: string }): this {
     this.fields[19] = this.createComponentsField([code, text]);
     return this;
   }
@@ -224,7 +211,7 @@ export class RXD extends BaseSegment {
    * @param text - RXD-21.2 Text
    * @param codingSystem - RXD-21.3 Name of Coding System
    */
-  indication(code: string, text?: string, codingSystem?: string): this {
+  indication({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[20] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -241,11 +228,7 @@ export class RXD extends BaseSegment {
    * @param text - RXD-23.2 Text
    * @param codingSystem - RXD-23.3 Name of Coding System
    */
-  dispensePackageSizeUnit(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  dispensePackageSizeUnit({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[22] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }

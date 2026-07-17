@@ -20,27 +20,27 @@ function assertField(seg: OBR, splitIndex: number): void {
 
 describe("OBR field positions", () => {
   test("OBR-44 Procedure Code", () => {
-    const parts = new OBR().procedureCode("C1", "C2", "C3").encode().split("|");
+    const parts = new OBR().procedureCode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[44]).toBe("C1^C2^C3");
   });
 
   test("OBR-45 Procedure Code Modifier", () => {
-    const parts = new OBR().procedureCodeModifier("C1", "C2", "C3").encode().split("|");
+    const parts = new OBR().procedureCodeModifier({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[45]).toBe("C1^C2^C3");
   });
 
   test("OBR-46 Placer Supplemental Service Information", () => {
-    const parts = new OBR().placerSupplementalServiceInformation("C1", "C2", "C3").encode().split("|");
+    const parts = new OBR().placerSupplementalServiceInformation({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[46]).toBe("C1^C2^C3");
   });
 
   test("OBR-47 Filler Supplemental Service Information", () => {
-    const parts = new OBR().fillerSupplementalServiceInformation("C1", "C2", "C3").encode().split("|");
+    const parts = new OBR().fillerSupplementalServiceInformation({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[47]).toBe("C1^C2^C3");
   });
 
   test("OBR-48 Medically Necessary Duplicate Procedure Reason", () => {
-    const parts = new OBR().medicallyNecessaryDuplicateProcedureReason("C1", "C2", "C3").encode().split("|");
+    const parts = new OBR().medicallyNecessaryDuplicateProcedureReason({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[48]).toBe("C1^C2^C3");
   });
 
@@ -49,7 +49,7 @@ describe("OBR field positions", () => {
   });
 
   test("OBR-50 Parent Universal Service Identifier", () => {
-    const parts = new OBR().parentUniversalServiceIdentifier("C1", "C2", "C3").encode().split("|");
+    const parts = new OBR().parentUniversalServiceIdentifier({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[50]).toBe("C1^C2^C3");
   });
 });

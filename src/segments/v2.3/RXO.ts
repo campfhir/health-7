@@ -27,7 +27,7 @@ export class RXO extends BaseSegment {
    * @param text - RXO-1.2 Text
    * @param codingSystem - RXO-1.3 Coding System
    */
-  requestedGiveCode(code: string, text?: string, codingSystem?: string): this {
+  requestedGiveCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[0] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -49,7 +49,7 @@ export class RXO extends BaseSegment {
    * @param code - RXO-4.1 Code
    * @param text - RXO-4.2 Text
    */
-  requestedGiveUnits(code: string, text?: string): this {
+  requestedGiveUnits({ code, text }: { code: string; text?: string }): this {
     this.fields[3] = this.createComponentsField([code, text]);
     return this;
   }
@@ -59,7 +59,7 @@ export class RXO extends BaseSegment {
    * @param code - RXO-5.1 Code
    * @param text - RXO-5.2 Text
    */
-  requestedDosageForm(code: string, text?: string): this {
+  requestedDosageForm({ code, text }: { code: string; text?: string }): this {
     this.fields[4] = this.createComponentsField([code, text]);
     return this;
   }
@@ -69,7 +69,7 @@ export class RXO extends BaseSegment {
    * @param code - RXO-6.1 Code
    * @param text - RXO-6.2 Text
    */
-  providerPharmacyInstructions(code: string, text?: string): this {
+  providerPharmacyInstructions({ code, text }: { code: string; text?: string }): this {
     this.fields[5] = this.createComponentsField([code, text]);
     return this;
   }
@@ -79,7 +79,7 @@ export class RXO extends BaseSegment {
    * @param code - RXO-7.1 Code
    * @param text - RXO-7.2 Text
    */
-  providerAdminInstructions(code: string, text?: string): this {
+  providerAdminInstructions({ code, text }: { code: string; text?: string }): this {
     this.fields[6] = this.createComponentsField([code, text]);
     return this;
   }
@@ -91,12 +91,7 @@ export class RXO extends BaseSegment {
    * @param bed - RXO-8.3 Bed
    * @param facility - RXO-8.4 Facility
    */
-  deliverToLocation(
-    pointOfCare: string,
-    room?: string,
-    bed?: string,
-    facility?: string,
-  ): this {
+  deliverToLocation({ pointOfCare, room, bed, facility }: { pointOfCare: string; room?: string; bed?: string; facility?: string }): this {
     this.fields[7] = this.createComponentsField([
       pointOfCare,
       room,
@@ -117,7 +112,7 @@ export class RXO extends BaseSegment {
    * @param code - RXO-10.1 Code
    * @param text - RXO-10.2 Text
    */
-  requestedDispenseCode(code: string, text?: string): this {
+  requestedDispenseCode({ code, text }: { code: string; text?: string }): this {
     this.fields[9] = this.createComponentsField([code, text]);
     return this;
   }
@@ -133,7 +128,7 @@ export class RXO extends BaseSegment {
    * @param code - RXO-12.1 Code
    * @param text - RXO-12.2 Text
    */
-  requestedDispenseUnits(code: string, text?: string): this {
+  requestedDispenseUnits({ code, text }: { code: string; text?: string }): this {
     this.fields[11] = this.createComponentsField([code, text]);
     return this;
   }
@@ -150,7 +145,7 @@ export class RXO extends BaseSegment {
    * @param familyName - RXO-14.2 Family Name
    * @param givenName - RXO-14.3 Given Name
    */
-  orderingProviderDeaNumber(id: string, familyName?: string, givenName?: string): this {
+  orderingProviderDeaNumber({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
     this.fields[13] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }
@@ -161,7 +156,7 @@ export class RXO extends BaseSegment {
    * @param familyName - RXO-15.2 Family Name
    * @param givenName - RXO-15.3 Given Name
    */
-  pharmacistVerifierId(id: string, familyName?: string, givenName?: string): this {
+  pharmacistVerifierId({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
     this.fields[14] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }
@@ -190,7 +185,7 @@ export class RXO extends BaseSegment {
    * @param text - RXO-19.2 Text
    * @param codingSystem - RXO-19.3 Name of Coding System
    */
-  requestedGiveStrengthUnits(code: string, text?: string, codingSystem?: string): this {
+  requestedGiveStrengthUnits({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[18] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -201,7 +196,7 @@ export class RXO extends BaseSegment {
    * @param text - RXO-20.2 Text
    * @param codingSystem - RXO-20.3 Name of Coding System
    */
-  indication(code: string, text?: string, codingSystem?: string): this {
+  indication({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[19] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -217,7 +212,7 @@ export class RXO extends BaseSegment {
    * @param code - RXO-22.1 Code
    * @param text - RXO-22.2 Text
    */
-  requestedGiveRateUnits(code: string, text?: string): this {
+  requestedGiveRateUnits({ code, text }: { code: string; text?: string }): this {
     this.fields[21] = this.createComponentsField([code, text]);
     return this;
   }

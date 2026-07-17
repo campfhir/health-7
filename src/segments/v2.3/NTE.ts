@@ -48,7 +48,7 @@ export class NTE extends BaseSegment {
    * @param text - NTE-4.2 Text
    * @param codingSystem - NTE-4.3 Coding System
    */
-  commentType(identifier: string, text?: string, codingSystem?: string): this {
+  commentType({ identifier, text, codingSystem }: { identifier: string; text?: string; codingSystem?: string }): this {
     this.fields[3] = this.createComponentsField([
       identifier,
       text,

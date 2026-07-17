@@ -20,12 +20,12 @@ function assertField(seg: SCH, splitIndex: number): void {
 
 describe("SCH field positions", () => {
   test("SCH-1 Placer Appointment ID", () => {
-    const parts = new SCH().placerAppointmentId("C1", "C2").encode().split("|");
+    const parts = new SCH().placerAppointmentId({ entityId: "C1", namespaceId: "C2" }).encode().split("|");
     expect(parts[1]).toBe("C1^C2");
   });
 
   test("SCH-2 Filler Appointment ID", () => {
-    const parts = new SCH().fillerAppointmentId("C1", "C2").encode().split("|");
+    const parts = new SCH().fillerAppointmentId({ entityId: "C1", namespaceId: "C2" }).encode().split("|");
     expect(parts[2]).toBe("C1^C2");
   });
 
@@ -34,27 +34,27 @@ describe("SCH field positions", () => {
   });
 
   test("SCH-4 Placer Group Number", () => {
-    const parts = new SCH().placerGroupNumber("C1", "C2").encode().split("|");
+    const parts = new SCH().placerGroupNumber({ entityIdentifier: "C1", namespaceId: "C2" }).encode().split("|");
     expect(parts[4]).toBe("C1^C2");
   });
 
   test("SCH-5 Schedule ID", () => {
-    const parts = new SCH().scheduleId("C1", "C2").encode().split("|");
+    const parts = new SCH().scheduleId({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[5]).toBe("C1^C2");
   });
 
   test("SCH-6 Event Reason", () => {
-    const parts = new SCH().eventReason("C1", "C2", "C3").encode().split("|");
+    const parts = new SCH().eventReason({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[6]).toBe("C1^C2^C3");
   });
 
   test("SCH-7 Appointment Reason", () => {
-    const parts = new SCH().appointmentReason("C1", "C2", "C3").encode().split("|");
+    const parts = new SCH().appointmentReason({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[7]).toBe("C1^C2^C3");
   });
 
   test("SCH-8 Appointment Type", () => {
-    const parts = new SCH().appointmentType("C1", "C2").encode().split("|");
+    const parts = new SCH().appointmentType({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[8]).toBe("C1^C2");
   });
 
@@ -63,7 +63,7 @@ describe("SCH field positions", () => {
   });
 
   test("SCH-10 Appointment Duration Units", () => {
-    const parts = new SCH().appointmentDurationUnits("C1", "C2").encode().split("|");
+    const parts = new SCH().appointmentDurationUnits({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[10]).toBe("C1^C2");
   });
 
@@ -72,7 +72,7 @@ describe("SCH field positions", () => {
   });
 
   test("SCH-12 Placer Contact Person", () => {
-    const parts = new SCH().placerContactPerson("C1", "C2", "C3").encode().split("|");
+    const parts = new SCH().placerContactPerson({ id: "C1", familyName: "C2", givenName: "C3" }).encode().split("|");
     expect(parts[12]).toBe("C1^C2^C3");
   });
 
@@ -81,17 +81,17 @@ describe("SCH field positions", () => {
   });
 
   test("SCH-14 Placer Contact Address", () => {
-    const parts = new SCH().placerContactAddress("C1", "C2", "C3", "C4", "C5", "C6").encode().split("|");
+    const parts = new SCH().placerContactAddress({ street: "C1", otherDesignation: "C2", city: "C3", state: "C4", zip: "C5", country: "C6" }).encode().split("|");
     expect(parts[14]).toBe("C1^C2^C3^C4^C5^C6");
   });
 
   test("SCH-15 Placer Contact Location", () => {
-    const parts = new SCH().placerContactLocation("C1", "C2", "C3", "C4", "C5", "C6").encode().split("|");
+    const parts = new SCH().placerContactLocation({ pointOfCare: "C1", room: "C2", bed: "C3", facility: "C4", locationStatus: "C5", personLocationType: "C6" }).encode().split("|");
     expect(parts[15]).toBe("C1^C2^C3^C4^C5^C6");
   });
 
   test("SCH-16 Filler Contact Person", () => {
-    const parts = new SCH().fillerContactPerson("C1", "C2", "C3").encode().split("|");
+    const parts = new SCH().fillerContactPerson({ id: "C1", familyName: "C2", givenName: "C3" }).encode().split("|");
     expect(parts[16]).toBe("C1^C2^C3");
   });
 
@@ -100,17 +100,17 @@ describe("SCH field positions", () => {
   });
 
   test("SCH-18 Filler Contact Address", () => {
-    const parts = new SCH().fillerContactAddress("C1", "C2", "C3", "C4", "C5", "C6").encode().split("|");
+    const parts = new SCH().fillerContactAddress({ street: "C1", otherDesignation: "C2", city: "C3", state: "C4", zip: "C5", country: "C6" }).encode().split("|");
     expect(parts[18]).toBe("C1^C2^C3^C4^C5^C6");
   });
 
   test("SCH-19 Filler Contact Location", () => {
-    const parts = new SCH().fillerContactLocation("C1", "C2", "C3", "C4", "C5", "C6").encode().split("|");
+    const parts = new SCH().fillerContactLocation({ pointOfCare: "C1", room: "C2", bed: "C3", facility: "C4", locationStatus: "C5", personLocationType: "C6" }).encode().split("|");
     expect(parts[19]).toBe("C1^C2^C3^C4^C5^C6");
   });
 
   test("SCH-20 Entered By Person", () => {
-    const parts = new SCH().enteredByPerson("C1", "C2", "C3").encode().split("|");
+    const parts = new SCH().enteredByPerson({ id: "C1", familyName: "C2", givenName: "C3" }).encode().split("|");
     expect(parts[20]).toBe("C1^C2^C3");
   });
 
@@ -119,22 +119,22 @@ describe("SCH field positions", () => {
   });
 
   test("SCH-22 Entered By Location", () => {
-    const parts = new SCH().enteredByLocation("C1", "C2", "C3", "C4", "C5", "C6").encode().split("|");
+    const parts = new SCH().enteredByLocation({ pointOfCare: "C1", room: "C2", bed: "C3", facility: "C4", locationStatus: "C5", personLocationType: "C6" }).encode().split("|");
     expect(parts[22]).toBe("C1^C2^C3^C4^C5^C6");
   });
 
   test("SCH-23 Parent Placer Appointment ID", () => {
-    const parts = new SCH().parentPlacerAppointmentId("C1", "C2").encode().split("|");
+    const parts = new SCH().parentPlacerAppointmentId({ entityIdentifier: "C1", namespaceId: "C2" }).encode().split("|");
     expect(parts[23]).toBe("C1^C2");
   });
 
   test("SCH-24 Parent Filler Appointment ID", () => {
-    const parts = new SCH().parentFillerAppointmentId("C1", "C2").encode().split("|");
+    const parts = new SCH().parentFillerAppointmentId({ entityIdentifier: "C1", namespaceId: "C2" }).encode().split("|");
     expect(parts[24]).toBe("C1^C2");
   });
 
   test("SCH-25 Filler Status Code", () => {
-    const parts = new SCH().fillerStatusCode("C1", "C2").encode().split("|");
+    const parts = new SCH().fillerStatusCode({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[25]).toBe("C1^C2");
   });
 });

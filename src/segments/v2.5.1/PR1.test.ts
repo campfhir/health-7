@@ -20,7 +20,7 @@ function assertField(seg: PR1, splitIndex: number): void {
 
 describe("PR1 field positions", () => {
   test("PR1-16 Procedure Code Modifier", () => {
-    const parts = new PR1().procedureCodeModifier("C1", "C2", "C3").encode().split("|");
+    const parts = new PR1().procedureCodeModifier({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[16]).toBe("C1^C2^C3");
   });
 
@@ -29,12 +29,12 @@ describe("PR1 field positions", () => {
   });
 
   test("PR1-18 Tissue Type Code", () => {
-    const parts = new PR1().tissueTypeCode("C1", "C2", "C3").encode().split("|");
+    const parts = new PR1().tissueTypeCode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[18]).toBe("C1^C2^C3");
   });
 
   test("PR1-19 Procedure Identifier", () => {
-    const parts = new PR1().procedureIdentifier("C1", "C2").encode().split("|");
+    const parts = new PR1().procedureIdentifier({ entityIdentifier: "C1", namespaceId: "C2" }).encode().split("|");
     expect(parts[19]).toBe("C1^C2");
   });
 

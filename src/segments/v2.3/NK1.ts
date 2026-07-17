@@ -38,13 +38,7 @@ export class NK1 extends BaseSegment {
    * @param suffix - NK1-2.4 Suffix
    * @param prefix - NK1-2.5 Prefix
    */
-  setName(
-    familyName: string,
-    givenName?: string,
-    middleName?: string,
-    suffix?: string,
-    prefix?: string,
-  ): this {
+  setName({ familyName, givenName, middleName, suffix, prefix }: { familyName: string; givenName?: string; middleName?: string; suffix?: string; prefix?: string }): this {
     this.fields[1] = this.createComponentsField([
       familyName,
       givenName || "",
@@ -61,7 +55,7 @@ export class NK1 extends BaseSegment {
    * @param text - NK1-3.2 Text
    * @param codingSystem - NK1-3.3 Coding System
    */
-  relationship(code: string, text?: string, codingSystem?: string): this {
+  relationship({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[2] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -74,13 +68,7 @@ export class NK1 extends BaseSegment {
    * @param zip - NK1-4.5 Zip
    * @param country - NK1-4.6 Country
    */
-  address(
-    street: string,
-    city?: string,
-    state?: string,
-    zip?: string,
-    country?: string,
-  ): this {
+  address({ street, city, state, zip, country }: { street: string; city?: string; state?: string; zip?: string; country?: string }): this {
     this.fields[3] = this.createComponentsField([
       street,
       "",
@@ -97,7 +85,7 @@ export class NK1 extends BaseSegment {
    * @param number - NK1-5.1 Number
    * @param use - NK1-5.2 Use
    */
-  phoneNumber(number: string, use?: string): this {
+  phoneNumber({ number, use }: { number: string; use?: string }): this {
     this.fields[4] = this.createComponentsField([number, use]);
     return this;
   }
@@ -114,7 +102,7 @@ export class NK1 extends BaseSegment {
    * @param text - NK1-7.2 Text
    * @param codingSystem - NK1-7.3 Coding System
    */
-  contactRole(code: string, text?: string, codingSystem?: string): this {
+  contactRole({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[6] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -143,11 +131,7 @@ export class NK1 extends BaseSegment {
    * @param jobClass - NK1-11.2 Job Class
    * @param jobDescription - NK1-11.3 Job Description Text
    */
-  jobCodeClass(
-    jobCode: string,
-    jobClass?: string,
-    jobDescription?: string,
-  ): this {
+  jobCodeClass({ jobCode, jobClass, jobDescription }: { jobCode: string; jobClass?: string; jobDescription?: string }): this {
     this.fields[10] = this.createComponentsField([
       jobCode,
       jobClass,
@@ -162,11 +146,7 @@ export class NK1 extends BaseSegment {
    * @param assigningAuthority - NK1-12.4 Assigning Authority
    * @param identifierTypeCode - NK1-12.5 Identifier Type Code
    */
-  employeeNumber(
-    id: string,
-    assigningAuthority?: string,
-    identifierTypeCode?: string,
-  ): this {
+  employeeNumber({ id, assigningAuthority, identifierTypeCode }: { id: string; assigningAuthority?: string; identifierTypeCode?: string }): this {
     this.fields[11] = this.createComponentsField([
       id,
       undefined,
@@ -189,7 +169,7 @@ export class NK1 extends BaseSegment {
    * @param text - NK1-14.2 Text
    * @param codingSystem - NK1-14.3 Name of Coding System
    */
-  maritalStatus(code: string, text?: string, codingSystem?: string): this {
+  maritalStatus({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[13] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -224,7 +204,7 @@ export class NK1 extends BaseSegment {
    * @param text - NK1-19.2 Text
    * @param codingSystem - NK1-19.3 Name of Coding System
    */
-  citizenship(code: string, text?: string, codingSystem?: string): this {
+  citizenship({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[18] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -235,7 +215,7 @@ export class NK1 extends BaseSegment {
    * @param text - NK1-20.2 Text
    * @param codingSystem - NK1-20.3 Name of Coding System
    */
-  primaryLanguage(code: string, text?: string, codingSystem?: string): this {
+  primaryLanguage({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[19] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -252,7 +232,7 @@ export class NK1 extends BaseSegment {
    * @param text - NK1-22.2 Text
    * @param codingSystem - NK1-22.3 Name of Coding System
    */
-  publicityCode(code: string, text?: string, codingSystem?: string): this {
+  publicityCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[21] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -275,7 +255,7 @@ export class NK1 extends BaseSegment {
    * @param text - NK1-25.2 Text
    * @param codingSystem - NK1-25.3 Name of Coding System
    */
-  religion(code: string, text?: string, codingSystem?: string): this {
+  religion({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[24] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -288,13 +268,7 @@ export class NK1 extends BaseSegment {
    * @param suffix - NK1-26.4 Suffix
    * @param prefix - NK1-26.5 Prefix
    */
-  mothersMaidenName(
-    familyName: string,
-    givenName?: string,
-    middleName?: string,
-    suffix?: string,
-    prefix?: string,
-  ): this {
+  mothersMaidenName({ familyName, givenName, middleName, suffix, prefix }: { familyName: string; givenName?: string; middleName?: string; suffix?: string; prefix?: string }): this {
     this.fields[25] = this.createComponentsField([
       familyName,
       givenName,
@@ -311,7 +285,7 @@ export class NK1 extends BaseSegment {
    * @param text - NK1-27.2 Text
    * @param codingSystem - NK1-27.3 Name of Coding System
    */
-  nationality(code: string, text?: string, codingSystem?: string): this {
+  nationality({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[26] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -322,7 +296,7 @@ export class NK1 extends BaseSegment {
    * @param text - NK1-28.2 Text
    * @param codingSystem - NK1-28.3 Name of Coding System
    */
-  ethnicGroup(code: string, text?: string, codingSystem?: string): this {
+  ethnicGroup({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[27] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -333,7 +307,7 @@ export class NK1 extends BaseSegment {
    * @param text - NK1-29.2 Text
    * @param codingSystem - NK1-29.3 Name of Coding System
    */
-  contactReason(code: string, text?: string, codingSystem?: string): this {
+  contactReason({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[28] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -346,13 +320,7 @@ export class NK1 extends BaseSegment {
    * @param suffix - NK1-30.4 Suffix
    * @param prefix - NK1-30.5 Prefix
    */
-  contactPersonName(
-    familyName: string,
-    givenName?: string,
-    middleName?: string,
-    suffix?: string,
-    prefix?: string,
-  ): this {
+  contactPersonName({ familyName, givenName, middleName, suffix, prefix }: { familyName: string; givenName?: string; middleName?: string; suffix?: string; prefix?: string }): this {
     this.fields[29] = this.createComponentsField([
       familyName,
       givenName,
@@ -378,14 +346,7 @@ export class NK1 extends BaseSegment {
    * @param zip - NK1-32.5 Zip or Postal Code
    * @param country - NK1-32.6 Country
    */
-  contactPersonAddress(
-    street: string,
-    otherDesignation?: string,
-    city?: string,
-    state?: string,
-    zip?: string,
-    country?: string,
-  ): this {
+  contactPersonAddress({ street, otherDesignation, city, state, zip, country }: { street: string; otherDesignation?: string; city?: string; state?: string; zip?: string; country?: string }): this {
     this.fields[31] = this.createComponentsField([
       street,
       otherDesignation,
@@ -403,11 +364,7 @@ export class NK1 extends BaseSegment {
    * @param assigningAuthority - NK1-33.4 Assigning Authority
    * @param identifierTypeCode - NK1-33.5 Identifier Type Code
    */
-  associatedPartysIdentifiers(
-    id: string,
-    assigningAuthority?: string,
-    identifierTypeCode?: string,
-  ): this {
+  associatedPartysIdentifiers({ id, assigningAuthority, identifierTypeCode }: { id: string; assigningAuthority?: string; identifierTypeCode?: string }): this {
     this.fields[32] = this.createComponentsField([
       id,
       undefined,
@@ -430,7 +387,7 @@ export class NK1 extends BaseSegment {
    * @param text - NK1-35.2 Text
    * @param codingSystem - NK1-35.3 Name of Coding System
    */
-  race(code: string, text?: string, codingSystem?: string): this {
+  race({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[34] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }

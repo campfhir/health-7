@@ -24,7 +24,7 @@ describe("RXD field positions", () => {
   });
 
   test("RXD-2 Dispense Give Code", () => {
-    const parts = new RXD().dispenseGiveCode("C1", "C2", "C3").encode().split("|");
+    const parts = new RXD().dispenseGiveCode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[2]).toBe("C1^C2^C3");
   });
 
@@ -37,12 +37,12 @@ describe("RXD field positions", () => {
   });
 
   test("RXD-5 Actual Dispense Units", () => {
-    const parts = new RXD().actualDispenseUnits("C1", "C2").encode().split("|");
+    const parts = new RXD().actualDispenseUnits({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[5]).toBe("C1^C2");
   });
 
   test("RXD-6 Actual Dosage Form", () => {
-    const parts = new RXD().actualDosageForm("C1", "C2").encode().split("|");
+    const parts = new RXD().actualDosageForm({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[6]).toBe("C1^C2");
   });
 
@@ -59,7 +59,7 @@ describe("RXD field positions", () => {
   });
 
   test("RXD-10 Dispensing Provider", () => {
-    const parts = new RXD().dispensingProvider("C1", "C2", "C3").encode().split("|");
+    const parts = new RXD().dispensingProvider({ id: "C1", familyName: "C2", givenName: "C3" }).encode().split("|");
     expect(parts[10]).toBe("C1^C2^C3");
   });
 
@@ -68,12 +68,12 @@ describe("RXD field positions", () => {
   });
 
   test("RXD-12 Total Daily Dose", () => {
-    const parts = new RXD().totalDailyDose("C1", "C2").encode().split("|");
+    const parts = new RXD().totalDailyDose({ quantity: "C1", units: "C2" }).encode().split("|");
     expect(parts[12]).toBe("C1^C2");
   });
 
   test("RXD-13 Dispense To Location", () => {
-    const parts = new RXD().dispenseToLocation("C1", "C2", "C3", "C4").encode().split("|");
+    const parts = new RXD().dispenseToLocation({ pointOfCare: "C1", room: "C2", bed: "C3", facility: "C4" }).encode().split("|");
     expect(parts[13]).toBe("C1^C2^C3^C4");
   });
 
@@ -82,7 +82,7 @@ describe("RXD field positions", () => {
   });
 
   test("RXD-15 Special Dispensing Instructions", () => {
-    const parts = new RXD().specialDispensingInstructions("C1", "C2", "C3").encode().split("|");
+    const parts = new RXD().specialDispensingInstructions({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[15]).toBe("C1^C2^C3");
   });
 
@@ -91,7 +91,7 @@ describe("RXD field positions", () => {
   });
 
   test("RXD-17 Actual Strength Unit", () => {
-    const parts = new RXD().actualStrengthUnit("C1", "C2", "C3").encode().split("|");
+    const parts = new RXD().actualStrengthUnit({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[17]).toBe("C1^C2^C3");
   });
 
@@ -104,12 +104,12 @@ describe("RXD field positions", () => {
   });
 
   test("RXD-20 Substance Manufacturer Name", () => {
-    const parts = new RXD().substanceManufacturerName("C1", "C2").encode().split("|");
+    const parts = new RXD().substanceManufacturerName({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[20]).toBe("C1^C2");
   });
 
   test("RXD-21 Indication", () => {
-    const parts = new RXD().indication("C1", "C2", "C3").encode().split("|");
+    const parts = new RXD().indication({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[21]).toBe("C1^C2^C3");
   });
 
@@ -118,7 +118,7 @@ describe("RXD field positions", () => {
   });
 
   test("RXD-23 Dispense Package Size Unit", () => {
-    const parts = new RXD().dispensePackageSizeUnit("C1", "C2", "C3").encode().split("|");
+    const parts = new RXD().dispensePackageSizeUnit({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[23]).toBe("C1^C2^C3");
   });
 

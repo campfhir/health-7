@@ -20,12 +20,12 @@ function assertField(seg: STF, splitIndex: number): void {
 
 describe("STF field positions", () => {
   test("STF-27 Race", () => {
-    const parts = new STF().race("C1", "C2", "C3").encode().split("|");
+    const parts = new STF().race({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[27]).toBe("C1^C2^C3");
   });
 
   test("STF-28 Ethnic Group", () => {
-    const parts = new STF().ethnicGroup("C1", "C2", "C3").encode().split("|");
+    const parts = new STF().ethnicGroup({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[28]).toBe("C1^C2^C3");
   });
 
@@ -34,7 +34,7 @@ describe("STF field positions", () => {
   });
 
   test("STF-30 Citizenship", () => {
-    const parts = new STF().citizenship("C1", "C2", "C3").encode().split("|");
+    const parts = new STF().citizenship({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[30]).toBe("C1^C2^C3");
   });
 
@@ -47,12 +47,12 @@ describe("STF field positions", () => {
   });
 
   test("STF-33 Institution Relationship Type Code", () => {
-    const parts = new STF().institutionRelationshipTypeCode("C1", "C2", "C3").encode().split("|");
+    const parts = new STF().institutionRelationshipTypeCode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[33]).toBe("C1^C2^C3");
   });
 
   test("STF-34 Institution Relationship Period", () => {
-    const parts = new STF().institutionRelationshipPeriod("C1", "C2").encode().split("|");
+    const parts = new STF().institutionRelationshipPeriod({ rangeStartDateTime: "C1", rangeEndDateTime: "C2" }).encode().split("|");
     expect(parts[34]).toBe("C1^C2");
   });
 
@@ -61,7 +61,7 @@ describe("STF field positions", () => {
   });
 
   test("STF-36 Cost Center Code", () => {
-    const parts = new STF().costCenterCode("C1", "C2", "C3").encode().split("|");
+    const parts = new STF().costCenterCode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[36]).toBe("C1^C2^C3");
   });
 
@@ -70,7 +70,7 @@ describe("STF field positions", () => {
   });
 
   test("STF-38 Inactive Reason Code", () => {
-    const parts = new STF().inactiveReasonCode("C1", "C2", "C3").encode().split("|");
+    const parts = new STF().inactiveReasonCode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[38]).toBe("C1^C2^C3");
   });
 });

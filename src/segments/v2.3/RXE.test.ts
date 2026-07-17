@@ -24,7 +24,7 @@ describe("RXE field positions", () => {
   });
 
   test("RXE-2 Give Code", () => {
-    const parts = new RXE().giveCode("C1", "C2", "C3").encode().split("|");
+    const parts = new RXE().giveCode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[2]).toBe("C1^C2^C3");
   });
 
@@ -37,22 +37,22 @@ describe("RXE field positions", () => {
   });
 
   test("RXE-5 Give Units", () => {
-    const parts = new RXE().giveUnits("C1", "C2").encode().split("|");
+    const parts = new RXE().giveUnits({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[5]).toBe("C1^C2");
   });
 
   test("RXE-6 Give Dosage Form", () => {
-    const parts = new RXE().giveDosageForm("C1", "C2").encode().split("|");
+    const parts = new RXE().giveDosageForm({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[6]).toBe("C1^C2");
   });
 
   test("RXE-7 Provider Admin Instructions", () => {
-    const parts = new RXE().providerAdminInstructions("C1", "C2").encode().split("|");
+    const parts = new RXE().providerAdminInstructions({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[7]).toBe("C1^C2");
   });
 
   test("RXE-8 Deliver To Location", () => {
-    const parts = new RXE().deliverToLocation("C1", "C2", "C3", "C4").encode().split("|");
+    const parts = new RXE().deliverToLocation({ pointOfCare: "C1", room: "C2", bed: "C3", facility: "C4" }).encode().split("|");
     expect(parts[8]).toBe("C1^C2^C3^C4");
   });
 
@@ -65,7 +65,7 @@ describe("RXE field positions", () => {
   });
 
   test("RXE-11 Dispense Units", () => {
-    const parts = new RXE().dispenseUnits("C1", "C2").encode().split("|");
+    const parts = new RXE().dispenseUnits({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[11]).toBe("C1^C2");
   });
 
@@ -74,12 +74,12 @@ describe("RXE field positions", () => {
   });
 
   test("RXE-13 Ordering Provider DEA Number", () => {
-    const parts = new RXE().orderingProviderDeaNumber("C1", "C2", "C3").encode().split("|");
+    const parts = new RXE().orderingProviderDeaNumber({ id: "C1", familyName: "C2", givenName: "C3" }).encode().split("|");
     expect(parts[13]).toBe("C1^C2^C3");
   });
 
   test("RXE-14 Pharmacist Verifier ID", () => {
-    const parts = new RXE().pharmacistVerifierId("C1", "C2", "C3").encode().split("|");
+    const parts = new RXE().pharmacistVerifierId({ id: "C1", familyName: "C2", givenName: "C3" }).encode().split("|");
     expect(parts[14]).toBe("C1^C2^C3");
   });
 
@@ -100,7 +100,7 @@ describe("RXE field positions", () => {
   });
 
   test("RXE-19 Total Daily Dose", () => {
-    const parts = new RXE().totalDailyDose("C1", "C2").encode().split("|");
+    const parts = new RXE().totalDailyDose({ quantity: "C1", units: "C2" }).encode().split("|");
     expect(parts[19]).toBe("C1^C2");
   });
 
@@ -109,7 +109,7 @@ describe("RXE field positions", () => {
   });
 
   test("RXE-21 Special Dispensing Instructions", () => {
-    const parts = new RXE().specialDispensingInstructions("C1", "C2", "C3").encode().split("|");
+    const parts = new RXE().specialDispensingInstructions({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[21]).toBe("C1^C2^C3");
   });
 
@@ -122,7 +122,7 @@ describe("RXE field positions", () => {
   });
 
   test("RXE-24 Give Rate Units", () => {
-    const parts = new RXE().giveRateUnits("C1", "C2").encode().split("|");
+    const parts = new RXE().giveRateUnits({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[24]).toBe("C1^C2");
   });
 
@@ -131,12 +131,12 @@ describe("RXE field positions", () => {
   });
 
   test("RXE-26 Give Strength Units", () => {
-    const parts = new RXE().giveStrengthUnits("C1", "C2").encode().split("|");
+    const parts = new RXE().giveStrengthUnits({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[26]).toBe("C1^C2");
   });
 
   test("RXE-27 Give Indication", () => {
-    const parts = new RXE().giveIndication("C1", "C2", "C3").encode().split("|");
+    const parts = new RXE().giveIndication({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[27]).toBe("C1^C2^C3");
   });
 
@@ -145,7 +145,7 @@ describe("RXE field positions", () => {
   });
 
   test("RXE-29 Dispense Package Size Unit", () => {
-    const parts = new RXE().dispensePackageSizeUnit("C1", "C2", "C3").encode().split("|");
+    const parts = new RXE().dispensePackageSizeUnit({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[29]).toBe("C1^C2^C3");
   });
 

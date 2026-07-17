@@ -35,12 +35,7 @@ export class PV2 extends BaseSegment {
    * @param bed - PV2-1.3 Bed
    * @param facility - PV2-1.4 Facility
    */
-  priorPendingLocation(
-    pointOfCare: string,
-    room?: string,
-    bed?: string,
-    facility?: string,
-  ): this {
+  priorPendingLocation({ pointOfCare, room, bed, facility }: { pointOfCare: string; room?: string; bed?: string; facility?: string }): this {
     this.fields[0] = this.createComponentsField([
       pointOfCare,
       room || "",
@@ -56,7 +51,7 @@ export class PV2 extends BaseSegment {
    * @param text - PV2-2.2 Text
    * @param codingSystem - PV2-2.3 Coding System
    */
-  accommodationCode(code: string, text?: string, codingSystem?: string): this {
+  accommodationCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[1] = this.createComponentsField([
       code,
       text || "",
@@ -71,7 +66,7 @@ export class PV2 extends BaseSegment {
    * @param text - PV2-3.2 Text
    * @param codingSystem - PV2-3.3 Coding System
    */
-  admitReason(code: string, text?: string, codingSystem?: string): this {
+  admitReason({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[2] = this.createComponentsField([
       code,
       text || "",
@@ -86,7 +81,7 @@ export class PV2 extends BaseSegment {
    * @param text - PV2-4.2 Text
    * @param codingSystem - PV2-4.3 Coding System
    */
-  transferReason(code: string, text?: string, codingSystem?: string): this {
+  transferReason({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[3] = this.createComponentsField([
       code,
       text || "",
@@ -165,11 +160,7 @@ export class PV2 extends BaseSegment {
    * @param familyName - PV2-13.2 Family Name
    * @param givenName - PV2-13.3 Given Name
    */
-  referralSourceCode(
-    id: string,
-    familyName?: string,
-    givenName?: string,
-  ): this {
+  referralSourceCode({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
     this.fields[12] = this.createComponentsField([
       id,
       familyName || "",
@@ -253,7 +244,7 @@ export class PV2 extends BaseSegment {
    * @param code - PV2-38.1 Code
    * @param text - PV2-38.2 Text
    */
-  modeOfArrivalCode(code: string, text?: string): this {
+  modeOfArrivalCode({ code, text }: { code: string; text?: string }): this {
     this.fields[37] = this.createComponentsField([code, text || ""]);
     return this;
   }
@@ -318,11 +309,7 @@ export class PV2 extends BaseSegment {
    * @param text - PV2-30.2 Text
    * @param codingSystem - PV2-30.3 Name of Coding System
    */
-  patientChargeAdjustmentCode(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  patientChargeAdjustmentCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[29] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }

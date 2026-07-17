@@ -38,7 +38,7 @@ export class RGS extends BaseSegment {
    * @param code - RGS-3.1 Code
    * @param text - RGS-3.2 Text
    */
-  resourceGroupId(code: string, text?: string): this {
+  resourceGroupId({ code, text }: { code: string; text?: string }): this {
     this.fields[2] = this.createComponentsField([code, text]);
     return this;
   }

@@ -20,17 +20,17 @@ function assertField(seg: CTI, splitIndex: number): void {
 
 describe("CTI field positions", () => {
   test("CTI-1 Sponsor Study ID", () => {
-    const parts = new CTI().sponsorStudyId("C1", "C2", "C3", "C4").encode().split("|");
+    const parts = new CTI().sponsorStudyId({ entityIdentifier: "C1", namespaceId: "C2", universalId: "C3", universalIdType: "C4" }).encode().split("|");
     expect(parts[1]).toBe("C1^C2^C3^C4");
   });
 
   test("CTI-2 Study Phase Identifier", () => {
-    const parts = new CTI().studyPhaseIdentifier("C1", "C2", "C3").encode().split("|");
+    const parts = new CTI().studyPhaseIdentifier({ identifier: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[2]).toBe("C1^C2^C3");
   });
 
   test("CTI-3 Study Scheduled Time Point", () => {
-    const parts = new CTI().studyScheduledTimePoint("C1", "C2", "C3").encode().split("|");
+    const parts = new CTI().studyScheduledTimePoint({ identifier: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[3]).toBe("C1^C2^C3");
   });
 });

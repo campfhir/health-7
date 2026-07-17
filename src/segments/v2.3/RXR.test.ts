@@ -20,32 +20,32 @@ function assertField(seg: RXR, splitIndex: number): void {
 
 describe("RXR field positions", () => {
   test("RXR-1 Route", () => {
-    const parts = new RXR().route("C1", "C2", "C3").encode().split("|");
+    const parts = new RXR().route({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[1]).toBe("C1^C2^C3");
   });
 
   test("RXR-2 Administration Site", () => {
-    const parts = new RXR().administrationSite("C1", "C2").encode().split("|");
+    const parts = new RXR().administrationSite({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[2]).toBe("C1^C2");
   });
 
   test("RXR-3 Administration Device", () => {
-    const parts = new RXR().administrationDevice("C1", "C2").encode().split("|");
+    const parts = new RXR().administrationDevice({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[3]).toBe("C1^C2");
   });
 
   test("RXR-4 Administration Method", () => {
-    const parts = new RXR().administrationMethod("C1", "C2").encode().split("|");
+    const parts = new RXR().administrationMethod({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[4]).toBe("C1^C2");
   });
 
   test("RXR-5 Routing Instruction", () => {
-    const parts = new RXR().routingInstruction("C1", "C2").encode().split("|");
+    const parts = new RXR().routingInstruction({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[5]).toBe("C1^C2");
   });
 
   test("RXR-6 Administration Site Modifier", () => {
-    const parts = new RXR().administrationSiteModifier("C1", "C2").encode().split("|");
+    const parts = new RXR().administrationSiteModifier({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[6]).toBe("C1^C2");
   });
 });

@@ -101,22 +101,34 @@ function requiredParamCount(lines: string[], sigLine: number): number {
   return n;
 }
 
-/** Parse a setter's signature parameter names, in order. */
+/** Is the setter's sole parameter a destructured object (`{ a, b }: {...}`)? */
+function isDestructured(lines: string[], sigLine: number): boolean {
+  const raw = rawSignatureParams(lines, sigLine);
+  return raw.length === 1 && raw[0].trim().startsWith("{");
+}
+
+/**
+ * Parse a setter's parameter names, in order. For a destructured object param
+ * the returned names are the bound property names (`{ a, b, c }` -> a, b, c),
+ * so componentLayout keeps matching the createComponentsField array elements.
+ */
 function signatureParams(lines: string[], sigLine: number): string[] {
-  const text = statementFrom(lines, sigLine);
-  const open = text.indexOf("(");
-  if (open < 0) return [];
-  // Extract the balanced (...) param list.
-  let depth = 0;
-  let end = -1;
-  for (let i = open; i < text.length; i++) {
-    if (text[i] === "(") depth++;
-    else if (text[i] === ")") { depth--; if (depth === 0) { end = i; break; } }
+  const raw = rawSignatureParams(lines, sigLine);
+  if (raw.length === 1 && raw[0].trim().startsWith("{")) {
+    const pat = raw[0].trim();
+    // Balanced first brace group is the binding pattern; the rest is its type.
+    let depth = 0;
+    let close = -1;
+    for (let i = 0; i < pat.length; i++) {
+      if (pat[i] === "{") depth++;
+      else if (pat[i] === "}") { depth--; if (depth === 0) { close = i; break; } }
+    }
+    if (close < 0) return [];
+    return splitTopLevel(pat.slice(1, close))
+      .map((p) => p.trim().split(/[:=]/)[0].trim())
+      .filter(Boolean);
   }
-  if (end < 0) return [];
-  const list = text.slice(open + 1, end).trim();
-  if (!list) return [];
-  return splitTopLevel(list)
+  return raw
     .map((p) => p.trim().replace(/^\.\.\./, "").split(/[?:=]/)[0].trim())
     .filter(Boolean);
 }
@@ -176,6 +188,8 @@ function extractSetters(src: string, isMSH: boolean): FieldPositionSetter[] {
       hl7Field: isMSH ? index + 2 : index + 1,
       fieldName: toFieldName(method),
       argCount: Math.max(1, requiredParamCount(lines, sigLine)),
+      destructured: isDestructured(lines, sigLine),
+      params,
       components,
     });
   }

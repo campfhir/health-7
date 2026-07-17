@@ -19,7 +19,7 @@ export class RXO extends RXO_base {
    * @param quantity - RXO-23.1 Quantity
    * @param units - RXO-23.2 Units
    */
-  totalDailyDose(quantity: string, units?: string): this {
+  totalDailyDose({ quantity, units }: { quantity: string; units?: string }): this {
     this.fields[22] = this.createComponentsField([quantity, units]);
     return this;
   }
@@ -30,7 +30,7 @@ export class RXO extends RXO_base {
    * @param text - RXO-24.2 Text
    * @param codingSystem - RXO-24.3 Name of Coding System
    */
-  supplementaryCode(code: string, text?: string, codingSystem?: string): this {
+  supplementaryCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[23] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -47,11 +47,7 @@ export class RXO extends RXO_base {
    * @param text - RXO-26.2 Text
    * @param codingSystem - RXO-26.3 Name of Coding System
    */
-  requestedDrugStrengthVolumeUnits(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  requestedDrugStrengthVolumeUnits({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[25] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }

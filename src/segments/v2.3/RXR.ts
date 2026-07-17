@@ -27,7 +27,7 @@ export class RXR extends BaseSegment {
    * @param text - RXR-1.2 Text
    * @param codingSystem - RXR-1.3 Coding System
    */
-  route(code: string, text?: string, codingSystem?: string): this {
+  route({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[0] = this.createComponentsField([
       code,
       text || "",
@@ -41,7 +41,7 @@ export class RXR extends BaseSegment {
    * @param code - RXR-2.1 Code
    * @param text - RXR-2.2 Text
    */
-  administrationSite(code: string, text?: string): this {
+  administrationSite({ code, text }: { code: string; text?: string }): this {
     this.fields[1] = this.createComponentsField([code, text || ""]);
     return this;
   }
@@ -51,7 +51,7 @@ export class RXR extends BaseSegment {
    * @param code - RXR-3.1 Code
    * @param text - RXR-3.2 Text
    */
-  administrationDevice(code: string, text?: string): this {
+  administrationDevice({ code, text }: { code: string; text?: string }): this {
     this.fields[2] = this.createComponentsField([code, text || ""]);
     return this;
   }
@@ -61,7 +61,7 @@ export class RXR extends BaseSegment {
    * @param code - RXR-4.1 Code
    * @param text - RXR-4.2 Text
    */
-  administrationMethod(code: string, text?: string): this {
+  administrationMethod({ code, text }: { code: string; text?: string }): this {
     this.fields[3] = this.createComponentsField([code, text || ""]);
     return this;
   }
@@ -71,7 +71,7 @@ export class RXR extends BaseSegment {
    * @param code - RXR-5.1 Code
    * @param text - RXR-5.2 Text
    */
-  routingInstruction(code: string, text?: string): this {
+  routingInstruction({ code, text }: { code: string; text?: string }): this {
     this.fields[4] = this.createComponentsField([code, text || ""]);
     return this;
   }
@@ -81,7 +81,7 @@ export class RXR extends BaseSegment {
    * @param code - RXR-6.1 Code
    * @param text - RXR-6.2 Text
    */
-  administrationSiteModifier(code: string, text?: string): this {
+  administrationSiteModifier({ code, text }: { code: string; text?: string }): this {
     this.fields[5] = this.createComponentsField([code, text || ""]);
     return this;
   }

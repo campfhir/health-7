@@ -20,7 +20,7 @@ function assertField(seg: RXO, splitIndex: number): void {
 
 describe("RXO field positions", () => {
   test("RXO-1 Requested Give Code", () => {
-    const parts = new RXO().requestedGiveCode("C1", "C2", "C3").encode().split("|");
+    const parts = new RXO().requestedGiveCode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[1]).toBe("C1^C2^C3");
   });
 
@@ -33,27 +33,27 @@ describe("RXO field positions", () => {
   });
 
   test("RXO-4 Requested Give Units", () => {
-    const parts = new RXO().requestedGiveUnits("C1", "C2").encode().split("|");
+    const parts = new RXO().requestedGiveUnits({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[4]).toBe("C1^C2");
   });
 
   test("RXO-5 Requested Dosage Form", () => {
-    const parts = new RXO().requestedDosageForm("C1", "C2").encode().split("|");
+    const parts = new RXO().requestedDosageForm({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[5]).toBe("C1^C2");
   });
 
   test("RXO-6 Provider Pharmacy Instructions", () => {
-    const parts = new RXO().providerPharmacyInstructions("C1", "C2").encode().split("|");
+    const parts = new RXO().providerPharmacyInstructions({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[6]).toBe("C1^C2");
   });
 
   test("RXO-7 Provider Admin Instructions", () => {
-    const parts = new RXO().providerAdminInstructions("C1", "C2").encode().split("|");
+    const parts = new RXO().providerAdminInstructions({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[7]).toBe("C1^C2");
   });
 
   test("RXO-8 Deliver To Location", () => {
-    const parts = new RXO().deliverToLocation("C1", "C2", "C3", "C4").encode().split("|");
+    const parts = new RXO().deliverToLocation({ pointOfCare: "C1", room: "C2", bed: "C3", facility: "C4" }).encode().split("|");
     expect(parts[8]).toBe("C1^C2^C3^C4");
   });
 
@@ -62,7 +62,7 @@ describe("RXO field positions", () => {
   });
 
   test("RXO-10 Requested Dispense Code", () => {
-    const parts = new RXO().requestedDispenseCode("C1", "C2").encode().split("|");
+    const parts = new RXO().requestedDispenseCode({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[10]).toBe("C1^C2");
   });
 
@@ -71,7 +71,7 @@ describe("RXO field positions", () => {
   });
 
   test("RXO-12 Requested Dispense Units", () => {
-    const parts = new RXO().requestedDispenseUnits("C1", "C2").encode().split("|");
+    const parts = new RXO().requestedDispenseUnits({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[12]).toBe("C1^C2");
   });
 
@@ -80,12 +80,12 @@ describe("RXO field positions", () => {
   });
 
   test("RXO-14 Ordering Provider DEA Number", () => {
-    const parts = new RXO().orderingProviderDeaNumber("C1", "C2", "C3").encode().split("|");
+    const parts = new RXO().orderingProviderDeaNumber({ id: "C1", familyName: "C2", givenName: "C3" }).encode().split("|");
     expect(parts[14]).toBe("C1^C2^C3");
   });
 
   test("RXO-15 Pharmacist Verifier ID", () => {
-    const parts = new RXO().pharmacistVerifierId("C1", "C2", "C3").encode().split("|");
+    const parts = new RXO().pharmacistVerifierId({ id: "C1", familyName: "C2", givenName: "C3" }).encode().split("|");
     expect(parts[15]).toBe("C1^C2^C3");
   });
 
@@ -102,12 +102,12 @@ describe("RXO field positions", () => {
   });
 
   test("RXO-19 Requested Give Strength Units", () => {
-    const parts = new RXO().requestedGiveStrengthUnits("C1", "C2", "C3").encode().split("|");
+    const parts = new RXO().requestedGiveStrengthUnits({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[19]).toBe("C1^C2^C3");
   });
 
   test("RXO-20 Indication", () => {
-    const parts = new RXO().indication("C1", "C2", "C3").encode().split("|");
+    const parts = new RXO().indication({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[20]).toBe("C1^C2^C3");
   });
 
@@ -116,7 +116,7 @@ describe("RXO field positions", () => {
   });
 
   test("RXO-22 Requested Give Rate Units", () => {
-    const parts = new RXO().requestedGiveRateUnits("C1", "C2").encode().split("|");
+    const parts = new RXO().requestedGiveRateUnits({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[22]).toBe("C1^C2");
   });
 });

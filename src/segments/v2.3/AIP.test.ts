@@ -28,17 +28,17 @@ describe("AIP field positions", () => {
   });
 
   test("AIP-3 Personnel Resource ID", () => {
-    const parts = new AIP().personnelResourceId("C1", "C2", "C3").encode().split("|");
+    const parts = new AIP().personnelResourceId({ id: "C1", familyName: "C2", givenName: "C3" }).encode().split("|");
     expect(parts[3]).toBe("C1^C2^C3");
   });
 
   test("AIP-4 Resource Type", () => {
-    const parts = new AIP().resourceType("C1", "C2", "C3").encode().split("|");
+    const parts = new AIP().resourceType({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[4]).toBe("C1^C2^C3");
   });
 
   test("AIP-5 Resource Group", () => {
-    const parts = new AIP().resourceGroup("C1", "C2").encode().split("|");
+    const parts = new AIP().resourceGroup({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[5]).toBe("C1^C2");
   });
 
@@ -51,7 +51,7 @@ describe("AIP field positions", () => {
   });
 
   test("AIP-8 Start Date Time Offset Units", () => {
-    const parts = new AIP().startDateTimeOffsetUnits("C1", "C2").encode().split("|");
+    const parts = new AIP().startDateTimeOffsetUnits({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[8]).toBe("C1^C2");
   });
 
@@ -60,7 +60,7 @@ describe("AIP field positions", () => {
   });
 
   test("AIP-10 Duration Units", () => {
-    const parts = new AIP().durationUnits("C1", "C2").encode().split("|");
+    const parts = new AIP().durationUnits({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[10]).toBe("C1^C2");
   });
 
@@ -69,7 +69,7 @@ describe("AIP field positions", () => {
   });
 
   test("AIP-12 Filler Status Code", () => {
-    const parts = new AIP().fillerStatusCode("C1", "C2").encode().split("|");
+    const parts = new AIP().fillerStatusCode({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[12]).toBe("C1^C2");
   });
 });

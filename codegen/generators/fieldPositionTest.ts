@@ -26,6 +26,10 @@ export interface FieldPositionSetter {
   fieldName: string;
   /** Number of sentinel args to pass for the simple field-position assertion. */
   argCount: number;
+  /** True when the setter takes a single destructured object parameter. */
+  destructured?: boolean;
+  /** Parameter (or destructured property) names, in order. */
+  params?: string[];
   /**
    * Present for composite setters whose field is built from an array literal.
    * `params` are the signature param names (in order); `slots[i]` is the index
@@ -87,7 +91,9 @@ function caseFor(segName: string, s: FieldPositionSetter): string {
     // Component-position test: distinct sentinel per param, assert exact layout.
     const { params, slots } = s.components;
     const sentinels = params.map((_, i) => `C${i + 1}`);
-    const args = sentinels.map((c) => JSON.stringify(c)).join(", ");
+    const args = s.destructured
+      ? `{ ${params.map((p, i) => `${p}: ${JSON.stringify(sentinels[i])}`).join(", ")} }`
+      : sentinels.map((c) => JSON.stringify(c)).join(", ");
     const expected = trimTrailing(
       slots.map((slot) => (slot === null ? "" : sentinels[slot])),
     ).join("^");
@@ -97,7 +103,13 @@ function caseFor(segName: string, s: FieldPositionSetter): string {
   });`;
   }
 
-  const simpleArgs = Array.from({ length: s.argCount }, () => "SENTINEL").join(", ");
+  // Simple field-position assertion. Destructured setters take an object whose
+  // first property carries the sentinel; the rest are set to "" so any required
+  // properties are satisfied without introducing a second sentinel. Positional
+  // setters take the sentinel(s) directly.
+  const simpleArgs = s.destructured
+    ? `{ ${s.params!.map((p, i) => `${p}: ${i === 0 ? "SENTINEL" : '""'}`).join(", ")} }`
+    : Array.from({ length: s.argCount }, () => "SENTINEL").join(", ");
   return `  test(${JSON.stringify(label)}, () => {
     assertField(new ${segName}().${s.method}(${simpleArgs}), ${splitIndex});
   });`;

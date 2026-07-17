@@ -38,7 +38,7 @@ export class RXE extends BaseSegment {
    * @param text - RXE-2.2 Text
    * @param codingSystem - RXE-2.3 Coding System
    */
-  giveCode(code: string, text?: string, codingSystem?: string): this {
+  giveCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[1] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -60,7 +60,7 @@ export class RXE extends BaseSegment {
    * @param code - RXE-5.1 Code
    * @param text - RXE-5.2 Text
    */
-  giveUnits(code: string, text?: string): this {
+  giveUnits({ code, text }: { code: string; text?: string }): this {
     this.fields[4] = this.createComponentsField([code, text]);
     return this;
   }
@@ -70,7 +70,7 @@ export class RXE extends BaseSegment {
    * @param code - RXE-6.1 Code
    * @param text - RXE-6.2 Text
    */
-  giveDosageForm(code: string, text?: string): this {
+  giveDosageForm({ code, text }: { code: string; text?: string }): this {
     this.fields[5] = this.createComponentsField([code, text]);
     return this;
   }
@@ -80,7 +80,7 @@ export class RXE extends BaseSegment {
    * @param code - RXE-7.1 Code
    * @param text - RXE-7.2 Text
    */
-  providerAdminInstructions(code: string, text?: string): this {
+  providerAdminInstructions({ code, text }: { code: string; text?: string }): this {
     this.fields[6] = this.createComponentsField([code, text]);
     return this;
   }
@@ -92,12 +92,7 @@ export class RXE extends BaseSegment {
    * @param bed - RXE-8.3 Bed
    * @param facility - RXE-8.4 Facility
    */
-  deliverToLocation(
-    pointOfCare: string,
-    room?: string,
-    bed?: string,
-    facility?: string,
-  ): this {
+  deliverToLocation({ pointOfCare, room, bed, facility }: { pointOfCare: string; room?: string; bed?: string; facility?: string }): this {
     this.fields[7] = this.createComponentsField([
       pointOfCare,
       room,
@@ -124,7 +119,7 @@ export class RXE extends BaseSegment {
    * @param code - RXE-11.1 Code
    * @param text - RXE-11.2 Text
    */
-  dispenseUnits(code: string, text?: string): this {
+  dispenseUnits({ code, text }: { code: string; text?: string }): this {
     this.fields[10] = this.createComponentsField([code, text]);
     return this;
   }
@@ -141,7 +136,7 @@ export class RXE extends BaseSegment {
    * @param familyName - RXE-13.2 Family Name
    * @param givenName - RXE-13.3 Given Name
    */
-  orderingProviderDeaNumber(id: string, familyName?: string, givenName?: string): this {
+  orderingProviderDeaNumber({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
     this.fields[12] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }
@@ -152,7 +147,7 @@ export class RXE extends BaseSegment {
    * @param familyName - RXE-14.2 Family Name
    * @param givenName - RXE-14.3 Given Name
    */
-  pharmacistVerifierId(id: string, familyName?: string, givenName?: string): this {
+  pharmacistVerifierId({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
     this.fields[13] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }
@@ -197,7 +192,7 @@ export class RXE extends BaseSegment {
    * @param quantity - RXE-19.1 Quantity
    * @param units - RXE-19.2 Units
    */
-  totalDailyDose(quantity: string, units?: string): this {
+  totalDailyDose({ quantity, units }: { quantity: string; units?: string }): this {
     this.fields[18] = this.createComponentsField([quantity, units]);
     return this;
   }
@@ -214,11 +209,7 @@ export class RXE extends BaseSegment {
    * @param text - RXE-21.2 Text
    * @param codingSystem - RXE-21.3 Name of Coding System
    */
-  specialDispensingInstructions(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  specialDispensingInstructions({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[20] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -240,7 +231,7 @@ export class RXE extends BaseSegment {
    * @param code - RXE-24.1 Code
    * @param text - RXE-24.2 Text
    */
-  giveRateUnits(code: string, text?: string): this {
+  giveRateUnits({ code, text }: { code: string; text?: string }): this {
     this.fields[23] = this.createComponentsField([code, text]);
     return this;
   }
@@ -256,7 +247,7 @@ export class RXE extends BaseSegment {
    * @param code - RXE-26.1 Code
    * @param text - RXE-26.2 Text
    */
-  giveStrengthUnits(code: string, text?: string): this {
+  giveStrengthUnits({ code, text }: { code: string; text?: string }): this {
     this.fields[25] = this.createComponentsField([code, text]);
     return this;
   }
@@ -267,7 +258,7 @@ export class RXE extends BaseSegment {
    * @param text - RXE-27.2 Text
    * @param codingSystem - RXE-27.3 Name of Coding System
    */
-  giveIndication(code: string, text?: string, codingSystem?: string): this {
+  giveIndication({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[26] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -284,11 +275,7 @@ export class RXE extends BaseSegment {
    * @param text - RXE-29.2 Text
    * @param codingSystem - RXE-29.3 Name of Coding System
    */
-  dispensePackageSizeUnit(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  dispensePackageSizeUnit({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[28] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }

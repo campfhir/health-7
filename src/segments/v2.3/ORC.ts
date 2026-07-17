@@ -87,7 +87,7 @@ export class ORC extends BaseSegment {
    * @param familyName - ORC-10.2 Family Name
    * @param givenName - ORC-10.3 Given Name
    */
-  enteredBy(id: string, familyName?: string, givenName?: string): this {
+  enteredBy({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
     this.fields[9] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }
@@ -98,7 +98,7 @@ export class ORC extends BaseSegment {
    * @param familyName - ORC-11.2 Family Name
    * @param givenName - ORC-11.3 Given Name
    */
-  verifiedBy(id: string, familyName?: string, givenName?: string): this {
+  verifiedBy({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
     this.fields[10] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }
@@ -109,7 +109,7 @@ export class ORC extends BaseSegment {
    * @param familyName - ORC-12.2 Family Name
    * @param givenName - ORC-12.3 Given Name
    */
-  orderingProvider(id: string, familyName?: string, givenName?: string): this {
+  orderingProvider({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
     this.fields[11] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }
@@ -123,14 +123,7 @@ export class ORC extends BaseSegment {
    * @param locationStatus - ORC-13.5 Location Status
    * @param personLocationType - ORC-13.6 Person Location Type
    */
-  enterersLocation(
-    pointOfCare: string,
-    room?: string,
-    bed?: string,
-    facility?: string,
-    locationStatus?: string,
-    personLocationType?: string,
-  ): this {
+  enterersLocation({ pointOfCare, room, bed, facility, locationStatus, personLocationType }: { pointOfCare: string; room?: string; bed?: string; facility?: string; locationStatus?: string; personLocationType?: string }): this {
     this.fields[12] = this.createComponentsField([
       pointOfCare,
       room,
@@ -183,7 +176,7 @@ export class ORC extends BaseSegment {
    * @param familyName - ORC-19.2 Family Name
    * @param givenName - ORC-19.3 Given Name
    */
-  actionBy(id: string, familyName?: string, givenName?: string): this {
+  actionBy({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
     this.fields[18] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }

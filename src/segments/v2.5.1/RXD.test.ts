@@ -20,17 +20,17 @@ function assertField(seg: RXD, splitIndex: number): void {
 
 describe("RXD field positions", () => {
   test("RXD-25 Supplementary Code", () => {
-    const parts = new RXD().supplementaryCode("C1", "C2", "C3").encode().split("|");
+    const parts = new RXD().supplementaryCode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[25]).toBe("C1^C2^C3");
   });
 
   test("RXD-26 Initiating Location", () => {
-    const parts = new RXD().initiatingLocation("C1", "C2", "C3").encode().split("|");
+    const parts = new RXD().initiatingLocation({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[26]).toBe("C1^C2^C3");
   });
 
   test("RXD-27 Packaging Assembly Location", () => {
-    const parts = new RXD().packagingAssemblyLocation("C1", "C2", "C3").encode().split("|");
+    const parts = new RXD().packagingAssemblyLocation({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[27]).toBe("C1^C2^C3");
   });
 
@@ -39,17 +39,17 @@ describe("RXD field positions", () => {
   });
 
   test("RXD-29 Actual Drug Strength Volume Units", () => {
-    const parts = new RXD().actualDrugStrengthVolumeUnits("C1", "C2", "C3").encode().split("|");
+    const parts = new RXD().actualDrugStrengthVolumeUnits({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[29]).toBe("C1^C2^C3");
   });
 
   test("RXD-30 Dispense To Pharmacy", () => {
-    const parts = new RXD().dispenseToPharmacy("C1", "C2", "C3").encode().split("|");
+    const parts = new RXD().dispenseToPharmacy({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[30]).toBe("C1^C2^C3");
   });
 
   test("RXD-31 Dispense To Pharmacy Address", () => {
-    const parts = new RXD().dispenseToPharmacyAddress("C1", "C2", "C3", "C4", "C5", "C6").encode().split("|");
+    const parts = new RXD().dispenseToPharmacyAddress({ street: "C1", otherDesignation: "C2", city: "C3", state: "C4", zip: "C5", country: "C6" }).encode().split("|");
     expect(parts[31]).toBe("C1^C2^C3^C4^C5^C6");
   });
 
@@ -58,7 +58,7 @@ describe("RXD field positions", () => {
   });
 
   test("RXD-33 Dispense Type", () => {
-    const parts = new RXD().dispenseType("C1", "C2", "C3").encode().split("|");
+    const parts = new RXD().dispenseType({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[33]).toBe("C1^C2^C3");
   });
 });

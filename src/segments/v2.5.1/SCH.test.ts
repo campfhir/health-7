@@ -20,12 +20,12 @@ function assertField(seg: SCH, splitIndex: number): void {
 
 describe("SCH field positions", () => {
   test("SCH-26 Placer Order Number", () => {
-    const parts = new SCH().placerOrderNumber("C1", "C2").encode().split("|");
+    const parts = new SCH().placerOrderNumber({ entityIdentifier: "C1", namespaceId: "C2" }).encode().split("|");
     expect(parts[26]).toBe("C1^C2");
   });
 
   test("SCH-27 Filler Order Number", () => {
-    const parts = new SCH().fillerOrderNumber("C1", "C2").encode().split("|");
+    const parts = new SCH().fillerOrderNumber({ entityIdentifier: "C1", namespaceId: "C2" }).encode().split("|");
     expect(parts[27]).toBe("C1^C2");
   });
 });

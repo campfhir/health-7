@@ -37,7 +37,7 @@ export class TQ1 extends BaseSegment {
    * @param value - TQ1-2.1 Value
    * @param units - TQ1-2.2 Units
    */
-  quantity(value: string, units?: string): this {
+  quantity({ value, units }: { value: string; units?: string }): this {
     this.fields[1] = this.createComponentsField([value, units || ""]);
     return this;
   }
@@ -59,7 +59,7 @@ export class TQ1 extends BaseSegment {
    * @param value - TQ1-5.1 Value
    * @param units - TQ1-5.2 Units
    */
-  relativeTime(value: string, units?: string): this {
+  relativeTime({ value, units }: { value: string; units?: string }): this {
     this.fields[4] = this.createComponentsField([value, units || ""]);
     return this;
   }
@@ -69,7 +69,7 @@ export class TQ1 extends BaseSegment {
    * @param value - TQ1-6.1 Value
    * @param units - TQ1-6.2 Units
    */
-  serviceDuration(value: string, units?: string): this {
+  serviceDuration({ value, units }: { value: string; units?: string }): this {
     this.fields[5] = this.createComponentsField([value, units || ""]);
     return this;
   }
@@ -102,7 +102,7 @@ export class TQ1 extends BaseSegment {
    * @param text - TQ1-9.2 Text
    * @param codingSystem - TQ1-9.3 Coding System
    */
-  priority(code: string, text?: string, codingSystem?: string): this {
+  priority({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[8] = this.createComponentsField([code, text || "", codingSystem || ""]);
     return this;
   }
@@ -130,7 +130,7 @@ export class TQ1 extends BaseSegment {
    * @param value - TQ1-13.1 Value
    * @param units - TQ1-13.2 Units
    */
-  occurrenceDuration(value: string, units?: string): this {
+  occurrenceDuration({ value, units }: { value: string; units?: string }): this {
     this.fields[12] = this.createComponentsField([value, units || ""]);
     return this;
   }

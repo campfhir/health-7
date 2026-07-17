@@ -7,8 +7,8 @@ import { DateTimeLayout, DateLayout } from "../../utils/hl7DateUtils.ts";
 test("PID builder creates valid segment", () => {
   const pid = new PID()
     .setId("1")
-    .patientIdentifierList("12345", "", "", "MRN", "MR")
-    .patientName("Doe", "John")
+    .patientIdentifierList({ id: "12345", checkDigit: "", checkDigitScheme: "", assigningAuthority: "MRN", identifierTypeCode: "MR" })
+    .patientName({ familyName: "Doe", givenName: "John" })
     .dateTimeOfBirth("19800115")
     .administrativeSex("M");
   expect(pid.name).toBe("PID");
@@ -16,31 +16,26 @@ test("PID builder creates valid segment", () => {
 });
 
 test("PID encodes patient name correctly", () => {
-  const pid = new PID().patientName("Smith", "Jane", "Marie", "Jr", "Dr");
+  const pid = new PID().patientName({ familyName: "Smith", givenName: "Jane", middleName: "Marie", suffix: "Jr", prefix: "Dr" });
   const encoded = pid.encode();
   expect(encoded.includes("Smith^Jane^Marie^Jr^Dr")).toBeTruthy();
 });
 
 test("PID encodes patient name with minimal fields", () => {
-  const pid = new PID().patientName("Doe");
+  const pid = new PID().patientName({ familyName: "Doe" });
   const encoded = pid.encode();
   expect(encoded.includes("Doe")).toBeTruthy();
 });
 
 test("PID encodes patient identifier list", () => {
-  const pid = new PID().patientIdentifierList("12345", "1", "M10", "MRN", "MR");
+  const pid = new PID().patientIdentifierList({ id: "12345", checkDigit: "1", checkDigitScheme: "M10", assigningAuthority: "MRN", identifierTypeCode: "MR" });
   const encoded = pid.encode();
   expect(encoded.includes("12345^1^M10^MRN^MR")).toBeTruthy();
 });
 
 test("PID encodes address correctly", () => {
   const pid = new PID().patientAddress(
-    "123 Main St",
-    "Apt 4",
-    "Springfield",
-    "IL",
-    "62701",
-    "USA",
+    { streetAddress: "123 Main St", otherDesignation: "Apt 4", city: "Springfield", state: "IL", zip: "62701", country: "USA" },
   );
   const encoded = pid.encode();
   expect(
@@ -65,7 +60,7 @@ test("PID encodes phone numbers", () => {
 });
 
 test("PID encodes mothers maiden name", () => {
-  const pid = new PID().mothersMaidenName("Johnson", "Mary");
+  const pid = new PID().mothersMaidenName({ familyName: "Johnson", givenName: "Mary" });
   const encoded = pid.encode();
   expect(encoded.includes("Johnson^Mary")).toBeTruthy();
 });
@@ -73,7 +68,7 @@ test("PID encodes mothers maiden name", () => {
 test("PID builder fluent interface", () => {
   const result = new PID()
     .setId("1")
-    .patientName("Doe", "John")
+    .patientName({ familyName: "Doe", givenName: "John" })
     .administrativeSex("M");
 
   expect(result).toBeTruthy();

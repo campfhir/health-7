@@ -56,7 +56,7 @@ describe("UB1 field positions", () => {
   });
 
   test("UB1-10 Value Amount Code", () => {
-    const parts = new UB1().valueAmountCode("C1", "C2").encode().split("|");
+    const parts = new UB1().valueAmountCode({ code: "C1", amount: "C2" }).encode().split("|");
     expect(parts[10]).toBe("C1^C2");
   });
 
@@ -65,7 +65,7 @@ describe("UB1 field positions", () => {
   });
 
   test("UB1-12 Special Program Indicator", () => {
-    const parts = new UB1().specialProgramIndicator("C1", "C2").encode().split("|");
+    const parts = new UB1().specialProgramIndicator({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[12]).toBe("C1^C2");
   });
 

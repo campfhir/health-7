@@ -24,22 +24,22 @@ describe("GT1 field positions", () => {
   });
 
   test("GT1-2 Guarantor Number", () => {
-    const parts = new GT1().guarantorNumber("C1", "C2").encode().split("|");
+    const parts = new GT1().guarantorNumber({ id: "C1", assigningAuthority: "C2" }).encode().split("|");
     expect(parts[2]).toBe("C1^^^C2");
   });
 
   test("GT1-3 Guarantor Name", () => {
-    const parts = new GT1().guarantorName("C1", "C2", "C3").encode().split("|");
+    const parts = new GT1().guarantorName({ familyName: "C1", givenName: "C2", middleName: "C3" }).encode().split("|");
     expect(parts[3]).toBe("C1^C2^C3");
   });
 
   test("GT1-4 Guarantor Spouse Name", () => {
-    const parts = new GT1().guarantorSpouseName("C1", "C2").encode().split("|");
+    const parts = new GT1().guarantorSpouseName({ familyName: "C1", givenName: "C2" }).encode().split("|");
     expect(parts[4]).toBe("C1^C2");
   });
 
   test("GT1-5 Guarantor Address", () => {
-    const parts = new GT1().guarantorAddress("C1", "C2", "C3", "C4", "C5").encode().split("|");
+    const parts = new GT1().guarantorAddress({ street: "C1", city: "C2", state: "C3", zip: "C4", country: "C5" }).encode().split("|");
     expect(parts[5]).toBe("C1^^C2^C3^C4^C5");
   });
 
@@ -64,7 +64,7 @@ describe("GT1 field positions", () => {
   });
 
   test("GT1-11 Guarantor Relationship", () => {
-    const parts = new GT1().guarantorRelationship("C1", "C2").encode().split("|");
+    const parts = new GT1().guarantorRelationship({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[11]).toBe("C1^C2");
   });
 
@@ -89,7 +89,7 @@ describe("GT1 field positions", () => {
   });
 
   test("GT1-17 Guarantor Employer Address", () => {
-    const parts = new GT1().guarantorEmployerAddress("C1", "C2", "C3", "C4").encode().split("|");
+    const parts = new GT1().guarantorEmployerAddress({ street: "C1", city: "C2", state: "C3", zip: "C4" }).encode().split("|");
     expect(parts[17]).toBe("C1^^C2^C3^C4");
   });
 
@@ -106,7 +106,7 @@ describe("GT1 field positions", () => {
   });
 
   test("GT1-21 Guarantor Organization Name", () => {
-    const parts = new GT1().guarantorOrganizationName("C1", "C2", "C3").encode().split("|");
+    const parts = new GT1().guarantorOrganizationName({ organizationName: "C1", organizationNameTypeCode: "C2", idNumber: "C3" }).encode().split("|");
     expect(parts[21]).toBe("C1^C2^C3");
   });
 
@@ -115,7 +115,7 @@ describe("GT1 field positions", () => {
   });
 
   test("GT1-23 Guarantor Credit Rating Code", () => {
-    const parts = new GT1().guarantorCreditRatingCode("C1", "C2", "C3").encode().split("|");
+    const parts = new GT1().guarantorCreditRatingCode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[23]).toBe("C1^C2^C3");
   });
 
@@ -128,12 +128,12 @@ describe("GT1 field positions", () => {
   });
 
   test("GT1-26 Guarantor Charge Adjustment Code", () => {
-    const parts = new GT1().guarantorChargeAdjustmentCode("C1", "C2", "C3").encode().split("|");
+    const parts = new GT1().guarantorChargeAdjustmentCode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[26]).toBe("C1^C2^C3");
   });
 
   test("GT1-27 Guarantor Household Annual Income", () => {
-    const parts = new GT1().guarantorHouseholdAnnualIncome("C1", "C2").encode().split("|");
+    const parts = new GT1().guarantorHouseholdAnnualIncome({ price: "C1", priceType: "C2" }).encode().split("|");
     expect(parts[27]).toBe("C1^C2");
   });
 
@@ -142,12 +142,12 @@ describe("GT1 field positions", () => {
   });
 
   test("GT1-29 Guarantor Employer ID", () => {
-    const parts = new GT1().guarantorEmployerId("C1", "C2", "C3").encode().split("|");
+    const parts = new GT1().guarantorEmployerId({ id: "C1", assigningAuthority: "C2", identifierTypeCode: "C3" }).encode().split("|");
     expect(parts[29]).toBe("C1^^^C2^C3");
   });
 
   test("GT1-30 Guarantor Marital Status Code", () => {
-    const parts = new GT1().guarantorMaritalStatusCode("C1", "C2", "C3").encode().split("|");
+    const parts = new GT1().guarantorMaritalStatusCode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[30]).toBe("C1^C2^C3");
   });
 
@@ -168,12 +168,12 @@ describe("GT1 field positions", () => {
   });
 
   test("GT1-35 Citizenship", () => {
-    const parts = new GT1().citizenship("C1", "C2", "C3").encode().split("|");
+    const parts = new GT1().citizenship({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[35]).toBe("C1^C2^C3");
   });
 
   test("GT1-36 Primary Language", () => {
-    const parts = new GT1().primaryLanguage("C1", "C2", "C3").encode().split("|");
+    const parts = new GT1().primaryLanguage({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[36]).toBe("C1^C2^C3");
   });
 
@@ -182,7 +182,7 @@ describe("GT1 field positions", () => {
   });
 
   test("GT1-38 Publicity Code", () => {
-    const parts = new GT1().publicityCode("C1", "C2", "C3").encode().split("|");
+    const parts = new GT1().publicityCode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[38]).toBe("C1^C2^C3");
   });
 
@@ -195,27 +195,27 @@ describe("GT1 field positions", () => {
   });
 
   test("GT1-41 Religion", () => {
-    const parts = new GT1().religion("C1", "C2", "C3").encode().split("|");
+    const parts = new GT1().religion({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[41]).toBe("C1^C2^C3");
   });
 
   test("GT1-42 Mothers Maiden Name", () => {
-    const parts = new GT1().mothersMaidenName("C1", "C2", "C3", "C4", "C5").encode().split("|");
+    const parts = new GT1().mothersMaidenName({ familyName: "C1", givenName: "C2", middleName: "C3", suffix: "C4", prefix: "C5" }).encode().split("|");
     expect(parts[42]).toBe("C1^C2^C3^C4^C5");
   });
 
   test("GT1-43 Nationality", () => {
-    const parts = new GT1().nationality("C1", "C2", "C3").encode().split("|");
+    const parts = new GT1().nationality({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[43]).toBe("C1^C2^C3");
   });
 
   test("GT1-44 Ethnic Group", () => {
-    const parts = new GT1().ethnicGroup("C1", "C2", "C3").encode().split("|");
+    const parts = new GT1().ethnicGroup({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[44]).toBe("C1^C2^C3");
   });
 
   test("GT1-45 Contact Person Name", () => {
-    const parts = new GT1().contactPersonName("C1", "C2", "C3", "C4", "C5").encode().split("|");
+    const parts = new GT1().contactPersonName({ familyName: "C1", givenName: "C2", middleName: "C3", suffix: "C4", prefix: "C5" }).encode().split("|");
     expect(parts[45]).toBe("C1^C2^C3^C4^C5");
   });
 
@@ -224,7 +224,7 @@ describe("GT1 field positions", () => {
   });
 
   test("GT1-47 Contact Reason", () => {
-    const parts = new GT1().contactReason("C1", "C2", "C3").encode().split("|");
+    const parts = new GT1().contactReason({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[47]).toBe("C1^C2^C3");
   });
 
@@ -237,12 +237,12 @@ describe("GT1 field positions", () => {
   });
 
   test("GT1-50 Job Code Class", () => {
-    const parts = new GT1().jobCodeClass("C1", "C2").encode().split("|");
+    const parts = new GT1().jobCodeClass({ jobCode: "C1", jobClass: "C2" }).encode().split("|");
     expect(parts[50]).toBe("C1^C2");
   });
 
   test("GT1-51 Guarantor Employer Organization Name", () => {
-    const parts = new GT1().guarantorEmployerOrganizationName("C1", "C2", "C3").encode().split("|");
+    const parts = new GT1().guarantorEmployerOrganizationName({ organizationName: "C1", organizationNameTypeCode: "C2", idNumber: "C3" }).encode().split("|");
     expect(parts[51]).toBe("C1^C2^C3");
   });
 
@@ -255,12 +255,12 @@ describe("GT1 field positions", () => {
   });
 
   test("GT1-54 Guarantor Financial Class", () => {
-    const parts = new GT1().guarantorFinancialClass("C1", "C2").encode().split("|");
+    const parts = new GT1().guarantorFinancialClass({ financialClassCode: "C1", effectiveDate: "C2" }).encode().split("|");
     expect(parts[54]).toBe("C1^C2");
   });
 
   test("GT1-55 Guarantor Race", () => {
-    const parts = new GT1().guarantorRace("C1", "C2", "C3").encode().split("|");
+    const parts = new GT1().guarantorRace({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[55]).toBe("C1^C2^C3");
   });
 });

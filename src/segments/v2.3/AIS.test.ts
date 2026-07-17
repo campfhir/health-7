@@ -28,7 +28,7 @@ describe("AIS field positions", () => {
   });
 
   test("AIS-3 Universal Service ID", () => {
-    const parts = new AIS().universalServiceId("C1", "C2", "C3").encode().split("|");
+    const parts = new AIS().universalServiceId({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[3]).toBe("C1^C2^C3");
   });
 
@@ -41,7 +41,7 @@ describe("AIS field positions", () => {
   });
 
   test("AIS-6 Start Date Time Offset Units", () => {
-    const parts = new AIS().startDateTimeOffsetUnits("C1", "C2").encode().split("|");
+    const parts = new AIS().startDateTimeOffsetUnits({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[6]).toBe("C1^C2");
   });
 
@@ -50,7 +50,7 @@ describe("AIS field positions", () => {
   });
 
   test("AIS-8 Duration Units", () => {
-    const parts = new AIS().durationUnits("C1", "C2").encode().split("|");
+    const parts = new AIS().durationUnits({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[8]).toBe("C1^C2");
   });
 
@@ -59,17 +59,17 @@ describe("AIS field positions", () => {
   });
 
   test("AIS-10 Filler Status Code", () => {
-    const parts = new AIS().fillerStatusCode("C1", "C2").encode().split("|");
+    const parts = new AIS().fillerStatusCode({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[10]).toBe("C1^C2");
   });
 
   test("AIS-11 Placer Supplemental Info", () => {
-    const parts = new AIS().placerSupplementalInfo("C1", "C2").encode().split("|");
+    const parts = new AIS().placerSupplementalInfo({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[11]).toBe("C1^C2");
   });
 
   test("AIS-12 Filler Supplemental Info", () => {
-    const parts = new AIS().fillerSupplementalInfo("C1", "C2").encode().split("|");
+    const parts = new AIS().fillerSupplementalInfo({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[12]).toBe("C1^C2");
   });
 });

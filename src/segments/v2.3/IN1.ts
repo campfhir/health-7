@@ -41,7 +41,7 @@ export class IN1 extends BaseSegment {
    * @param text - IN1-2.2 Text
    * @param codingSystem - IN1-2.3 Coding System
    */
-  insurancePlanId(code: string, text?: string, codingSystem?: string): this {
+  insurancePlanId({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[1] = this.createField([code, text || "", codingSystem || ""]);
     return this;
   }
@@ -51,7 +51,7 @@ export class IN1 extends BaseSegment {
    * @param id - IN1-3.1 ID Number
    * @param assigningAuthority - IN1-3.4 Assigning Authority
    */
-  insuranceCompanyId(id: string, assigningAuthority?: string): this {
+  insuranceCompanyId({ id, assigningAuthority }: { id: string; assigningAuthority?: string }): this {
     this.fields[2] = this.createComponentsField([
       id,
       "",
@@ -74,12 +74,7 @@ export class IN1 extends BaseSegment {
    * @param state - IN1-5.4 State
    * @param zip - IN1-5.5 Zip
    */
-  insuranceCompanyAddress(
-    street: string,
-    city?: string,
-    state?: string,
-    zip?: string,
-  ): this {
+  insuranceCompanyAddress({ street, city, state, zip }: { street: string; city?: string; state?: string; zip?: string }): this {
     this.fields[4] = this.createComponentsField([
       street,
       "",
@@ -95,7 +90,7 @@ export class IN1 extends BaseSegment {
    * @param familyName - IN1-6.1 Family Name
    * @param givenName - IN1-6.2 Given Name
    */
-  insuranceContactPerson(familyName: string, givenName?: string): this {
+  insuranceContactPerson({ familyName, givenName }: { familyName: string; givenName?: string }): this {
     this.fields[5] = this.createComponentsField([familyName, givenName || ""]);
     return this;
   }
@@ -158,11 +153,7 @@ export class IN1 extends BaseSegment {
    * @param date - IN1-14.2 Date
    * @param source - IN1-14.3 Source
    */
-  authorizationInfo(
-    authorizationNumber: string,
-    date?: string,
-    source?: string,
-  ): this {
+  authorizationInfo({ authorizationNumber, date, source }: { authorizationNumber: string; date?: string; source?: string }): this {
     this.fields[13] = this.createComponentsField([
       authorizationNumber,
       date || "",
@@ -183,11 +174,7 @@ export class IN1 extends BaseSegment {
    * @param givenName - IN1-16.2 Given Name
    * @param middleName - IN1-16.3 Middle Name
    */
-  nameOfInsured(
-    familyName: string,
-    givenName?: string,
-    middleName?: string,
-  ): this {
+  nameOfInsured({ familyName, givenName, middleName }: { familyName: string; givenName?: string; middleName?: string }): this {
     this.fields[15] = this.createComponentsField([
       familyName,
       givenName || "",
@@ -201,7 +188,7 @@ export class IN1 extends BaseSegment {
    * @param code - IN1-17.1 Code
    * @param text - IN1-17.2 Text
    */
-  insuredRelationship(code: string, text?: string): this {
+  insuredRelationship({ code, text }: { code: string; text?: string }): this {
     this.fields[16] = this.createField([code, text || ""]);
     return this;
   }
@@ -224,12 +211,7 @@ export class IN1 extends BaseSegment {
    * @param state - IN1-19.4 State
    * @param zip - IN1-19.5 Zip
    */
-  insuredAddress(
-    street: string,
-    city?: string,
-    state?: string,
-    zip?: string,
-  ): this {
+  insuredAddress({ street, city, state, zip }: { street: string; city?: string; state?: string; zip?: string }): this {
     this.fields[18] = this.createComponentsField([
       street,
       "",
@@ -338,7 +320,7 @@ export class IN1 extends BaseSegment {
    * @param familyName - IN1-30.2 Family Name
    * @param givenName - IN1-30.3 Given Name
    */
-  verificationBy(id: string, familyName?: string, givenName?: string): this {
+  verificationBy({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
     this.fields[29] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }
@@ -378,7 +360,7 @@ export class IN1 extends BaseSegment {
    * @param price - IN1-38.1 Price
    * @param priceType - IN1-38.2 Price Type
    */
-  policyLimitAmount(price: string, priceType?: string): this {
+  policyLimitAmount({ price, priceType }: { price: string; priceType?: string }): this {
     this.fields[37] = this.createComponentsField([price, priceType]);
     return this;
   }
@@ -394,7 +376,7 @@ export class IN1 extends BaseSegment {
    * @param price - IN1-40.1 Price
    * @param priceType - IN1-40.2 Price Type
    */
-  roomRateSemiPrivate(price: string, priceType?: string): this {
+  roomRateSemiPrivate({ price, priceType }: { price: string; priceType?: string }): this {
     this.fields[39] = this.createComponentsField([price, priceType]);
     return this;
   }
@@ -404,7 +386,7 @@ export class IN1 extends BaseSegment {
    * @param price - IN1-41.1 Price
    * @param priceType - IN1-41.2 Price Type
    */
-  roomRatePrivate(price: string, priceType?: string): this {
+  roomRatePrivate({ price, priceType }: { price: string; priceType?: string }): this {
     this.fields[40] = this.createComponentsField([price, priceType]);
     return this;
   }
@@ -415,11 +397,7 @@ export class IN1 extends BaseSegment {
    * @param text - IN1-42.2 Text
    * @param codingSystem - IN1-42.3 Name of Coding System
    */
-  insuredEmploymentStatus(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  insuredEmploymentStatus({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[41] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -439,14 +417,7 @@ export class IN1 extends BaseSegment {
    * @param zip - IN1-44.5 Zip
    * @param country - IN1-44.6 Country
    */
-  insuredEmployerAddress(
-    street: string,
-    otherDesignation?: string,
-    city?: string,
-    state?: string,
-    zip?: string,
-    country?: string,
-  ): this {
+  insuredEmployerAddress({ street, otherDesignation, city, state, zip, country }: { street: string; otherDesignation?: string; city?: string; state?: string; zip?: string; country?: string }): this {
     this.fields[43] = this.createComponentsField([
       street,
       otherDesignation,
@@ -476,11 +447,7 @@ export class IN1 extends BaseSegment {
    * @param assigningAuthority - IN1-49.4 Assigning Authority
    * @param identifierTypeCode - IN1-49.5 Identifier Type Code
    */
-  insuredIdNumber(
-    id: string,
-    assigningAuthority?: string,
-    identifierTypeCode?: string,
-  ): this {
+  insuredIdNumber({ id, assigningAuthority, identifierTypeCode }: { id: string; assigningAuthority?: string; identifierTypeCode?: string }): this {
     this.fields[48] = this.createComponentsField([
       id,
       undefined,

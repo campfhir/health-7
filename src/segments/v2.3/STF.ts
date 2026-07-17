@@ -37,11 +37,7 @@ export class STF extends BaseSegment {
    * @param text - STF-1.2 Text
    * @param codingSystem - STF-1.3 Coding System
    */
-  primaryKeyValue(
-    identifier: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  primaryKeyValue({ identifier, text, codingSystem }: { identifier: string; text?: string; codingSystem?: string }): this {
     this.fields[0] = this.createComponentsField([
       identifier,
       text,
@@ -64,13 +60,7 @@ export class STF extends BaseSegment {
    * @param suffix - STF-3.4 Suffix
    * @param prefix - STF-3.5 Prefix
    */
-  staffName(
-    familyName: string,
-    givenName?: string,
-    middleName?: string,
-    suffix?: string,
-    prefix?: string,
-  ): this {
+  staffName({ familyName, givenName, middleName, suffix, prefix }: { familyName: string; givenName?: string; middleName?: string; suffix?: string; prefix?: string }): this {
     const components = [
       familyName,
       givenName ?? "",
@@ -116,7 +106,7 @@ export class STF extends BaseSegment {
    * @param identifier - STF-8.1 Identifier
    * @param text - STF-8.2 Text
    */
-  department(identifier: string, text?: string): this {
+  department({ identifier, text }: { identifier: string; text?: string }): this {
     if (text) {
       this.fields[7] = this.createField([identifier, text]);
     } else {
@@ -130,7 +120,7 @@ export class STF extends BaseSegment {
    * @param identifier - STF-9.1 Identifier
    * @param text - STF-9.2 Text
    */
-  hospitalService(identifier: string, text?: string): this {
+  hospitalService({ identifier, text }: { identifier: string; text?: string }): this {
     if (text) {
       this.fields[8] = this.createField([identifier, text]);
     } else {
@@ -156,7 +146,7 @@ export class STF extends BaseSegment {
    * @param date - STF-12.1 Date
    * @param institutionName - STF-12.2 Institution Name
    */
-  institutionActivationDate(date: string, institutionName?: string): this {
+  institutionActivationDate({ date, institutionName }: { date: string; institutionName?: string }): this {
     this.fields[11] = this.createComponentsField([date, institutionName]);
     return this;
   }
@@ -166,7 +156,7 @@ export class STF extends BaseSegment {
    * @param date - STF-13.1 Date
    * @param institutionName - STF-13.2 Institution Name
    */
-  institutionInactivationDate(date: string, institutionName?: string): this {
+  institutionInactivationDate({ date, institutionName }: { date: string; institutionName?: string }): this {
     this.fields[12] = this.createComponentsField([date, institutionName]);
     return this;
   }
@@ -177,7 +167,7 @@ export class STF extends BaseSegment {
    * @param text - STF-14.2 Text
    * @param codingSystem - STF-14.3 Name of Coding System
    */
-  backupPersonId(code: string, text?: string, codingSystem?: string): this {
+  backupPersonId({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[13] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -194,11 +184,7 @@ export class STF extends BaseSegment {
    * @param text - STF-16.2 Text
    * @param codingSystem - STF-16.3 Name of Coding System
    */
-  preferredMethodOfContact(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  preferredMethodOfContact({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[15] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -209,7 +195,7 @@ export class STF extends BaseSegment {
    * @param text - STF-17.2 Text
    * @param codingSystem - STF-17.3 Name of Coding System
    */
-  maritalStatus(code: string, text?: string, codingSystem?: string): this {
+  maritalStatus({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[16] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -225,7 +211,7 @@ export class STF extends BaseSegment {
    * @param jobCode - STF-19.1 Job Code
    * @param jobClass - STF-19.2 Job Class
    */
-  jobCodeClass(jobCode: string, jobClass?: string): this {
+  jobCodeClass({ jobCode, jobClass }: { jobCode: string; jobClass?: string }): this {
     this.fields[18] = this.createComponentsField([jobCode, jobClass]);
     return this;
   }
@@ -236,11 +222,7 @@ export class STF extends BaseSegment {
    * @param text - STF-20.2 Text
    * @param codingSystem - STF-20.3 Name of Coding System
    */
-  employmentStatusCode(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  employmentStatusCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[19] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -257,11 +239,7 @@ export class STF extends BaseSegment {
    * @param issuingAuthority - STF-22.2 Issuing State, Province, Country
    * @param expirationDate - STF-22.3 Expiration Date
    */
-  driversLicenseNumber(
-    licenseNumber: string,
-    issuingAuthority?: string,
-    expirationDate?: string,
-  ): this {
+  driversLicenseNumber({ licenseNumber, issuingAuthority, expirationDate }: { licenseNumber: string; issuingAuthority?: string; expirationDate?: string }): this {
     this.fields[21] = this.createComponentsField([
       licenseNumber,
       issuingAuthority,

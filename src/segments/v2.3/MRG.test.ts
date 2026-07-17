@@ -20,7 +20,7 @@ function assertField(seg: MRG, splitIndex: number): void {
 
 describe("MRG field positions", () => {
   test("MRG-1 Prior Patient ID", () => {
-    const parts = new MRG().priorPatientId("C1", "C2", "C3").encode().split("|");
+    const parts = new MRG().priorPatientId({ id: "C1", assigningAuthority: "C2", identifierTypeCode: "C3" }).encode().split("|");
     expect(parts[1]).toBe("C1^^^C2^C3");
   });
 
@@ -45,7 +45,7 @@ describe("MRG field positions", () => {
   });
 
   test("MRG-7 Prior Patient Name", () => {
-    const parts = new MRG().priorPatientName("C1", "C2").encode().split("|");
+    const parts = new MRG().priorPatientName({ familyName: "C1", givenName: "C2" }).encode().split("|");
     expect(parts[7]).toBe("C1^C2");
   });
 });

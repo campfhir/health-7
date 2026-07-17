@@ -19,12 +19,12 @@ describe("PV1 field positions", () => {
   });
 
   test("PV1-19 Visit Number", () => {
-    const pv1 = new PV1().visitNumber("V123");
+    const pv1 = new PV1().visitNumber({ value: "V123" });
     expect(fieldOf(pv1, 19)).toBe("V123");
   });
 
   test("PV1-19 Visit Number places CX components at .1/.4/.5", () => {
-    const pv1 = new PV1().visitNumber("V123", "AUTH", "MR");
+    const pv1 = new PV1().visitNumber({ value: "V123", assigningAuthority: "AUTH", identifierType: "MR" });
     // CX.1 ID, CX.4 Assigning Authority, CX.5 Identifier Type Code,
     // with CX.2/CX.3 padded empty.
     expect(fieldOf(pv1, 19)).toBe("V123^^^AUTH^MR");

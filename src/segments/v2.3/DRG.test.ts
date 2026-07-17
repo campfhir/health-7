@@ -20,7 +20,7 @@ function assertField(seg: DRG, splitIndex: number): void {
 
 describe("DRG field positions", () => {
   test("DRG-1 Diagnostic Related Group", () => {
-    const parts = new DRG().diagnosticRelatedGroup("C1", "C2", "C3").encode().split("|");
+    const parts = new DRG().diagnosticRelatedGroup({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[1]).toBe("C1^C2^C3");
   });
 
@@ -37,7 +37,7 @@ describe("DRG field positions", () => {
   });
 
   test("DRG-5 Outlier Type", () => {
-    const parts = new DRG().outlierType("C1", "C2").encode().split("|");
+    const parts = new DRG().outlierType({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[5]).toBe("C1^C2");
   });
 

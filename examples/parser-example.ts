@@ -1,14 +1,7 @@
-import {
-  MSH,
-  PID,
-  PV1,
-  OBR,
-  OBX,
-  createORU_R01,
-  PatientResult,
-  parseORU_R01,
-  ParserUtils,
-} from "../src";
+import { MSH, PID, PV1, OBR, OBX } from "../src/segments/v2.5.1/index.ts";
+import { createORU_R01, type PatientResult } from "../src/builders/v2.5.1/ORU_R01.ts";
+import { parseORU_R01 } from "../src/parsers/v2.5.1/index.ts";
+import { ParserUtils } from "../src/index.ts";
 
 function formatDateTime(date: Date): string {
   const year = date.getFullYear();
@@ -36,43 +29,43 @@ const msh = new MSH()
   .receivingApplication("EMR")
   .receivingFacility("Main Campus")
   .dateTimeOfMessage(messageDateTime)
-  .messageType("ORU", "R01", "ORU_R01")
+  .messageType({ messageCode: "ORU", triggerEvent: "R01", messageStructure: "ORU_R01" })
   .messageControlId("MSG00001")
   .processingId("P")
   .versionId("2.5.1");
 
 const pid = new PID()
   .setId("1")
-  .patientIdentifierList("12345", "", "", "MRN", "MR")
-  .patientName("Doe", "John", "Q")
+  .patientIdentifierList({ id: "12345", checkDigit: "", checkDigitScheme: "", assigningAuthority: "MRN", identifierTypeCode: "MR" })
+  .patientName({ familyName: "Doe", givenName: "John", middleName: "Q" })
   .dateTimeOfBirth("19800115")
   .administrativeSex("M")
-  .patientAddress("123 Main St", "", "Springfield", "IL", "62701", "USA")
+  .patientAddress({ streetAddress: "123 Main St", otherDesignation: "", city: "Springfield", state: "IL", zip: "62701", country: "USA" })
   .phoneNumberHome("555-1234");
 
 const pv1 = new PV1()
   .setId("1")
   .patientClass("I")
-  .assignedPatientLocation("ICU", "101", "A", "Main")
-  .attendingDoctor("1234", "Smith", "Jane")
+  .assignedPatientLocation({ pointOfCare: "ICU", room: "101", bed: "A", facility: "Main" })
+  .attendingDoctor({ id: "1234", familyName: "Smith", givenName: "Jane" })
   .admitDateTime(messageDateTime);
 
 const obr = new OBR()
   .setId("1")
   .placerOrderNumber("ORD123456")
   .fillerOrderNumber("LAB987654")
-  .universalServiceIdentifier("CBC", "Complete Blood Count", "LN")
+  .universalServiceIdentifier({ identifier: "CBC", text: "Complete Blood Count", nameOfCodingSystem: "LN" })
   .observationDateTime(messageDateTime)
-  .orderingProvider("1234", "Smith", "Jane")
+  .orderingProvider({ id: "1234", familyName: "Smith", givenName: "Jane" })
   .resultStatus("F");
 
 const obx1 = new OBX()
   .setId("1")
   .valueType("NM")
-  .observationIdentifier("718-7", "Hemoglobin", "LN")
+  .observationIdentifier({ identifier: "718-7", text: "Hemoglobin", nameOfCodingSystem: "LN" })
   .observationSubId("1")
   .observationValue("15.5")
-  .units("g/dL", "grams per deciliter", "UCUM")
+  .units({ identifier: "g/dL", text: "grams per deciliter", nameOfCodingSystem: "UCUM" })
   .referenceRange("13.5-17.5")
   .observationResultStatus("F")
   .dateTimeOfObservation(messageDateTime);
@@ -80,10 +73,10 @@ const obx1 = new OBX()
 const obx2 = new OBX()
   .setId("2")
   .valueType("NM")
-  .observationIdentifier("789-8", "RBC", "LN")
+  .observationIdentifier({ identifier: "789-8", text: "RBC", nameOfCodingSystem: "LN" })
   .observationSubId("1")
   .observationValue("5.2")
-  .units("10*6/uL", "million per microliter", "UCUM")
+  .units({ identifier: "10*6/uL", text: "million per microliter", nameOfCodingSystem: "UCUM" })
   .referenceRange("4.5-5.9")
   .observationResultStatus("F")
   .dateTimeOfObservation(messageDateTime);
@@ -112,12 +105,12 @@ console.log("-".repeat(80));
 
 const parseResult = parseORU_R01(encodedMessage);
 
-if (!parseResult.success) {
-  console.error("Failed to parse message:", parseResult.error);
+if (!parseResult.ok) {
+  console.error("Failed to parse message:", parseResult.err);
   throw new Error("Parse failed");
 }
 
-const parsed = parseResult.data!;
+const parsed = parseResult.val!;
 console.log("Parse successful!");
 console.log("Patient Results:", parsed.patientResults.length);
 console.log(
@@ -168,7 +161,7 @@ console.log("  Service Name:", ParserUtils.getComponent(obrFields[3], 1));
 
 console.log("\nOBX Data:");
 parsed.patientResults[0].orderObservations[0].obxList.forEach(
-  (obx: OBX, idx: number) => {
+  (obx, idx) => {
     const obxFields = obx.fields;
     console.log(`  Observation ${idx + 1}:`);
     console.log("    Type:", ParserUtils.getComponent(obxFields[1], 0));

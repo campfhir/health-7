@@ -28,7 +28,7 @@ describe("IN3 field positions", () => {
   });
 
   test("IN3-3 Certified By", () => {
-    const parts = new IN3().certifiedBy("C1", "C2", "C3").encode().split("|");
+    const parts = new IN3().certifiedBy({ id: "C1", familyName: "C2", givenName: "C3" }).encode().split("|");
     expect(parts[3]).toBe("C1^C2^C3");
   });
 
@@ -49,7 +49,7 @@ describe("IN3 field positions", () => {
   });
 
   test("IN3-8 Operator", () => {
-    const parts = new IN3().operator("C1", "C2", "C3").encode().split("|");
+    const parts = new IN3().operator({ id: "C1", familyName: "C2", givenName: "C3" }).encode().split("|");
     expect(parts[8]).toBe("C1^C2^C3");
   });
 
@@ -66,7 +66,7 @@ describe("IN3 field positions", () => {
   });
 
   test("IN3-12 Non Concur Code Description", () => {
-    const parts = new IN3().nonConcurCodeDescription("C1", "C2").encode().split("|");
+    const parts = new IN3().nonConcurCodeDescription({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[12]).toBe("C1^C2");
   });
 
@@ -75,7 +75,7 @@ describe("IN3 field positions", () => {
   });
 
   test("IN3-14 Physician Reviewer", () => {
-    const parts = new IN3().physicianReviewer("C1", "C2", "C3").encode().split("|");
+    const parts = new IN3().physicianReviewer({ id: "C1", familyName: "C2", givenName: "C3" }).encode().split("|");
     expect(parts[14]).toBe("C1^C2^C3");
   });
 
@@ -88,12 +88,12 @@ describe("IN3 field positions", () => {
   });
 
   test("IN3-17 Appeal Reason", () => {
-    const parts = new IN3().appealReason("C1", "C2").encode().split("|");
+    const parts = new IN3().appealReason({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[17]).toBe("C1^C2");
   });
 
   test("IN3-18 Certification Agency", () => {
-    const parts = new IN3().certificationAgency("C1", "C2").encode().split("|");
+    const parts = new IN3().certificationAgency({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[18]).toBe("C1^C2");
   });
 
@@ -122,7 +122,7 @@ describe("IN3 field positions", () => {
   });
 
   test("IN3-25 Second Opinion Physician", () => {
-    const parts = new IN3().secondOpinionPhysician("C1", "C2", "C3").encode().split("|");
+    const parts = new IN3().secondOpinionPhysician({ id: "C1", familyName: "C2", givenName: "C3" }).encode().split("|");
     expect(parts[25]).toBe("C1^C2^C3");
   });
 });

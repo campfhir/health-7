@@ -33,12 +33,7 @@ export class ROL extends BaseSegment {
    * @param universalId - ROL-1.3 Universal ID
    * @param universalIdType - ROL-1.4 Universal ID Type
    */
-  roleInstanceId(
-    entityId: string,
-    namespaceId?: string,
-    universalId?: string,
-    universalIdType?: string,
-  ): this {
+  roleInstanceId({ entityId, namespaceId, universalId, universalIdType }: { entityId: string; namespaceId?: string; universalId?: string; universalIdType?: string }): this {
     this.fields[0] = this.createComponentsField([
       entityId,
       namespaceId || "",
@@ -60,7 +55,7 @@ export class ROL extends BaseSegment {
    * @param text - ROL-3.2 Text
    * @param codingSystem - ROL-3.3 Coding System
    */
-  role(code: string, text?: string, codingSystem?: string): this {
+  role({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[2] = this.createComponentsField([
       code,
       text || "",
@@ -76,12 +71,7 @@ export class ROL extends BaseSegment {
    * @param givenName - ROL-4.3 Given Name
    * @param middleName - ROL-4.4 Middle Name
    */
-  rolePerson(
-    id: string,
-    familyName?: string,
-    givenName?: string,
-    middleName?: string,
-  ): this {
+  rolePerson({ id, familyName, givenName, middleName }: { id: string; familyName?: string; givenName?: string; middleName?: string }): this {
     this.fields[3] = this.createComponentsField([
       id,
       familyName || "",
@@ -118,7 +108,7 @@ export class ROL extends BaseSegment {
    * @param code - ROL-7.1 Code
    * @param text - ROL-7.2 Text
    */
-  roleDuration(code: string, text?: string): this {
+  roleDuration({ code, text }: { code: string; text?: string }): this {
     this.fields[6] = this.createComponentsField([code, text || ""]);
     return this;
   }
@@ -128,7 +118,7 @@ export class ROL extends BaseSegment {
    * @param code - ROL-8.1 Code
    * @param text - ROL-8.2 Text
    */
-  roleActionReason(code: string, text?: string): this {
+  roleActionReason({ code, text }: { code: string; text?: string }): this {
     this.fields[7] = this.createComponentsField([code, text || ""]);
     return this;
   }
@@ -138,7 +128,7 @@ export class ROL extends BaseSegment {
    * @param code - ROL-9.1 Code
    * @param text - ROL-9.2 Text
    */
-  providerType(code: string, text?: string): this {
+  providerType({ code, text }: { code: string; text?: string }): this {
     this.fields[8] = this.createComponentsField([code, text || ""]);
     return this;
   }
@@ -148,7 +138,7 @@ export class ROL extends BaseSegment {
    * @param code - ROL-10.1 Code
    * @param text - ROL-10.2 Text
    */
-  organizationUnitType(code: string, text?: string): this {
+  organizationUnitType({ code, text }: { code: string; text?: string }): this {
     this.fields[9] = this.createComponentsField([code, text || ""]);
     return this;
   }
@@ -160,12 +150,7 @@ export class ROL extends BaseSegment {
    * @param state - ROL-11.4 State
    * @param zip - ROL-11.5 Zip
    */
-  officeAddress(
-    street: string,
-    city?: string,
-    state?: string,
-    zip?: string,
-  ): this {
+  officeAddress({ street, city, state, zip }: { street: string; city?: string; state?: string; zip?: string }): this {
     this.fields[10] = this.createComponentsField([
       street,
       "",

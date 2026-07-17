@@ -24,12 +24,12 @@ describe("ERR field positions", () => {
   });
 
   test("ERR-2 Error Location", () => {
-    const parts = new ERR().errorLocation("C1", "C2", "C3", "C4", "C5").encode().split("|");
+    const parts = new ERR().errorLocation({ segmentId: "C1", segmentSequence: "C2", fieldPosition: "C3", fieldRepetition: "C4", componentNumber: "C5" }).encode().split("|");
     expect(parts[2]).toBe("C1^C2^C3^C4^C5");
   });
 
   test("ERR-3 Hl7 Error Code", () => {
-    const parts = new ERR().hl7ErrorCode("C1", "C2", "C3").encode().split("|");
+    const parts = new ERR().hl7ErrorCode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[3]).toBe("C1^C2^C3");
   });
 
@@ -38,7 +38,7 @@ describe("ERR field positions", () => {
   });
 
   test("ERR-5 Application Error Code", () => {
-    const parts = new ERR().applicationErrorCode("C1", "C2").encode().split("|");
+    const parts = new ERR().applicationErrorCode({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[5]).toBe("C1^C2");
   });
 

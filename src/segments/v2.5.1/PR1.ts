@@ -20,7 +20,7 @@ export class PR1 extends PR1_base {
    * @param text - PR1-16.2 Text
    * @param codingSystem - PR1-16.3 Name of Coding System
    */
-  procedureCodeModifier(code: string, text?: string, codingSystem?: string): this {
+  procedureCodeModifier({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[15] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -37,7 +37,7 @@ export class PR1 extends PR1_base {
    * @param text - PR1-18.2 Text
    * @param codingSystem - PR1-18.3 Name of Coding System
    */
-  tissueTypeCode(code: string, text?: string, codingSystem?: string): this {
+  tissueTypeCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[17] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -47,7 +47,7 @@ export class PR1 extends PR1_base {
    * @param entityIdentifier - PR1-19.1 Entity Identifier
    * @param namespaceId - PR1-19.2 Namespace ID
    */
-  procedureIdentifier(entityIdentifier: string, namespaceId?: string): this {
+  procedureIdentifier({ entityIdentifier, namespaceId }: { entityIdentifier: string; namespaceId?: string }): this {
     this.fields[18] = this.createComponentsField([
       entityIdentifier,
       namespaceId,

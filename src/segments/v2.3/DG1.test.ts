@@ -28,7 +28,7 @@ describe("DG1 field positions", () => {
   });
 
   test("DG1-3 Diagnosis Code", () => {
-    assertField(new DG1().diagnosisCode(SENTINEL), 3);
+    assertField(new DG1().diagnosisCode({ code: SENTINEL, text: "", codingSystem: "" }), 3);
   });
 
   test("DG1-4 Diagnosis Description", () => {
@@ -80,7 +80,7 @@ describe("DG1 field positions", () => {
   });
 
   test("DG1-16 Diagnosing Clinician", () => {
-    assertField(new DG1().diagnosingClinician(SENTINEL), 16);
+    assertField(new DG1().diagnosingClinician({ id: SENTINEL, familyName: "", givenName: "" }), 16);
   });
 
   test("DG1-17 Diagnosis Classification", () => {

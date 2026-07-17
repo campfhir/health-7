@@ -37,11 +37,7 @@ export class MFI extends BaseSegment {
    * @param text - MFI-1.2 Text
    * @param codingSystem - MFI-1.3 Coding System
    */
-  masterFileIdentifier(
-    identifier: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  masterFileIdentifier({ identifier, text, codingSystem }: { identifier: string; text?: string; codingSystem?: string }): this {
     this.fields[0] = this.createComponentsField([
       identifier,
       text,

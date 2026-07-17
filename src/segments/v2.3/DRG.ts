@@ -33,11 +33,7 @@ export class DRG extends BaseSegment {
    * @param text - DRG-1.2 Text
    * @param codingSystem - DRG-1.3 Coding System
    */
-  diagnosticRelatedGroup(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  diagnosticRelatedGroup({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[0] = this.createField([code, text || "", codingSystem || ""]);
     return this;
   }
@@ -70,7 +66,7 @@ export class DRG extends BaseSegment {
    * @param code - DRG-5.1 Code
    * @param text - DRG-5.2 Text
    */
-  outlierType(code: string, text?: string): this {
+  outlierType({ code, text }: { code: string; text?: string }): this {
     this.fields[4] = this.createField([code, text || ""]);
     return this;
   }

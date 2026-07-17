@@ -46,13 +46,7 @@ export class PID extends BaseSegment {
    * @param assigningAuthority - PID-3.4 Assigning Authority
    * @param identifierTypeCode - PID-3.5 Identifier Type Code
    */
-  patientIdentifierList(
-    id: string,
-    checkDigit?: string,
-    checkDigitScheme?: string,
-    assigningAuthority?: string,
-    identifierTypeCode?: string,
-  ): this {
+  patientIdentifierList({ id, checkDigit, checkDigitScheme, assigningAuthority, identifierTypeCode }: { id: string; checkDigit?: string; checkDigitScheme?: string; assigningAuthority?: string; identifierTypeCode?: string }): this {
     this.fields[2] = this.createComponentsField([
       id,
       checkDigit,
@@ -75,13 +69,7 @@ export class PID extends BaseSegment {
    * @param suffix - PID-5.4 Suffix
    * @param prefix - PID-5.5 Prefix
    */
-  patientName(
-    familyName: string,
-    givenName?: string,
-    middleName?: string,
-    suffix?: string,
-    prefix?: string,
-  ): this {
+  patientName({ familyName, givenName, middleName, suffix, prefix }: { familyName: string; givenName?: string; middleName?: string; suffix?: string; prefix?: string }): this {
     this.fields[4] = this.createComponentsField([
       familyName,
       givenName,
@@ -96,7 +84,7 @@ export class PID extends BaseSegment {
    * @param familyName - PID-6.1 Family Name
    * @param givenName - PID-6.2 Given Name
    */
-  mothersMaidenName(familyName: string, givenName?: string): this {
+  mothersMaidenName({ familyName, givenName }: { familyName: string; givenName?: string }): this {
     this.fields[5] = this.createComponentsField([familyName, givenName]);
     return this;
   }
@@ -120,7 +108,7 @@ export class PID extends BaseSegment {
    * @param familyName - PID-9.1 Family Name
    * @param givenName - PID-9.2 Given Name
    */
-  patientAlias(familyName: string, givenName?: string): this {
+  patientAlias({ familyName, givenName }: { familyName: string; givenName?: string }): this {
     this.fields[8] = this.createComponentsField([familyName, givenName]);
     return this;
   }
@@ -138,14 +126,7 @@ export class PID extends BaseSegment {
    * @param zip - PID-11.5 Zip
    * @param country - PID-11.6 Country
    */
-  patientAddress(
-    streetAddress?: string,
-    otherDesignation?: string,
-    city?: string,
-    state?: string,
-    zip?: string,
-    country?: string,
-  ): this {
+  patientAddress({ streetAddress, otherDesignation, city, state, zip, country }: { streetAddress?: string; otherDesignation?: string; city?: string; state?: string; zip?: string; country?: string }): this {
     this.fields[10] = this.createComponentsField([
       streetAddress,
       otherDesignation,
@@ -202,11 +183,7 @@ export class PID extends BaseSegment {
    * @param issuingAuthority - PID-20.2 Issuing State, Province, Country
    * @param expirationDate - PID-20.3 Expiration Date
    */
-  driversLicenseNumber(
-    licenseNumber: string,
-    issuingAuthority?: string,
-    expirationDate?: string,
-  ): this {
+  driversLicenseNumber({ licenseNumber, issuingAuthority, expirationDate }: { licenseNumber: string; issuingAuthority?: string; expirationDate?: string }): this {
     this.fields[19] = this.createComponentsField([
       licenseNumber,
       issuingAuthority,
@@ -220,11 +197,7 @@ export class PID extends BaseSegment {
    * @param assigningAuthority - PID-21.4 Assigning Authority
    * @param identifierTypeCode - PID-21.5 Identifier Type Code
    */
-  mothersIdentifier(
-    id: string,
-    assigningAuthority?: string,
-    identifierTypeCode?: string,
-  ): this {
+  mothersIdentifier({ id, assigningAuthority, identifierTypeCode }: { id: string; assigningAuthority?: string; identifierTypeCode?: string }): this {
     this.fields[20] = this.createComponentsField([
       id,
       undefined,
@@ -240,7 +213,7 @@ export class PID extends BaseSegment {
    * @param text - PID-22.2 Text
    * @param codingSystem - PID-22.3 Name of Coding System
    */
-  ethnicGroup(code: string, text?: string, codingSystem?: string): this {
+  ethnicGroup({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[21] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -265,7 +238,7 @@ export class PID extends BaseSegment {
    * @param text - PID-26.2 Text
    * @param codingSystem - PID-26.3 Name of Coding System
    */
-  citizenship(code: string, text?: string, codingSystem?: string): this {
+  citizenship({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[25] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -275,11 +248,7 @@ export class PID extends BaseSegment {
    * @param text - PID-27.2 Text
    * @param codingSystem - PID-27.3 Name of Coding System
    */
-  veteransMilitaryStatus(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  veteransMilitaryStatus({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[26] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -289,7 +258,7 @@ export class PID extends BaseSegment {
    * @param text - PID-28.2 Text
    * @param codingSystem - PID-28.3 Name of Coding System
    */
-  nationality(code: string, text?: string, codingSystem?: string): this {
+  nationality({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[27] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }

@@ -40,7 +40,7 @@ export class GT1 extends BaseSegment {
    * @param id - GT1-2.1 ID Number
    * @param assigningAuthority - GT1-2.4 Assigning Authority
    */
-  guarantorNumber(id: string, assigningAuthority?: string): this {
+  guarantorNumber({ id, assigningAuthority }: { id: string; assigningAuthority?: string }): this {
     this.fields[1] = this.createComponentsField([id, "", "", assigningAuthority || ""]);
     return this;
   }
@@ -51,11 +51,7 @@ export class GT1 extends BaseSegment {
    * @param givenName - GT1-3.2 Given Name
    * @param middleName - GT1-3.3 Middle Name
    */
-  guarantorName(
-    familyName: string,
-    givenName?: string,
-    middleName?: string,
-  ): this {
+  guarantorName({ familyName, givenName, middleName }: { familyName: string; givenName?: string; middleName?: string }): this {
     this.fields[2] = this.createComponentsField([familyName, givenName || "", middleName || ""]);
     return this;
   }
@@ -65,7 +61,7 @@ export class GT1 extends BaseSegment {
    * @param familyName - GT1-4.1 Family Name
    * @param givenName - GT1-4.2 Given Name
    */
-  guarantorSpouseName(familyName: string, givenName?: string): this {
+  guarantorSpouseName({ familyName, givenName }: { familyName: string; givenName?: string }): this {
     this.fields[3] = this.createComponentsField([familyName, givenName || ""]);
     return this;
   }
@@ -78,13 +74,7 @@ export class GT1 extends BaseSegment {
    * @param zip - GT1-5.5 Zip
    * @param country - GT1-5.6 Country
    */
-  guarantorAddress(
-    street: string,
-    city?: string,
-    state?: string,
-    zip?: string,
-    country?: string,
-  ): this {
+  guarantorAddress({ street, city, state, zip, country }: { street: string; city?: string; state?: string; zip?: string; country?: string }): this {
     this.fields[4] = this.createComponentsField([street, "", city || "", state || "", zip || "", country || ""]);
     return this;
   }
@@ -129,7 +119,7 @@ export class GT1 extends BaseSegment {
    * @param code - GT1-11.1 Code
    * @param text - GT1-11.2 Text
    */
-  guarantorRelationship(code: string, text?: string): this {
+  guarantorRelationship({ code, text }: { code: string; text?: string }): this {
     this.fields[10] = this.createField([code, text || ""]);
     return this;
   }
@@ -181,12 +171,7 @@ export class GT1 extends BaseSegment {
    * @param state - GT1-17.4 State
    * @param zip - GT1-17.5 Zip
    */
-  guarantorEmployerAddress(
-    street: string,
-    city?: string,
-    state?: string,
-    zip?: string,
-  ): this {
+  guarantorEmployerAddress({ street, city, state, zip }: { street: string; city?: string; state?: string; zip?: string }): this {
     this.fields[16] = this.createComponentsField([street, "", city || "", state || "", zip || ""]);
     return this;
   }
@@ -215,11 +200,7 @@ export class GT1 extends BaseSegment {
    * @param organizationNameTypeCode - GT1-21.2 Organization Name Type Code
    * @param idNumber - GT1-21.3 ID Number
    */
-  guarantorOrganizationName(
-    organizationName: string,
-    organizationNameTypeCode?: string,
-    idNumber?: string,
-  ): this {
+  guarantorOrganizationName({ organizationName, organizationNameTypeCode, idNumber }: { organizationName: string; organizationNameTypeCode?: string; idNumber?: string }): this {
     this.fields[20] = this.createComponentsField([
       organizationName,
       organizationNameTypeCode,
@@ -240,11 +221,7 @@ export class GT1 extends BaseSegment {
    * @param text - GT1-23.2 Text
    * @param codingSystem - GT1-23.3 Name of Coding System
    */
-  guarantorCreditRatingCode(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  guarantorCreditRatingCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[22] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -275,11 +252,7 @@ export class GT1 extends BaseSegment {
    * @param text - GT1-26.2 Text
    * @param codingSystem - GT1-26.3 Name of Coding System
    */
-  guarantorChargeAdjustmentCode(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  guarantorChargeAdjustmentCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[25] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -289,7 +262,7 @@ export class GT1 extends BaseSegment {
    * @param price - GT1-27.1 Price
    * @param priceType - GT1-27.2 Price Type
    */
-  guarantorHouseholdAnnualIncome(price: string, priceType?: string): this {
+  guarantorHouseholdAnnualIncome({ price, priceType }: { price: string; priceType?: string }): this {
     this.fields[26] = this.createComponentsField([price, priceType]);
     return this;
   }
@@ -306,11 +279,7 @@ export class GT1 extends BaseSegment {
    * @param assigningAuthority - GT1-29.4 Assigning Authority
    * @param identifierTypeCode - GT1-29.5 Identifier Type Code
    */
-  guarantorEmployerId(
-    id: string,
-    assigningAuthority?: string,
-    identifierTypeCode?: string,
-  ): this {
+  guarantorEmployerId({ id, assigningAuthority, identifierTypeCode }: { id: string; assigningAuthority?: string; identifierTypeCode?: string }): this {
     this.fields[28] = this.createComponentsField([
       id,
       undefined,
@@ -327,11 +296,7 @@ export class GT1 extends BaseSegment {
    * @param text - GT1-30.2 Text
    * @param codingSystem - GT1-30.3 Name of Coding System
    */
-  guarantorMaritalStatusCode(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  guarantorMaritalStatusCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[29] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -366,7 +331,7 @@ export class GT1 extends BaseSegment {
    * @param text - GT1-35.2 Text
    * @param codingSystem - GT1-35.3 Name of Coding System
    */
-  citizenship(code: string, text?: string, codingSystem?: string): this {
+  citizenship({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[34] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -377,7 +342,7 @@ export class GT1 extends BaseSegment {
    * @param text - GT1-36.2 Text
    * @param codingSystem - GT1-36.3 Name of Coding System
    */
-  primaryLanguage(code: string, text?: string, codingSystem?: string): this {
+  primaryLanguage({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[35] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -394,7 +359,7 @@ export class GT1 extends BaseSegment {
    * @param text - GT1-38.2 Text
    * @param codingSystem - GT1-38.3 Name of Coding System
    */
-  publicityCode(code: string, text?: string, codingSystem?: string): this {
+  publicityCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[37] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -417,7 +382,7 @@ export class GT1 extends BaseSegment {
    * @param text - GT1-41.2 Text
    * @param codingSystem - GT1-41.3 Name of Coding System
    */
-  religion(code: string, text?: string, codingSystem?: string): this {
+  religion({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[40] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -430,13 +395,7 @@ export class GT1 extends BaseSegment {
    * @param suffix - GT1-42.4 Suffix
    * @param prefix - GT1-42.5 Prefix
    */
-  mothersMaidenName(
-    familyName: string,
-    givenName?: string,
-    middleName?: string,
-    suffix?: string,
-    prefix?: string,
-  ): this {
+  mothersMaidenName({ familyName, givenName, middleName, suffix, prefix }: { familyName: string; givenName?: string; middleName?: string; suffix?: string; prefix?: string }): this {
     this.fields[41] = this.createComponentsField([
       familyName,
       givenName,
@@ -453,7 +412,7 @@ export class GT1 extends BaseSegment {
    * @param text - GT1-43.2 Text
    * @param codingSystem - GT1-43.3 Name of Coding System
    */
-  nationality(code: string, text?: string, codingSystem?: string): this {
+  nationality({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[42] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -464,7 +423,7 @@ export class GT1 extends BaseSegment {
    * @param text - GT1-44.2 Text
    * @param codingSystem - GT1-44.3 Name of Coding System
    */
-  ethnicGroup(code: string, text?: string, codingSystem?: string): this {
+  ethnicGroup({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[43] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -477,13 +436,7 @@ export class GT1 extends BaseSegment {
    * @param suffix - GT1-45.4 Suffix
    * @param prefix - GT1-45.5 Prefix
    */
-  contactPersonName(
-    familyName: string,
-    givenName?: string,
-    middleName?: string,
-    suffix?: string,
-    prefix?: string,
-  ): this {
+  contactPersonName({ familyName, givenName, middleName, suffix, prefix }: { familyName: string; givenName?: string; middleName?: string; suffix?: string; prefix?: string }): this {
     this.fields[44] = this.createComponentsField([
       familyName,
       givenName,
@@ -506,7 +459,7 @@ export class GT1 extends BaseSegment {
    * @param text - GT1-47.2 Text
    * @param codingSystem - GT1-47.3 Name of Coding System
    */
-  contactReason(code: string, text?: string, codingSystem?: string): this {
+  contactReason({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[46] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -528,7 +481,7 @@ export class GT1 extends BaseSegment {
    * @param jobCode - GT1-50.1 Job Code
    * @param jobClass - GT1-50.2 Job Class
    */
-  jobCodeClass(jobCode: string, jobClass?: string): this {
+  jobCodeClass({ jobCode, jobClass }: { jobCode: string; jobClass?: string }): this {
     this.fields[49] = this.createComponentsField([jobCode, jobClass]);
     return this;
   }
@@ -539,11 +492,7 @@ export class GT1 extends BaseSegment {
    * @param organizationNameTypeCode - GT1-51.2 Organization Name Type Code
    * @param idNumber - GT1-51.3 ID Number
    */
-  guarantorEmployerOrganizationName(
-    organizationName: string,
-    organizationNameTypeCode?: string,
-    idNumber?: string,
-  ): this {
+  guarantorEmployerOrganizationName({ organizationName, organizationNameTypeCode, idNumber }: { organizationName: string; organizationNameTypeCode?: string; idNumber?: string }): this {
     this.fields[50] = this.createComponentsField([
       organizationName,
       organizationNameTypeCode,
@@ -569,10 +518,7 @@ export class GT1 extends BaseSegment {
    * @param financialClassCode - GT1-54.1 Financial Class Code
    * @param effectiveDate - GT1-54.2 Effective Date
    */
-  guarantorFinancialClass(
-    financialClassCode: string,
-    effectiveDate?: string,
-  ): this {
+  guarantorFinancialClass({ financialClassCode, effectiveDate }: { financialClassCode: string; effectiveDate?: string }): this {
     this.fields[53] = this.createComponentsField([
       financialClassCode,
       effectiveDate,
@@ -586,7 +532,7 @@ export class GT1 extends BaseSegment {
    * @param text - GT1-55.2 Text
    * @param codingSystem - GT1-55.3 Name of Coding System
    */
-  guarantorRace(code: string, text?: string, codingSystem?: string): this {
+  guarantorRace({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[54] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }

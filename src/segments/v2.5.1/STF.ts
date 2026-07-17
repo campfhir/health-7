@@ -25,7 +25,7 @@ export class STF extends STF_base {
    * @param text - STF-27.2 Text
    * @param codingSystem - STF-27.3 Name of Coding System
    */
-  race(code: string, text?: string, codingSystem?: string): this {
+  race({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[26] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -36,7 +36,7 @@ export class STF extends STF_base {
    * @param text - STF-28.2 Text
    * @param codingSystem - STF-28.3 Name of Coding System
    */
-  ethnicGroup(code: string, text?: string, codingSystem?: string): this {
+  ethnicGroup({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[27] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -53,7 +53,7 @@ export class STF extends STF_base {
    * @param text - STF-30.2 Text
    * @param codingSystem - STF-30.3 Name of Coding System
    */
-  citizenship(code: string, text?: string, codingSystem?: string): this {
+  citizenship({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[29] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -81,11 +81,7 @@ export class STF extends STF_base {
    * @param text - STF-33.2 Text
    * @param codingSystem - STF-33.3 Name of Coding System
    */
-  institutionRelationshipTypeCode(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  institutionRelationshipTypeCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[32] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -95,10 +91,7 @@ export class STF extends STF_base {
    * @param rangeStartDateTime - STF-34.1 Range Start Date/Time
    * @param rangeEndDateTime - STF-34.2 Range End Date/Time
    */
-  institutionRelationshipPeriod(
-    rangeStartDateTime: string,
-    rangeEndDateTime?: string,
-  ): this {
+  institutionRelationshipPeriod({ rangeStartDateTime, rangeEndDateTime }: { rangeStartDateTime: string; rangeEndDateTime?: string }): this {
     this.fields[33] = this.createComponentsField([
       rangeStartDateTime,
       rangeEndDateTime,
@@ -118,7 +111,7 @@ export class STF extends STF_base {
    * @param text - STF-36.2 Text
    * @param codingSystem - STF-36.3 Name of Coding System
    */
-  costCenterCode(code: string, text?: string, codingSystem?: string): this {
+  costCenterCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[35] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -135,7 +128,7 @@ export class STF extends STF_base {
    * @param text - STF-38.2 Text
    * @param codingSystem - STF-38.3 Name of Coding System
    */
-  inactiveReasonCode(code: string, text?: string, codingSystem?: string): this {
+  inactiveReasonCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[37] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }

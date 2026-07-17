@@ -10,13 +10,13 @@ import { parseMFN_M02 } from "../../parsers/v2.3/MFN_M02_Parser.ts";
 function buildBasicMessage() {
   const msh = new MSH()
     .sendingApplication("LAB")
-    .messageType("MFN", "M02")
+    .messageType({ messageCode: "MFN", triggerEvent: "M02" })
     .messageControlId("MSG001")
     .processingId("P")
     .versionId("2.3");
 
   const mfi = new MFI()
-    .masterFileIdentifier("STF", "Staff Master File")
+    .masterFileIdentifier({ identifier: "STF", text: "Staff Master File" })
     .fileLevelEventCode("UPD")
     .responseLevelCode("NE");
 
@@ -26,8 +26,8 @@ function buildBasicMessage() {
     .primaryKeyValue("DOC001");
 
   const stf = new STF()
-    .primaryKeyValue("DOC001")
-    .staffName("Smith", "John", "A")
+    .primaryKeyValue({ identifier: "DOC001" })
+    .staffName({ familyName: "Smith", givenName: "John", middleName: "A" })
     .staffType("MD")
     .administrativeSex("M")
     .activeInactiveFlag("A");
@@ -88,7 +88,7 @@ describe("MFN_M02 builder", () => {
     const { msh, mfi, mfe, stf } = buildBasicMessage();
 
     const pra = new PRA()
-      .primaryKeyValue("DOC001")
+      .primaryKeyValue({ identifier: "DOC001" })
       .practitionerCategory("OP");
 
     const message = createMFN_M02(msh, mfi, [{ mfe, stf, pra }]);
@@ -105,7 +105,7 @@ describe("MFN_M02 builder", () => {
 
     const entries = ["DOC001", "DOC002", "DOC003"].map((id, i) => ({
       mfe: new MFE().recordLevelEventCode("MAD").mfnControlId(`CTL00${i + 1}`).primaryKeyValue(id),
-      stf: new STF().primaryKeyValue(id).staffName(`Doctor${i + 1}`).activeInactiveFlag("A"),
+      stf: new STF().primaryKeyValue({ identifier: id }).staffName({ familyName: `Doctor${i + 1}` }).activeInactiveFlag("A"),
     }));
 
     const message = createMFN_M02(msh, mfi, entries);

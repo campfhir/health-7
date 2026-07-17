@@ -45,12 +45,7 @@ export class AIL extends BaseSegment {
    * @param bed - AIL-3.3 Bed
    * @param facility - AIL-3.4 Facility
    */
-  locationResourceId(
-    pointOfCare: string,
-    room?: string,
-    bed?: string,
-    facility?: string,
-  ): this {
+  locationResourceId({ pointOfCare, room, bed, facility }: { pointOfCare: string; room?: string; bed?: string; facility?: string }): this {
     this.fields[2] = this.createComponentsField([
       pointOfCare,
       room || "",
@@ -65,7 +60,7 @@ export class AIL extends BaseSegment {
    * @param code - AIL-4.1 Code
    * @param text - AIL-4.2 Text
    */
-  locationType(code: string, text?: string): this {
+  locationType({ code, text }: { code: string; text?: string }): this {
     this.fields[3] = this.createComponentsField([code, text]);
     return this;
   }
@@ -75,7 +70,7 @@ export class AIL extends BaseSegment {
    * @param code - AIL-5.1 Code
    * @param text - AIL-5.2 Text
    */
-  locationGroup(code: string, text?: string): this {
+  locationGroup({ code, text }: { code: string; text?: string }): this {
     this.fields[4] = this.createComponentsField([code, text]);
     return this;
   }
@@ -102,7 +97,7 @@ export class AIL extends BaseSegment {
    * @param code - AIL-8.1 Code
    * @param text - AIL-8.2 Text
    */
-  startDateTimeOffsetUnits(code: string, text?: string): this {
+  startDateTimeOffsetUnits({ code, text }: { code: string; text?: string }): this {
     this.fields[7] = this.createComponentsField([code, text]);
     return this;
   }
@@ -118,7 +113,7 @@ export class AIL extends BaseSegment {
    * @param code - AIL-10.1 Code
    * @param text - AIL-10.2 Text
    */
-  durationUnits(code: string, text?: string): this {
+  durationUnits({ code, text }: { code: string; text?: string }): this {
     this.fields[9] = this.createComponentsField([code, text]);
     return this;
   }
@@ -134,7 +129,7 @@ export class AIL extends BaseSegment {
    * @param code - AIL-12.1 Code
    * @param text - AIL-12.2 Text
    */
-  fillerStatusCode(code: string, text?: string): this {
+  fillerStatusCode({ code, text }: { code: string; text?: string }): this {
     this.fields[11] = this.createComponentsField([code, text]);
     return this;
   }

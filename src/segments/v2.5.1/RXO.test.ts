@@ -20,12 +20,12 @@ function assertField(seg: RXO, splitIndex: number): void {
 
 describe("RXO field positions", () => {
   test("RXO-23 Total Daily Dose", () => {
-    const parts = new RXO().totalDailyDose("C1", "C2").encode().split("|");
+    const parts = new RXO().totalDailyDose({ quantity: "C1", units: "C2" }).encode().split("|");
     expect(parts[23]).toBe("C1^C2");
   });
 
   test("RXO-24 Supplementary Code", () => {
-    const parts = new RXO().supplementaryCode("C1", "C2", "C3").encode().split("|");
+    const parts = new RXO().supplementaryCode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[24]).toBe("C1^C2^C3");
   });
 
@@ -34,7 +34,7 @@ describe("RXO field positions", () => {
   });
 
   test("RXO-26 Requested Drug Strength Volume Units", () => {
-    const parts = new RXO().requestedDrugStrengthVolumeUnits("C1", "C2", "C3").encode().split("|");
+    const parts = new RXO().requestedDrugStrengthVolumeUnits({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[26]).toBe("C1^C2^C3");
   });
 

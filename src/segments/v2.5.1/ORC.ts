@@ -25,11 +25,7 @@ export class ORC extends ORC_base {
    * @param text - ORC-20.2 Text
    * @param codingSystem - ORC-20.3 Name of Coding System
    */
-  advancedBeneficiaryNoticeCode(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  advancedBeneficiaryNoticeCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[19] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -39,11 +35,7 @@ export class ORC extends ORC_base {
    * @param organizationNameTypeCode - ORC-21.2 Organization Name Type Code
    * @param idNumber - ORC-21.3 ID Number
    */
-  orderingFacilityName(
-    organizationName: string,
-    organizationNameTypeCode?: string,
-    idNumber?: string,
-  ): this {
+  orderingFacilityName({ organizationName, organizationNameTypeCode, idNumber }: { organizationName: string; organizationNameTypeCode?: string; idNumber?: string }): this {
     this.fields[20] = this.createComponentsField([
       organizationName,
       organizationNameTypeCode,
@@ -60,14 +52,7 @@ export class ORC extends ORC_base {
    * @param zip - ORC-22.5 Zip or Postal Code
    * @param country - ORC-22.6 Country
    */
-  orderingFacilityAddress(
-    street: string,
-    otherDesignation?: string,
-    city?: string,
-    state?: string,
-    zip?: string,
-    country?: string,
-  ): this {
+  orderingFacilityAddress({ street, otherDesignation, city, state, zip, country }: { street: string; otherDesignation?: string; city?: string; state?: string; zip?: string; country?: string }): this {
     this.fields[21] = this.createComponentsField([
       street,
       otherDesignation,
@@ -92,14 +77,7 @@ export class ORC extends ORC_base {
    * @param zip - ORC-24.5 Zip or Postal Code
    * @param country - ORC-24.6 Country
    */
-  orderingProviderAddress(
-    street: string,
-    otherDesignation?: string,
-    city?: string,
-    state?: string,
-    zip?: string,
-    country?: string,
-  ): this {
+  orderingProviderAddress({ street, otherDesignation, city, state, zip, country }: { street: string; otherDesignation?: string; city?: string; state?: string; zip?: string; country?: string }): this {
     this.fields[23] = this.createComponentsField([
       street,
       otherDesignation,
@@ -116,7 +94,7 @@ export class ORC extends ORC_base {
    * @param text - ORC-25.2 Text
    * @param codingSystem - ORC-25.3 Name of Coding System
    */
-  orderStatusModifier(code: string, text?: string, codingSystem?: string): this {
+  orderStatusModifier({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[24] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -126,11 +104,7 @@ export class ORC extends ORC_base {
    * @param text - ORC-26.2 Text
    * @param codingSystem - ORC-26.3 Name of Coding System
    */
-  advancedBeneficiaryNoticeOverrideReason(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  advancedBeneficiaryNoticeOverrideReason({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[25] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -156,7 +130,7 @@ export class ORC extends ORC_base {
    * @param text - ORC-28.2 Text
    * @param codingSystem - ORC-28.3 Name of Coding System
    */
-  confidentialityCode(code: string, text?: string, codingSystem?: string): this {
+  confidentialityCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[27] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -166,7 +140,7 @@ export class ORC extends ORC_base {
    * @param text - ORC-29.2 Text
    * @param codingSystem - ORC-29.3 Name of Coding System
    */
-  orderType(code: string, text?: string, codingSystem?: string): this {
+  orderType({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[28] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -176,11 +150,7 @@ export class ORC extends ORC_base {
    * @param text - ORC-30.2 Text
    * @param codingSystem - ORC-30.3 Name of Coding System
    */
-  entererAuthorizationMode(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  entererAuthorizationMode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[29] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -190,11 +160,7 @@ export class ORC extends ORC_base {
    * @param text - ORC-31.2 Text
    * @param codingSystem - ORC-31.3 Name of Coding System
    */
-  parentUniversalServiceIdentifier(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  parentUniversalServiceIdentifier({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[30] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }

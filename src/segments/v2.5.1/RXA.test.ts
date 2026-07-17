@@ -24,12 +24,12 @@ describe("RXA field positions", () => {
   });
 
   test("RXA-24 Administered Drug Strength Volume Units", () => {
-    const parts = new RXA().administeredDrugStrengthVolumeUnits("C1", "C2", "C3").encode().split("|");
+    const parts = new RXA().administeredDrugStrengthVolumeUnits({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[24]).toBe("C1^C2^C3");
   });
 
   test("RXA-25 Administered Barcode Identifier", () => {
-    const parts = new RXA().administeredBarcodeIdentifier("C1", "C2", "C3").encode().split("|");
+    const parts = new RXA().administeredBarcodeIdentifier({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[25]).toBe("C1^C2^C3");
   });
 

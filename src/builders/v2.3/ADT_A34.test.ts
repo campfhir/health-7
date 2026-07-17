@@ -9,13 +9,13 @@ import { PV1 } from "../../segments/v2.3/PV1.ts";
 import { parseADT_A34 } from "../../parsers/v2.5.1/ADT_A34_Parser.ts";
 
 function makeMSH() {
-  return new MSH().sendingApplication("TEST").messageType("ADT", "A34");
+  return new MSH().sendingApplication("TEST").messageType({ messageCode: "ADT", triggerEvent: "A34" });
 }
 function makePID() {
-  return new PID().setId("1").patientName("Doe", "John");
+  return new PID().setId("1").patientName({ familyName: "Doe", givenName: "John" });
 }
 function makeMRG() {
-  return new MRG().priorPatientId("OLD-12345");
+  return new MRG().priorPatientId({ id: "OLD-12345" });
 }
 
 test("createADT_A34 returns ADT_A34 instance", () => {

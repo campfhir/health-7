@@ -37,7 +37,7 @@ export class SPM extends BaseSegment {
    * @param placerAssignedId - SPM-2.1 Placer Assigned ID
    * @param fillerAssignedId - SPM-2.2 Filler Assigned ID
    */
-  specimenId(placerAssignedId: string, fillerAssignedId?: string): this {
+  specimenId({ placerAssignedId, fillerAssignedId }: { placerAssignedId: string; fillerAssignedId?: string }): this {
     this.fields[1] = this.createComponentsField([
       placerAssignedId,
       fillerAssignedId || "",
@@ -57,7 +57,7 @@ export class SPM extends BaseSegment {
    * @param text - SPM-4.2 Text
    * @param codingSystem - SPM-4.3 Coding System
    */
-  specimenType(code: string, text?: string, codingSystem?: string): this {
+  specimenType({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[3] = this.createComponentsField([code, text || "", codingSystem || ""]);
     return this;
   }
@@ -67,7 +67,7 @@ export class SPM extends BaseSegment {
    * @param code - SPM-5.1 Code
    * @param text - SPM-5.2 Text
    */
-  specimenTypeModifier(code: string, text?: string): this {
+  specimenTypeModifier({ code, text }: { code: string; text?: string }): this {
     this.fields[4] = this.createComponentsField([code, text || ""]);
     return this;
   }
@@ -77,7 +77,7 @@ export class SPM extends BaseSegment {
    * @param code - SPM-6.1 Code
    * @param text - SPM-6.2 Text
    */
-  specimenAdditives(code: string, text?: string): this {
+  specimenAdditives({ code, text }: { code: string; text?: string }): this {
     this.fields[5] = this.createComponentsField([code, text || ""]);
     return this;
   }
@@ -87,7 +87,7 @@ export class SPM extends BaseSegment {
    * @param code - SPM-7.1 Code
    * @param text - SPM-7.2 Text
    */
-  specimenCollectionMethod(code: string, text?: string): this {
+  specimenCollectionMethod({ code, text }: { code: string; text?: string }): this {
     this.fields[6] = this.createComponentsField([code, text || ""]);
     return this;
   }
@@ -98,7 +98,7 @@ export class SPM extends BaseSegment {
    * @param text - SPM-8.2 Text
    * @param codingSystem - SPM-8.3 Coding System
    */
-  specimenSourceSite(code: string, text?: string, codingSystem?: string): this {
+  specimenSourceSite({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[7] = this.createComponentsField([code, text || "", codingSystem || ""]);
     return this;
   }
@@ -108,7 +108,7 @@ export class SPM extends BaseSegment {
    * @param code - SPM-9.1 Code
    * @param text - SPM-9.2 Text
    */
-  specimenSourceSiteModifier(code: string, text?: string): this {
+  specimenSourceSiteModifier({ code, text }: { code: string; text?: string }): this {
     this.fields[8] = this.createComponentsField([code, text || ""]);
     return this;
   }
@@ -118,7 +118,7 @@ export class SPM extends BaseSegment {
    * @param code - SPM-10.1 Code
    * @param text - SPM-10.2 Text
    */
-  specimenCollectionSite(code: string, text?: string): this {
+  specimenCollectionSite({ code, text }: { code: string; text?: string }): this {
     this.fields[9] = this.createComponentsField([code, text || ""]);
     return this;
   }
@@ -128,7 +128,7 @@ export class SPM extends BaseSegment {
    * @param code - SPM-11.1 Code
    * @param text - SPM-11.2 Text
    */
-  specimenRole(code: string, text?: string): this {
+  specimenRole({ code, text }: { code: string; text?: string }): this {
     this.fields[10] = this.createComponentsField([code, text || ""]);
     return this;
   }
@@ -138,7 +138,7 @@ export class SPM extends BaseSegment {
    * @param value - SPM-12.1 Value
    * @param units - SPM-12.2 Units
    */
-  specimenCollectionAmount(value: string, units?: string): this {
+  specimenCollectionAmount({ value, units }: { value: string; units?: string }): this {
     this.fields[11] = this.createComponentsField([value, units || ""]);
     return this;
   }
@@ -160,7 +160,7 @@ export class SPM extends BaseSegment {
    * @param rangeStart - SPM-17.1 Range Start
    * @param rangeEnd - SPM-17.2 Range End
    */
-  specimenCollectionDateTime(rangeStart: string, rangeEnd?: string): this {
+  specimenCollectionDateTime({ rangeStart, rangeEnd }: { rangeStart: string; rangeEnd?: string }): this {
     this.fields[16] = this.createComponentsField([rangeStart, rangeEnd || ""]);
     return this;
   }
@@ -190,7 +190,7 @@ export class SPM extends BaseSegment {
    * @param value - SPM-25.1 Value
    * @param units - SPM-25.2 Units
    */
-  specimenCurrentQuantity(value: string, units?: string): this {
+  specimenCurrentQuantity({ value, units }: { value: string; units?: string }): this {
     this.fields[24] = this.createComponentsField([value, units || ""]);
     return this;
   }
@@ -200,7 +200,7 @@ export class SPM extends BaseSegment {
    * @param code - SPM-24.1 Code
    * @param text - SPM-24.2 Text
    */
-  specimenCondition(code: string, text?: string): this {
+  specimenCondition({ code, text }: { code: string; text?: string }): this {
     this.fields[23] = this.createComponentsField([code, text || ""]);
     return this;
   }
@@ -210,7 +210,7 @@ export class SPM extends BaseSegment {
    * @param code - SPM-21.1 Code
    * @param text - SPM-21.2 Text
    */
-  specimenRejectReason(code: string, text?: string): this {
+  specimenRejectReason({ code, text }: { code: string; text?: string }): this {
     this.fields[20] = this.createComponentsField([code, text || ""]);
     return this;
   }
@@ -221,7 +221,7 @@ export class SPM extends BaseSegment {
    * @param text - SPM-15.2 Text
    * @param codingSystem - SPM-15.3 Name of Coding System
    */
-  specimenHandlingCode(code: string, text?: string, codingSystem?: string): this {
+  specimenHandlingCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[14] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -232,7 +232,7 @@ export class SPM extends BaseSegment {
    * @param text - SPM-16.2 Text
    * @param codingSystem - SPM-16.3 Name of Coding System
    */
-  specimenRiskCode(code: string, text?: string, codingSystem?: string): this {
+  specimenRiskCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[15] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -257,7 +257,7 @@ export class SPM extends BaseSegment {
    * @param text - SPM-22.2 Text
    * @param codingSystem - SPM-22.3 Name of Coding System
    */
-  specimenQuality(code: string, text?: string, codingSystem?: string): this {
+  specimenQuality({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[21] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -268,11 +268,7 @@ export class SPM extends BaseSegment {
    * @param text - SPM-23.2 Text
    * @param codingSystem - SPM-23.3 Name of Coding System
    */
-  specimenAppropriateness(
-    code: string,
-    text?: string,
-    codingSystem?: string,
-  ): this {
+  specimenAppropriateness({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[22] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -289,7 +285,7 @@ export class SPM extends BaseSegment {
    * @param text - SPM-27.2 Text
    * @param codingSystem - SPM-27.3 Name of Coding System
    */
-  containerType(code: string, text?: string, codingSystem?: string): this {
+  containerType({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[26] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -300,7 +296,7 @@ export class SPM extends BaseSegment {
    * @param text - SPM-28.2 Text
    * @param codingSystem - SPM-28.3 Name of Coding System
    */
-  containerCondition(code: string, text?: string, codingSystem?: string): this {
+  containerCondition({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[27] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -311,7 +307,7 @@ export class SPM extends BaseSegment {
    * @param text - SPM-29.2 Text
    * @param codingSystem - SPM-29.3 Name of Coding System
    */
-  specimenChildRole(code: string, text?: string, codingSystem?: string): this {
+  specimenChildRole({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[28] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }

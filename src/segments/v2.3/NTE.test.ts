@@ -32,7 +32,7 @@ describe("NTE field positions", () => {
   });
 
   test("NTE-4 Comment Type", () => {
-    const parts = new NTE().commentType("C1", "C2", "C3").encode().split("|");
+    const parts = new NTE().commentType({ identifier: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[4]).toBe("C1^C2^C3");
   });
 });

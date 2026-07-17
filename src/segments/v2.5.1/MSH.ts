@@ -22,10 +22,7 @@ export class MSH extends MSH_base {
    * @param entityIdentifier - MSH-21.1 Entity Identifier
    * @param namespaceId - MSH-21.2 Namespace ID
    */
-  messageProfileIdentifier(
-    entityIdentifier: string,
-    namespaceId?: string,
-  ): this {
+  messageProfileIdentifier({ entityIdentifier, namespaceId }: { entityIdentifier: string; namespaceId?: string }): this {
     this.fields[19] = this.createComponentsField([entityIdentifier, namespaceId]);
     return this;
   }

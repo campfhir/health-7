@@ -44,7 +44,7 @@ export class ACC extends BaseSegment {
    * @param text - ACC-2.2 Text
    * @param codingSystem - ACC-2.3 Coding System
    */
-  accidentCode(code: string, text?: string, codingSystem?: string): this {
+  accidentCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[1] = this.createField([code, text || "", codingSystem || ""]);
     return this;
   }
@@ -60,7 +60,7 @@ export class ACC extends BaseSegment {
    * @param code - ACC-4.1 Code
    * @param text - ACC-4.2 Text
    */
-  autoAccidentState(code: string, text?: string): this {
+  autoAccidentState({ code, text }: { code: string; text?: string }): this {
     this.fields[3] = this.createField([code, text || ""]);
     return this;
   }
@@ -83,7 +83,7 @@ export class ACC extends BaseSegment {
    * @param familyName - ACC-7.2 Family Name
    * @param givenName - ACC-7.3 Given Name
    */
-  enteredBy(id: string, familyName?: string, givenName?: string): this {
+  enteredBy({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
     this.fields[6] = this.createField([id, familyName || "", givenName || ""]);
     return this;
   }
@@ -113,12 +113,7 @@ export class ACC extends BaseSegment {
    * @param state - ACC-11.4 State
    * @param zip - ACC-11.5 Zip
    */
-  accidentAddress(
-    street: string,
-    city?: string,
-    state?: string,
-    zip?: string,
-  ): this {
+  accidentAddress({ street, city, state, zip }: { street: string; city?: string; state?: string; zip?: string }): this {
     this.fields[10] = this.createComponentsField([
       street,
       "",

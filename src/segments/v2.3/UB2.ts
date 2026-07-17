@@ -57,7 +57,7 @@ export class UB2 extends BaseSegment {
    * @param code - UB2-6.1 Code
    * @param amount - UB2-6.2 Amount
    */
-  valueAmountCode(code: string, amount?: string): this {
+  valueAmountCode({ code, amount }: { code: string; amount?: string }): this {
     this.fields[5] = this.createField([code, amount || ""]);
     return this;
   }
@@ -67,7 +67,7 @@ export class UB2 extends BaseSegment {
    * @param code - UB2-7.1 Code
    * @param date - UB2-7.2 Date
    */
-  occurrenceCodeDate(code: string, date?: string): this {
+  occurrenceCodeDate({ code, date }: { code: string; date?: string }): this {
     this.fields[6] = this.createField([code, date || ""]);
     return this;
   }
@@ -78,7 +78,7 @@ export class UB2 extends BaseSegment {
    * @param startDate - UB2-8.2 Start Date
    * @param endDate - UB2-8.3 End Date
    */
-  occurrenceSpanCodeDates(code: string, startDate?: string, endDate?: string): this {
+  occurrenceSpanCodeDates({ code, startDate, endDate }: { code: string; startDate?: string; endDate?: string }): this {
     this.fields[7] = this.createField([code, startDate || "", endDate || ""]);
     return this;
   }

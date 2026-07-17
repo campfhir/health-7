@@ -32,7 +32,7 @@ describe("OBR field positions", () => {
   });
 
   test("OBR-4 Universal Service Identifier", () => {
-    const parts = new OBR().universalServiceIdentifier("C1", "C2", "C3").encode().split("|");
+    const parts = new OBR().universalServiceIdentifier({ identifier: "C1", text: "C2", nameOfCodingSystem: "C3" }).encode().split("|");
     expect(parts[4]).toBe("C1^C2^C3");
   });
 
@@ -57,7 +57,7 @@ describe("OBR field positions", () => {
   });
 
   test("OBR-10 Collector Identifier", () => {
-    const parts = new OBR().collectorIdentifier("C1", "C2", "C3").encode().split("|");
+    const parts = new OBR().collectorIdentifier({ id: "C1", familyName: "C2", givenName: "C3" }).encode().split("|");
     expect(parts[10]).toBe("C1^C2^C3");
   });
 
@@ -82,7 +82,7 @@ describe("OBR field positions", () => {
   });
 
   test("OBR-16 Ordering Provider", () => {
-    const parts = new OBR().orderingProvider("C1", "C2", "C3").encode().split("|");
+    const parts = new OBR().orderingProvider({ id: "C1", familyName: "C2", givenName: "C3" }).encode().split("|");
     expect(parts[16]).toBe("C1^C2^C3");
   });
 
@@ -123,22 +123,22 @@ describe("OBR field positions", () => {
   });
 
   test("OBR-26 Parent Result", () => {
-    const parts = new OBR().parentResult("C1", "C2", "C3").encode().split("|");
+    const parts = new OBR().parentResult({ parentObservationIdentifier: "C1", parentObservationSubIdentifier: "C2", parentObservationValueDescriptor: "C3" }).encode().split("|");
     expect(parts[26]).toBe("C1^C2^C3");
   });
 
   test("OBR-27 Quantity Timing", () => {
-    const parts = new OBR().quantityTiming("C1", "C2", "C3", "C4", "C5", "C6").encode().split("|");
+    const parts = new OBR().quantityTiming({ quantity: "C1", interval: "C2", duration: "C3", startDateTime: "C4", endDateTime: "C5", priority: "C6" }).encode().split("|");
     expect(parts[27]).toBe("C1^C2^C3^C4^C5^C6");
   });
 
   test("OBR-28 Result Copies To", () => {
-    const parts = new OBR().resultCopiesTo("C1", "C2", "C3").encode().split("|");
+    const parts = new OBR().resultCopiesTo({ id: "C1", familyName: "C2", givenName: "C3" }).encode().split("|");
     expect(parts[28]).toBe("C1^C2^C3");
   });
 
   test("OBR-29 Parent", () => {
-    const parts = new OBR().parent("C1", "C2").encode().split("|");
+    const parts = new OBR().parent({ placerAssignedIdentifier: "C1", fillerAssignedIdentifier: "C2" }).encode().split("|");
     expect(parts[29]).toBe("C1^C2");
   });
 
@@ -147,27 +147,27 @@ describe("OBR field positions", () => {
   });
 
   test("OBR-31 Reason For Study", () => {
-    const parts = new OBR().reasonForStudy("C1", "C2", "C3").encode().split("|");
+    const parts = new OBR().reasonForStudy({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[31]).toBe("C1^C2^C3");
   });
 
   test("OBR-32 Principal Result Interpreter", () => {
-    const parts = new OBR().principalResultInterpreter("C1", "C2", "C3").encode().split("|");
+    const parts = new OBR().principalResultInterpreter({ name: "C1", startDateTime: "C2", endDateTime: "C3" }).encode().split("|");
     expect(parts[32]).toBe("C1^C2^C3");
   });
 
   test("OBR-33 Assistant Result Interpreter", () => {
-    const parts = new OBR().assistantResultInterpreter("C1", "C2", "C3").encode().split("|");
+    const parts = new OBR().assistantResultInterpreter({ name: "C1", startDateTime: "C2", endDateTime: "C3" }).encode().split("|");
     expect(parts[33]).toBe("C1^C2^C3");
   });
 
   test("OBR-34 Technician", () => {
-    const parts = new OBR().technician("C1", "C2", "C3").encode().split("|");
+    const parts = new OBR().technician({ name: "C1", startDateTime: "C2", endDateTime: "C3" }).encode().split("|");
     expect(parts[34]).toBe("C1^C2^C3");
   });
 
   test("OBR-35 Transcriptionist", () => {
-    const parts = new OBR().transcriptionist("C1", "C2", "C3").encode().split("|");
+    const parts = new OBR().transcriptionist({ name: "C1", startDateTime: "C2", endDateTime: "C3" }).encode().split("|");
     expect(parts[35]).toBe("C1^C2^C3");
   });
 
@@ -180,17 +180,17 @@ describe("OBR field positions", () => {
   });
 
   test("OBR-38 Transport Logistics Of Collected Sample", () => {
-    const parts = new OBR().transportLogisticsOfCollectedSample("C1", "C2", "C3").encode().split("|");
+    const parts = new OBR().transportLogisticsOfCollectedSample({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[38]).toBe("C1^C2^C3");
   });
 
   test("OBR-39 Collectors Comment", () => {
-    const parts = new OBR().collectorsComment("C1", "C2", "C3").encode().split("|");
+    const parts = new OBR().collectorsComment({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[39]).toBe("C1^C2^C3");
   });
 
   test("OBR-40 Transport Arrangement Responsibility", () => {
-    const parts = new OBR().transportArrangementResponsibility("C1", "C2", "C3").encode().split("|");
+    const parts = new OBR().transportArrangementResponsibility({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[40]).toBe("C1^C2^C3");
   });
 
@@ -203,7 +203,7 @@ describe("OBR field positions", () => {
   });
 
   test("OBR-43 Planned Patient Transport Comment", () => {
-    const parts = new OBR().plannedPatientTransportComment("C1", "C2", "C3").encode().split("|");
+    const parts = new OBR().plannedPatientTransportComment({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[43]).toBe("C1^C2^C3");
   });
 });

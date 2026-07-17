@@ -20,7 +20,7 @@ function assertField(seg: MFI, splitIndex: number): void {
 
 describe("MFI field positions", () => {
   test("MFI-1 Master File Identifier", () => {
-    const parts = new MFI().masterFileIdentifier("C1", "C2", "C3").encode().split("|");
+    const parts = new MFI().masterFileIdentifier({ identifier: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[1]).toBe("C1^C2^C3");
   });
 

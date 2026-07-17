@@ -26,7 +26,7 @@ export class SCH extends BaseSegment {
    * @param entityId - SCH-1.1 Entity ID
    * @param namespaceId - SCH-1.2 Namespace ID
    */
-  placerAppointmentId(entityId: string, namespaceId?: string): this {
+  placerAppointmentId({ entityId, namespaceId }: { entityId: string; namespaceId?: string }): this {
     this.fields[0] = this.createComponentsField([entityId, namespaceId || ""]);
     return this;
   }
@@ -36,7 +36,7 @@ export class SCH extends BaseSegment {
    * @param entityId - SCH-2.1 Entity ID
    * @param namespaceId - SCH-2.2 Namespace ID
    */
-  fillerAppointmentId(entityId: string, namespaceId?: string): this {
+  fillerAppointmentId({ entityId, namespaceId }: { entityId: string; namespaceId?: string }): this {
     this.fields[1] = this.createComponentsField([entityId, namespaceId || ""]);
     return this;
   }
@@ -52,7 +52,7 @@ export class SCH extends BaseSegment {
    * @param entityIdentifier - SCH-4.1 Entity Identifier
    * @param namespaceId - SCH-4.2 Namespace ID
    */
-  placerGroupNumber(entityIdentifier: string, namespaceId?: string): this {
+  placerGroupNumber({ entityIdentifier, namespaceId }: { entityIdentifier: string; namespaceId?: string }): this {
     this.fields[3] = this.createComponentsField([entityIdentifier, namespaceId]);
     return this;
   }
@@ -62,7 +62,7 @@ export class SCH extends BaseSegment {
    * @param code - SCH-5.1 Code
    * @param text - SCH-5.2 Text
    */
-  scheduleId(code: string, text?: string): this {
+  scheduleId({ code, text }: { code: string; text?: string }): this {
     this.fields[4] = this.createComponentsField([code, text]);
     return this;
   }
@@ -73,7 +73,7 @@ export class SCH extends BaseSegment {
    * @param text - SCH-6.2 Text
    * @param codingSystem - SCH-6.3 Coding System
    */
-  eventReason(code: string, text?: string, codingSystem?: string): this {
+  eventReason({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[5] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -84,7 +84,7 @@ export class SCH extends BaseSegment {
    * @param text - SCH-7.2 Text
    * @param codingSystem - SCH-7.3 Coding System
    */
-  appointmentReason(code: string, text?: string, codingSystem?: string): this {
+  appointmentReason({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[6] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -94,7 +94,7 @@ export class SCH extends BaseSegment {
    * @param code - SCH-8.1 Code
    * @param text - SCH-8.2 Text
    */
-  appointmentType(code: string, text?: string): this {
+  appointmentType({ code, text }: { code: string; text?: string }): this {
     this.fields[7] = this.createComponentsField([code, text]);
     return this;
   }
@@ -110,7 +110,7 @@ export class SCH extends BaseSegment {
    * @param code - SCH-10.1 Code
    * @param text - SCH-10.2 Text
    */
-  appointmentDurationUnits(code: string, text?: string): this {
+  appointmentDurationUnits({ code, text }: { code: string; text?: string }): this {
     this.fields[9] = this.createComponentsField([code, text]);
     return this;
   }
@@ -127,7 +127,7 @@ export class SCH extends BaseSegment {
    * @param familyName - SCH-12.2 Family Name
    * @param givenName - SCH-12.3 Given Name
    */
-  placerContactPerson(id: string, familyName?: string, givenName?: string): this {
+  placerContactPerson({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
     this.fields[11] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }
@@ -147,14 +147,7 @@ export class SCH extends BaseSegment {
    * @param zip - SCH-14.5 Zip or Postal Code
    * @param country - SCH-14.6 Country
    */
-  placerContactAddress(
-    street: string,
-    otherDesignation?: string,
-    city?: string,
-    state?: string,
-    zip?: string,
-    country?: string,
-  ): this {
+  placerContactAddress({ street, otherDesignation, city, state, zip, country }: { street: string; otherDesignation?: string; city?: string; state?: string; zip?: string; country?: string }): this {
     this.fields[13] = this.createComponentsField([
       street,
       otherDesignation,
@@ -175,14 +168,7 @@ export class SCH extends BaseSegment {
    * @param locationStatus - SCH-15.5 Location Status
    * @param personLocationType - SCH-15.6 Person Location Type
    */
-  placerContactLocation(
-    pointOfCare: string,
-    room?: string,
-    bed?: string,
-    facility?: string,
-    locationStatus?: string,
-    personLocationType?: string,
-  ): this {
+  placerContactLocation({ pointOfCare, room, bed, facility, locationStatus, personLocationType }: { pointOfCare: string; room?: string; bed?: string; facility?: string; locationStatus?: string; personLocationType?: string }): this {
     this.fields[14] = this.createComponentsField([
       pointOfCare,
       room,
@@ -200,7 +186,7 @@ export class SCH extends BaseSegment {
    * @param familyName - SCH-16.2 Family Name
    * @param givenName - SCH-16.3 Given Name
    */
-  fillerContactPerson(id: string, familyName?: string, givenName?: string): this {
+  fillerContactPerson({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
     this.fields[15] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }
@@ -220,14 +206,7 @@ export class SCH extends BaseSegment {
    * @param zip - SCH-18.5 Zip or Postal Code
    * @param country - SCH-18.6 Country
    */
-  fillerContactAddress(
-    street: string,
-    otherDesignation?: string,
-    city?: string,
-    state?: string,
-    zip?: string,
-    country?: string,
-  ): this {
+  fillerContactAddress({ street, otherDesignation, city, state, zip, country }: { street: string; otherDesignation?: string; city?: string; state?: string; zip?: string; country?: string }): this {
     this.fields[17] = this.createComponentsField([
       street,
       otherDesignation,
@@ -248,14 +227,7 @@ export class SCH extends BaseSegment {
    * @param locationStatus - SCH-19.5 Location Status
    * @param personLocationType - SCH-19.6 Person Location Type
    */
-  fillerContactLocation(
-    pointOfCare: string,
-    room?: string,
-    bed?: string,
-    facility?: string,
-    locationStatus?: string,
-    personLocationType?: string,
-  ): this {
+  fillerContactLocation({ pointOfCare, room, bed, facility, locationStatus, personLocationType }: { pointOfCare: string; room?: string; bed?: string; facility?: string; locationStatus?: string; personLocationType?: string }): this {
     this.fields[18] = this.createComponentsField([
       pointOfCare,
       room,
@@ -273,7 +245,7 @@ export class SCH extends BaseSegment {
    * @param familyName - SCH-20.2 Family Name
    * @param givenName - SCH-20.3 Given Name
    */
-  enteredByPerson(id: string, familyName?: string, givenName?: string): this {
+  enteredByPerson({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
     this.fields[19] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }
@@ -293,14 +265,7 @@ export class SCH extends BaseSegment {
    * @param locationStatus - SCH-22.5 Location Status
    * @param personLocationType - SCH-22.6 Person Location Type
    */
-  enteredByLocation(
-    pointOfCare: string,
-    room?: string,
-    bed?: string,
-    facility?: string,
-    locationStatus?: string,
-    personLocationType?: string,
-  ): this {
+  enteredByLocation({ pointOfCare, room, bed, facility, locationStatus, personLocationType }: { pointOfCare: string; room?: string; bed?: string; facility?: string; locationStatus?: string; personLocationType?: string }): this {
     this.fields[21] = this.createComponentsField([
       pointOfCare,
       room,
@@ -317,10 +282,7 @@ export class SCH extends BaseSegment {
    * @param entityIdentifier - SCH-23.1 Entity Identifier
    * @param namespaceId - SCH-23.2 Namespace ID
    */
-  parentPlacerAppointmentId(
-    entityIdentifier: string,
-    namespaceId?: string,
-  ): this {
+  parentPlacerAppointmentId({ entityIdentifier, namespaceId }: { entityIdentifier: string; namespaceId?: string }): this {
     this.fields[22] = this.createComponentsField([entityIdentifier, namespaceId]);
     return this;
   }
@@ -330,10 +292,7 @@ export class SCH extends BaseSegment {
    * @param entityIdentifier - SCH-24.1 Entity Identifier
    * @param namespaceId - SCH-24.2 Namespace ID
    */
-  parentFillerAppointmentId(
-    entityIdentifier: string,
-    namespaceId?: string,
-  ): this {
+  parentFillerAppointmentId({ entityIdentifier, namespaceId }: { entityIdentifier: string; namespaceId?: string }): this {
     this.fields[23] = this.createComponentsField([entityIdentifier, namespaceId]);
     return this;
   }
@@ -343,7 +302,7 @@ export class SCH extends BaseSegment {
    * @param code - SCH-25.1 Code
    * @param text - SCH-25.2 Text
    */
-  fillerStatusCode(code: string, text?: string): this {
+  fillerStatusCode({ code, text }: { code: string; text?: string }): this {
     this.fields[24] = this.createComponentsField([code, text]);
     return this;
   }

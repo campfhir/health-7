@@ -44,7 +44,7 @@ export class AIG extends BaseSegment {
    * @param text - AIG-3.2 Text
    * @param codingSystem - AIG-3.3 Coding System
    */
-  resourceId(code: string, text?: string, codingSystem?: string): this {
+  resourceId({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[2] = this.createComponentsField([
       code,
       text || "",
@@ -59,7 +59,7 @@ export class AIG extends BaseSegment {
    * @param text - AIG-4.2 Text
    * @param codingSystem - AIG-4.3 Coding System
    */
-  resourceType(code: string, text?: string, codingSystem?: string): this {
+  resourceType({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[3] = this.createComponentsField([
       code,
       text || "",
@@ -73,7 +73,7 @@ export class AIG extends BaseSegment {
    * @param code - AIG-5.1 Code
    * @param text - AIG-5.2 Text
    */
-  resourceGroup(code: string, text?: string): this {
+  resourceGroup({ code, text }: { code: string; text?: string }): this {
     this.fields[4] = this.createComponentsField([code, text]);
     return this;
   }
@@ -89,7 +89,7 @@ export class AIG extends BaseSegment {
    * @param code - AIG-7.1 Code
    * @param text - AIG-7.2 Text
    */
-  resourceQuantityUnits(code: string, text?: string): this {
+  resourceQuantityUnits({ code, text }: { code: string; text?: string }): this {
     this.fields[6] = this.createComponentsField([code, text]);
     return this;
   }
@@ -116,7 +116,7 @@ export class AIG extends BaseSegment {
    * @param code - AIG-10.1 Code
    * @param text - AIG-10.2 Text
    */
-  startDateTimeOffsetUnits(code: string, text?: string): this {
+  startDateTimeOffsetUnits({ code, text }: { code: string; text?: string }): this {
     this.fields[9] = this.createComponentsField([code, text]);
     return this;
   }
@@ -132,7 +132,7 @@ export class AIG extends BaseSegment {
    * @param code - AIG-12.1 Code
    * @param text - AIG-12.2 Text
    */
-  durationUnits(code: string, text?: string): this {
+  durationUnits({ code, text }: { code: string; text?: string }): this {
     this.fields[11] = this.createComponentsField([code, text]);
     return this;
   }
@@ -148,7 +148,7 @@ export class AIG extends BaseSegment {
    * @param code - AIG-14.1 Code
    * @param text - AIG-14.2 Text
    */
-  fillerStatusCode(code: string, text?: string): this {
+  fillerStatusCode({ code, text }: { code: string; text?: string }): this {
     this.fields[13] = this.createComponentsField([code, text]);
     return this;
   }

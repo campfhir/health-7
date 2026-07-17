@@ -44,11 +44,7 @@ export class OBX extends BaseSegment {
    * @param text - OBX-3.2 Text
    * @param nameOfCodingSystem - OBX-3.3 Name of Coding System
    */
-  observationIdentifier(
-    identifier: string,
-    text?: string,
-    nameOfCodingSystem?: string,
-  ): this {
+  observationIdentifier({ identifier, text, nameOfCodingSystem }: { identifier: string; text?: string; nameOfCodingSystem?: string }): this {
     this.fields[2] = this.createComponentsField([
       identifier,
       text,
@@ -72,7 +68,7 @@ export class OBX extends BaseSegment {
    * @param text - OBX-6.2 Text
    * @param nameOfCodingSystem - OBX-6.3 Name of Coding System
    */
-  units(identifier?: string, text?: string, nameOfCodingSystem?: string): this {
+  units({ identifier, text, nameOfCodingSystem }: { identifier?: string; text?: string; nameOfCodingSystem?: string }): this {
     this.fields[5] = this.createComponentsField([
       identifier,
       text,
@@ -147,11 +143,7 @@ export class OBX extends BaseSegment {
    * @param familyName - OBX-16.2 Family Name
    * @param givenName - OBX-16.3 Given Name
    */
-  responsibleObserver(
-    id: string,
-    familyName?: string,
-    givenName?: string,
-  ): this {
+  responsibleObserver({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
     this.fields[15] = this.createComponentsField([id, familyName, givenName]);
     return this;
   }
@@ -161,11 +153,7 @@ export class OBX extends BaseSegment {
    * @param text - OBX-17.2 Text
    * @param nameOfCodingSystem - OBX-17.3 Name of Coding System
    */
-  observationMethod(
-    identifier?: string,
-    text?: string,
-    nameOfCodingSystem?: string,
-  ): this {
+  observationMethod({ identifier, text, nameOfCodingSystem }: { identifier?: string; text?: string; nameOfCodingSystem?: string }): this {
     this.fields[16] = this.createComponentsField([
       identifier,
       text,

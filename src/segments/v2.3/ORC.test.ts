@@ -56,22 +56,22 @@ describe("ORC field positions", () => {
   });
 
   test("ORC-10 Entered By", () => {
-    const parts = new ORC().enteredBy("C1", "C2", "C3").encode().split("|");
+    const parts = new ORC().enteredBy({ id: "C1", familyName: "C2", givenName: "C3" }).encode().split("|");
     expect(parts[10]).toBe("C1^C2^C3");
   });
 
   test("ORC-11 Verified By", () => {
-    const parts = new ORC().verifiedBy("C1", "C2", "C3").encode().split("|");
+    const parts = new ORC().verifiedBy({ id: "C1", familyName: "C2", givenName: "C3" }).encode().split("|");
     expect(parts[11]).toBe("C1^C2^C3");
   });
 
   test("ORC-12 Ordering Provider", () => {
-    const parts = new ORC().orderingProvider("C1", "C2", "C3").encode().split("|");
+    const parts = new ORC().orderingProvider({ id: "C1", familyName: "C2", givenName: "C3" }).encode().split("|");
     expect(parts[12]).toBe("C1^C2^C3");
   });
 
   test("ORC-13 Enterers Location", () => {
-    const parts = new ORC().enterersLocation("C1", "C2", "C3", "C4", "C5", "C6").encode().split("|");
+    const parts = new ORC().enterersLocation({ pointOfCare: "C1", room: "C2", bed: "C3", facility: "C4", locationStatus: "C5", personLocationType: "C6" }).encode().split("|");
     expect(parts[13]).toBe("C1^C2^C3^C4^C5^C6");
   });
 
@@ -96,7 +96,7 @@ describe("ORC field positions", () => {
   });
 
   test("ORC-19 Action By", () => {
-    const parts = new ORC().actionBy("C1", "C2", "C3").encode().split("|");
+    const parts = new ORC().actionBy({ id: "C1", familyName: "C2", givenName: "C3" }).encode().split("|");
     expect(parts[19]).toBe("C1^C2^C3");
   });
 });

@@ -36,12 +36,12 @@ describe("PID field positions", () => {
   });
 
   test("PID-35 Species Code", () => {
-    const parts = new PID().speciesCode("C1", "C2", "C3").encode().split("|");
+    const parts = new PID().speciesCode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[35]).toBe("C1^C2^C3");
   });
 
   test("PID-36 Breed Code", () => {
-    const parts = new PID().breedCode("C1", "C2", "C3").encode().split("|");
+    const parts = new PID().breedCode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[36]).toBe("C1^C2^C3");
   });
 
@@ -50,12 +50,12 @@ describe("PID field positions", () => {
   });
 
   test("PID-38 Production Class Code", () => {
-    const parts = new PID().productionClassCode("C1", "C2", "C3").encode().split("|");
+    const parts = new PID().productionClassCode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[38]).toBe("C1^C2^C3");
   });
 
   test("PID-39 Tribal Citizenship", () => {
-    const parts = new PID().tribalCitizenship("C1", "C2", "C3").encode().split("|");
+    const parts = new PID().tribalCitizenship({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[39]).toBe("C1^C2^C3");
   });
 });

@@ -50,7 +50,7 @@ export class PID extends PID_base {
    * @param text - PID-35.2 Text
    * @param codingSystem - PID-35.3 Name of Coding System
    */
-  speciesCode(code: string, text?: string, codingSystem?: string): this {
+  speciesCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[34] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -60,7 +60,7 @@ export class PID extends PID_base {
    * @param text - PID-36.2 Text
    * @param codingSystem - PID-36.3 Name of Coding System
    */
-  breedCode(code: string, text?: string, codingSystem?: string): this {
+  breedCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[35] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -75,7 +75,7 @@ export class PID extends PID_base {
    * @param text - PID-38.2 Text
    * @param codingSystem - PID-38.3 Name of Coding System
    */
-  productionClassCode(code: string, text?: string, codingSystem?: string): this {
+  productionClassCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[37] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }
@@ -85,7 +85,7 @@ export class PID extends PID_base {
    * @param text - PID-39.2 Text
    * @param codingSystem - PID-39.3 Name of Coding System
    */
-  tribalCitizenship(code: string, text?: string, codingSystem?: string): this {
+  tribalCitizenship({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[38] = this.createComponentsField([code, text, codingSystem]);
     return this;
   }

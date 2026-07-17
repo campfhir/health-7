@@ -20,22 +20,22 @@ function assertField(seg: PV2, splitIndex: number): void {
 
 describe("PV2 field positions", () => {
   test("PV2-39 Recreational Drug Use Code", () => {
-    const parts = new PV2().recreationalDrugUseCode("C1", "C2", "C3").encode().split("|");
+    const parts = new PV2().recreationalDrugUseCode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[39]).toBe("C1^C2^C3");
   });
 
   test("PV2-40 Admission Level Of Care Code", () => {
-    const parts = new PV2().admissionLevelOfCareCode("C1", "C2", "C3").encode().split("|");
+    const parts = new PV2().admissionLevelOfCareCode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[40]).toBe("C1^C2^C3");
   });
 
   test("PV2-41 Precaution Code", () => {
-    const parts = new PV2().precautionCode("C1", "C2", "C3").encode().split("|");
+    const parts = new PV2().precautionCode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[41]).toBe("C1^C2^C3");
   });
 
   test("PV2-42 Patient Condition Code", () => {
-    const parts = new PV2().patientConditionCode("C1", "C2", "C3").encode().split("|");
+    const parts = new PV2().patientConditionCode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[42]).toBe("C1^C2^C3");
   });
 
@@ -48,7 +48,7 @@ describe("PV2 field positions", () => {
   });
 
   test("PV2-45 Advance Directive Code", () => {
-    const parts = new PV2().advanceDirectiveCode("C1", "C2", "C3").encode().split("|");
+    const parts = new PV2().advanceDirectiveCode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[45]).toBe("C1^C2^C3");
   });
 

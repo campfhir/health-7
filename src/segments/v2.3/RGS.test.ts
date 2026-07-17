@@ -28,7 +28,7 @@ describe("RGS field positions", () => {
   });
 
   test("RGS-3 Resource Group ID", () => {
-    const parts = new RGS().resourceGroupId("C1", "C2").encode().split("|");
+    const parts = new RGS().resourceGroupId({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[3]).toBe("C1^C2");
   });
 });

@@ -1,6 +1,6 @@
-import { parseORU_R01 } from "../src/parsers/v2.5.1/ORU_R01_Parser";
-import { createORU_R01 } from "../src/builders/v2.5.1/ORU_R01";
-import { OBX, OBR } from "../src/segments/v2.5.1";
+import { parseORU_R01 } from "../src/parsers/v2.5.1/ORU_R01_Parser.ts";
+import { createORU_R01 } from "../src/builders/v2.5.1/ORU_R01.ts";
+import { OBX, OBR } from "../src/segments/v2.5.1/index.ts";
 
 const originalMessage = `MSH|^~\\&|LAB|Hospital|EMR|Clinic|20231115140500||ORU^R01|MSG001|P|2.5|||AL||
 PID|1||123456789^^^MRN||DOE^JOHN^A||19750225|M
@@ -35,16 +35,16 @@ const sodiumObr = new OBR()
   .setId("999") // Don't worry about the Set ID - we'll renumber automatically!
   .placerOrderNumber("NEWORDER")
   .fillerOrderNumber("NEWLAB")
-  .universalServiceIdentifier("NA", "Sodium", "L")
+  .universalServiceIdentifier({ identifier: "NA", text: "Sodium", nameOfCodingSystem: "L" })
   .observationDateTime("20231115110000");
 
 const sodiumObx = new OBX()
   .setId("888") // Random ID is fine
   .valueType("NM")
-  .observationIdentifier("2951-2", "Sodium", "LN")
+  .observationIdentifier({ identifier: "2951-2", text: "Sodium", nameOfCodingSystem: "LN" })
   .observationSubId("1")
   .observationValue("140")
-  .units("mmol/L");
+  .units({ identifier: "mmol/L" });
 
 patient.orderObservations.unshift({
   obr: sodiumObr,
@@ -55,10 +55,10 @@ patient.orderObservations.unshift({
 const hgbObx = new OBX()
   .setId("777") // Random ID
   .valueType("NM")
-  .observationIdentifier("718-7", "Hemoglobin", "LN")
+  .observationIdentifier({ identifier: "718-7", text: "Hemoglobin", nameOfCodingSystem: "LN" })
   .observationSubId("1")
   .observationValue("14.5")
-  .units("g/dL");
+  .units({ identifier: "g/dL" });
 
 patient.orderObservations[1].obxList.splice(1, 0, hgbObx);
 

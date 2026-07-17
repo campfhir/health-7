@@ -24,22 +24,22 @@ describe("NK1 field positions", () => {
   });
 
   test("NK1-2 Set Name", () => {
-    const parts = new NK1().setName("C1", "C2", "C3", "C4", "C5").encode().split("|");
+    const parts = new NK1().setName({ familyName: "C1", givenName: "C2", middleName: "C3", suffix: "C4", prefix: "C5" }).encode().split("|");
     expect(parts[2]).toBe("C1^C2^C3^C4^C5");
   });
 
   test("NK1-3 Relationship", () => {
-    const parts = new NK1().relationship("C1", "C2", "C3").encode().split("|");
+    const parts = new NK1().relationship({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[3]).toBe("C1^C2^C3");
   });
 
   test("NK1-4 Address", () => {
-    const parts = new NK1().address("C1", "C2", "C3", "C4", "C5").encode().split("|");
+    const parts = new NK1().address({ street: "C1", city: "C2", state: "C3", zip: "C4", country: "C5" }).encode().split("|");
     expect(parts[4]).toBe("C1^^C2^C3^C4^C5");
   });
 
   test("NK1-5 Phone Number", () => {
-    const parts = new NK1().phoneNumber("C1", "C2").encode().split("|");
+    const parts = new NK1().phoneNumber({ number: "C1", use: "C2" }).encode().split("|");
     expect(parts[5]).toBe("C1^C2");
   });
 
@@ -48,7 +48,7 @@ describe("NK1 field positions", () => {
   });
 
   test("NK1-7 Contact Role", () => {
-    const parts = new NK1().contactRole("C1", "C2", "C3").encode().split("|");
+    const parts = new NK1().contactRole({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[7]).toBe("C1^C2^C3");
   });
 
@@ -65,12 +65,12 @@ describe("NK1 field positions", () => {
   });
 
   test("NK1-11 Job Code Class", () => {
-    const parts = new NK1().jobCodeClass("C1", "C2", "C3").encode().split("|");
+    const parts = new NK1().jobCodeClass({ jobCode: "C1", jobClass: "C2", jobDescription: "C3" }).encode().split("|");
     expect(parts[11]).toBe("C1^C2^C3");
   });
 
   test("NK1-12 Employee Number", () => {
-    const parts = new NK1().employeeNumber("C1", "C2", "C3").encode().split("|");
+    const parts = new NK1().employeeNumber({ id: "C1", assigningAuthority: "C2", identifierTypeCode: "C3" }).encode().split("|");
     expect(parts[12]).toBe("C1^^^C2^C3");
   });
 
@@ -79,7 +79,7 @@ describe("NK1 field positions", () => {
   });
 
   test("NK1-14 Marital Status", () => {
-    const parts = new NK1().maritalStatus("C1", "C2", "C3").encode().split("|");
+    const parts = new NK1().maritalStatus({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[14]).toBe("C1^C2^C3");
   });
 
@@ -100,12 +100,12 @@ describe("NK1 field positions", () => {
   });
 
   test("NK1-19 Citizenship", () => {
-    const parts = new NK1().citizenship("C1", "C2", "C3").encode().split("|");
+    const parts = new NK1().citizenship({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[19]).toBe("C1^C2^C3");
   });
 
   test("NK1-20 Primary Language", () => {
-    const parts = new NK1().primaryLanguage("C1", "C2", "C3").encode().split("|");
+    const parts = new NK1().primaryLanguage({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[20]).toBe("C1^C2^C3");
   });
 
@@ -114,7 +114,7 @@ describe("NK1 field positions", () => {
   });
 
   test("NK1-22 Publicity Code", () => {
-    const parts = new NK1().publicityCode("C1", "C2", "C3").encode().split("|");
+    const parts = new NK1().publicityCode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[22]).toBe("C1^C2^C3");
   });
 
@@ -127,32 +127,32 @@ describe("NK1 field positions", () => {
   });
 
   test("NK1-25 Religion", () => {
-    const parts = new NK1().religion("C1", "C2", "C3").encode().split("|");
+    const parts = new NK1().religion({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[25]).toBe("C1^C2^C3");
   });
 
   test("NK1-26 Mothers Maiden Name", () => {
-    const parts = new NK1().mothersMaidenName("C1", "C2", "C3", "C4", "C5").encode().split("|");
+    const parts = new NK1().mothersMaidenName({ familyName: "C1", givenName: "C2", middleName: "C3", suffix: "C4", prefix: "C5" }).encode().split("|");
     expect(parts[26]).toBe("C1^C2^C3^C4^C5");
   });
 
   test("NK1-27 Nationality", () => {
-    const parts = new NK1().nationality("C1", "C2", "C3").encode().split("|");
+    const parts = new NK1().nationality({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[27]).toBe("C1^C2^C3");
   });
 
   test("NK1-28 Ethnic Group", () => {
-    const parts = new NK1().ethnicGroup("C1", "C2", "C3").encode().split("|");
+    const parts = new NK1().ethnicGroup({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[28]).toBe("C1^C2^C3");
   });
 
   test("NK1-29 Contact Reason", () => {
-    const parts = new NK1().contactReason("C1", "C2", "C3").encode().split("|");
+    const parts = new NK1().contactReason({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[29]).toBe("C1^C2^C3");
   });
 
   test("NK1-30 Contact Person Name", () => {
-    const parts = new NK1().contactPersonName("C1", "C2", "C3", "C4", "C5").encode().split("|");
+    const parts = new NK1().contactPersonName({ familyName: "C1", givenName: "C2", middleName: "C3", suffix: "C4", prefix: "C5" }).encode().split("|");
     expect(parts[30]).toBe("C1^C2^C3^C4^C5");
   });
 
@@ -161,12 +161,12 @@ describe("NK1 field positions", () => {
   });
 
   test("NK1-32 Contact Person Address", () => {
-    const parts = new NK1().contactPersonAddress("C1", "C2", "C3", "C4", "C5", "C6").encode().split("|");
+    const parts = new NK1().contactPersonAddress({ street: "C1", otherDesignation: "C2", city: "C3", state: "C4", zip: "C5", country: "C6" }).encode().split("|");
     expect(parts[32]).toBe("C1^C2^C3^C4^C5^C6");
   });
 
   test("NK1-33 Associated Partys Identifiers", () => {
-    const parts = new NK1().associatedPartysIdentifiers("C1", "C2", "C3").encode().split("|");
+    const parts = new NK1().associatedPartysIdentifiers({ id: "C1", assigningAuthority: "C2", identifierTypeCode: "C3" }).encode().split("|");
     expect(parts[33]).toBe("C1^^^C2^C3");
   });
 
@@ -175,7 +175,7 @@ describe("NK1 field positions", () => {
   });
 
   test("NK1-35 Race", () => {
-    const parts = new NK1().race("C1", "C2", "C3").encode().split("|");
+    const parts = new NK1().race({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[35]).toBe("C1^C2^C3");
   });
 

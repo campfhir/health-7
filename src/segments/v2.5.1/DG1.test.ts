@@ -20,7 +20,7 @@ function assertField(seg: DG1, splitIndex: number): void {
 
 describe("DG1 field positions", () => {
   test("DG1-20 Diagnosis Identifier", () => {
-    const parts = new DG1().diagnosisIdentifier("C1", "C2").encode().split("|");
+    const parts = new DG1().diagnosisIdentifier({ entityIdentifier: "C1", namespaceId: "C2" }).encode().split("|");
     expect(parts[20]).toBe("C1^C2");
   });
 

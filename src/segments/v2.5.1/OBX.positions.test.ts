@@ -20,7 +20,7 @@ function assertField(seg: OBX, splitIndex: number): void {
 
 describe("OBX field positions", () => {
   test("OBX-18 Equipment Instance Identifier", () => {
-    const parts = new OBX().equipmentInstanceIdentifier("C1", "C2").encode().split("|");
+    const parts = new OBX().equipmentInstanceIdentifier({ entityIdentifier: "C1", namespaceId: "C2" }).encode().split("|");
     expect(parts[18]).toBe("C1^C2");
   });
 
@@ -29,17 +29,17 @@ describe("OBX field positions", () => {
   });
 
   test("OBX-23 Performing Organization Name", () => {
-    const parts = new OBX().performingOrganizationName("C1", "C2", "C3").encode().split("|");
+    const parts = new OBX().performingOrganizationName({ organizationName: "C1", organizationNameTypeCode: "C2", idNumber: "C3" }).encode().split("|");
     expect(parts[23]).toBe("C1^C2^C3");
   });
 
   test("OBX-24 Performing Organization Address", () => {
-    const parts = new OBX().performingOrganizationAddress("C1", "C2", "C3", "C4", "C5", "C6").encode().split("|");
+    const parts = new OBX().performingOrganizationAddress({ street: "C1", otherDesignation: "C2", city: "C3", state: "C4", zip: "C5", country: "C6" }).encode().split("|");
     expect(parts[24]).toBe("C1^C2^C3^C4^C5^C6");
   });
 
   test("OBX-25 Performing Organization Medical Director", () => {
-    const parts = new OBX().performingOrganizationMedicalDirector("C1", "C2", "C3").encode().split("|");
+    const parts = new OBX().performingOrganizationMedicalDirector({ id: "C1", familyName: "C2", givenName: "C3" }).encode().split("|");
     expect(parts[25]).toBe("C1^C2^C3");
   });
 });

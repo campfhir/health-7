@@ -28,12 +28,12 @@ describe("PD1 field positions", () => {
   });
 
   test("PD1-3 Patient Primary Facility", () => {
-    const parts = new PD1().patientPrimaryFacility("C1", "C2", "C3").encode().split("|");
+    const parts = new PD1().patientPrimaryFacility({ organizationName: "C1", idNumber: "C2", checkDigit: "C3" }).encode().split("|");
     expect(parts[3]).toBe("C1^C2^C3");
   });
 
   test("PD1-4 Patient Primary Care Provider", () => {
-    const parts = new PD1().patientPrimaryCareProvider("C1", "C2", "C3", "C4").encode().split("|");
+    const parts = new PD1().patientPrimaryCareProvider({ id: "C1", familyName: "C2", givenName: "C3", middleName: "C4" }).encode().split("|");
     expect(parts[4]).toBe("C1^C2^C3^C4");
   });
 
@@ -58,12 +58,12 @@ describe("PD1 field positions", () => {
   });
 
   test("PD1-10 Duplicate Patient", () => {
-    const parts = new PD1().duplicatePatient("C1", "C2").encode().split("|");
+    const parts = new PD1().duplicatePatient({ id: "C1", assigningAuthority: "C2" }).encode().split("|");
     expect(parts[10]).toBe("C1^^^C2");
   });
 
   test("PD1-11 Publicity Code", () => {
-    const parts = new PD1().publicityCode("C1", "C2", "C3").encode().split("|");
+    const parts = new PD1().publicityCode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[11]).toBe("C1^C2^C3");
   });
 
@@ -80,7 +80,7 @@ describe("PD1 field positions", () => {
   });
 
   test("PD1-15 Advance Directive Code", () => {
-    const parts = new PD1().advanceDirectiveCode("C1", "C2", "C3").encode().split("|");
+    const parts = new PD1().advanceDirectiveCode({ code: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
     expect(parts[15]).toBe("C1^C2^C3");
   });
 

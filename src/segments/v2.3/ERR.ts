@@ -35,13 +35,7 @@ export class ERR extends BaseSegment {
    * @param fieldRepetition - ERR-2.4 Field Repetition
    * @param componentNumber - ERR-2.5 Component Number
    */
-  errorLocation(
-    segmentId: string,
-    segmentSequence?: string,
-    fieldPosition?: string,
-    fieldRepetition?: string,
-    componentNumber?: string,
-  ): this {
+  errorLocation({ segmentId, segmentSequence, fieldPosition, fieldRepetition, componentNumber }: { segmentId: string; segmentSequence?: string; fieldPosition?: string; fieldRepetition?: string; componentNumber?: string }): this {
     this.fields[1] = this.createComponentsField([
       segmentId,
       segmentSequence || "",
@@ -58,7 +52,7 @@ export class ERR extends BaseSegment {
    * @param text - ERR-3.2 Text
    * @param codingSystem - ERR-3.3 Coding System
    */
-  hl7ErrorCode(code: string, text?: string, codingSystem?: string): this {
+  hl7ErrorCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
     this.fields[2] = this.createComponentsField([code, text || "", codingSystem || ""]);
     return this;
   }
@@ -74,7 +68,7 @@ export class ERR extends BaseSegment {
    * @param code - ERR-5.1 Code
    * @param text - ERR-5.2 Text
    */
-  applicationErrorCode(code: string, text?: string): this {
+  applicationErrorCode({ code, text }: { code: string; text?: string }): this {
     this.fields[4] = this.createComponentsField([code, text || ""]);
     return this;
   }
