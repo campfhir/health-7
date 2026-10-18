@@ -17,8 +17,9 @@ Detailed checklists:
 ## Release pipeline
 
 - Every PR and push to `main`: **lint, typecheck, test, build** (`.github/workflows/ci.yml`).
-- Merging to `main` publishes the package version in `package.json` to npm if that version isn't
-  already on the registry (`.github/workflows/publish.yml`). Bump `version` in `package.json` in
-  the PR to ship a release.
-- Publishing uses npm [trusted publishing](https://docs.npmjs.com/trusted-publishers) (OIDC) from
-  `publish.yml` — no long-lived token. Provenance is attached automatically.
+- Merging to `main` **stages** the package version in `package.json` on npm if that version isn't
+  already on the registry (`.github/workflows/publish.yml`, `npm stage publish`). A maintainer then
+  approves it with 2FA (`npm stage approve <stage-id>` or the *Staged Packages* tab on npmjs.com)
+  to make it live. Bump `version` in `package.json` in the PR to ship a release.
+- Staging uses npm [trusted publishing](https://docs.npmjs.com/trusted-publishers) (OIDC) from
+  `publish.yml` — no long-lived token.

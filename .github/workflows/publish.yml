@@ -9,8 +9,8 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
-  contents: write   # tag the release
-  id-token: write   # npm provenance
+  contents: read
+  id-token: write   # npm trusted publishing (OIDC)
 
 jobs:
   publish:
@@ -23,7 +23,7 @@ jobs:
           node-version: 24
           cache: pnpm
           registry-url: https://registry.npmjs.org
-      # Trusted publishing (OIDC) needs npm >= 11.5.1
+      # Trusted publishing needs npm >= 11.5.1; staged publishing needs >= 11.15.0
       - run: npm install -g npm@latest
       - run: pnpm install --frozen-lockfile
 
@@ -48,13 +48,10 @@ jobs:
           pnpm test
           pnpm build
 
-      - name: Publish to npm
+      - name: Stage release on npm
         if: steps.check.outputs.publish == 'true'
-        # Authenticates via OIDC (npm trusted publisher); no NPM_TOKEN needed.
-        run: npm publish --access public
-
-      - name: Tag release
-        if: steps.check.outputs.publish == 'true'
-        run: |
-          git tag "v${{ steps.check.outputs.version }}"
-          git push origin "v${{ steps.check.outputs.version }}"
+        # Authenticates via OIDC (npm trusted publisher, stage-publish permission).
+        # The version only goes live after a maintainer approves it with 2FA:
+        # `npm stage approve <stage-id>` or the Staged Packages tab on npmjs.com.
+        # Needs npm >= 11.15.0.
+        run: npm stage publish
