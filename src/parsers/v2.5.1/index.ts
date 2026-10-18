@@ -58,3 +58,4 @@ export { parseSIU_S15 } from "./SIU_S15_Parser.ts";
 export { parseSIU_S16 } from "./SIU_S16_Parser.ts";
 export { parseSIU_S17 } from "./SIU_S17_Parser.ts";
 export { parseSIU_S26 } from "./SIU_S26_Parser.ts";
+export { parseVXU_V04 } from "./VXU_V04_Parser.ts";

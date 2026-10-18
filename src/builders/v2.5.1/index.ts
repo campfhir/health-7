@@ -58,3 +58,4 @@ export { createSIU_S15 } from "./SIU_S15.ts";
 export { createSIU_S16 } from "./SIU_S16.ts";
 export { createSIU_S17 } from "./SIU_S17.ts";
 export { createSIU_S26 } from "./SIU_S26.ts";
+export { createVXU_V04 } from "./VXU_V04.ts";

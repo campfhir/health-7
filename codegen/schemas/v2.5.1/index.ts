@@ -1,3 +1,4 @@
+export { VXU_V04_SCHEMA } from "./VXU_V04";
 export { ACK_SCHEMA } from "./ACK";
 export { ORM_O01_SCHEMA } from "./ORM_O01";
 export { ORR_O02_SCHEMA } from "./ORR_O02";

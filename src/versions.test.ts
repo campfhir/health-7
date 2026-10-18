@@ -83,3 +83,19 @@ describe("ACK, ORM^O01 and ORR^O02", () => {
     }
   });
 });
+
+describe("VXU^V04", () => {
+  test("v2.3.1 re-exports v2.3; v2.4 and v2.5 each have their own; v2.5.1 derives from v2.5", () => {
+    expect(par231.parseVXU_V04).toBe(par23.parseVXU_V04);
+    expect(par24.parseVXU_V04).not.toBe(par23.parseVXU_V04);
+    expect(par25.parseVXU_V04).not.toBe(par24.parseVXU_V04);
+    expect(par251.parseVXU_V04).not.toBe(par25.parseVXU_V04);
+    expect(bld24.createVXU_V04).not.toBe(bld23.createVXU_V04);
+  });
+
+  test("TQ2 is introduced in v2.5", () => {
+    expect("TQ2" in seg24).toBe(false);
+    expect("TQ2" in seg25).toBe(true);
+    expect("TQ2" in seg251).toBe(true);
+  });
+});

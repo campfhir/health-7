@@ -21,7 +21,7 @@ MSA, MSH, NK1, NTE, OBR, OBX, ODS, ODT, ORC, PD1, PID, PR1, PRA, PV1, PV2, RGS, 
 RXR, SCH, STF, UB1, UB2
 
 Segments are placed in the version that introduced them: `SFT`, `SPM` and `TQ1` are in
-`segments/v2.5`; later versions re-export them. Checked against the Oemig HL7 database mirror
+`segments/v2.5` (plus `TQ2`); later versions re-export them. Checked against the Oemig HL7 database mirror
 (hl7.eu): `ROL` and `DB1` both have v2.3 definitions, so they stay in `segments/v2.3`. (`ROL` gained
 fields 9–12 in 2.4 and `DB1` was lightly revised — those are version-specific differences to
 implement, not reasons to move the segments.) Moving a segment is `git mv` into the introducing

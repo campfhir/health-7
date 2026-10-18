@@ -54,5 +54,6 @@ export * from "./SFT.ts";
 export * from "./SPM.ts";
 export * from "./STF.ts";
 export * from "./TQ1.ts";
+export * from "./TQ2.ts";
 export * from "./UB1.ts";
 export * from "./UB2.ts";
