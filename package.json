@@ -220,7 +220,7 @@
   },
   "homepage": "https://github.com/campfhir/health-7#readme",
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "publishConfig": {
     "access": "public",
