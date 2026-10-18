@@ -7,7 +7,7 @@ import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
-import { STF as STF_base } from "../v2.3/STF.ts";
+import { STF as STF_base } from "../v2.5/STF.ts";
 import {
   DateTimeLayout,
   formatHL7Date,
@@ -16,7 +16,7 @@ import {
 
 /**
  * STF segment (HL7 v2.5.1)
- * Extends v2.3 STF. Add v2.5.1-specific fields here as needed.
+ * Extends v2.5 STF. Add v2.5.1-specific fields here as needed.
  */
 export class STF extends STF_base {
   /**

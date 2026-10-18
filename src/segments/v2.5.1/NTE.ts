@@ -7,11 +7,11 @@ import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
-import { NTE as NTE_base } from "../v2.3/NTE.ts";
+import { NTE as NTE_base } from "../v2.5/NTE.ts";
 
 /**
  * NTE segment (HL7 v2.5.1)
- * Extends v2.3 NTE. Add v2.5.1-specific fields here as needed.
+ * Extends v2.5 NTE. Add v2.5.1-specific fields here as needed.
  */
 export class NTE extends NTE_base {
   /** Parses the input string into a structured instance. */

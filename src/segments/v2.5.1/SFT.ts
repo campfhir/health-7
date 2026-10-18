@@ -7,11 +7,11 @@ import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
-import { SFT as SFT_base } from "../v2.3/SFT.ts";
+import { SFT as SFT_base } from "../v2.5/SFT.ts";
 
 /**
  * SFT segment (HL7 v2.5.1)
- * Extends v2.3 SFT. Add v2.5.1-specific fields here as needed.
+ * Extends v2.5 SFT. Add v2.5.1-specific fields here as needed.
  */
 export class SFT extends SFT_base {
   /** Parses the input string into a structured instance. */

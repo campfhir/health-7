@@ -31,7 +31,7 @@ import {
   type ParsedADT_A01,
   type ParsedProcedure,
   type ParsedInsuranceGroup,
-} from "../v2.3/ADT_A01_Parser.ts";
+} from "../v2.5/ADT_A01_Parser.ts";
 
 export type { ParsedADT_A01, ParsedProcedure, ParsedInsuranceGroup };
 

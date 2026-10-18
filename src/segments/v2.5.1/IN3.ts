@@ -7,11 +7,11 @@ import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
-import { IN3 as IN3_base } from "../v2.3/IN3.ts";
+import { IN3 as IN3_base } from "../v2.5/IN3.ts";
 
 /**
  * IN3 segment (HL7 v2.5.1)
- * Extends v2.3 IN3. Add v2.5.1-specific fields here as needed.
+ * Extends v2.5 IN3. Add v2.5.1-specific fields here as needed.
  */
 export class IN3 extends IN3_base {
   /** Parses the input string into a structured instance. */

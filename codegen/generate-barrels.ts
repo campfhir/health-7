@@ -33,7 +33,7 @@ function sourceFiles(absDir: string): string[] {
 }
 
 // Relative specifiers carry explicit `.ts` extensions so the barrels resolve
-// under Deno / JSR (and Node's native ESM loader), not just bundlers.
+// under Node's native ESM loader, not just bundlers.
 function segmentBarrel(absDir: string): string {
   return sourceFiles(absDir)
     .map((name) => `export * from "./${name}.ts";`)
@@ -56,16 +56,23 @@ function parserBarrel(absDir: string): string {
     .join("\n") + "\n";
 }
 
-const DIRS: { dir: string; barrel: (absDir: string) => string }[] = [
-  { dir: "src/segments/v2.3",     barrel: segmentBarrel },
-  { dir: "src/segments/v2.5.1",   barrel: segmentBarrel },
-  { dir: "src/builders/v2.3",     barrel: builderBarrel },
-  { dir: "src/builders/v2.5.1",   barrel: builderBarrel },
-  { dir: "src/parsers/v2.3",      barrel: parserBarrel  },
-  { dir: "src/parsers/v2.5.1",    barrel: parserBarrel  },
+const BARRELS = [
+  { kind: "segments", barrel: segmentBarrel },
+  { kind: "builders", barrel: builderBarrel },
+  { kind: "parsers", barrel: parserBarrel },
 ];
 
-// JSR module doc for a barrel, derived from its directory (kind + version).
+// Every src/<kind>/v* directory gets a barrel, so new versions are picked up automatically.
+const DIRS: { dir: string; barrel: (absDir: string) => string }[] = BARRELS.flatMap(
+  ({ kind, barrel }) =>
+    readdirSync(join(ROOT, "src", kind), { withFileTypes: true })
+      .filter((e) => e.isDirectory() && /^v\d/.test(e.name))
+      .map((e) => e.name)
+      .sort()
+      .map((v) => ({ dir: `src/${kind}/${v}`, barrel })),
+);
+
+// Module doc for a barrel, derived from its directory (kind + version).
 function barrelModuleDoc(dir: string): string {
   const [, kind, ver] = dir.match(/src\/(segments|builders|parsers)\/(v[\d.]+)/)!;
   const noun = { segments: "segment classes", builders: "message builders", parsers: "message parsers" }[

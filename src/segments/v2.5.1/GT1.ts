@@ -7,11 +7,11 @@ import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
-import { GT1 as GT1_base } from "../v2.3/GT1.ts";
+import { GT1 as GT1_base } from "../v2.5/GT1.ts";
 
 /**
  * GT1 segment (HL7 v2.5.1)
- * Extends v2.3 GT1. Add v2.5.1-specific fields here as needed.
+ * Extends v2.5 GT1. Add v2.5.1-specific fields here as needed.
  */
 export class GT1 extends GT1_base {
   /** GT1-56 Guarantor Birth Place (chainable). */

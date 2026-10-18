@@ -50,6 +50,19 @@ export interface MessageSchema {
 export interface VersionSchema {
   version: string;
   baseVersion?: string;
+  /**
+   * Re-export version: every segment, parser and builder of `baseVersion` is
+   * re-exported unchanged (`export * from "../<baseVersion>/X.ts"`). Use for
+   * intermediate releases (e.g. v2.3.1) that are structurally identical to the
+   * version before them. `segments` and `messages` are ignored.
+   */
+  reexport?: boolean;
+  /**
+   * Segments first introduced in this version. They are hand-written classes
+   * (like a base version's segments) that codegen never overwrites; later
+   * re-export versions pick them up automatically.
+   */
+  ownSegments?: string[];
   segments: string[];
   messages: MessageSchema[];
 }

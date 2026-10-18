@@ -7,17 +7,6 @@
 import { test, expect, describe } from "vitest";
 import { SCH } from "./SCH.ts";
 
-const SENTINEL = "ZQXP0S";
-
-// Assert the sentinel encodes into field `splitIndex` (first component, first
-// subcomponent) and nowhere else.
-function assertField(seg: SCH, splitIndex: number): void {
-  const parts = seg.encode().split("|");
-  const value = parts[splitIndex]?.split("^")[0]?.split("&")[0];
-  expect(value).toBe(SENTINEL);
-  expect(parts.filter((p) => p.includes(SENTINEL)).length).toBe(1);
-}
-
 describe("SCH field positions", () => {
   test("SCH-26 Placer Order Number", () => {
     const parts = new SCH().placerOrderNumber({ entityIdentifier: "C1", namespaceId: "C2" }).encode().split("|");

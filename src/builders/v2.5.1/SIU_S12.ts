@@ -3,20 +3,20 @@
  *
  * @module
  */
-import type { MSH as MSH_base } from "../../segments/v2.3/MSH.ts";
-import type { SCH as SCH_base } from "../../segments/v2.3/SCH.ts";
-import type { NTE as NTE_base } from "../../segments/v2.3/NTE.ts";
-import type { PID as PID_base } from "../../segments/v2.3/PID.ts";
-import type { PD1 as PD1_base } from "../../segments/v2.3/PD1.ts";
-import type { PV1 as PV1_base } from "../../segments/v2.3/PV1.ts";
-import type { PV2 as PV2_base } from "../../segments/v2.3/PV2.ts";
-import type { OBX as OBX_base } from "../../segments/v2.3/OBX.ts";
-import type { DG1 as DG1_base } from "../../segments/v2.3/DG1.ts";
-import type { RGS as RGS_base } from "../../segments/v2.3/RGS.ts";
-import type { AIS as AIS_base } from "../../segments/v2.3/AIS.ts";
-import type { AIG as AIG_base } from "../../segments/v2.3/AIG.ts";
-import type { AIL as AIL_base } from "../../segments/v2.3/AIL.ts";
-import type { AIP as AIP_base } from "../../segments/v2.3/AIP.ts";
+import type { MSH as MSH_base } from "../../segments/v2.5/MSH.ts";
+import type { SCH as SCH_base } from "../../segments/v2.5/SCH.ts";
+import type { NTE as NTE_base } from "../../segments/v2.5/NTE.ts";
+import type { PID as PID_base } from "../../segments/v2.5/PID.ts";
+import type { PD1 as PD1_base } from "../../segments/v2.5/PD1.ts";
+import type { PV1 as PV1_base } from "../../segments/v2.5/PV1.ts";
+import type { PV2 as PV2_base } from "../../segments/v2.5/PV2.ts";
+import type { OBX as OBX_base } from "../../segments/v2.5/OBX.ts";
+import type { DG1 as DG1_base } from "../../segments/v2.5/DG1.ts";
+import type { RGS as RGS_base } from "../../segments/v2.5/RGS.ts";
+import type { AIS as AIS_base } from "../../segments/v2.5/AIS.ts";
+import type { AIG as AIG_base } from "../../segments/v2.5/AIG.ts";
+import type { AIL as AIL_base } from "../../segments/v2.5/AIL.ts";
+import type { AIP as AIP_base } from "../../segments/v2.5/AIP.ts";
 
 import type { MSH } from "../../segments/v2.5.1/MSH.ts";
 import type { SCH } from "../../segments/v2.5.1/SCH.ts";
@@ -41,7 +41,7 @@ import {
   type SIUPersonnelResourceGroup,
   type SIUResourcesGroup,
   SIU_S12 as SIU_S12_base,
-} from "../v2.3/SIU_S12.ts";
+} from "../v2.5/SIU_S12.ts";
 
 export type {
   SIUPatientGroup,

@@ -7,11 +7,11 @@ import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
-import { EVN as EVN_base } from "../v2.3/EVN.ts";
+import { EVN as EVN_base } from "../v2.5/EVN.ts";
 
 /**
  * EVN segment (HL7 v2.5.1)
- * Extends v2.3 EVN. Add v2.5.1-specific fields here as needed.
+ * Extends v2.5 EVN. Add v2.5.1-specific fields here as needed.
  */
 export class EVN extends EVN_base {
   /** Parses the input string into a structured instance. */

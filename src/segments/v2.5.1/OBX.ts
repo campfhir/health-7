@@ -7,7 +7,7 @@ import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
-import { OBX as OBX_base } from "../v2.3/OBX.ts";
+import { OBX as OBX_base } from "../v2.5/OBX.ts";
 import {
   DateTimeLayout,
   formatHL7Date,
@@ -16,7 +16,7 @@ import {
 
 /**
  * OBX segment (HL7 v2.5.1)
- * Extends v2.3 OBX. Add v2.5.1-specific fields here as needed.
+ * Extends v2.5 OBX. Add v2.5.1-specific fields here as needed.
  */
 export class OBX extends OBX_base {
   /**

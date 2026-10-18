@@ -8,12 +8,17 @@ A modular TypeScript library for building and parsing HL7v2 messages.
 - **Parser**: Parse HL7v2 message strings back into structured data
 - **Round-trip Support**: Build messages and parse them back with full fidelity
 - **Modular Architecture**: Organized by HL7 version for easy extension
-- **Version Support**: HL7v2.3 and HL7v2.5.1
+- **Version Support**: HL7 v2.3, v2.3.1, v2.4, v2.5 and v2.5.1 (see [Versions](#versions))
 - **Date Input**: Segment date methods accept `Date` objects with optional HL7 layout format, in addition to pre-formatted strings
 - **Value Extraction**: Path-based field/component extraction utility
 - **Custom Segments**: Build Z-segments and other custom segments with a simple field-setter API
 - **Message Editor**: Fluent API for inserting segments into, or updating field values in, any built message without modifying the builder
 - **Comprehensive Tests**: 609 tests across 25 test files, co-located with source (Go style)
+
+## Roadmap
+
+See [ROADMAP.md](ROADMAP.md) — HL7 v2.3 completion first, then v2.5.1 parity. Checklists of the
+remaining [segments](docs/ROADMAP-SEGMENTS.md) and [event types](docs/ROADMAP-EVENTS.md).
 
 ## Project Structure
 
@@ -33,8 +38,11 @@ src/
 │   ├── CustomSegment.ts      # Generic segment for Z-segments and custom use
 │   └── MessageEditor.ts      # Fluent segment insertion API
 ├── segments/                 # Segment definitions by version
-│   ├── v2.3/                 # 46 segments (ACC, AIG, AIL, ..., UB2)
-│   └── v2.5.1/               # 50 segments (ACC, AIG, AIL, ..., UB2)
+│   ├── v2.3/                 # hand-written base segments
+│   ├── v2.3.1/               # re-exports of v2.3 (generated)
+│   ├── v2.4/                 # re-exports of v2.3.1 (generated)
+│   ├── v2.5/                 # re-exports + SFT, SPM, TQ1
+│   └── v2.5.1/               # extends v2.5 with 2.5.1-specific fields
 ├── parsers/                  # Message parsers by version
 │   ├── testdata/             # 30 sample HL7 messages for integration tests
 │   │   ├── ORU_R01/          # 15 lab result messages
@@ -49,14 +57,22 @@ src/
 ## Installation
 
 ```bash
-npm install
-npm run build
+npm install @campfhir/hl7
+```
+
+To work on the library itself:
+
+```bash
+pnpm install
+pnpm run build
 ```
 
 ## Testing
 
 ```bash
-npm test
+pnpm test        # unit tests
+pnpm lint        # eslint
+pnpm typecheck   # tsc --noEmit
 ```
 
 Tests use [Vitest](https://vitest.dev/) and run directly against TypeScript source via `tsx`.
@@ -64,48 +80,28 @@ Tests use [Vitest](https://vitest.dev/) and run directly against TypeScript sour
 ## Runtime support
 
 The package ships dual CJS/ESM builds with fully-specified import paths, so it
-runs on Node.js (CommonJS `require` and native ESM `import`) and on
-[Deno](https://deno.com/) via the `npm:` specifier. There are no Node-only
-runtime dependencies.
+runs on Node.js (CommonJS `require` and native ESM `import`), Bun, browsers, and
+Cloudflare Workers. There are no Node-only runtime dependencies. Other runtimes
+that can consume npm packages (for example Deno via the `npm:` specifier) should
+also work, but they are not an officially tested target.
 
-### Deno
+## Versions
 
-Import any entry point with the `npm:` specifier and the same subpaths used on
-Node:
+Every supported version has its own subpath (`segments/<version>`, `parsers/<version>`,
+`builders/<version>`). Versions that are structurally identical to their predecessor simply
+re-export it, so `segments/v2.4` `PID` *is* the v2.3 `PID` class. Segments are available from the
+version that introduced them:
 
-```typescript
-import { ParserUtils, MessageEditor } from "npm:@campfhir/hl7";
-import { parseADT_A01 } from "npm:@campfhir/hl7/parsers/v2.5.1";
-import { MSH, PID } from "npm:@campfhir/hl7/segments/v2.5.1";
+| Version | Based on | Notes |
+|---|---|---|
+| `v2.3` | — | Base implementation |
+| `v2.3.1` | v2.3 | Re-export |
+| `v2.4` | v2.3.1 | Re-export |
+| `v2.5` | v2.4 | Re-export + `SFT` (Software), `SPM` (Specimen), `TQ1` (Timing/Quantity) |
+| `v2.5.1` | v2.5 | Version-specific fields and messages (e.g. `ORU_R30–R32`) |
 
-const result = parseADT_A01(messageString);
-```
-
-The package is also published to [JSR](https://jsr.io/), which serves the
-TypeScript sources directly — no build step, native types:
-
-```bash
-deno add jsr:@campfhir/hl7
-```
-
-```typescript
-import { ParserUtils } from "@campfhir/hl7";
-import { parseADT_A01 } from "@campfhir/hl7/parsers/v2.5.1";
-import { MSH, PID } from "@campfhir/hl7/segments/v2.5.1";
-```
-
-Either source (the `npm:` specifier or JSR) exposes the same entry points; pick
-whichever fits your project. To pin the npm build via an import map instead, add
-to `deno.json`:
-
-```json
-{
-  "imports": {
-    "@campfhir/hl7": "npm:@campfhir/hl7@^0.2.0",
-    "@campfhir/hl7/": "npm:/@campfhir/hl7/"
-  }
-}
-```
+Version-specific differences in 2.3.1, 2.4 and 2.5 are filled in as they are implemented — see the
+[roadmap](ROADMAP.md).
 
 ## Imports
 

@@ -3,27 +3,27 @@
  *
  * @module
  */
-import type { MSH as MSH_base } from "../../segments/v2.3/MSH.ts";
-import type { EVN as EVN_base } from "../../segments/v2.3/EVN.ts";
-import type { PID as PID_base } from "../../segments/v2.3/PID.ts";
-import type { PD1 as PD1_base } from "../../segments/v2.3/PD1.ts";
-import type { ROL as ROL_base } from "../../segments/v2.3/ROL.ts";
-import type { NK1 as NK1_base } from "../../segments/v2.3/NK1.ts";
-import type { PV1 as PV1_base } from "../../segments/v2.3/PV1.ts";
-import type { PV2 as PV2_base } from "../../segments/v2.3/PV2.ts";
-import type { DB1 as DB1_base } from "../../segments/v2.3/DB1.ts";
-import type { OBX as OBX_base } from "../../segments/v2.3/OBX.ts";
-import type { AL1 as AL1_base } from "../../segments/v2.3/AL1.ts";
-import type { DG1 as DG1_base } from "../../segments/v2.3/DG1.ts";
-import type { DRG as DRG_base } from "../../segments/v2.3/DRG.ts";
-import type { PR1 as PR1_base } from "../../segments/v2.3/PR1.ts";
-import type { GT1 as GT1_base } from "../../segments/v2.3/GT1.ts";
-import type { IN1 as IN1_base } from "../../segments/v2.3/IN1.ts";
-import type { IN2 as IN2_base } from "../../segments/v2.3/IN2.ts";
-import type { IN3 as IN3_base } from "../../segments/v2.3/IN3.ts";
-import type { ACC as ACC_base } from "../../segments/v2.3/ACC.ts";
-import type { UB1 as UB1_base } from "../../segments/v2.3/UB1.ts";
-import type { UB2 as UB2_base } from "../../segments/v2.3/UB2.ts";
+import type { MSH as MSH_base } from "../../segments/v2.5/MSH.ts";
+import type { EVN as EVN_base } from "../../segments/v2.5/EVN.ts";
+import type { PID as PID_base } from "../../segments/v2.5/PID.ts";
+import type { PD1 as PD1_base } from "../../segments/v2.5/PD1.ts";
+import type { ROL as ROL_base } from "../../segments/v2.5/ROL.ts";
+import type { NK1 as NK1_base } from "../../segments/v2.5/NK1.ts";
+import type { PV1 as PV1_base } from "../../segments/v2.5/PV1.ts";
+import type { PV2 as PV2_base } from "../../segments/v2.5/PV2.ts";
+import type { DB1 as DB1_base } from "../../segments/v2.5/DB1.ts";
+import type { OBX as OBX_base } from "../../segments/v2.5/OBX.ts";
+import type { AL1 as AL1_base } from "../../segments/v2.5/AL1.ts";
+import type { DG1 as DG1_base } from "../../segments/v2.5/DG1.ts";
+import type { DRG as DRG_base } from "../../segments/v2.5/DRG.ts";
+import type { PR1 as PR1_base } from "../../segments/v2.5/PR1.ts";
+import type { GT1 as GT1_base } from "../../segments/v2.5/GT1.ts";
+import type { IN1 as IN1_base } from "../../segments/v2.5/IN1.ts";
+import type { IN2 as IN2_base } from "../../segments/v2.5/IN2.ts";
+import type { IN3 as IN3_base } from "../../segments/v2.5/IN3.ts";
+import type { ACC as ACC_base } from "../../segments/v2.5/ACC.ts";
+import type { UB1 as UB1_base } from "../../segments/v2.5/UB1.ts";
+import type { UB2 as UB2_base } from "../../segments/v2.5/UB2.ts";
 
 import type { MSH } from "../../segments/v2.5.1/MSH.ts";
 import type { EVN } from "../../segments/v2.5.1/EVN.ts";

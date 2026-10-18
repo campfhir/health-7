@@ -7,11 +7,11 @@ import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
-import { OBR as OBR_base } from "../v2.3/OBR.ts";
+import { OBR as OBR_base } from "../v2.5/OBR.ts";
 
 /**
  * OBR segment (HL7 v2.5.1)
- * Extends v2.3 OBR. Add v2.5.1-specific fields here as needed.
+ * Extends v2.5 OBR. Add v2.5.1-specific fields here as needed.
  */
 export class OBR extends OBR_base {
   /**

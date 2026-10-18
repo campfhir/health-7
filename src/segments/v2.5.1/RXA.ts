@@ -7,11 +7,11 @@ import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
-import { RXA as RXA_base } from "../v2.3/RXA.ts";
+import { RXA as RXA_base } from "../v2.5/RXA.ts";
 
 /**
  * RXA segment (HL7 v2.5.1)
- * Extends v2.3 RXA. Add v2.5.1-specific fields here as needed.
+ * Extends v2.5 RXA. Add v2.5.1-specific fields here as needed.
  */
 export class RXA extends RXA_base {
   /** RXA-23 Administered Drug Strength Volume (chainable). */

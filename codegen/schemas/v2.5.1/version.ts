@@ -58,7 +58,7 @@ import {
 
 export const V2_5_1: VersionSchema = {
   version: "v2.5.1",
-  baseVersion: "v2.3",
+  baseVersion: "v2.5",
   segments: [
     // Core
     "MSH", "NTE", "SFT",
