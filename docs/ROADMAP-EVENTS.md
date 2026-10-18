@@ -19,6 +19,9 @@ Legend: ✅ builder + parser exist · ⬜ not started
 | ORU | R01 | ✅ | ✅ |
 | ORU | R30, R31, R32 | n/a (2.5+) | ✅ |
 | MFN | M02 (staff/practitioner) | ✅ | ✅ |
+| ACK | general acknowledgment | ✅ | ⬜ (2.5.1 adds `[{SFT}]` and repeating `ERR`) |
+| ORM | O01 | ✅ | ⬜ |
+| ORR | O02 | ✅ | ⬜ |
 | SIU | S12–S17, S26 | ✅ | ✅ |
 
 ## Remaining for v2.3
@@ -41,7 +44,6 @@ Legend: ✅ builder + parser exist · ⬜ not started
 ### Acknowledgments and queries (high priority — unblock everything else)
 | Message | Notes | Needs |
 |---|---|---|
-| ⬜ ACK (general) | MSH, MSA, ERR | ✅ ready |
 | ⬜ MCF | Delayed acknowledgment | — |
 | ⬜ QRY / QCK / DSR / DSC | Original-mode queries | QRD, QRF, QAK, DSP, DSC |
 | ⬜ ADR | ADT response | QRD, QRF |
@@ -51,8 +53,6 @@ Legend: ✅ builder + parser exist · ⬜ not started
 ### Orders and results
 | Message | Events | Needs |
 |---|---|---|
-| ⬜ ORM | O01 (general order) | ✅ ready (ORC, OBR, OBX, NTE, RXO…) |
-| ⬜ ORR | O02 (order response) | ✅ ready |
 | ⬜ ORU | R01 variants (unsolicited) and R03 | ✅ |
 | ⬜ ORF | R04 (query response for observations) | QRD, QRF |
 | ⬜ OSQ / OSR | Order status query / response | QRD |
@@ -85,7 +85,9 @@ Legend: ✅ builder + parser exist · ⬜ not started
 | ⬜ STC | Patient state | — |
 | ⬜ OSQ, OSR | See orders | — |
 
-Suggested order: **ACK → ORM/ORR → VXU → remaining ADT → DFT/BAR → MDM → queries/MFN → the rest.**
+Done in 0.9: ACK, ORM^O01, ORR^O02 (v2.3; `ORM`/`ORR` cover the OBR, RQD, RQ1, RXO, ODS and ODT order detail choices).
+
+Suggested order: **VXU → remaining ADT → DFT/BAR → MDM → queries/MFN → the rest.**
 
 ## v2.5.1 parity
 After v2.3 is complete, bring v2.5.1 to parity with the same messages, then add the 2.5.1 additions:

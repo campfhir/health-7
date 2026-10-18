@@ -16,8 +16,8 @@ Legend: ✅ built · ⬜ not started · ⚠️ needs audit
 
 ## Built (v2.3)
 
-ACC, AIG, AIL, AIP, AIS, AL1, CTI, DB1, DG1, DRG, ERR, EVN, GT1, IN1, IN2, IN3, MFE, MFI, MRG,
-MSA, MSH, NK1, NTE, OBR, OBX, ORC, PD1, PID, PR1, PRA, PV1, PV2, RGS, ROL, RXA, RXD, RXE, RXO,
+ACC, AIG, AIL, AIP, AIS, AL1, BLG, CTI, DB1, DG1, DRG, ERR, EVN, GT1, IN1, IN2, IN3, MFE, MFI, MRG,
+MSA, MSH, NK1, NTE, OBR, OBX, ODS, ODT, ORC, PD1, PID, PR1, PRA, PV1, PV2, RGS, ROL, RQ1, RQD, RXA, RXD, RXE, RXO,
 RXR, SCH, STF, UB1, UB2
 
 Segments are placed in the version that introduced them: `SFT`, `SPM` and `TQ1` are in
@@ -27,6 +27,10 @@ fields 9–12 in 2.4 and `DB1` was lightly revised — those are version-specifi
 implement, not reasons to move the segments.) Moving a segment is `git mv` into the introducing
 version directory, adding it to that version's `ownSegments` in `codegen/schemas/`, and running
 `pnpm codegen && pnpm barrels`.
+
+⚠️ **Audit:** `ERR` in `segments/v2.3` has setters beyond ERR-1 (the v2.3 `ERR` segment is a single
+field, Error Code and Location). Check it against the v2.3 `ERR` page on hl7.eu and move the extra
+fields to the version that introduced them.
 
 ## To build for v2.3
 
@@ -50,7 +54,6 @@ version directory, adding it to that version's `ownSegments` in `codegen/schemas
 | Segment | Name |
 |---|---|
 | ⬜ ADD | Addendum |
-| ⬜ BLG | Billing |
 | ⬜ FT1 | Financial Transaction |
 | ⬜ PCR | Possible Causal Relationship |
 | ⬜ PEO | Product Experience Observation |
@@ -58,8 +61,6 @@ version directory, adding it to that version's `ownSegments` in `codegen/schemas
 | ⬜ PSH | Product Summary Header |
 | ⬜ PDA | Patient Death and Autopsy |
 | ⬜ NPU | Bed Status Update |
-| ⬜ ODS | Dietary Orders, Supplements, Preferences |
-| ⬜ ODT | Diet Tray Instructions |
 
 ### Orders / observations / pharmacy
 | Segment | Name |
@@ -73,8 +74,6 @@ version directory, adding it to that version's `ownSegments` in `codegen/schemas
 | ⬜ NST | Application Control-Level Statistics |
 | ⬜ TXA | Transcription Document Header |
 | ⬜ RF1 | Referral Information |
-| ⬜ RQ1 | Requisition Detail-1 |
-| ⬜ RQD | Requisition Detail |
 | ⬜ PRD | Provider Data |
 | ⬜ CSR | Clinical Study Registration |
 | ⬜ CSS | Clinical Study Data Schedule |
