@@ -90,7 +90,7 @@ Done in 0.9: ACK, ORM^O01, ORR^O02 for v2.3 and v2.5.1 (`ORM`/`ORR` cover the OB
 
 VXU^V04 is also done for every version: v2.3 and v2.3.1 are identical, v2.4 adds `[{GT1}]`, and v2.5/v2.5.1 add `[{SFT}]`, a required `ORC` and the timing group (`TQ1`, `TQ2`).
 
-Suggested order: ** remaining ADT → DFT/BAR → MDM → queries/MFN → the rest.**
+Suggested order: **remaining ADT → DFT/BAR → MDM → queries/MFN → the rest.**
 
 ## v2.5.1 parity
 After v2.3 is complete, bring v2.5.1 to parity with the same messages, then add the 2.5.1 additions:
