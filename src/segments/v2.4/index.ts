@@ -43,7 +43,6 @@ export * from "./RXE.ts";
 export * from "./RXO.ts";
 export * from "./RXR.ts";
 export * from "./SCH.ts";
-export * from "./SFT.ts";
 export * from "./STF.ts";
 export * from "./UB1.ts";
 export * from "./UB2.ts";

@@ -27,7 +27,7 @@ Codegen reads every `VersionSchema` registered in `generate.ts` and produces fil
 **Re-export versions** (`reexport: true`, e.g. `v2.3.1`, `v2.4`, `v2.5`) are identical to their
 `baseVersion`. Codegen mirrors every segment, parser and builder module of the base as
 `export * from "../<base>/X.ts"`. Segments first introduced in the version are hand-written and
-listed in `ownSegments` (e.g. `SFT` in v2.4); codegen skips those and later re-export versions
+listed in `ownSegments` (e.g. `SPM` in v2.5); codegen skips those and later re-export versions
 inherit them. To diverge from the base (say v2.4 changes `PID`), replace the generated
 `src/segments/v2.4/PID.ts` with a hand-written class extending the v2.3.1 one. Codegen skips any
 file that lacks the `@generated re-export` marker, and later re-export versions pick up your

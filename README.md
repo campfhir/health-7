@@ -40,8 +40,8 @@ src/
 ├── segments/                 # Segment definitions by version
 │   ├── v2.3/                 # hand-written base segments
 │   ├── v2.3.1/               # re-exports of v2.3 (generated)
-│   ├── v2.4/                 # re-exports + SFT
-│   ├── v2.5/                 # re-exports + SPM, TQ1
+│   ├── v2.4/                 # re-exports of v2.3.1 (generated)
+│   ├── v2.5/                 # re-exports + SFT, SPM, TQ1
 │   └── v2.5.1/               # extends v2.5 with 2.5.1-specific fields
 ├── parsers/                  # Message parsers by version
 │   ├── testdata/             # 30 sample HL7 messages for integration tests
@@ -96,8 +96,8 @@ version that introduced them:
 |---|---|---|
 | `v2.3` | — | Base implementation |
 | `v2.3.1` | v2.3 | Re-export |
-| `v2.4` | v2.3.1 | Re-export + `SFT` (Software) |
-| `v2.5` | v2.4 | Re-export + `SPM` (Specimen), `TQ1` (Timing/Quantity) |
+| `v2.4` | v2.3.1 | Re-export |
+| `v2.5` | v2.4 | Re-export + `SFT` (Software), `SPM` (Specimen), `TQ1` (Timing/Quantity) |
 | `v2.5.1` | v2.5 | Version-specific fields and messages (e.g. `ORU_R30–R32`) |
 
 Version-specific differences in 2.3.1, 2.4 and 2.5 are filled in as they are implemented — see the
