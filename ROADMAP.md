@@ -23,3 +23,6 @@ Detailed checklists:
   to make it live. Bump `version` in `package.json` in the PR to ship a release.
 - Staging uses npm [trusted publishing](https://docs.npmjs.com/trusted-publishers) (OIDC) from
   `publish.yml` — no long-lived token.
+- `tag-releases.yml` tags every version that is live on npm as `v<version>` (hourly and on pushes to
+  `main`), using the `gitHead` npm records. Versions published without one are listed in
+  `.github/release-tags.json`.
