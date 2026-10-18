@@ -63,10 +63,10 @@ describe("ACK, ORM^O01 and ORR^O02", () => {
     expect(bld24.createORM_O01).not.toBe(bld23.createORM_O01);
   });
 
-  test("v2.5 has its own ACK (SFT, repeating ERR) and ORR^O02 (repeating ERR); ORM^O01 is v2.4's", () => {
+  test("v2.5 has its own ACK (SFT, repeating ERR), ORR^O02 (repeating ERR) and ORM^O01 (repeating IN3)", () => {
     expect(par25.parseACK).not.toBe(par23.parseACK);
     expect(par25.parseORR_O02).not.toBe(par23.parseORR_O02);
-    expect(par25.parseORM_O01).toBe(par24.parseORM_O01);
+    expect(par25.parseORM_O01).not.toBe(par24.parseORM_O01);
   });
 
   test("v2.5.1 has all three (parsers derived from v2.5)", () => {

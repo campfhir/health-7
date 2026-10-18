@@ -5,9 +5,9 @@
  *   MSH MSA [{ERR}] [{NTE}]
  *   [ [ PID [{NTE}] ] { ORC <OBR|RQD|RQ1|RXO|ODS|ODT> [{NTE}] [{CTI}] } ]
  *
- * This parser is lenient about the order detail segment (it is required in the
- * specification, but an ORC without one is accepted) and about ORC groups appearing
- * without a PID.
+ * The order detail segment is required after every ORC (it was optional in v2.3), and a PID
+ * needs at least one ORC group after it. ORC groups may appear without a PID, since the
+ * PATIENT group is optional.
  *
  * @module
  */
@@ -157,6 +157,8 @@ export class ORR_O02_Parser {
       const orders: ParsedResponseOrder[] = [];
       let order: ParsedResponseOrder | undefined;
       let ctx: Context = "header";
+      const missingDetail = (n: number) =>
+        ({ ok: false, err: new Err(`ORC ${n} has no order detail segment (OBR, RQD, RQ1, RXO, ODS or ODT)`) }) as Result<never>;
 
       for (let i = 1; i < segments.length; i++) {
         const segmentStr = segments[i];
@@ -213,6 +215,7 @@ export class ORR_O02_Parser {
           case "ORC": {
             const result = read(this.parseORC);
             if (!result.ok || !result.val) return segmentParseFailure("ORC", line, result);
+            if (order && !order.detail) return missingDetail(orders.length);
             order = { orc: result.val };
             orders.push(order);
             ctx = "other";
@@ -261,6 +264,10 @@ export class ORR_O02_Parser {
 
       if (!msa) {
         return { ok: false, err: new Err("ORR_O02 message must contain an MSA segment") };
+      }
+      if (order && !order.detail) return missingDetail(orders.length);
+      if (patient && orders.length === 0) {
+        return { ok: false, err: new Err("ORR_O02 message has a PID but no ORC group after it") };
       }
 
       return { ok: true, val: { message, msh, msa, errList, notes, patient, orders } };

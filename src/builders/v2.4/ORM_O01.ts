@@ -8,8 +8,8 @@
  *     [ <OBR|RQD|RQ1|RXO|ODS|ODT> [{NTE}] [CTD] [{DG1}] [{ OBX [{NTE}] }] ]
  *     [{FT1}] [{CTI}] [BLG] }
  *
- * v2.5 made IN3 repeating and is otherwise identical, so insurance groups take a list of
- * IN3 (`in3List`) and v2.5 re-exports this builder.
+ * v2.5 made IN3 repeating; its builder overrides `maxIn3PerInsurance` (1 here, as in the v2.4
+ * specification). The IN3 segments are given as `in3List` in both versions.
  *
  * @module
  */
@@ -112,6 +112,9 @@ export class ORM_O01<
   TPid extends PID = PID,
   TOrc extends ORC = ORC,
 > {
+  /** How many IN3 segments an insurance group may hold: one in v2.4, repeating from v2.5. */
+  protected readonly maxIn3PerInsurance: number = 1;
+
   /** Constructor. */
   constructor(
     public msh: TMsh,
@@ -142,6 +145,9 @@ export class ORM_O01<
       }
       (patient.insurance ?? []).forEach((ins, i) => {
         if (!ins.in1) errors.push(`Insurance group ${i + 1}: IN1 segment is required`);
+        if ((ins.in3List?.length ?? 0) > this.maxIn3PerInsurance) {
+          errors.push(`Insurance group ${i + 1}: at most ${this.maxIn3PerInsurance} IN3 segment(s) allowed`);
+        }
       });
     }
 

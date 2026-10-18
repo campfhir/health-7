@@ -8,8 +8,8 @@
  *     [ <OBR|RQD|RQ1|RXO|ODS|ODT> [{NTE}] [CTD] [{DG1}] [{ OBX [{NTE}] }] ]
  *     [{FT1}] [{CTI}] [BLG] }
  *
- * v2.5 made IN3 repeating and is otherwise identical, so this parser keeps every IN3 it
- * meets (`in3List`) and v2.5 re-exports it.
+ * v2.5 made IN3 repeating; its parser overrides `maxIn3PerInsurance` (1 here, as in the v2.4
+ * specification). The IN3 segments are kept in `in3List` in both versions.
  *
  * @module
  */
@@ -142,6 +142,9 @@ type Context = "header" | "patient" | "detail" | "observation" | "other";
 
 /** Parser for HL7 ORM^O01 (v2.4) messages. */
 export class ORM_O01_Parser {
+  /** How many IN3 segments an insurance group may hold: one in v2.4, repeating from v2.5. */
+  protected readonly maxIn3PerInsurance: number = 1;
+
   /** Parse msh. */
   protected parseMSH(s: string): Result<MSH> {
     return MSH.parse(s);
@@ -343,6 +346,9 @@ export class ORM_O01_Parser {
             const result = read(this.parseIN3);
             if (!result.ok || !result.val) return segmentParseFailure("IN3", line, result);
             if (!insurance) return misplacedSegment("IN3", line, "found without preceding IN1 segment");
+            if (insurance.in3List.length >= this.maxIn3PerInsurance) {
+              return misplacedSegment("IN3", line, `exceeds the ${this.maxIn3PerInsurance} IN3 segment(s) allowed per insurance group`);
+            }
             insurance.in3List.push(result.val);
             ctx = "other";
             break;

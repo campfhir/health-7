@@ -60,7 +60,7 @@ function fullMessage() {
         pd1: new PD1(),
         notes: [new NTE().setId("1").comment("patient note")],
         visit: { pv1: new PV1().patientClass("I"), pv2: new PV2() },
-        insurance: [{ in1: new IN1().setId("1"), in2: new IN2(), in3List: [new IN3(), new IN3()] }, { in1: new IN1().setId("2") }],
+        insurance: [{ in1: new IN1().setId("1"), in2: new IN2(), in3List: [new IN3()] }, { in1: new IN1().setId("2") }],
         gt1: new GT1().setId("1"),
         allergies: [new AL1().setId("1")],
       },
@@ -105,6 +105,14 @@ describe("ORM_O01 builder", () => {
     expect(() => new ORM_O01(makeMSH(), []).encode()).toThrow(/at least one order/i);
   });
 
+  test("verify() allows only one IN3 per insurance group in v2.4", () => {
+    const msg = createORM_O01(makeMSH(), [{ orc: makeORC() }], {
+      patient: { pid: new PID().setId("1"), insurance: [{ in1: new IN1().setId("1"), in3List: [new IN3(), new IN3()] }] },
+    });
+    expect(msg.verify().errors).toEqual(["Insurance group 1: at most 1 IN3 segment(s) allowed"]);
+    expect(() => msg.encode()).toThrow(/IN3/);
+  });
+
   test("a minimal message is MSH + ORC (CTD and FT1 are optional)", () => {
     expect(names(createORM_O01(makeMSH(), [{ orc: makeORC() }]).encode())).toEqual(["MSH", "ORC"]);
   });
@@ -112,7 +120,7 @@ describe("ORM_O01 builder", () => {
   test("encodes every group in specification order", () => {
     expect(names(fullMessage().encode())).toEqual([
       "MSH", "NTE",
-      "PID", "PD1", "NTE", "PV1", "PV2", "IN1", "IN2", "IN3", "IN3", "IN1", "GT1", "AL1",
+      "PID", "PD1", "NTE", "PV1", "PV2", "IN1", "IN2", "IN3", "IN1", "GT1", "AL1",
       "ORC", "OBR", "NTE", "CTD", "DG1", "OBX", "NTE", "OBX", "FT1", "FT1", "CTI", "BLG",
       "ORC", "RXO",
     ]);
@@ -134,7 +142,7 @@ describe("ORM_O01 parser", () => {
     expect(val.patient?.visit?.pv2).toBeInstanceOf(PV2);
     expect(val.patient?.insurance).toHaveLength(2);
     expect(val.patient?.insurance[0].in2).toBeInstanceOf(IN2);
-    expect(val.patient?.insurance[0].in3List).toHaveLength(2);
+    expect(val.patient?.insurance[0].in3List).toHaveLength(1);
     expect(val.patient?.insurance[0].in3List[0]).toBeInstanceOf(IN3);
     expect(val.patient?.insurance[1].in3List).toHaveLength(0);
     expect(val.patient?.insurance[1].in2).toBeUndefined();
@@ -223,6 +231,7 @@ describe("ORM_O01 parser", () => {
     ["DG1 without detail", [msh(), "ORC|NW|1", "DG1|1"].join("\r")],
     ["OBX without detail", [msh(), "ORC|NW|1", "OBX|1"].join("\r")],
     ["CTI before ORC", [msh(), "CTI|S1", "ORC|NW|1"].join("\r")],
+    ["a second IN3 in one insurance group (v2.5 allows it)", [msh(), "PID|1", "IN1|1", "IN3|1", "IN3|2", "ORC|NW|1"].join("\r")],
     ["FT1 before ORC", [msh(), "FT1|1", "ORC|NW|1"].join("\r")],
     ["CTD without detail", [msh(), "ORC|NW|1", "CTD|EP"].join("\r")],
     ["two CTD in one detail", [msh(), "ORC|NW|1", "OBR|1", "CTD|EP", "CTD|EP"].join("\r")],

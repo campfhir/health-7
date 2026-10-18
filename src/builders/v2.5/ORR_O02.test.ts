@@ -96,14 +96,8 @@ describe("ORR_O02 parser", () => {
     }
   });
 
-  test("an ORC without an order detail segment is accepted when parsing", () => {
-    const result = parseORR_O02([makeMSH().encode(), "MSA|AA|M1", "ORC|OK|1"].join("\r"));
-    expect(result.ok).toBe(true);
-    if (result.ok) expect(result.val.orders[0].detail).toBeUndefined();
-  });
-
   test("accepts orders without a PID (the PATIENT group is optional)", () => {
-    const result = parseORR_O02([makeMSH().encode(), "MSA|AE|M1", "ORC|UA|1"].join("\r"));
+    const result = parseORR_O02([makeMSH().encode(), "MSA|AE|M1", "ORC|UA|1", "OBR|1"].join("\r"));
     expect(result.ok).toBe(true);
     if (result.ok) expect(result.val.orders).toHaveLength(1);
   });
@@ -114,6 +108,9 @@ describe("ORR_O02 parser", () => {
     ["no MSA", msh()],
     ["a second MSA", [msh(), "MSA|AA|1", "MSA|AA|2"].join("\r")],
     ["ERR before MSA", [msh(), "ERR|1", "MSA|AA|1"].join("\r")],
+    ["an ORC with no order detail segment (required from v2.4)", [msh(), "MSA|AA|1", "ORC|OK|1"].join("\r")],
+    ["an earlier ORC with no order detail segment", [msh(), "MSA|AA|1", "ORC|OK|1", "ORC|OK|2", "OBR|1"].join("\r")],
+    ["a PID with no ORC after it", [msh(), "MSA|AA|1", "PID|1"].join("\r")],
     ["detail without ORC", [msh(), "MSA|AA|1", "OBR|1"].join("\r")],
     ["two details for one ORC", [msh(), "MSA|AA|1", "ORC|OK|1", "OBR|1", "OBR|2"].join("\r")],
     ["CTI without detail", [msh(), "MSA|AA|1", "ORC|OK|1", "CTI|S"].join("\r")],
