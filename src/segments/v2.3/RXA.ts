@@ -1,6 +1,8 @@
 /**
  * RXA segment definition for HL7 v2.3.
  *
+ * position-tests: hand-written (composite and repeating fields; see RXA.test.ts)
+ *
  * @module
  */
 import { Err } from "../../utils/err.ts";
@@ -15,9 +17,18 @@ import {
   DateTimeLayout,
   type HL7DateTimeLayout,
 } from "../../utils/hl7DateUtils.ts";
+import {
+  codedParts, components, la2Parts, xcnInputParts,
+  type CodedInput, type LA2, type XcnInput,
+} from "../../utils/composites.ts";
 
 /**
- * RXA - Pharmacy/Treatment Administration Segment (HL7 v2.3)
+ * RXA - Pharmacy/Treatment Administration Segment (HL7 v2.3, 22 fields)
+ *
+ * Repeating fields (RXA-9, 15, 16, 17, 18, 19) take one argument per repetition; the CE fields
+ * take a CE or the shorter `code`/`text`/`codingSystem` shape; a string argument where
+ * offered is used verbatim as the raw field text. RXA-10 repeats from v2.3.1, and RXA-23 to
+ * RXA-26 were added in v2.5.
  */
 export class RXA extends BaseSegment {
   /** The HL7 segment identifier. */
@@ -44,10 +55,7 @@ export class RXA extends BaseSegment {
   dateTimeStartOfAdministration(value: string, format?: never): this;
   /** RXA-3 Date/Time Start of Administration (chainable). */
   dateTimeStartOfAdministration(value: Date, format?: HL7DateTimeLayout): this;
-  dateTimeStartOfAdministration(
-    value: string | Date,
-    format?: HL7DateTimeLayout,
-  ): this {
+  dateTimeStartOfAdministration(value: string | Date, format?: HL7DateTimeLayout): this {
     this.fields[2] = this.createField(
       formatHL7Date(value, format ?? DateTimeLayout),
     );
@@ -58,28 +66,16 @@ export class RXA extends BaseSegment {
   dateTimeEndOfAdministration(value: string, format?: never): this;
   /** RXA-4 Date/Time End of Administration (chainable). */
   dateTimeEndOfAdministration(value: Date, format?: HL7DateTimeLayout): this;
-  dateTimeEndOfAdministration(
-    value: string | Date,
-    format?: HL7DateTimeLayout,
-  ): this {
+  dateTimeEndOfAdministration(value: string | Date, format?: HL7DateTimeLayout): this {
     this.fields[3] = this.createField(
       formatHL7Date(value, format ?? DateTimeLayout),
     );
     return this;
   }
 
-  /**
-   * RXA-5 Administered Code (chainable).
-   * @param code - RXA-5.1 Code
-   * @param text - RXA-5.2 Text
-   * @param codingSystem - RXA-5.3 Coding System
-   */
-  administeredCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
-    this.fields[4] = this.createComponentsField([
-      code,
-      text || "",
-      codingSystem || "",
-    ]);
+  /** RXA-5 Administered Code (CE) (chainable). Takes a CE, or the `code`/`text`/`codingSystem` shape. */
+  administeredCode(value: CodedInput): this {
+    this.fields[4] = this.createField(components(codedParts(value, 6)));
     return this;
   }
 
@@ -89,70 +85,45 @@ export class RXA extends BaseSegment {
     return this;
   }
 
-  /**
-   * RXA-7 Administered Units (chainable).
-   * @param code - RXA-7.1 Code
-   * @param text - RXA-7.2 Text
-   * @param codingSystem - RXA-7.3 Coding System
-   */
-  administeredUnits({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
-    this.fields[6] = this.createComponentsField([
-      code,
-      text || "",
-      codingSystem || "",
-    ]);
+  /** RXA-7 Administered Units (CE) (chainable). Takes a CE, or the `code`/`text`/`codingSystem` shape. */
+  administeredUnits(value: CodedInput): this {
+    this.fields[6] = this.createField(components(codedParts(value, 6)));
+    return this;
+  }
+
+  /** RXA-8 Administered Dosage Form (CE) (chainable). Takes a CE, or the `code`/`text`/`codingSystem` shape. */
+  administeredDosageForm(value: CodedInput): this {
+    this.fields[7] = this.createField(components(codedParts(value, 6)));
     return this;
   }
 
   /**
-   * RXA-8 Administered Dosage Form (chainable).
-   * @param code - RXA-8.1 Code
-   * @param text - RXA-8.2 Text
+   * RXA-9 Administration Notes (CE, repeating) (chainable). One argument per repetition.
    */
-  administeredDosageForm({ code, text }: { code: string; text?: string }): this {
-    this.fields[7] = this.createComponentsField([code, text || ""]);
+  administrationNotes(...values: CodedInput[]): this {
+    this.fields[8] = this.createRepeatingField(
+      values.map((v) => this.createField(components(codedParts(v, 6)))),
+    );
     return this;
   }
 
   /**
-   * RXA-9 Administration Notes (chainable).
-   * @param code - RXA-9.1 Code
-   * @param text - RXA-9.2 Text
+   * RXA-10 Administering Provider (XCN) (chainable). Takes an XCN (its first fourteen
+   * components are modelled) or the short `id`/`familyName`/`givenName` shape; a string is used verbatim. Repeats from
+   * v2.3.1: the v2.3.1 class takes one argument per repetition.
    */
-  administrationNotes({ code, text }: { code: string; text?: string }): this {
-    this.fields[8] = this.createComponentsField([code, text || ""]);
+  administeringProvider(value: XcnInput | string): this {
+    this.fields[9] = this.createField(typeof value === "string" ? value : components(xcnInputParts(value)));
     return this;
   }
 
   /**
-   * RXA-10 Administering Provider (chainable).
-   * @param id - RXA-10.1 ID Number
-   * @param familyName - RXA-10.2 Family Name
-   * @param givenName - RXA-10.3 Given Name
+   * RXA-11 Administered-at Location (chainable): sixteen components, the first eight as in
+   * PV1-3 and the last eight an address. Takes the full location (facility as an HD or
+   * string); the earlier four-component call still works.
    */
-  administeringProvider({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
-    this.fields[9] = this.createComponentsField([
-      id,
-      familyName || "",
-      givenName || "",
-    ]);
-    return this;
-  }
-
-  /**
-   * RXA-11 Administered-at Location (chainable).
-   * @param pointOfCare - RXA-11.1 Point of Care
-   * @param room - RXA-11.2 Room
-   * @param bed - RXA-11.3 Bed
-   * @param facility - RXA-11.4 Facility
-   */
-  administeredAtLocation({ pointOfCare, room, bed, facility }: { pointOfCare: string; room?: string; bed?: string; facility?: string }): this {
-    this.fields[10] = this.createComponentsField([
-      pointOfCare,
-      room,
-      bed,
-      facility,
-    ]);
+  administeredAtLocation(value: LA2): this {
+    this.fields[10] = this.createField(components(la2Parts(value)));
     return this;
   }
 
@@ -168,19 +139,15 @@ export class RXA extends BaseSegment {
     return this;
   }
 
-  /**
-   * RXA-14 Administered Strength Units (chainable).
-   * @param code - RXA-14.1 Code
-   * @param text - RXA-14.2 Text
-   */
-  administeredStrengthUnits({ code, text }: { code: string; text?: string }): this {
-    this.fields[13] = this.createComponentsField([code, text || ""]);
+  /** RXA-14 Administered Strength Units (CE) (chainable). Takes a CE, or the `code`/`text`/`codingSystem` shape. */
+  administeredStrengthUnits(value: CodedInput): this {
+    this.fields[13] = this.createField(components(codedParts(value, 6)));
     return this;
   }
 
-  /** RXA-15 Substance Lot Number (chainable). */
-  substanceLotNumber(value: string): this {
-    this.fields[14] = this.createField(value);
+  /** RXA-15 Substance Lot Number (ST, repeating) (chainable). One argument per repetition. */
+  substanceLotNumber(...values: string[]): this {
+    this.fields[14] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 
@@ -196,32 +163,42 @@ export class RXA extends BaseSegment {
   }
 
   /**
-   * RXA-17 Substance Manufacturer Name (chainable).
-   * @param code - RXA-17.1 Code
-   * @param text - RXA-17.2 Text
+   * RXA-16 Substance Expiration Date, all repetitions (chainable). Dates are formatted with the date layout.
    */
-  substanceManufacturerName({ code, text }: { code: string; text?: string }): this {
-    this.fields[16] = this.createComponentsField([code, text || ""]);
+  substanceExpirationDates(...values: (string | Date)[]): this {
+    this.fields[15] = this.createRepeatingField(
+      values.map((v) => this.createField(formatHL7Date(v, DateLayout))),
+    );
     return this;
   }
 
   /**
-   * RXA-18 Substance/Treatment Refusal Reason (chainable).
-   * @param code - RXA-18.1 Code
-   * @param text - RXA-18.2 Text
+   * RXA-17 Substance Manufacturer Name (CE, repeating) (chainable). One argument per repetition.
    */
-  substanceRefusalReason({ code, text }: { code: string; text?: string }): this {
-    this.fields[17] = this.createComponentsField([code, text || ""]);
+  substanceManufacturerName(...values: CodedInput[]): this {
+    this.fields[16] = this.createRepeatingField(
+      values.map((v) => this.createField(components(codedParts(v, 6)))),
+    );
     return this;
   }
 
   /**
-   * RXA-19 Indication (chainable).
-   * @param code - RXA-19.1 Code
-   * @param text - RXA-19.2 Text
+   * RXA-18 Substance/Treatment Refusal Reason (CE, repeating) (chainable). One argument per repetition.
    */
-  indication({ code, text }: { code: string; text?: string }): this {
-    this.fields[18] = this.createComponentsField([code, text || ""]);
+  substanceRefusalReason(...values: CodedInput[]): this {
+    this.fields[17] = this.createRepeatingField(
+      values.map((v) => this.createField(components(codedParts(v, 6)))),
+    );
+    return this;
+  }
+
+  /**
+   * RXA-19 Indication (CE, repeating) (chainable). One argument per repetition.
+   */
+  indication(...values: CodedInput[]): this {
+    this.fields[18] = this.createRepeatingField(
+      values.map((v) => this.createField(components(codedParts(v, 6)))),
+    );
     return this;
   }
 
@@ -231,7 +208,7 @@ export class RXA extends BaseSegment {
     return this;
   }
 
-  /** RXA-21 Action Code - RXA (chainable). */
+  /** RXA-21 Action Code (chainable). */
   actionCode(value: string): this {
     this.fields[20] = this.createField(value);
     return this;
@@ -249,20 +226,16 @@ export class RXA extends BaseSegment {
   }
 
   /** Parses the input string into a structured instance. */
-  static parse(
-    segmentString: string,
-    encoding: EncodingCharacters,
-  ): Result<RXA> {
+  static parse(segmentString: string, encoding: EncodingCharacters): Result<RXA> {
     const parts = segmentString.split(encoding.fieldSeparator);
     if (parts[0] !== "RXA") {
-      return {
-        ok: false,
-        err: new Err(`Expected RXA segment, got ${parts[0]}`),
-      };
+      return { ok: false, err: new Err(`Expected RXA segment, got ${parts[0]}`) };
     }
     const seg = new RXA();
     for (let i = 1; i < parts.length; i++) {
-      seg.fields[i - 1] = ParserUtils.parseField(parts[i], encoding);
+      if (parts[i] !== undefined) {
+        seg.fields[i - 1] = ParserUtils.parseField(parts[i], encoding);
+      }
     }
     return { ok: true, val: seg };
   }

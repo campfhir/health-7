@@ -28,6 +28,8 @@ implement, not reasons to move the segments.) Moving a segment is `git mv` into 
 version directory, adding it to that version's `ownSegments` in `codegen/schemas/`, and running
 `pnpm codegen && pnpm barrels`.
 
+`RXA` and `RXR` were corrected in 0.9 (hl7.eu v2.3, v2.3.1, v2.4, v2.5, v2.5.1 segment pages): RXR-5 is v2.3.1 and RXR-6 is v2.5 (RXR is four fields in v2.3); RXA-23..26 are v2.5; RXA-10 repeats from v2.3.1; and the repeating and composite fields take every repetition and their full components.
+
 `ERR` was corrected in 0.9: the v2.3 segment has only ERR-1 (repeating), and ERR-2..12 live in `segments/v2.5` (checked against the hl7.eu v2.3, v2.3.1, v2.4, v2.5 and v2.5.1 segment pages).
 
 ## To build for v2.3

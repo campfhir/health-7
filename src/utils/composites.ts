@@ -342,3 +342,78 @@ export interface PLN {
 export const plnParts = (v: PLN): Part[] => [
   v.idNumber, v.typeOfIdNumber, v.stateOtherQualifyingInformation, v.expirationDate,
 ];
+
+/**
+ * A coded value given either as a CE (`identifier`, `nameOfCodingSystem`, ...) or as the
+ * `code`/`codingSystem` shape used by CWE and by earlier versions of this library.
+ */
+export type CodedInput = CE | CodedElement;
+
+/**
+ * Components of a coded value. `count` is 6 for a CE and 9 for a CWE/CNE; components past
+ * what the input supplies are left empty (and trimmed by `components()`).
+ */
+export function codedParts(v: CodedInput, count: 6 | 9 = 6): Part[] {
+  const coded: CodedElement =
+    "code" in v
+      ? v
+      : {
+          code: v.identifier,
+          text: v.text,
+          codingSystem: v.nameOfCodingSystem,
+          alternateIdentifier: v.alternateIdentifier,
+          alternateText: v.alternateText,
+          alternateCodingSystem: v.nameOfAlternateCodingSystem,
+        };
+  return cweParts(coded).slice(0, count);
+}
+
+/** An XCN given in full, or in the short `id`/`familyName`/`givenName` shape used by earlier versions of this library. */
+export type XcnInput = XCN | { id: string; familyName?: string; givenName?: string };
+
+/** Components of an XcnInput. */
+export function xcnInputParts(v: XcnInput): Part[] {
+  return "id" in v ? xcnParts({ idNumber: v.id, familyName: v.familyName, givenName: v.givenName }) : xcnParts(v);
+}
+
+/** Location with address information (LA2, and the same sixteen components of the v2.3 CM used by RXA-11). */
+export interface LA2 {
+  /** LA2.1 Point of Care */
+  pointOfCare?: string;
+  /** LA2.2 Room */
+  room?: string;
+  /** LA2.3 Bed */
+  bed?: string;
+  /** LA2.4 Facility (HD) */
+  facility?: HD | string;
+  /** LA2.5 Location Status */
+  locationStatus?: string;
+  /** LA2.6 Person Location Type */
+  personLocationType?: string;
+  /** LA2.7 Building */
+  building?: string;
+  /** LA2.8 Floor */
+  floor?: string;
+  /** LA2.9 Street Address */
+  streetAddress?: string;
+  /** LA2.10 Other Designation */
+  otherDesignation?: string;
+  /** LA2.11 City */
+  city?: string;
+  /** LA2.12 State or Province */
+  stateOrProvince?: string;
+  /** LA2.13 Zip or Postal Code */
+  zipOrPostalCode?: string;
+  /** LA2.14 Country */
+  country?: string;
+  /** LA2.15 Address Type */
+  addressType?: string;
+  /** LA2.16 Other Geographic Designation */
+  otherGeographicDesignation?: string;
+}
+/** Components of an LA2. */
+export const la2Parts = (v: LA2): Part[] => [
+  v.pointOfCare, v.room, v.bed, hd(v.facility), v.locationStatus, v.personLocationType, v.building, v.floor,
+  v.streetAddress, v.otherDesignation, v.city, v.stateOrProvince, v.zipOrPostalCode, v.country,
+  v.addressType, v.otherGeographicDesignation,
+];
