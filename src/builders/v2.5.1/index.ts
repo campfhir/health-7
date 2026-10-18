@@ -3,6 +3,7 @@
  *
  * @module
  */
+export { createACK } from "./ACK.ts";
 export { createADT_A01 } from "./ADT_A01.ts";
 export { createADT_A02 } from "./ADT_A02.ts";
 export { createADT_A03 } from "./ADT_A03.ts";
@@ -44,6 +45,8 @@ export { createADT_A44 } from "./ADT_A44.ts";
 export { createADT_A45 } from "./ADT_A45.ts";
 export { createADT_A47 } from "./ADT_A47.ts";
 export { createMFN_M02 } from "./MFN_M02.ts";
+export { createORM_O01 } from "./ORM_O01.ts";
+export { createORR_O02 } from "./ORR_O02.ts";
 export { createORU_R01 } from "./ORU_R01.ts";
 export { createORU_R30 } from "./ORU_R30.ts";
 export { createORU_R31 } from "./ORU_R31.ts";

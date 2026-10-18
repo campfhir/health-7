@@ -16,7 +16,7 @@ Legend: ✅ built · ⬜ not started · ⚠️ needs audit
 
 ## Built (v2.3)
 
-ACC, AIG, AIL, AIP, AIS, AL1, BLG, CTI, DB1, DG1, DRG, ERR, EVN, GT1, IN1, IN2, IN3, MFE, MFI, MRG,
+ACC, AIG, AIL, AIP, AIS, AL1, BLG, CTD, CTI, DB1, DG1, DRG, ERR, EVN, FT1, GT1, IN1, IN2, IN3, MFE, MFI, MRG,
 MSA, MSH, NK1, NTE, OBR, OBX, ODS, ODT, ORC, PD1, PID, PR1, PRA, PV1, PV2, RGS, ROL, RQ1, RQD, RXA, RXD, RXE, RXO,
 RXR, SCH, STF, UB1, UB2
 
@@ -28,9 +28,7 @@ implement, not reasons to move the segments.) Moving a segment is `git mv` into 
 version directory, adding it to that version's `ownSegments` in `codegen/schemas/`, and running
 `pnpm codegen && pnpm barrels`.
 
-⚠️ **Audit:** `ERR` in `segments/v2.3` has setters beyond ERR-1 (the v2.3 `ERR` segment is a single
-field, Error Code and Location). Check it against the v2.3 `ERR` page on hl7.eu and move the extra
-fields to the version that introduced them.
+`ERR` was corrected in 0.9: the v2.3 segment has only ERR-1 (repeating), and ERR-2..12 live in `segments/v2.5` (checked against the hl7.eu v2.3, v2.3.1, v2.4, v2.5 and v2.5.1 segment pages).
 
 ## To build for v2.3
 
@@ -54,7 +52,6 @@ fields to the version that introduced them.
 | Segment | Name |
 |---|---|
 | ⬜ ADD | Addendum |
-| ⬜ FT1 | Financial Transaction |
 | ⬜ PCR | Possible Causal Relationship |
 | ⬜ PEO | Product Experience Observation |
 | ⬜ PES | Product Experience Sender |

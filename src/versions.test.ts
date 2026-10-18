@@ -6,7 +6,9 @@ import * as seg25 from "./segments/v2.5/index.ts";
 import * as seg251 from "./segments/v2.5.1/index.ts";
 import * as par23 from "./parsers/v2.3/index.ts";
 import * as par231 from "./parsers/v2.3.1/index.ts";
+import * as par24 from "./parsers/v2.4/index.ts";
 import * as par25 from "./parsers/v2.5/index.ts";
+import * as par251 from "./parsers/v2.5.1/index.ts";
 import * as bld23 from "./builders/v2.3/index.ts";
 import * as bld24 from "./builders/v2.4/index.ts";
 
@@ -48,19 +50,34 @@ describe("re-export versions", () => {
 });
 
 describe("ACK, ORM^O01 and ORR^O02", () => {
-  test("are available from v2.3 and re-exported by the later re-export versions", () => {
+  test("v2.3.1 re-exports the v2.3 implementations", () => {
     for (const fn of ["parseACK", "parseORM_O01", "parseORR_O02"] as const) {
-      expect(typeof par23[fn]).toBe("function");
       expect(par231[fn]).toBe(par23[fn]);
-      expect(par25[fn]).toBe(par23[fn]);
-    }
-    for (const fn of ["createACK", "createORM_O01", "createORR_O02"] as const) {
-      expect(bld24[fn]).toBe(bld23[fn]);
     }
   });
 
-  test("the order detail and billing segments exist from v2.3", () => {
-    for (const name of ["RQD", "RQ1", "ODS", "ODT", "BLG"]) {
+  test("v2.4 changes only ORM^O01 (adds CTD and FT1); ACK and ORR^O02 are v2.3's", () => {
+    expect(par24.parseACK).toBe(par23.parseACK);
+    expect(par24.parseORR_O02).toBe(par23.parseORR_O02);
+    expect(par24.parseORM_O01).not.toBe(par23.parseORM_O01);
+    expect(bld24.createORM_O01).not.toBe(bld23.createORM_O01);
+  });
+
+  test("v2.5 has its own ACK (SFT, repeating ERR) and ORR^O02 (repeating ERR); ORM^O01 is v2.4's", () => {
+    expect(par25.parseACK).not.toBe(par23.parseACK);
+    expect(par25.parseORR_O02).not.toBe(par23.parseORR_O02);
+    expect(par25.parseORM_O01).toBe(par24.parseORM_O01);
+  });
+
+  test("v2.5.1 has all three (parsers derived from v2.5)", () => {
+    for (const fn of ["parseACK", "parseORM_O01", "parseORR_O02"] as const) {
+      expect(typeof par251[fn]).toBe("function");
+      expect(par251[fn]).not.toBe(par25[fn]);
+    }
+  });
+
+  test("the order detail and billing segments exist from v2.3; FT1 and CTD too", () => {
+    for (const name of ["RQD", "RQ1", "ODS", "ODT", "BLG", "FT1", "CTD"]) {
       expect(name in seg23).toBe(true);
       expect(name in seg251).toBe(true);
     }

@@ -19,9 +19,9 @@ Legend: ✅ builder + parser exist · ⬜ not started
 | ORU | R01 | ✅ | ✅ |
 | ORU | R30, R31, R32 | n/a (2.5+) | ✅ |
 | MFN | M02 (staff/practitioner) | ✅ | ✅ |
-| ACK | general acknowledgment | ✅ | ⬜ (2.5.1 adds `[{SFT}]` and repeating `ERR`) |
-| ORM | O01 | ✅ | ⬜ |
-| ORR | O02 | ✅ | ⬜ |
+| ACK | general acknowledgment | ✅ | ✅ |
+| ORM | O01 | ✅ | ✅ |
+| ORR | O02 | ✅ | ✅ |
 | SIU | S12–S17, S26 | ✅ | ✅ |
 
 ## Remaining for v2.3
@@ -85,7 +85,7 @@ Legend: ✅ builder + parser exist · ⬜ not started
 | ⬜ STC | Patient state | — |
 | ⬜ OSQ, OSR | See orders | — |
 
-Done in 0.9: ACK, ORM^O01, ORR^O02 (v2.3; `ORM`/`ORR` cover the OBR, RQD, RQ1, RXO, ODS and ODT order detail choices).
+Done in 0.9: ACK, ORM^O01, ORR^O02 for v2.3 and v2.5.1 (`ORM`/`ORR` cover the OBR, RQD, RQ1, RXO, ODS and ODT order detail choices). Where the structures differ by version (checked on hl7.eu): v2.4 adds `[CTD]` and `[{FT1}]` to `ORM^O01`; v2.5 adds `[{SFT}]` and repeating `ERR` to `ACK`, repeating `ERR` to `ORR^O02`, and repeating `IN3` to `ORM^O01`. v2.3.1 matches v2.3 for all three, and v2.5.1 matches v2.5.
 
 Suggested order: **VXU → remaining ADT → DFT/BAR → MDM → queries/MFN → the rest.**
 

@@ -81,6 +81,9 @@ export interface ParsedORR_O02 {
   orders: ParsedResponseOrder[];
 }
 
+/** The optional RESPONSE group: the patient and the ORC groups. */
+export type ParsedResponse = Pick<ParsedORR_O02, "patient" | "orders">;
+
 /** Where the previous segment left the parser, which decides what an NTE belongs to. */
 type Context = "header" | "patient" | "detail" | "other";
 

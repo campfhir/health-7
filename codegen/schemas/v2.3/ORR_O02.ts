@@ -24,12 +24,14 @@ export const ORR_O02_SCHEMA: MessageSchema = {
         { name: "NTE", required: false, repeating: true },
         {
           name: "ORDER",
+          exportTypeName: "ParsedResponseOrder",
           required: true,
           repeating: true,
           segments: [
             { name: "ORC", required: true, repeating: false },
             {
               name: "ORDER_DETAIL",
+              exportTypeName: "ParsedResponseDetail",
               required: false,
               repeating: false,
               segments: [

@@ -15,6 +15,7 @@ export const ORM_O01_SCHEMA: MessageSchema = {
     { name: "NTE", required: false, repeating: true },
     {
       name: "PATIENT",
+      exportTypeName: "ParsedOrderPatient",
       required: false,
       repeating: false,
       segments: [
@@ -23,6 +24,7 @@ export const ORM_O01_SCHEMA: MessageSchema = {
         { name: "NTE", required: false, repeating: true },
         {
           name: "PATIENT_VISIT",
+          exportTypeName: "ParsedVisit",
           required: false,
           repeating: false,
           segments: [
@@ -32,6 +34,7 @@ export const ORM_O01_SCHEMA: MessageSchema = {
         },
         {
           name: "INSURANCE",
+          exportTypeName: "ParsedInsurance",
           required: false,
           repeating: true,
           segments: [

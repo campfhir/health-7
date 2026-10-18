@@ -96,8 +96,8 @@ version that introduced them:
 |---|---|---|
 | `v2.3` | — | Base implementation |
 | `v2.3.1` | v2.3 | Re-export |
-| `v2.4` | v2.3.1 | Re-export |
-| `v2.5` | v2.4 | Re-export + `SFT` (Software), `SPM` (Specimen), `TQ1` (Timing/Quantity) |
+| `v2.4` | v2.3.1 | Re-export, except `ORM^O01` (adds `CTD` and `FT1`) |
+| `v2.5` | v2.4 | Re-export + `SFT` (Software), `SPM` (Specimen), `TQ1` (Timing/Quantity); `ERR` gains ERR-2..12; own `ACK` (`[{SFT}]`, repeating `ERR`) and `ORR^O02` (repeating `ERR`) |
 | `v2.5.1` | v2.5 | Version-specific fields and messages (e.g. `ORU_R30–R32`) |
 
 Version-specific differences in 2.3.1, 2.4 and 2.5 are filled in as they are implemented — see the
