@@ -8,7 +8,7 @@ A modular TypeScript library for building and parsing HL7v2 messages.
 - **Parser**: Parse HL7v2 message strings back into structured data
 - **Round-trip Support**: Build messages and parse them back with full fidelity
 - **Modular Architecture**: Organized by HL7 version for easy extension
-- **Version Support**: HL7v2.3 and HL7v2.5.1
+- **Version Support**: HL7 v2.3, v2.3.1, v2.4, v2.5 and v2.5.1 (see [Versions](#versions))
 - **Date Input**: Segment date methods accept `Date` objects with optional HL7 layout format, in addition to pre-formatted strings
 - **Value Extraction**: Path-based field/component extraction utility
 - **Custom Segments**: Build Z-segments and other custom segments with a simple field-setter API
@@ -38,8 +38,11 @@ src/
 │   ├── CustomSegment.ts      # Generic segment for Z-segments and custom use
 │   └── MessageEditor.ts      # Fluent segment insertion API
 ├── segments/                 # Segment definitions by version
-│   ├── v2.3/                 # 46 segments (ACC, AIG, AIL, ..., UB2)
-│   └── v2.5.1/               # 50 segments (ACC, AIG, AIL, ..., UB2)
+│   ├── v2.3/                 # hand-written base segments
+│   ├── v2.3.1/               # re-exports of v2.3 (generated)
+│   ├── v2.4/                 # re-exports + SFT
+│   ├── v2.5/                 # re-exports + SPM, TQ1
+│   └── v2.5.1/               # extends v2.5 with 2.5.1-specific fields
 ├── parsers/                  # Message parsers by version
 │   ├── testdata/             # 30 sample HL7 messages for integration tests
 │   │   ├── ORU_R01/          # 15 lab result messages
@@ -81,6 +84,24 @@ runs on Node.js (CommonJS `require` and native ESM `import`), Bun, browsers, and
 Cloudflare Workers. There are no Node-only runtime dependencies. Other runtimes
 that can consume npm packages (for example Deno via the `npm:` specifier) should
 also work, but they are not an officially tested target.
+
+## Versions
+
+Every supported version has its own subpath (`segments/<version>`, `parsers/<version>`,
+`builders/<version>`). Versions that are structurally identical to their predecessor simply
+re-export it, so `segments/v2.4` `PID` *is* the v2.3 `PID` class. Segments are available from the
+version that introduced them:
+
+| Version | Based on | Notes |
+|---|---|---|
+| `v2.3` | — | Base implementation |
+| `v2.3.1` | v2.3 | Re-export |
+| `v2.4` | v2.3.1 | Re-export + `SFT` (Software) |
+| `v2.5` | v2.4 | Re-export + `SPM` (Specimen), `TQ1` (Timing/Quantity) |
+| `v2.5.1` | v2.5 | Version-specific fields and messages (e.g. `ORU_R30–R32`) |
+
+Version-specific differences in 2.3.1, 2.4 and 2.5 are filled in as they are implemented — see the
+[roadmap](ROADMAP.md).
 
 ## Imports
 

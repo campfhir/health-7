@@ -3,12 +3,12 @@
  *
  * @module
  */
-import type { MSH as MSH_base } from "../../segments/v2.3/MSH.ts";
-import type { EVN as EVN_base } from "../../segments/v2.3/EVN.ts";
-import type { PID as PID_base } from "../../segments/v2.3/PID.ts";
-import type { PD1 as PD1_base } from "../../segments/v2.3/PD1.ts";
-import type { MRG as MRG_base } from "../../segments/v2.3/MRG.ts";
-import type { PV1 as PV1_base } from "../../segments/v2.3/PV1.ts";
+import type { MSH as MSH_base } from "../../segments/v2.5/MSH.ts";
+import type { EVN as EVN_base } from "../../segments/v2.5/EVN.ts";
+import type { PID as PID_base } from "../../segments/v2.5/PID.ts";
+import type { PD1 as PD1_base } from "../../segments/v2.5/PD1.ts";
+import type { MRG as MRG_base } from "../../segments/v2.5/MRG.ts";
+import type { PV1 as PV1_base } from "../../segments/v2.5/PV1.ts";
 
 import type { MSH } from "../../segments/v2.5.1/MSH.ts";
 import type { EVN } from "../../segments/v2.5.1/EVN.ts";

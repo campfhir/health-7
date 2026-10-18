@@ -28,7 +28,7 @@ import {
   type ParsedSIUGeneralResource,
   type ParsedSIULocationResource,
   type ParsedSIUPersonnelResource,
-} from "../v2.3/SIU_S17_Parser.ts";
+} from "../v2.5/SIU_S17_Parser.ts";
 
 export type { ParsedSIU_S17, ParsedSIUPatient, ParsedSIUResources, ParsedSIUService, ParsedSIUGeneralResource, ParsedSIULocationResource, ParsedSIUPersonnelResource };
 

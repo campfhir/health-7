@@ -14,7 +14,7 @@ import {
   MFN_M02_Parser as MFN_M02_Parser_v23,
   type ParsedStaffEntry,
   type ParsedMFN_M02,
-} from "../v2.3/MFN_M02_Parser.ts";
+} from "../v2.5/MFN_M02_Parser.ts";
 
 export type { ParsedStaffEntry, ParsedMFN_M02 };
 

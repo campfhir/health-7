@@ -3,15 +3,15 @@
  *
  * @module
  */
-import type { MSH } from "../../segments/v2.3/MSH.ts";
-import type { PID } from "../../segments/v2.3/PID.ts";
-import type { PD1 } from "../../segments/v2.3/PD1.ts";
-import type { NK1 } from "../../segments/v2.3/NK1.ts";
-import type { NTE } from "../../segments/v2.3/NTE.ts";
-import type { PV1 } from "../../segments/v2.3/PV1.ts";
-import type { ORC } from "../../segments/v2.3/ORC.ts";
-import type { OBR } from "../../segments/v2.3/OBR.ts";
-import type { OBX } from "../../segments/v2.3/OBX.ts";
+import type { MSH } from "../../segments/v2.5/MSH.ts";
+import type { PID } from "../../segments/v2.5/PID.ts";
+import type { PD1 } from "../../segments/v2.5/PD1.ts";
+import type { NK1 } from "../../segments/v2.5/NK1.ts";
+import type { NTE } from "../../segments/v2.5/NTE.ts";
+import type { PV1 } from "../../segments/v2.5/PV1.ts";
+import type { ORC } from "../../segments/v2.5/ORC.ts";
+import type { OBR } from "../../segments/v2.5/OBR.ts";
+import type { OBX } from "../../segments/v2.5/OBX.ts";
 // v2.5.1 imports for defaults
 import type { PID as PID_251 } from "../../segments/v2.5.1/PID.ts";
 import type { PD1 as PD1_251 } from "../../segments/v2.5.1/PD1.ts";
@@ -22,7 +22,7 @@ import type { ORC as ORC_251 } from "../../segments/v2.5.1/ORC.ts";
 import type { OBR as OBR_251 } from "../../segments/v2.5.1/OBR.ts";
 import type { OBX as OBX_251 } from "../../segments/v2.5.1/OBX.ts";
 import type { MSH as MSH_251 } from "../../segments/v2.5.1/MSH.ts";
-import type { CTI } from "../../segments/v2.3/CTI.ts";
+import type { CTI } from "../../segments/v2.5/CTI.ts";
 import type { CTI as CTI_251 } from "../../segments/v2.5.1/CTI.ts";
 import { type EncodingCharacters, DEFAULT_ENCODING } from "../../types/encoding.ts";
 

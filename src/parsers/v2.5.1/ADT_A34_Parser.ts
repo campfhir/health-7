@@ -14,7 +14,7 @@ import { PV1 } from "../../segments/v2.5.1/PV1.ts";
 import {
   ADT_A34_Parser as ADT_A34_Parser_base,
   type ParsedADT_A34,
-} from "../v2.3/ADT_A34_Parser.ts";
+} from "../v2.5/ADT_A34_Parser.ts";
 
 export type { ParsedADT_A34 };
 

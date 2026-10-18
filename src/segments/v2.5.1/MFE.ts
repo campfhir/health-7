@@ -7,11 +7,11 @@ import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
-import { MFE as MFE_base } from "../v2.3/MFE.ts";
+import { MFE as MFE_base } from "../v2.5/MFE.ts";
 
 /**
  * MFE segment (HL7 v2.5.1)
- * Extends v2.3 MFE. Add v2.5.1-specific fields here as needed.
+ * Extends v2.5 MFE. Add v2.5.1-specific fields here as needed.
  */
 export class MFE extends MFE_base {
   /** Parses the input string into a structured instance. */

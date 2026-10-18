@@ -7,7 +7,7 @@ import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
-import { PID as PID_base } from "../v2.3/PID.ts";
+import { PID as PID_base } from "../v2.5/PID.ts";
 import {
   DateTimeLayout,
   formatHL7Date,
@@ -16,7 +16,7 @@ import {
 
 /**
  * PID segment (HL7 v2.5.1)
- * Extends v2.3 PID. Add v2.5.1-specific fields here as needed.
+ * Extends v2.5 PID. Add v2.5.1-specific fields here as needed.
  */
 export class PID extends PID_base {
   /** PID-31 Identity Unknown Indicator (chainable). */

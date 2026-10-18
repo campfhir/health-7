@@ -9,7 +9,7 @@
  *   pnpm codegen --dry-run # print files without writing
  */
 
-import { writeFileSync, mkdirSync, existsSync } from "node:fs";
+import { writeFileSync, mkdirSync, existsSync, readdirSync, readFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import type { VersionConfig, ParserConfig, BuilderConfig } from "./types.ts";
@@ -21,6 +21,9 @@ import type {
 } from "../src/types/schema.ts";
 import { isSegmentGroup } from "../src/types/schema.ts";
 import { V2_3 } from "./schemas/v2.3/version.ts";
+import { V2_3_1 } from "./schemas/v2.3.1/version.ts";
+import { V2_4 } from "./schemas/v2.4/version.ts";
+import { V2_5 } from "./schemas/v2.5/version.ts";
 import { V2_5_1 } from "./schemas/v2.5.1/version.ts";
 import { generateSegment } from "./generators/segment.ts";
 import { generateBaseParser } from "./generators/baseParser.ts";
@@ -28,13 +31,14 @@ import { generateParser } from "./generators/parser.ts";
 import { generateBuilder } from "./generators/builder.ts";
 import { generateWrapperParser } from "./generators/wrapperParser.ts";
 import { generateWrapperBuilder } from "./generators/wrapperBuilder.ts";
+import { generateReexport, REEXPORT_MARKER } from "./generators/reexport.ts";
 
 const ROOT = join(fileURLToPath(import.meta.url), "../..");
 const DRY_RUN = process.argv.includes("--dry-run");
 
 // ── Registered versions — order matters (bases before derived) ────────────────
 
-const VERSIONS: VersionSchema[] = [V2_3, V2_5_1];
+const VERSIONS: VersionSchema[] = [V2_3, V2_3_1, V2_4, V2_5, V2_5_1];
 
 // ── Schema → VersionConfig derivation ────────────────────────────────────────
 
@@ -127,11 +131,52 @@ function write(filePath: string, content: string) {
 // ── Generator ─────────────────────────────────────────────────────────────────
 
 // Builds a set of "MessageType_TriggerEvent" names for a given version schema.
-function messageNameSet(vs: VersionSchema): Set<string> {
-  return new Set(vs.messages.map((m) => `${m.messageType}_${m.triggerEvent}`));
+// Includes messages inherited through re-export versions.
+function messageNameSet(vs: VersionSchema, all: Map<string, VersionSchema>): Set<string> {
+  const names = new Set(vs.messages.map((m) => `${m.messageType}_${m.triggerEvent}`));
+  const base = vs.baseVersion ? all.get(vs.baseVersion) : undefined;
+  if (vs.reexport && base) {
+    for (const n of messageNameSet(base, all)) names.add(n);
+  }
+  return names;
 }
 
-function generate(config: VersionConfig, baseSchema?: VersionSchema) {
+// Module names (no extension, no tests, no barrel) in a src/<kind>/<version> dir.
+function moduleNames(kind: string, version: string): string[] {
+  const dir = join(ROOT, "src", kind, version);
+  if (!existsSync(dir)) return [];
+  return readdirSync(dir)
+    .filter((f) => f.endsWith(".ts") && !/\.(\w+\.)?test\.ts$/.test(f) && f !== "index.ts")
+    .map((f) => f.slice(0, -3))
+    .sort();
+}
+
+// Re-export version: mirror every module of the base version, except those
+// hand-written for this version (`ownSegments`).
+function generateReexportVersion(vs: VersionSchema) {
+  const baseVersion = vs.baseVersion!;
+  console.log(`\n── ${vs.version} (re-exports ${baseVersion}) ──\n`);
+  const own = new Set(vs.ownSegments ?? []);
+  for (const kind of ["segments", "parsers", "builders"] as const) {
+    for (const name of moduleNames(kind, baseVersion)) {
+      if (kind === "segments" && own.has(name)) continue;
+      const target = join(ROOT, "src", kind, vs.version, `${name}.ts`);
+      if (existsSync(target) && !readFileSync(target, "utf8").includes(REEXPORT_MARKER)) {
+        console.log(`skip   ${target.replace(ROOT + "/", "")}  (hand-written)`);
+        continue;
+      }
+      write(target, generateReexport(kind, name, vs.version, baseVersion));
+    }
+  }
+  for (const seg of own) {
+    const p = join(ROOT, "src/segments", vs.version, `${seg}.ts`);
+    if (!existsSync(p) && !DRY_RUN) {
+      throw new Error(`${vs.version}: ownSegments lists ${seg} but ${p} does not exist`);
+    }
+  }
+}
+
+function generate(config: VersionConfig, baseSchema?: VersionSchema, allVersions = new Map<string, VersionSchema>()) {
   const { version, baseVersion, segments, parsers, builders } = config;
 
   if (!baseVersion) {
@@ -169,13 +214,15 @@ function generate(config: VersionConfig, baseSchema?: VersionSchema) {
 
     // Messages that exist in the base version can use derived overrides.
     // Messages new to this version need standalone base stubs instead.
-    const baseMessages = baseSchema ? messageNameSet(baseSchema) : new Set<string>();
+    const baseMessages = baseSchema ? messageNameSet(baseSchema, allVersions) : new Set<string>();
 
     for (const seg of segments) {
-      write(
-        join(ROOT, "src/segments", version, `${seg}.ts`),
-        generateSegment(seg, version, baseVersion),
-      );
+      const segPath = join(ROOT, "src/segments", version, `${seg}.ts`);
+      if (existsSync(segPath)) {
+        console.log(`skip   ${segPath.replace(ROOT + "/", "")}  (already exists)`);
+        continue;
+      }
+      write(segPath, generateSegment(seg, version, baseVersion));
     }
 
     for (const parser of parsers) {
@@ -222,6 +269,10 @@ const versionMap = new Map<string, VersionSchema>(VERSIONS.map((vs) => [vs.versi
 
 for (const vs of VERSIONS) {
   const baseSchema = vs.baseVersion ? versionMap.get(vs.baseVersion) : undefined;
-  generate(fromVersionSchema(vs), baseSchema);
+  if (vs.reexport) {
+    generateReexportVersion(vs);
+  } else {
+    generate(fromVersionSchema(vs), baseSchema, versionMap);
+  }
 }
 console.log("\nDone.");

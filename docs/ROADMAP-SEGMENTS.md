@@ -14,15 +14,19 @@ entry in the barrel (`pnpm barrels`).
 
 Legend: ✅ built · ⬜ not started · ⚠️ needs audit
 
-## Built (v2.3 and v2.5.1 both at 46 spec segments + 3 to audit)
+## Built (v2.3)
 
 ACC, AIG, AIL, AIP, AIS, AL1, CTI, DB1, DG1, DRG, ERR, EVN, GT1, IN1, IN2, IN3, MFE, MFI, MRG,
 MSA, MSH, NK1, NTE, OBR, OBX, ORC, PD1, PID, PR1, PRA, PV1, PV2, RGS, ROL, RXA, RXD, RXE, RXO,
 RXR, SCH, STF, UB1, UB2
 
-⚠️ **Audit:** `SFT`, `SPM`, `TQ1` live in `segments/v2.3/` but were introduced after v2.3
-(SFT in 2.4, SPM and TQ1 in 2.5). Decide whether to move them to the v2.5.1 base or keep them as
-documented extensions in v2.3.
+Segments are placed in the version that introduced them: `SFT` in `segments/v2.4`; `SPM` and
+`TQ1` in `segments/v2.5`. Later versions re-export them.
+
+⚠️ **Audit:** a few segments in `segments/v2.3` may also post-date 2.3 (for example `ROL`, from
+2.4, and `DB1`). Verify against the spec; moving one is just `git mv` into the introducing
+version directory, adding it to that version's `ownSegments` in `codegen/schemas/`, and running
+`pnpm codegen && pnpm barrels`.
 
 ## To build for v2.3
 

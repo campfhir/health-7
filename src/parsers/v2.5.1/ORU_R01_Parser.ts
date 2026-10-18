@@ -20,7 +20,7 @@ import {
   type ParsedOrderObservation,
   type ParsedPatientResult,
   type ParsedORU_R01,
-} from "../v2.3/ORU_R01_Parser.ts";
+} from "../v2.5/ORU_R01_Parser.ts";
 
 export type { ParsedOrderObservation, ParsedPatientResult, ParsedORU_R01 };
 

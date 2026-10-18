@@ -24,6 +24,18 @@ Codegen reads every `VersionSchema` registered in `generate.ts` and produces fil
 - `src/parsers/v2.5.1/<MessageType>_Parser.ts` — override that swaps in v2.5.1 segment classes
 - `src/builders/v2.5.1/<MessageType>.ts` — builder stub
 
+**Re-export versions** (`reexport: true`, e.g. `v2.3.1`, `v2.4`, `v2.5`) are identical to their
+`baseVersion`. Codegen mirrors every segment, parser and builder module of the base as
+`export * from "../<base>/X.ts"`. Segments first introduced in the version are hand-written and
+listed in `ownSegments` (e.g. `SFT` in v2.4); codegen skips those and later re-export versions
+inherit them. To diverge from the base (say v2.4 changes `PID`), replace the generated
+`src/segments/v2.4/PID.ts` with a hand-written class extending the v2.3.1 one. Codegen skips any
+file that lacks the `@generated re-export` marker, and later re-export versions pick up your
+class automatically.
+
+After adding or moving files run `pnpm codegen && pnpm barrels && pnpm exports`; CI fails if the
+committed output drifts (`pnpm codegen:check`).
+
 ### Skipping completed files
 
 Files containing a `const _TODO =` syntax error are stubs — codegen will overwrite them. Once a developer removes that line (i.e. completes the file), codegen will skip it forever.
