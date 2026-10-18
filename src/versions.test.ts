@@ -46,3 +46,23 @@ describe("re-export versions", () => {
     expect(bld24.createADT_A01).toBe(bld23.createADT_A01);
   });
 });
+
+describe("ACK, ORM^O01 and ORR^O02", () => {
+  test("are available from v2.3 and re-exported by the later re-export versions", () => {
+    for (const fn of ["parseACK", "parseORM_O01", "parseORR_O02"] as const) {
+      expect(typeof par23[fn]).toBe("function");
+      expect(par231[fn]).toBe(par23[fn]);
+      expect(par25[fn]).toBe(par23[fn]);
+    }
+    for (const fn of ["createACK", "createORM_O01", "createORR_O02"] as const) {
+      expect(bld24[fn]).toBe(bld23[fn]);
+    }
+  });
+
+  test("the order detail and billing segments exist from v2.3", () => {
+    for (const name of ["RQD", "RQ1", "ODS", "ODT", "BLG"]) {
+      expect(name in seg23).toBe(true);
+      expect(name in seg251).toBe(true);
+    }
+  });
+});

@@ -68,8 +68,13 @@ function flatUniqueSegments(
   return result;
 }
 
+/** "ADT_A01" for ADT^A01, or just "ACK" for messages with no trigger event. */
+function messageName(schema: Pick<MessageSchema, "messageType" | "triggerEvent">): string {
+  return schema.triggerEvent ? `${schema.messageType}_${schema.triggerEvent}` : schema.messageType;
+}
+
 function deriveExportTypes(schema: MessageSchema): string[] {
-  const msgName = `${schema.messageType}_${schema.triggerEvent}`;
+  const msgName = messageName(schema);
   const types = [`Parsed${msgName}`];
   function collectGroups(items: (SegmentDefinition | SegmentGroup)[]) {
     for (const item of items) {
@@ -84,7 +89,7 @@ function deriveExportTypes(schema: MessageSchema): string[] {
 }
 
 function schemaToParserConfig(schema: MessageSchema): ParserConfig {
-  const msgName = `${schema.messageType}_${schema.triggerEvent}`;
+  const msgName = messageName(schema);
   const allSegs = flatUniqueSegments(schema.structure);
   const segments = ["MSH", ...allSegs.filter((s) => s !== "MSH")];
   return {
@@ -97,7 +102,7 @@ function schemaToParserConfig(schema: MessageSchema): ParserConfig {
 }
 
 function schemaToBuilderConfig(schema: MessageSchema): BuilderConfig {
-  const msgName = `${schema.messageType}_${schema.triggerEvent}`;
+  const msgName = messageName(schema);
   const allSegs = flatUniqueSegments(schema.structure);
   return {
     name: msgName,
@@ -133,7 +138,7 @@ function write(filePath: string, content: string) {
 // Builds a set of "MessageType_TriggerEvent" names for a given version schema.
 // Includes messages inherited through re-export versions.
 function messageNameSet(vs: VersionSchema, all: Map<string, VersionSchema>): Set<string> {
-  const names = new Set(vs.messages.map((m) => `${m.messageType}_${m.triggerEvent}`));
+  const names = new Set(vs.messages.map(messageName));
   const base = vs.baseVersion ? all.get(vs.baseVersion) : undefined;
   if (vs.reexport && base) {
     for (const n of messageNameSet(base, all)) names.add(n);

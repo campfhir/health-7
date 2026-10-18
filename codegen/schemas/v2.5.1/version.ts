@@ -80,6 +80,8 @@ export const V2_5_1: VersionSchema = {
     "MFI", "MFE", "STF", "PRA",
     // Scheduling
     "SCH", "RGS", "AIS", "AIL", "AIG", "AIP",
+    // Order detail / billing
+    "RQD", "RQ1", "ODS", "ODT", "BLG",
   ],
   messages: [
     ORU_R01_SCHEMA,
