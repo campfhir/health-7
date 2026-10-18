@@ -20,4 +20,5 @@ Detailed checklists:
 - Merging to `main` publishes the package version in `package.json` to npm if that version isn't
   already on the registry (`.github/workflows/publish.yml`). Bump `version` in `package.json` in
   the PR to ship a release.
-- Publishing uses npm provenance and an `NPM_TOKEN` repository secret.
+- Publishing uses npm [trusted publishing](https://docs.npmjs.com/trusted-publishers) (OIDC) from
+  `publish.yml` — no long-lived token. Provenance is attached automatically.
