@@ -8,31 +8,10 @@
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import type { Field } from "../../types/segment.ts";
+import { components, cweParts, type CodedElement } from "../../utils/composites.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 import { ERR as ERR_base } from "../v2.4/ERR.ts";
-
-/** A coded value (CWE). `code` is CWE.1 Identifier. */
-export interface CodedWithExceptions {
-  /** CWE.1 Identifier */
-  code: string;
-  /** CWE.2 Text */
-  text?: string;
-  /** CWE.3 Name of Coding System */
-  codingSystem?: string;
-  /** CWE.4 Alternate Identifier */
-  alternateIdentifier?: string;
-  /** CWE.5 Alternate Text */
-  alternateText?: string;
-  /** CWE.6 Name of Alternate Coding System */
-  alternateCodingSystem?: string;
-  /** CWE.7 Coding System Version ID */
-  codingSystemVersionId?: string;
-  /** CWE.8 Alternate Coding System Version ID */
-  alternateCodingSystemVersionId?: string;
-  /** CWE.9 Original Text */
-  originalText?: string;
-}
 
 /** ERR-2 Error Location (ERL). */
 export interface ErrorLocation {
@@ -106,7 +85,7 @@ export class ERR extends ERR_base {
   }
 
   /** ERR-3 HL7 Error Code (CWE, table 0357) (chainable). */
-  hl7ErrorCode(value: CodedWithExceptions): this {
+  hl7ErrorCode(value: CodedElement): this {
     this.fields[2] = this.cwe(value);
     return this;
   }
@@ -118,7 +97,7 @@ export class ERR extends ERR_base {
   }
 
   /** ERR-5 Application Error Code (CWE, table 0533) (chainable). */
-  applicationErrorCode(value: CodedWithExceptions): this {
+  applicationErrorCode(value: CodedElement): this {
     this.fields[4] = this.cwe(value);
     return this;
   }
@@ -148,13 +127,13 @@ export class ERR extends ERR_base {
   }
 
   /** ERR-10 Override Type (CWE, table 0518) (chainable). */
-  overrideType(value: CodedWithExceptions): this {
+  overrideType(value: CodedElement): this {
     this.fields[9] = this.cwe(value);
     return this;
   }
 
   /** ERR-11 Override Reason Code (CWE, repeating, table 0519) (chainable). */
-  overrideReasonCode(...values: CodedWithExceptions[]): this {
+  overrideReasonCode(...values: CodedElement[]): this {
     this.fields[10] = this.createRepeatingField(values.map((v) => this.cwe(v)));
     return this;
   }
@@ -185,18 +164,8 @@ export class ERR extends ERR_base {
   }
 
   /** Builds one CWE value. */
-  private cwe(v: CodedWithExceptions): Field {
-    return this.createComponentsField([
-      v.code,
-      v.text,
-      v.codingSystem,
-      v.alternateIdentifier,
-      v.alternateText,
-      v.alternateCodingSystem,
-      v.codingSystemVersionId,
-      v.alternateCodingSystemVersionId,
-      v.originalText,
-    ]);
+  private cwe(v: CodedElement): Field {
+    return this.createField(components(cweParts(v)));
   }
 
   /** Parses the input string into a structured instance. */

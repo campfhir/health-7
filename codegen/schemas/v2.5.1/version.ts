@@ -81,7 +81,7 @@ export const V2_5_1: VersionSchema = {
     // Scheduling
     "SCH", "RGS", "AIS", "AIL", "AIG", "AIP",
     // Order detail / billing
-    "RQD", "RQ1", "ODS", "ODT", "BLG",
+    "RQD", "RQ1", "ODS", "ODT", "BLG", "FT1", "CTD",
   ],
   messages: [
     ORU_R01_SCHEMA,
