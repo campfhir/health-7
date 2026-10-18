@@ -7,17 +7,6 @@
 import { test, expect, describe } from "vitest";
 import { CTI } from "./CTI.ts";
 
-const SENTINEL = "ZQXP0S";
-
-// Assert the sentinel encodes into field `splitIndex` (first component, first
-// subcomponent) and nowhere else.
-function assertField(seg: CTI, splitIndex: number): void {
-  const parts = seg.encode().split("|");
-  const value = parts[splitIndex]?.split("^")[0]?.split("&")[0];
-  expect(value).toBe(SENTINEL);
-  expect(parts.filter((p) => p.includes(SENTINEL)).length).toBe(1);
-}
-
 describe("CTI field positions", () => {
   test("CTI-1 Sponsor Study ID", () => {
     const parts = new CTI().sponsorStudyId({ entityIdentifier: "C1", namespaceId: "C2", universalId: "C3", universalIdType: "C4" }).encode().split("|");

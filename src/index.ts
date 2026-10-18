@@ -1,6 +1,6 @@
 /**
  * `@campfhir/hl7` — a zero-dependency TypeScript library for building and
- * parsing HL7v2 messages (v2.3 & v2.5.1), runnable on Node.js, Deno, Bun,
+ * parsing HL7v2 messages (v2.3 & v2.5.1), runnable on Node.js, Bun,
  * browsers, and Cloudflare Workers.
  *
  * This root entrypoint exposes the version-agnostic core: encoding, segment

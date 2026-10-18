@@ -15,6 +15,11 @@ A modular TypeScript library for building and parsing HL7v2 messages.
 - **Message Editor**: Fluent API for inserting segments into, or updating field values in, any built message without modifying the builder
 - **Comprehensive Tests**: 609 tests across 25 test files, co-located with source (Go style)
 
+## Roadmap
+
+See [ROADMAP.md](ROADMAP.md) — HL7 v2.3 completion first, then v2.5.1 parity. Checklists of the
+remaining [segments](docs/ROADMAP-SEGMENTS.md) and [event types](docs/ROADMAP-EVENTS.md).
+
 ## Project Structure
 
 ```
@@ -49,14 +54,22 @@ src/
 ## Installation
 
 ```bash
-npm install
-npm run build
+npm install @campfhir/hl7
+```
+
+To work on the library itself:
+
+```bash
+pnpm install
+pnpm run build
 ```
 
 ## Testing
 
 ```bash
-npm test
+pnpm test        # unit tests
+pnpm lint        # eslint
+pnpm typecheck   # tsc --noEmit
 ```
 
 Tests use [Vitest](https://vitest.dev/) and run directly against TypeScript source via `tsx`.
@@ -64,48 +77,10 @@ Tests use [Vitest](https://vitest.dev/) and run directly against TypeScript sour
 ## Runtime support
 
 The package ships dual CJS/ESM builds with fully-specified import paths, so it
-runs on Node.js (CommonJS `require` and native ESM `import`) and on
-[Deno](https://deno.com/) via the `npm:` specifier. There are no Node-only
-runtime dependencies.
-
-### Deno
-
-Import any entry point with the `npm:` specifier and the same subpaths used on
-Node:
-
-```typescript
-import { ParserUtils, MessageEditor } from "npm:@campfhir/hl7";
-import { parseADT_A01 } from "npm:@campfhir/hl7/parsers/v2.5.1";
-import { MSH, PID } from "npm:@campfhir/hl7/segments/v2.5.1";
-
-const result = parseADT_A01(messageString);
-```
-
-The package is also published to [JSR](https://jsr.io/), which serves the
-TypeScript sources directly — no build step, native types:
-
-```bash
-deno add jsr:@campfhir/hl7
-```
-
-```typescript
-import { ParserUtils } from "@campfhir/hl7";
-import { parseADT_A01 } from "@campfhir/hl7/parsers/v2.5.1";
-import { MSH, PID } from "@campfhir/hl7/segments/v2.5.1";
-```
-
-Either source (the `npm:` specifier or JSR) exposes the same entry points; pick
-whichever fits your project. To pin the npm build via an import map instead, add
-to `deno.json`:
-
-```json
-{
-  "imports": {
-    "@campfhir/hl7": "npm:@campfhir/hl7@^0.2.0",
-    "@campfhir/hl7/": "npm:/@campfhir/hl7/"
-  }
-}
-```
+runs on Node.js (CommonJS `require` and native ESM `import`), Bun, browsers, and
+Cloudflare Workers. There are no Node-only runtime dependencies. Other runtimes
+that can consume npm packages (for example Deno via the `npm:` specifier) should
+also work, but they are not an officially tested target.
 
 ## Imports
 
