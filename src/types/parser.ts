@@ -21,9 +21,13 @@ export class ParserUtils {
 
   /** Get field string. */
   static getFieldString(field: Field, encoding: EncodingCharacters): string {
-    return field.components
+    const first = field.components
       .map((comp) => comp.subComponents.join(encoding.subComponentSeparator))
       .join(encoding.componentSeparator);
+    if (!field.repetitions?.length) return first;
+    return [first, ...field.repetitions.map((r) => ParserUtils.getFieldString(r, encoding))].join(
+      encoding.repetitionSeparator,
+    );
   }
 
   /** Get component. */

@@ -48,6 +48,18 @@ describe("ACK round trip", () => {
     expect(result.val.message.segments).toHaveLength(3);
   });
 
+  test("a structured, repeating ERR-1 survives the round trip", () => {
+    const err = new ERR().errorCodeAndLocation(
+      { segmentId: "PID", sequence: "1", fieldPosition: "5", codeIdentifyingError: { identifier: "101", text: "Required field missing" } },
+      { segmentId: "PV1", sequence: "1", fieldPosition: "2", codeIdentifyingError: { identifier: "102" } },
+    );
+    const result = parseACK(createACK(makeMSH(), makeMSA().acknowledgmentCode("AE"), err).encode());
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.val.err?.encode()).toBe("ERR|PID^1^5^101&Required field missing~PV1^1^2^102");
+    }
+  });
+
   test("ERR is optional", () => {
     const result = parseACK(createACK(makeMSH(), makeMSA()).encode());
     expect(result.ok).toBe(true);

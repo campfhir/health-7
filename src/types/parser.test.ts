@@ -102,3 +102,11 @@ test('ParserUtils extractEncodingCharacters with custom encoding', () => {
 
   expect(encoding.escapeCharacter).toBe('#');
 });
+
+test("ParserUtils getFieldString includes repetitions", () => {
+  const field = {
+    components: [{ subComponents: ["a"] }, { subComponents: ["b"] }],
+    repetitions: [{ components: [{ subComponents: ["c"] }] }],
+  };
+  expect(ParserUtils.getFieldString(field, DEFAULT_ENCODING)).toBe("a^b~c");
+});

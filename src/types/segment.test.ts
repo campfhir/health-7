@@ -118,3 +118,32 @@ test("BaseSegment encode with empty fields", () => {
   const encoded = segment.encode();
   expect(encoded).toBe("TST|value1||value3");
 });
+
+test("createRepeatingField keeps the first repetition in components and the rest in repetitions", () => {
+  const segment = new TestSegment();
+  const field = segment["createRepeatingField"]([
+    segment["createComponentsField"](["a", "b"]),
+    segment["createField"]("c"),
+    segment["createComponentsField"](["d", "", "f"]),
+  ]);
+
+  expect(field.components.map((c) => c.subComponents[0])).toEqual(["a", "b"]);
+  expect(field.repetitions).toHaveLength(2);
+
+  segment.fields[0] = field;
+  expect(segment.encode()).toBe("TST|a^b~c~d^^f");
+});
+
+test("createRepeatingField with one repetition is a plain field; with none it is empty", () => {
+  const segment = new TestSegment();
+  const single = segment["createRepeatingField"]([segment["createField"]("x")]);
+  expect(single.repetitions).toBeUndefined();
+  segment.fields[0] = segment["createRepeatingField"]([]);
+  expect(segment.encode()).toBe("TST|");
+});
+
+test("repetitions encode with the repetition separator of the encoding in use", () => {
+  const segment = new TestSegment();
+  segment.fields[0] = segment["createRepeatingField"]([segment["createField"]("a"), segment["createField"]("b")]);
+  expect(segment.encode({ ...DEFAULT_ENCODING, repetitionSeparator: "%" })).toBe("TST|a%b");
+});
