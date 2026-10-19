@@ -77,53 +77,6 @@ export class ACC extends BaseSegment {
     return this;
   }
 
-  /**
-   * ACC-7 Entered By (chainable).
-   * @param id - ACC-7.1 ID Number
-   * @param familyName - ACC-7.2 Family Name
-   * @param givenName - ACC-7.3 Given Name
-   */
-  enteredBy({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
-    this.fields[6] = this.createField([id, familyName || "", givenName || ""]);
-    return this;
-  }
-
-  /** ACC-8 Accident Description (chainable). */
-  accidentDescription(value: string): this {
-    this.fields[7] = this.createField(value);
-    return this;
-  }
-
-  /** ACC-9 Brought In By (chainable). */
-  broughtInBy(value: string): this {
-    this.fields[8] = this.createField(value);
-    return this;
-  }
-
-  /** ACC-10 Police Notified Indicator (chainable). */
-  policeNotified(value: string): this {
-    this.fields[9] = this.createField(value);
-    return this;
-  }
-
-  /**
-   * ACC-11 Accident Address (chainable).
-   * @param street - ACC-11.1 Street
-   * @param city - ACC-11.3 City
-   * @param state - ACC-11.4 State
-   * @param zip - ACC-11.5 Zip
-   */
-  accidentAddress({ street, city, state, zip }: { street: string; city?: string; state?: string; zip?: string }): this {
-    this.fields[10] = this.createComponentsField([
-      street,
-      "",
-      city || "",
-      state || "",
-      zip || "",
-    ]);
-    return this;
-  }
-
   /** Parses the input string into a structured instance. */
   static parse(
     segmentString: string,

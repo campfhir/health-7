@@ -133,65 +133,6 @@ export class PD1 extends BaseSegment {
     return this;
   }
 
-  /** PD1-13 Protection Indicator Effective Date (chainable). */
-  protectionIndicatorEffectiveDate(date: string): this {
-    this.fields[12] = this.createField(date);
-    return this;
-  }
-
-  /** PD1-14 Place of Worship (chainable). */
-  placeOfWorship(name: string): this {
-    this.fields[13] = this.createField(name);
-    return this;
-  }
-
-  /**
-   * PD1-15 Advance Directive Code (chainable).
-   * @param code - PD1-15.1 Code
-   * @param text - PD1-15.2 Text
-   * @param codingSystem - PD1-15.3 Coding System
-   */
-  advanceDirectiveCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
-    this.fields[14] = this.createComponentsField([code, text, codingSystem]);
-    return this;
-  }
-
-  /** PD1-16 Immunization Registry Status (chainable). */
-  immunizationRegistryStatus(status: string): this {
-    this.fields[15] = this.createField(status);
-    return this;
-  }
-
-  /** PD1-17 Immunization Registry Status Effective Date (chainable). */
-  immunizationRegistryStatusEffectiveDate(date: string): this {
-    this.fields[16] = this.createField(date);
-    return this;
-  }
-
-  /** PD1-18 Publicity Code Effective Date (chainable). */
-  publicityCodeEffectiveDate(date: string): this {
-    this.fields[17] = this.createField(date);
-    return this;
-  }
-
-  /** PD1-19 Military Branch (chainable). */
-  militaryBranch(branch: string): this {
-    this.fields[18] = this.createField(branch);
-    return this;
-  }
-
-  /** PD1-20 Military Rank/Grade (chainable). */
-  militaryRankGrade(rank: string): this {
-    this.fields[19] = this.createField(rank);
-    return this;
-  }
-
-  /** PD1-21 Military Status (chainable). */
-  militaryStatus(status: string): this {
-    this.fields[20] = this.createField(status);
-    return this;
-  }
-
   /**
    * Get living arrangement
    */

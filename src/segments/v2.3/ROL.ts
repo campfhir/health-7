@@ -123,50 +123,6 @@ export class ROL extends BaseSegment {
     return this;
   }
 
-  /**
-   * ROL-9 Provider Type (chainable).
-   * @param code - ROL-9.1 Code
-   * @param text - ROL-9.2 Text
-   */
-  providerType({ code, text }: { code: string; text?: string }): this {
-    this.fields[8] = this.createComponentsField([code, text || ""]);
-    return this;
-  }
-
-  /**
-   * ROL-10 Organization Unit Type (chainable).
-   * @param code - ROL-10.1 Code
-   * @param text - ROL-10.2 Text
-   */
-  organizationUnitType({ code, text }: { code: string; text?: string }): this {
-    this.fields[9] = this.createComponentsField([code, text || ""]);
-    return this;
-  }
-
-  /**
-   * ROL-11 Office/Home Address/Birthplace (chainable).
-   * @param street - ROL-11.1 Street
-   * @param city - ROL-11.3 City
-   * @param state - ROL-11.4 State
-   * @param zip - ROL-11.5 Zip
-   */
-  officeAddress({ street, city, state, zip }: { street: string; city?: string; state?: string; zip?: string }): this {
-    this.fields[10] = this.createComponentsField([
-      street,
-      "",
-      city || "",
-      state || "",
-      zip || "",
-    ]);
-    return this;
-  }
-
-  /** ROL-12 Phone (chainable). */
-  phone(value: string): this {
-    this.fields[11] = this.createField(value);
-    return this;
-  }
-
   /** Parses the input string into a structured instance. */
   static parse(
     segmentString: string,

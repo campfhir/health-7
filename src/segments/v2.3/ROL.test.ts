@@ -55,23 +55,4 @@ describe("ROL field positions", () => {
     const parts = new ROL().roleActionReason({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[8]).toBe("C1^C2");
   });
-
-  test("ROL-9 Provider Type", () => {
-    const parts = new ROL().providerType({ code: "C1", text: "C2" }).encode().split("|");
-    expect(parts[9]).toBe("C1^C2");
-  });
-
-  test("ROL-10 Organization Unit Type", () => {
-    const parts = new ROL().organizationUnitType({ code: "C1", text: "C2" }).encode().split("|");
-    expect(parts[10]).toBe("C1^C2");
-  });
-
-  test("ROL-11 Office Address", () => {
-    const parts = new ROL().officeAddress({ street: "C1", city: "C2", state: "C3", zip: "C4" }).encode().split("|");
-    expect(parts[11]).toBe("C1^^C2^C3^C4");
-  });
-
-  test("ROL-12 Phone", () => {
-    assertField(new ROL().phone(SENTINEL), 12);
-  });
 });
