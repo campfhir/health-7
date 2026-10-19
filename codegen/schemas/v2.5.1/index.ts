@@ -1,3 +1,7 @@
+export { VXU_V04_SCHEMA } from "./VXU_V04";
+export { ACK_SCHEMA } from "./ACK";
+export { ORM_O01_SCHEMA } from "./ORM_O01";
+export { ORR_O02_SCHEMA } from "./ORR_O02";
 export { ORU_R01_SCHEMA } from "./ORU_R01";
 export { ORU_R30_SCHEMA, ORU_R31_SCHEMA, ORU_R32_SCHEMA } from "./ORU_R30";
 export { MFN_M02_SCHEMA } from "./MFN_M02";

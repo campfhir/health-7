@@ -28,8 +28,8 @@ export interface SegmentGroup {
 export interface MessageSchema {
   /** The message type value. */
   messageType: string;
-  /** The trigger event value. */
-  triggerEvent: string;
+  /** The trigger event value. Omitted for messages without one, such as the general ACK. */
+  triggerEvent?: string;
   /** The version value. */
   version: string;
   /** The structure value. */

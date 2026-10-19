@@ -16,17 +16,21 @@ Legend: ✅ built · ⬜ not started · ⚠️ needs audit
 
 ## Built (v2.3)
 
-ACC, AIG, AIL, AIP, AIS, AL1, CTI, DB1, DG1, DRG, ERR, EVN, GT1, IN1, IN2, IN3, MFE, MFI, MRG,
-MSA, MSH, NK1, NTE, OBR, OBX, ORC, PD1, PID, PR1, PRA, PV1, PV2, RGS, ROL, RXA, RXD, RXE, RXO,
+ACC, AIG, AIL, AIP, AIS, AL1, BLG, CTD, CTI, DB1, DG1, DRG, ERR, EVN, FT1, GT1, IN1, IN2, IN3, MFE, MFI, MRG,
+MSA, MSH, NK1, NTE, OBR, OBX, ODS, ODT, ORC, PD1, PID, PR1, PRA, PV1, PV2, RGS, ROL, RQ1, RQD, RXA, RXD, RXE, RXO,
 RXR, SCH, STF, UB1, UB2
 
 Segments are placed in the version that introduced them: `SFT`, `SPM` and `TQ1` are in
-`segments/v2.5`; later versions re-export them. Checked against the Oemig HL7 database mirror
+`segments/v2.5` (plus `TQ2`); later versions re-export them. Checked against the Oemig HL7 database mirror
 (hl7.eu): `ROL` and `DB1` both have v2.3 definitions, so they stay in `segments/v2.3`. (`ROL` gained
 fields 9–12 in 2.4 and `DB1` was lightly revised — those are version-specific differences to
 implement, not reasons to move the segments.) Moving a segment is `git mv` into the introducing
 version directory, adding it to that version's `ownSegments` in `codegen/schemas/`, and running
 `pnpm codegen && pnpm barrels`.
+
+`RXA` and `RXR` were corrected in 0.9 (hl7.eu v2.3, v2.3.1, v2.4, v2.5, v2.5.1 segment pages): RXR-5 is v2.3.1 and RXR-6 is v2.5 (RXR is four fields in v2.3); RXA-23..26 are v2.5; RXA-10 repeats from v2.3.1; and the repeating and composite fields take every repetition and their full components.
+
+`ERR` was corrected in 0.9: the v2.3 segment has only ERR-1 (repeating), and ERR-2..12 live in `segments/v2.5` (checked against the hl7.eu v2.3, v2.3.1, v2.4, v2.5 and v2.5.1 segment pages).
 
 ## To build for v2.3
 
@@ -50,16 +54,12 @@ version directory, adding it to that version's `ownSegments` in `codegen/schemas
 | Segment | Name |
 |---|---|
 | ⬜ ADD | Addendum |
-| ⬜ BLG | Billing |
-| ⬜ FT1 | Financial Transaction |
 | ⬜ PCR | Possible Causal Relationship |
 | ⬜ PEO | Product Experience Observation |
 | ⬜ PES | Product Experience Sender |
 | ⬜ PSH | Product Summary Header |
 | ⬜ PDA | Patient Death and Autopsy |
 | ⬜ NPU | Bed Status Update |
-| ⬜ ODS | Dietary Orders, Supplements, Preferences |
-| ⬜ ODT | Diet Tray Instructions |
 
 ### Orders / observations / pharmacy
 | Segment | Name |
@@ -73,8 +73,6 @@ version directory, adding it to that version's `ownSegments` in `codegen/schemas
 | ⬜ NST | Application Control-Level Statistics |
 | ⬜ TXA | Transcription Document Header |
 | ⬜ RF1 | Referral Information |
-| ⬜ RQ1 | Requisition Detail-1 |
-| ⬜ RQD | Requisition Detail |
 | ⬜ PRD | Provider Data |
 | ⬜ CSR | Clinical Study Registration |
 | ⬜ CSS | Clinical Study Data Schedule |

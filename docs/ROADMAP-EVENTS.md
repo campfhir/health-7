@@ -19,6 +19,10 @@ Legend: ✅ builder + parser exist · ⬜ not started
 | ORU | R01 | ✅ | ✅ |
 | ORU | R30, R31, R32 | n/a (2.5+) | ✅ |
 | MFN | M02 (staff/practitioner) | ✅ | ✅ |
+| ACK | general acknowledgment | ✅ | ✅ |
+| ORM | O01 | ✅ | ✅ |
+| ORR | O02 | ✅ | ✅ |
+| VXU | V04 (unsolicited vaccination update) | ✅ | ✅ |
 | SIU | S12–S17, S26 | ✅ | ✅ |
 
 ## Remaining for v2.3
@@ -41,7 +45,6 @@ Legend: ✅ builder + parser exist · ⬜ not started
 ### Acknowledgments and queries (high priority — unblock everything else)
 | Message | Notes | Needs |
 |---|---|---|
-| ⬜ ACK (general) | MSH, MSA, ERR | ✅ ready |
 | ⬜ MCF | Delayed acknowledgment | — |
 | ⬜ QRY / QCK / DSR / DSC | Original-mode queries | QRD, QRF, QAK, DSP, DSC |
 | ⬜ ADR | ADT response | QRD, QRF |
@@ -51,8 +54,6 @@ Legend: ✅ builder + parser exist · ⬜ not started
 ### Orders and results
 | Message | Events | Needs |
 |---|---|---|
-| ⬜ ORM | O01 (general order) | ✅ ready (ORC, OBR, OBX, NTE, RXO…) |
-| ⬜ ORR | O02 (order response) | ✅ ready |
 | ⬜ ORU | R01 variants (unsolicited) and R03 | ✅ |
 | ⬜ ORF | R04 (query response for observations) | QRD, QRF |
 | ⬜ OSQ / OSR | Order status query / response | QRD |
@@ -78,14 +79,18 @@ Legend: ✅ builder + parser exist · ⬜ not started
 | ⬜ SRM / SRR | Schedule request / response (S01–S11) | ARQ-equivalents |
 | ⬜ RQI / RPI / RPL / RPR / RQP / RQC / RQA / RPA | Referral & patient information | RF1, PRD |
 | ⬜ CRM / CSU | Clinical study registration / unsolicited data | CSR, CSS |
-| ⬜ VXQ / VXR / VXX / VXU | Immunization (vaccination) messages | RXA, RXR ✅ |
+| ⬜ VXQ / VXR / VXX | Immunization query / response / response (VXU^V04 is done) | QRD, QRF |
 | ⬜ EAC / EAN / EAR / ESR / ESU | Equipment automation | ECD, ECR, EQU, SAC |
 | ⬜ INR / INU / LSR / LSU | Inventory / specimen automation | INV, ISD |
 | ⬜ NMD / NMQ / NMR | Network management | NCK, NDS, NSC, NST |
 | ⬜ STC | Patient state | — |
 | ⬜ OSQ, OSR | See orders | — |
 
-Suggested order: **ACK → ORM/ORR → VXU → remaining ADT → DFT/BAR → MDM → queries/MFN → the rest.**
+Done in 0.9: ACK, ORM^O01, ORR^O02 for v2.3 and v2.5.1 (`ORM`/`ORR` cover the OBR, RQD, RQ1, RXO, ODS and ODT order detail choices). Where the structures differ by version (checked on hl7.eu): v2.4 adds `[CTD]` and `[{FT1}]` to `ORM^O01`; v2.5 adds `[{SFT}]` and repeating `ERR` to `ACK`, repeating `ERR` to `ORR^O02`, and repeating `IN3` to `ORM^O01`. v2.3.1 matches v2.3 for all three, and v2.5.1 matches v2.5.
+
+VXU^V04 is also done for every version: v2.3 and v2.3.1 are identical, v2.4 adds `[{GT1}]`, and v2.5/v2.5.1 add `[{SFT}]`, a required `ORC` and the timing group (`TQ1`, `TQ2`).
+
+Suggested order: **remaining ADT → DFT/BAR → MDM → queries/MFN → the rest.**
 
 ## v2.5.1 parity
 After v2.3 is complete, bring v2.5.1 to parity with the same messages, then add the 2.5.1 additions:

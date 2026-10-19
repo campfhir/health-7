@@ -1,5 +1,9 @@
 import { VersionSchema } from "../../../src/types/schema";
+import { ACK_SCHEMA } from "./ACK";
+import { ORM_O01_SCHEMA } from "./ORM_O01";
+import { ORR_O02_SCHEMA } from "./ORR_O02";
 import { ORU_R01_SCHEMA } from "./ORU_R01";
+import { VXU_V04_SCHEMA } from "./VXU_V04";
 import { ORU_R30_SCHEMA, ORU_R31_SCHEMA, ORU_R32_SCHEMA } from "./ORU_R30";
 import { MFN_M02_SCHEMA } from "./MFN_M02";
 import { ADT_A28_SCHEMA } from "./ADT_A28";
@@ -80,9 +84,15 @@ export const V2_5_1: VersionSchema = {
     "MFI", "MFE", "STF", "PRA",
     // Scheduling
     "SCH", "RGS", "AIS", "AIL", "AIG", "AIP",
+    // Order detail / billing
+    "RQD", "RQ1", "ODS", "ODT", "BLG", "FT1", "CTD", "TQ2",
   ],
   messages: [
+    ACK_SCHEMA,
+    ORM_O01_SCHEMA,
+    ORR_O02_SCHEMA,
     ORU_R01_SCHEMA,
+    VXU_V04_SCHEMA,
     ORU_R30_SCHEMA,
     ORU_R31_SCHEMA,
     ORU_R32_SCHEMA,

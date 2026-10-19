@@ -2,8 +2,13 @@ import { DEFAULT_ENCODING, type EncodingCharacters } from "./encoding.ts";
 
 /** Field. */
 export interface Field {
-  /** The components value. */
+  /** The components of the field (of its first repetition, when the field repeats). */
   components: Component[];
+  /**
+   * Further repetitions of a repeating field, in order. The first repetition always lives in
+   * `components`, so code that only reads `components` keeps seeing the first one.
+   */
+  repetitions?: Field[];
 }
 
 /** Component. */
@@ -40,9 +45,13 @@ export abstract class BaseSegment implements Segment {
 
   /** Encode field. */
   private encodeField(field: Field, encoding: EncodingCharacters): string {
-    return field.components
+    const first = field.components
       .map((comp) => this.encodeComponent(comp, encoding))
       .join(encoding.componentSeparator);
+    if (!field.repetitions?.length) return first;
+    return [first, ...field.repetitions.map((rep) => this.encodeField(rep, encoding))].join(
+      encoding.repetitionSeparator,
+    );
   }
 
   /** Encode component. */
@@ -99,6 +108,18 @@ export abstract class BaseSegment implements Segment {
     while (comps.length > 0 && comps[comps.length - 1] === "") comps.pop();
     if (comps.length === 0) return this.createEmptyField();
     return { components: comps.map((v) => ({ subComponents: [v] })) };
+  }
+
+  /**
+   * Build a repeating field from its repetitions (each a field built with createField /
+   * createComponentsField). The first repetition becomes the field's `components`, the rest
+   * go in `repetitions`, and encode() joins them with the repetition separator. No
+   * repetitions gives an empty field.
+   */
+  protected createRepeatingField(repetitions: readonly Field[]): Field {
+    if (repetitions.length === 0) return this.createEmptyField();
+    const [first, ...rest] = repetitions;
+    return rest.length > 0 ? { components: first.components, repetitions: rest } : first;
   }
 
   /** Create empty field. */
