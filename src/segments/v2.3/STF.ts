@@ -1,6 +1,8 @@
 /**
  * STF segment definition for HL7 v2.3.
  *
+ * position-tests: hand-written (STF-14 or STF-17 repeats; see STF.test.ts)
+ * *
  * @module
  */
 import { Err } from "../../utils/err.ts";
@@ -190,13 +192,13 @@ export class STF extends BaseSegment {
   }
 
   /**
-   * STF-17 Marital Status (chainable).
-   * @param code - STF-17.1 Identifier
-   * @param text - STF-17.2 Text
-   * @param codingSystem - STF-17.3 Name of Coding System
+   * STF-17 Marital Status (CE, repeating) (chainable). One argument per repetition.
+   * @param values - Each entry is one repetition; STF-17.1 Identifier, STF-17.2 Text, STF-17.3 Name of Coding System
    */
-  maritalStatus({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
-    this.fields[16] = this.createComponentsField([code, text, codingSystem]);
+  maritalStatus(...values: { code: string; text?: string; codingSystem?: string }[]): this {
+    this.fields[16] = this.createRepeatingField(
+      values.map(({ code, text, codingSystem }) => this.createComponentsField([code, text, codingSystem])),
+    );
     return this;
   }
 

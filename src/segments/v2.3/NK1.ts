@@ -1,6 +1,8 @@
 /**
  * NK1 segment definition for HL7 v2.3.
  *
+ * position-tests: hand-written (NK1-14 or NK1-17 repeats; see NK1.test.ts)
+ * *
  * @module
  */
 import { Err } from "../../utils/err.ts";
@@ -164,13 +166,13 @@ export class NK1 extends BaseSegment {
   }
 
   /**
-   * NK1-14 Marital Status (chainable).
-   * @param code - NK1-14.1 Identifier
-   * @param text - NK1-14.2 Text
-   * @param codingSystem - NK1-14.3 Name of Coding System
+   * NK1-14 Marital Status (CE, repeating) (chainable). One argument per repetition.
+   * @param values - Each entry is one repetition; NK1-14.1 Identifier, NK1-14.2 Text, NK1-14.3 Name of Coding System
    */
-  maritalStatus({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
-    this.fields[13] = this.createComponentsField([code, text, codingSystem]);
+  maritalStatus(...values: { code: string; text?: string; codingSystem?: string }[]): this {
+    this.fields[13] = this.createRepeatingField(
+      values.map(({ code, text, codingSystem }) => this.createComponentsField([code, text, codingSystem])),
+    );
     return this;
   }
 
