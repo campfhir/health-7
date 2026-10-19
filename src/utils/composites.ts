@@ -32,6 +32,8 @@ function trimSubs(subs: readonly (string | undefined)[]): string[] {
 
 /** Hierarchic designator (HD). */
 export interface HD {
+  /** Datatype tag. A value tagged with another datatype does not fit this field. */
+  readonly datatype?: "HD";
   /** HD.1 Namespace ID */
   namespaceId?: string;
   /** HD.2 Universal ID */
@@ -45,6 +47,8 @@ export const hd = (v?: HD | string): Part =>
 
 /** Coded element (CE). */
 export interface CE {
+  /** Datatype tag. A value tagged with another datatype does not fit this field. */
+  readonly datatype?: "CE";
   /** CE.1 Identifier */
   identifier: string;
   /** CE.2 Text */
@@ -68,6 +72,8 @@ export const ceSubs = (v?: CE | string): Part =>
 
 /** Coded with (no) exceptions (CWE / CNE, identical in structure). */
 export interface CodedElement {
+  /** Datatype tag. A value tagged with another datatype does not fit this field. */
+  readonly datatype?: "CWE";
   /** Identifier (component 1) */
   code: string;
   /** Text (component 2) */
@@ -95,6 +101,8 @@ export const cweParts = (v: CodedElement): Part[] => [
 
 /** Money (MO). */
 export interface MO {
+  /** Datatype tag. A value tagged with another datatype does not fit this field. */
+  readonly datatype?: "MO";
   /** MO.1 Quantity */
   quantity?: string;
   /** MO.2 Denomination */
@@ -103,6 +111,8 @@ export interface MO {
 
 /** Composite price (CP). */
 export interface CP {
+  /** Datatype tag. A value tagged with another datatype does not fit this field. */
+  readonly datatype?: "CP";
   /** CP.1 Price (MO) */
   price?: MO | string;
   /** CP.2 Price Type */
@@ -124,6 +134,8 @@ export const cpParts = (v: CP): Part[] => [
 
 /** Person location (PL). */
 export interface PL {
+  /** Datatype tag. A value tagged with another datatype does not fit this field. */
+  readonly datatype?: "PL";
   /** PL.1 Point of Care */
   pointOfCare?: string;
   /** PL.2 Room */
@@ -151,6 +163,8 @@ export const plParts = (v: PL): Part[] => [
 
 /** Extended composite ID number and name for persons (XCN). */
 export interface XCN {
+  /** Datatype tag. A value tagged with another datatype does not fit this field. */
+  readonly datatype?: "XCN";
   /** XCN.1 ID Number */
   idNumber?: string;
   /** XCN.2 Family Name */
@@ -189,6 +203,8 @@ export const xcnParts = (v: XCN): Part[] => [
 
 /** Extended person name (XPN). */
 export interface XPN {
+  /** Datatype tag. A value tagged with another datatype does not fit this field. */
+  readonly datatype?: "XPN";
   /** XPN.1 Family Name */
   familyName?: string;
   /** XPN.2 Given Name */
@@ -214,6 +230,8 @@ export const xpnParts = (v: XPN): Part[] => [
 
 /** Extended address (XAD). */
 export interface XAD {
+  /** Datatype tag. A value tagged with another datatype does not fit this field. */
+  readonly datatype?: "XAD";
   /** XAD.1 Street Address */
   streetAddress?: string;
   /** XAD.2 Other Designation */
@@ -243,6 +261,8 @@ export const xadParts = (v: XAD): Part[] => [
 
 /** Extended telecommunication number (XTN), v2.3 layout (nine components). */
 export interface XTN {
+  /** Datatype tag. A value tagged with another datatype does not fit this field. */
+  readonly datatype?: "XTN";
   /** XTN.1 [(999)] 999-9999 [X99999][C any text] */
   telephoneNumber?: string;
   /** XTN.2 Telecommunication Use Code */
@@ -270,6 +290,8 @@ export const xtnParts = (v: XTN): Part[] => [
 
 /** Entity identifier (EI). */
 export interface EI {
+  /** Datatype tag. A value tagged with another datatype does not fit this field. */
+  readonly datatype?: "EI";
   /** EI.1 Entity Identifier */
   entityIdentifier: string;
   /** EI.2 Namespace ID */
@@ -284,6 +306,8 @@ export const eiParts = (v: EI): Part[] => [v.entityIdentifier, v.namespaceId, v.
 
 /** Person identifier (PI). */
 export interface PI {
+  /** Datatype tag. A value tagged with another datatype does not fit this field. */
+  readonly datatype?: "PI";
   /** PI.1 ID Number */
   idNumber: string;
   /** PI.2 Type of ID Number */
@@ -296,6 +320,8 @@ export const piParts = (v: PI): Part[] => [v.idNumber, v.typeOfIdNumber, v.other
 
 /** Extended composite ID with check digit (CX), v2.5.1 layout (ten components). */
 export interface CX {
+  /** Datatype tag. A value tagged with another datatype does not fit this field. */
+  readonly datatype?: "CX";
   /** CX.1 ID Number */
   idNumber: string;
   /** CX.2 Check Digit */
@@ -329,6 +355,8 @@ export const cxParts = (v: CX): Part[] => [
 
 /** Person location number (PLN), v2.5.1 layout (four components). */
 export interface PLN {
+  /** Datatype tag. A value tagged with another datatype does not fit this field. */
+  readonly datatype?: "PLN";
   /** PLN.1 ID Number */
   idNumber: string;
   /** PLN.2 Type of ID Number */
@@ -378,6 +406,8 @@ export function xcnInputParts(v: XcnInput): Part[] {
 
 /** Location with address information (LA2, and the same sixteen components of the v2.3 CM used by RXA-11). */
 export interface LA2 {
+  /** Datatype tag. A value tagged with another datatype does not fit this field. */
+  readonly datatype?: "LA2";
   /** LA2.1 Point of Care */
   pointOfCare?: string;
   /** LA2.2 Room */

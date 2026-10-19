@@ -9,6 +9,7 @@ import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
+import { type Repeated, repetitions } from "../../types/segment.ts";
 import { CTD as CTD_base } from "../v2.5/CTD.ts";
 import { ceParts, components, plnParts, type CE, type PI, type PLN } from "../../utils/composites.ts";
 
@@ -31,9 +32,9 @@ export class CTD extends CTD_base {
    * CTD-7 Contact Identifiers (PLN, repeating) (chainable). A PI-shaped value (v2.3 layout) is
    * accepted too: its otherQualifyingInfo becomes PLN.3.
    */
-  override contactIdentifiers(...values: (PI | PLN | string)[]): this {
+  override contactIdentifiers(...values: Repeated<PI | PLN | string>[]): this {
     this.fields[6] = this.createRepeatingField(
-      values.map((v) => {
+      repetitions(values).map((v) => {
         if (typeof v === "string") return this.createField(v);
         const either = v as Partial<PI> & Partial<PLN>;
         const pln: PLN = {
