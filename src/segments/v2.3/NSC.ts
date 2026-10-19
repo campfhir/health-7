@@ -25,7 +25,7 @@ export class NSC extends BaseSegment {
     this.fields = [];
   }
 
-  /** NSC-1 Network Change Type (IS, max 4, required) (chainable). */
+  /** NSC-1 Network Change Type (ID, max 4, required) (chainable). */
   networkChangeType(value: SegmentFieldValue): this {
     this.fields[0] = this.createField(value);
     return this;
@@ -70,12 +70,6 @@ export class NSC extends BaseSegment {
   /** NSC-8 New Application (ST, max 30, optional) (chainable). */
   newApplication(value: SegmentFieldValue): this {
     this.fields[7] = this.createField(value);
-    return this;
-  }
-
-  /** NSC-9 New Facility (ST, max 30, optional) (chainable). */
-  newFacility(value: SegmentFieldValue): this {
-    this.fields[8] = this.createField(value);
     return this;
   }
 

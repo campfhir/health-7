@@ -75,6 +75,10 @@ describe("ARQ field positions", () => {
     assertField(new ARQ().placerContactPerson(SENTINEL), 15);
   });
 
+  test("ARQ-16 Placer Contact Phone Number", () => {
+    assertField(new ARQ().placerContactPhoneNumber(SENTINEL), 16);
+  });
+
   test("ARQ-17 Placer Contact Address", () => {
     assertField(new ARQ().placerContactAddress(SENTINEL), 17);
   });

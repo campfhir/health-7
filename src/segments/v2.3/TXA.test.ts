@@ -71,10 +71,6 @@ describe("TXA field positions", () => {
     assertField(new TXA().uniqueDocumentFileName(SENTINEL), 16);
   });
 
-  test("TXA-17 Document Completion Status", () => {
-    assertField(new TXA().documentCompletionStatus(SENTINEL), 17);
-  });
-
   test("TXA-18 Document Confidentiality Status", () => {
     assertField(new TXA().documentConfidentialityStatus(SENTINEL), 18);
   });

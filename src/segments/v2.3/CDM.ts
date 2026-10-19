@@ -49,7 +49,7 @@ export class CDM extends BaseSegment {
     return this;
   }
 
-  /** CDM-5 Description Override Indicator (IS, max 1, optional) (chainable). */
+  /** CDM-5 Description Override Indicator (ID, max 1, optional) (chainable). */
   descriptionOverrideIndicator(value: SegmentFieldValue): this {
     this.fields[4] = this.createField(value);
     return this;

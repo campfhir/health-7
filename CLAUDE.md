@@ -8,9 +8,13 @@ event, field tables, data types, message structures), use **only** these sources
 - https://www.hl7.org (official HL7 International)
 - https://www.hl7.eu (e.g. `https://www.hl7.eu/HL7v2x/v23/hl7v23segmROL.htm`)
 - https://hl7-definition.caristix.com/v2
+- https://hapifhir.github.io/hapi-hl7v2/v23/apidocs (HAPI HL7 v2.3 generated structures, javadoc
+  e.g. `.../ca/uhn/hl7v2/model/v23/segment/IN2.html`). Use it as a cross-check for field types and
+  repeatability: a getter returning `X[]` or a `getXReps()` method means the field repeats. HAPI is
+  generated code, so it confirms a fact only alongside a spec source, not on its own.
 
 Do not rely on other sites (vendor guides, blogs, whitepapers, package docs) or on memory alone.
-If those three sources cannot confirm a fact, say so and flag it as unverified instead of
+If those sources cannot confirm a fact, say so and flag it as unverified instead of
 guessing. Cite the page used in the PR or commit when a spec decision is made.
 
 ## Workflow

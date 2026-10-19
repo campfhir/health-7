@@ -540,7 +540,7 @@
     "seq": 2,
     "name": "Allergy Type",
     "length": "2",
-    "type": "IS",
+    "type": "ID",
     "opt": "O",
     "rep": "-",
     "table": "0127"
@@ -558,7 +558,7 @@
     "seq": 4,
     "name": "Allergy Severity",
     "length": "2",
-    "type": "IS",
+    "type": "ID",
     "opt": "O",
     "rep": "-",
     "table": "0128"
@@ -777,7 +777,7 @@
     "length": "40",
     "type": "XTN",
     "opt": "O",
-    "rep": "∞",
+    "rep": "-",
     "table": ""
    },
    {
@@ -1160,7 +1160,7 @@
     "seq": 5,
     "name": "Description Override Indicator",
     "length": "1",
-    "type": "IS",
+    "type": "ID",
     "opt": "O",
     "rep": "-",
     "table": "0268"
@@ -1647,7 +1647,7 @@
     "length": "200",
     "type": "CE",
     "opt": "R",
-    "rep": "∞",
+    "rep": "-",
     "table": "0131"
    },
    {
@@ -1665,7 +1665,7 @@
     "length": "60",
     "type": "XAD",
     "opt": "O",
-    "rep": "-",
+    "rep": "∞",
     "table": ""
    },
    {
@@ -2271,7 +2271,7 @@
     "seq": 4,
     "name": "Event Reason Code",
     "length": "3",
-    "type": "IS",
+    "type": "ID",
     "opt": "O",
     "rep": "-",
     "table": "0062"
@@ -2574,7 +2574,7 @@
     "seq": 6,
     "name": "Transaction Type",
     "length": "8",
-    "type": "IS",
+    "type": "ID",
     "opt": "R",
     "rep": "-",
     "table": "0017"
@@ -2673,7 +2673,7 @@
     "seq": 17,
     "name": "Fee Schedule",
     "length": "1",
-    "type": "IS",
+    "type": "ID",
     "opt": "O",
     "rep": "-",
     "table": "0024"
@@ -2682,7 +2682,7 @@
     "seq": 18,
     "name": "Patient Type",
     "length": "2",
-    "type": "IS",
+    "type": "ID",
     "opt": "O",
     "rep": "-",
     "table": "0018"
@@ -2718,7 +2718,7 @@
     "seq": 22,
     "name": "Unit Cost",
     "length": "12",
-    "type": "CP",
+    "type": "NM",
     "opt": "O",
     "rep": "-",
     "table": ""
@@ -3737,7 +3737,7 @@
     "seq": 30,
     "name": "Verification By",
     "length": "60",
-    "type": "XCN",
+    "type": "XPN",
     "opt": "O",
     "rep": "-",
     "table": ""
@@ -3924,7 +3924,7 @@
     "length": "59",
     "type": "CX",
     "opt": "O",
-    "rep": "∞",
+    "rep": "-",
     "table": ""
    },
    {
@@ -3942,7 +3942,7 @@
     "length": "130",
     "type": "XCN",
     "opt": "O",
-    "rep": "∞",
+    "rep": "-",
     "table": ""
    },
    {
@@ -3960,7 +3960,7 @@
     "length": "1",
     "type": "IS",
     "opt": "O",
-    "rep": "∞",
+    "rep": "-",
     "table": "0137"
    },
    {
@@ -3978,7 +3978,7 @@
     "length": "48",
     "type": "XPN",
     "opt": "O",
-    "rep": "∞",
+    "rep": "-",
     "table": ""
    },
    {
@@ -3996,7 +3996,7 @@
     "length": "48",
     "type": "XPN",
     "opt": "O",
-    "rep": "∞",
+    "rep": "-",
     "table": ""
    },
    {
@@ -4129,7 +4129,7 @@
     "seq": 24,
     "name": "Non-Covered Insurance Code",
     "length": "8",
-    "type": "IS",
+    "type": "ST",
     "opt": "O",
     "rep": "∞",
     "table": "0143"
@@ -4140,7 +4140,7 @@
     "length": "59",
     "type": "CX",
     "opt": "O",
-    "rep": "∞",
+    "rep": "-",
     "table": ""
    },
    {
@@ -4149,7 +4149,7 @@
     "length": "59",
     "type": "CX",
     "opt": "O",
-    "rep": "∞",
+    "rep": "-",
     "table": ""
    },
    {
@@ -4561,7 +4561,7 @@
     "seq": 72,
     "name": "Patient Relationship to Insured",
     "length": "60",
-    "type": "CE",
+    "type": "ID",
     "opt": "O",
     "rep": "-",
     "table": ""
@@ -4932,7 +4932,7 @@
     "seq": 5,
     "name": "Valid Patient Classes",
     "length": "1",
-    "type": "IS",
+    "type": "ID",
     "opt": "O",
     "rep": "∞",
     "table": "0004"
@@ -5964,7 +5964,7 @@
     "seq": 1,
     "name": "Network Change Type",
     "length": "4",
-    "type": "IS",
+    "type": "ID",
     "opt": "R",
     "rep": "-",
     "table": "0333"
@@ -6026,15 +6026,6 @@
    {
     "seq": 8,
     "name": "New Application",
-    "length": "30",
-    "type": "ST",
-    "opt": "O",
-    "rep": "-",
-    "table": ""
-   },
-   {
-    "seq": 9,
-    "name": "New Facility",
     "length": "30",
     "type": "ST",
     "opt": "O",
@@ -6458,7 +6449,7 @@
     "length": "200",
     "type": "TQ",
     "opt": "O",
-    "rep": "∞",
+    "rep": "-",
     "table": ""
    },
    {
@@ -6998,7 +6989,7 @@
     "seq": 18,
     "name": "Nature of Test/Observation",
     "length": "1",
-    "type": "IS",
+    "type": "ID",
     "opt": "R",
     "rep": "-",
     "table": "0174"
@@ -7106,7 +7097,7 @@
     "seq": 30,
     "name": "Confidentiality Code",
     "length": "1",
-    "type": "IS",
+    "type": "ID",
     "opt": "O",
     "rep": "-",
     "table": "0177"
@@ -7633,7 +7624,7 @@
     "length": "22",
     "type": "EI",
     "opt": "C",
-    "rep": "-",
+    "rep": "∞",
     "table": ""
    },
    {
@@ -7723,7 +7714,7 @@
     "length": "120",
     "type": "XCN",
     "opt": "O",
-    "rep": "-",
+    "rep": "∞",
     "table": ""
    },
    {
@@ -8935,7 +8926,7 @@
     "seq": 6,
     "name": "Procedure Type",
     "length": "2",
-    "type": "IS",
+    "type": "ID",
     "opt": "R",
     "rep": "-",
     "table": "0230"
@@ -9048,7 +9039,7 @@
     "seq": 3,
     "name": "Practioner Category",
     "length": "3",
-    "type": "IS",
+    "type": "ID",
     "opt": "O",
     "rep": "∞",
     "table": "0186"
@@ -9346,7 +9337,7 @@
     "seq": 2,
     "name": "Facility ID",
     "length": "60",
-    "type": "CE",
+    "type": "EI",
     "opt": "O",
     "rep": "∞",
     "table": ""
@@ -9364,7 +9355,7 @@
     "seq": 4,
     "name": "Valid Patient Classes",
     "length": "1",
-    "type": "IS",
+    "type": "ID",
     "opt": "O",
     "rep": "∞",
     "table": "0004"
@@ -9445,7 +9436,7 @@
     "seq": 13,
     "name": "Price Override Flag",
     "length": "1",
-    "type": "IS",
+    "type": "ID",
     "opt": "O",
     "rep": "-",
     "table": "0268"
@@ -9490,7 +9481,7 @@
     "seq": 18,
     "name": "Charge On Indicator",
     "length": "1",
-    "type": "IS",
+    "type": "ID",
     "opt": "O",
     "rep": "-",
     "table": "0269"
@@ -9861,7 +9852,7 @@
     "seq": 10,
     "name": "Hospital Service",
     "length": "3",
-    "type": "IS",
+    "type": "ID",
     "opt": "O",
     "rep": "-",
     "table": "0069"
@@ -9879,7 +9870,7 @@
     "seq": 12,
     "name": "Preadmit Test Indicator",
     "length": "2",
-    "type": "IS",
+    "type": "ID",
     "opt": "O",
     "rep": "-",
     "table": "0087"
@@ -9888,7 +9879,7 @@
     "seq": 13,
     "name": "Readmission Indicator",
     "length": "2",
-    "type": "IS",
+    "type": "ID",
     "opt": "O",
     "rep": "-",
     "table": "0092"
@@ -9897,7 +9888,7 @@
     "seq": 14,
     "name": "Admit Source",
     "length": "3",
-    "type": "IS",
+    "type": "ID",
     "opt": "O",
     "rep": "-",
     "table": "0023"
@@ -9915,7 +9906,7 @@
     "seq": 16,
     "name": "VIP Indicator",
     "length": "2",
-    "type": "IS",
+    "type": "ID",
     "opt": "O",
     "rep": "-",
     "table": "0099"
@@ -9933,7 +9924,7 @@
     "seq": 18,
     "name": "Patient Type",
     "length": "2",
-    "type": "IS",
+    "type": "ID",
     "opt": "O",
     "rep": "-",
     "table": "0018"
@@ -9960,7 +9951,7 @@
     "seq": 21,
     "name": "Charge Price Indicator",
     "length": "2",
-    "type": "IS",
+    "type": "ID",
     "opt": "O",
     "rep": "-",
     "table": "0032"
@@ -9969,7 +9960,7 @@
     "seq": 22,
     "name": "Courtesy Code",
     "length": "2",
-    "type": "IS",
+    "type": "ID",
     "opt": "O",
     "rep": "-",
     "table": "0045"
@@ -9978,7 +9969,7 @@
     "seq": 23,
     "name": "Credit Rating",
     "length": "2",
-    "type": "IS",
+    "type": "ID",
     "opt": "O",
     "rep": "-",
     "table": "0046"
@@ -9987,7 +9978,7 @@
     "seq": 24,
     "name": "Contract Code",
     "length": "2",
-    "type": "IS",
+    "type": "ID",
     "opt": "O",
     "rep": "∞",
     "table": "0044"
@@ -10023,7 +10014,7 @@
     "seq": 28,
     "name": "Interest Code",
     "length": "2",
-    "type": "IS",
+    "type": "ID",
     "opt": "O",
     "rep": "-",
     "table": "0073"
@@ -10032,7 +10023,7 @@
     "seq": 29,
     "name": "Transfer to Bad Debt Code",
     "length": "1",
-    "type": "IS",
+    "type": "ID",
     "opt": "O",
     "rep": "-",
     "table": "0110"
@@ -10050,7 +10041,7 @@
     "seq": 31,
     "name": "Bad Debt Agency Code",
     "length": "10",
-    "type": "IS",
+    "type": "ID",
     "opt": "O",
     "rep": "-",
     "table": "0021"
@@ -10077,7 +10068,7 @@
     "seq": 34,
     "name": "Delete Account Indicator",
     "length": "1",
-    "type": "IS",
+    "type": "ID",
     "opt": "O",
     "rep": "-",
     "table": "0111"
@@ -10095,7 +10086,7 @@
     "seq": 36,
     "name": "Discharge Disposition",
     "length": "3",
-    "type": "IS",
+    "type": "ID",
     "opt": "O",
     "rep": "-",
     "table": "0112"
@@ -10113,7 +10104,7 @@
     "seq": 38,
     "name": "Diet Type",
     "length": "2",
-    "type": "IS",
+    "type": "ID",
     "opt": "O",
     "rep": "-",
     "table": "0114"
@@ -10122,7 +10113,7 @@
     "seq": 39,
     "name": "Servicing Facility",
     "length": "2",
-    "type": "IS",
+    "type": "ID",
     "opt": "O",
     "rep": "-",
     "table": "0115"
@@ -10140,7 +10131,7 @@
     "seq": 41,
     "name": "Account Status",
     "length": "2",
-    "type": "IS",
+    "type": "ID",
     "opt": "O",
     "rep": "-",
     "table": "0117"
@@ -11560,7 +11551,7 @@
     "seq": 9,
     "name": "Dispense Notes",
     "length": "200",
-    "type": "ST",
+    "type": "CE",
     "opt": "O",
     "rep": "∞",
     "table": ""
@@ -11587,7 +11578,7 @@
     "seq": 12,
     "name": "Total Daily Dose",
     "length": "10",
-    "type": "NM",
+    "type": "CQ",
     "opt": "O",
     "rep": "-",
     "table": ""
@@ -11670,7 +11661,7 @@
     "length": "200",
     "type": "CE",
     "opt": "O",
-    "rep": "∞",
+    "rep": "-",
     "table": ""
    },
    {
@@ -12837,7 +12828,7 @@
     "seq": 16,
     "name": "Preferred Method of Contact",
     "length": "1",
-    "type": "ID",
+    "type": "CE",
     "opt": "O",
     "rep": "-",
     "table": "0185"
@@ -13087,7 +13078,7 @@
     "length": "2",
     "type": "ID",
     "opt": "R",
-    "rep": "-",
+    "rep": "∞",
     "table": "0271"
    },
    {
@@ -13261,7 +13252,7 @@
     "seq": 13,
     "name": "PSRO/UR Approval Indicator",
     "length": "60",
-    "type": "CE",
+    "type": "ID",
     "opt": "O",
     "rep": "-",
     "table": ""
@@ -13297,7 +13288,7 @@
     "seq": 17,
     "name": "Occurrence Span",
     "length": "60",
-    "type": "CE",
+    "type": "ID",
     "opt": "O",
     "rep": "-",
     "table": ""
@@ -13383,7 +13374,7 @@
     "seq": 3,
     "name": "Condition Code",
     "length": "2",
-    "type": "IS",
+    "type": "ID",
     "opt": "O",
     "rep": "7",
     "table": "0043"

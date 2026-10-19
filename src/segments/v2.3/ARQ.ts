@@ -115,9 +115,9 @@ export class ARQ extends BaseSegment {
     return this;
   }
 
-  /** ARQ-16 Placer Contact Phone Number (XTN, max 40, optional, repeating) (chainable). */
-  placerContactPhoneNumber(values: readonly SegmentFieldValue[]): this {
-    this.fields[15] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  /** ARQ-16 Placer Contact Phone Number (XTN, max 40, optional) (chainable). */
+  placerContactPhoneNumber(value: SegmentFieldValue): this {
+    this.fields[15] = this.createField(value);
     return this;
   }
 

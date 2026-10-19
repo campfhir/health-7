@@ -127,7 +127,7 @@ export class OM1 extends BaseSegment {
     return this;
   }
 
-  /** OM1-18 Nature of Test/Observation (IS, max 1, required) (chainable). */
+  /** OM1-18 Nature of Test/Observation (ID, max 1, required) (chainable). */
   natureOfTestObservation(value: SegmentFieldValue): this {
     this.fields[17] = this.createField(value);
     return this;
@@ -199,7 +199,7 @@ export class OM1 extends BaseSegment {
     return this;
   }
 
-  /** OM1-30 Confidentiality Code (IS, max 1, optional) (chainable). */
+  /** OM1-30 Confidentiality Code (ID, max 1, optional) (chainable). */
   confidentialityCode(value: SegmentFieldValue): this {
     this.fields[29] = this.createField(value);
     return this;

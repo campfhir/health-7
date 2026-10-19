@@ -121,9 +121,9 @@ export class TXA extends BaseSegment {
     return this;
   }
 
-  /** TXA-17 Document Completion Status (ID, max 2, required) (chainable). */
-  documentCompletionStatus(value: SegmentFieldValue): this {
-    this.fields[16] = this.createField(value);
+  /** TXA-17 Document Completion Status (ID, max 2, required, repeating) (chainable). */
+  documentCompletionStatus(values: readonly SegmentFieldValue[]): this {
+    this.fields[16] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 

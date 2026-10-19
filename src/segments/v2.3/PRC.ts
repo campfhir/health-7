@@ -31,7 +31,7 @@ export class PRC extends BaseSegment {
     return this;
   }
 
-  /** PRC-2 Facility ID (CE, max 60, optional, repeating) (chainable). */
+  /** PRC-2 Facility ID (EI, max 60, optional, repeating) (chainable). */
   facilityId(values: readonly SegmentFieldValue[]): this {
     this.fields[1] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
@@ -43,7 +43,7 @@ export class PRC extends BaseSegment {
     return this;
   }
 
-  /** PRC-4 Valid Patient Classes (IS, max 1, optional, repeating) (chainable). */
+  /** PRC-4 Valid Patient Classes (ID, max 1, optional, repeating) (chainable). */
   validPatientClasses(values: readonly SegmentFieldValue[]): this {
     this.fields[3] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
@@ -97,7 +97,7 @@ export class PRC extends BaseSegment {
     return this;
   }
 
-  /** PRC-13 Price Override Flag (IS, max 1, optional) (chainable). */
+  /** PRC-13 Price Override Flag (ID, max 1, optional) (chainable). */
   priceOverrideFlag(value: SegmentFieldValue): this {
     this.fields[12] = this.createField(value);
     return this;
@@ -127,7 +127,7 @@ export class PRC extends BaseSegment {
     return this;
   }
 
-  /** PRC-18 Charge On Indicator (IS, max 1, optional) (chainable). */
+  /** PRC-18 Charge On Indicator (ID, max 1, optional) (chainable). */
   chargeOnIndicator(value: SegmentFieldValue): this {
     this.fields[17] = this.createField(value);
     return this;

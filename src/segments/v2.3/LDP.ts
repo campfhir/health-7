@@ -49,7 +49,7 @@ export class LDP extends BaseSegment {
     return this;
   }
 
-  /** LDP-5 Valid Patient Classes (IS, max 1, optional, repeating) (chainable). */
+  /** LDP-5 Valid Patient Classes (ID, max 1, optional, repeating) (chainable). */
   validPatientClasses(values: readonly SegmentFieldValue[]): this {
     this.fields[4] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
