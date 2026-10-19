@@ -112,26 +112,6 @@ export class AIS extends BaseSegment {
     return this;
   }
 
-  /**
-   * AIS-11 Placer Supplemental Service Information (chainable).
-   * @param code - AIS-11.1 Code
-   * @param text - AIS-11.2 Text
-   */
-  placerSupplementalInfo({ code, text }: { code: string; text?: string }): this {
-    this.fields[10] = this.createComponentsField([code, text]);
-    return this;
-  }
-
-  /**
-   * AIS-12 Filler Supplemental Service Information (chainable).
-   * @param code - AIS-12.1 Code
-   * @param text - AIS-12.2 Text
-   */
-  fillerSupplementalInfo({ code, text }: { code: string; text?: string }): this {
-    this.fields[11] = this.createComponentsField([code, text]);
-    return this;
-  }
-
   /** Parses the input string into a structured instance. */
   static parse(
     segmentString: string,

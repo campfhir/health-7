@@ -116,11 +116,6 @@ describe("PV2 field positions", () => {
     assertField(new PV2().visitPriorityCode(SENTINEL), 25);
   });
 
-  test("PV2-38 Mode Of Arrival Code", () => {
-    const parts = new PV2().modeOfArrivalCode({ code: "C1", text: "C2" }).encode().split("|");
-    expect(parts[38]).toBe("C1^C2");
-  });
-
   test("PV2-23 Clinic Organization Name", () => {
     assertField(new PV2().clinicOrganizationName(SENTINEL), 23);
   });

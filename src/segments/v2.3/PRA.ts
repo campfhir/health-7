@@ -1,11 +1,13 @@
 /**
  * PRA segment definition for HL7 v2.3.
  *
+ * position-tests: hand-written (PRA-7 repeats; see PRA.test.ts)
+ *
  * @module
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment } from "../../types/segment.ts";
+import { BaseSegment, type SegmentFieldValue } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 import {
@@ -105,6 +107,15 @@ export class PRA extends BaseSegment {
       expireDate ?? "",
     ];
     this.fields[5] = this.createField(components);
+    return this;
+  }
+
+  /**
+   * PRA-7 Privileges (CM_PIP, repeating) (chainable).
+   * Each entry is one repetition in raw HL7 form.
+   */
+  privileges(values: readonly SegmentFieldValue[]): this {
+    this.fields[6] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 

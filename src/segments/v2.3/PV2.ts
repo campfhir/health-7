@@ -240,16 +240,6 @@ export class PV2 extends BaseSegment {
   }
 
   /**
-   * PV2-38 Mode of Arrival Code (chainable).
-   * @param code - PV2-38.1 Code
-   * @param text - PV2-38.2 Text
-   */
-  modeOfArrivalCode({ code, text }: { code: string; text?: string }): this {
-    this.fields[37] = this.createComponentsField([code, text || ""]);
-    return this;
-  }
-
-  /**
    * PV2-23 Clinic Organization Name (chainable).
    * @param organizationName - PV2-23.1 Organization Name
    */

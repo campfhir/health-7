@@ -30,9 +30,4 @@ describe("NTE field positions", () => {
   test("NTE-3 Comment", () => {
     assertField(new NTE().comment(SENTINEL), 3);
   });
-
-  test("NTE-4 Comment Type", () => {
-    const parts = new NTE().commentType({ identifier: "C1", text: "C2", codingSystem: "C3" }).encode().split("|");
-    expect(parts[4]).toBe("C1^C2^C3");
-  });
 });

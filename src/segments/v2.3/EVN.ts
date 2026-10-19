@@ -84,18 +84,6 @@ export class EVN extends BaseSegment {
     return this;
   }
 
-  /**
-   * EVN-7 Event Facility (chainable).
-   * @param namespaceId - EVN-7.1 Namespace ID
-   * @param universalId - EVN-7.2 Universal ID
-   * @param universalIdType - EVN-7.3 Universal ID Type
-   */
-  eventFacility({ namespaceId, universalId, universalIdType }: { namespaceId: string; universalId?: string; universalIdType?: string }): this {
-    const components = [namespaceId, universalId || "", universalIdType || ""];
-    this.fields[6] = this.createField(components);
-    return this;
-  }
-
   /** Parses the input string into a structured instance. */
   static parse(
     segmentString: string,

@@ -101,12 +101,6 @@ export class DRG extends BaseSegment {
     return this;
   }
 
-  /** DRG-11 DRG Transfer Type (chainable). */
-  drgTransferType(value: string): this {
-    this.fields[10] = this.createField(value);
-    return this;
-  }
-
   /** Parses the input string into a structured instance. */
   static parse(
     segmentString: string,

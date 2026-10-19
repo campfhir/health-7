@@ -43,21 +43,6 @@ export class NTE extends BaseSegment {
   }
 
   /**
-   * NTE-4 Comment Type (chainable).
-   * @param identifier - NTE-4.1 Identifier
-   * @param text - NTE-4.2 Text
-   * @param codingSystem - NTE-4.3 Coding System
-   */
-  commentType({ identifier, text, codingSystem }: { identifier: string; text?: string; codingSystem?: string }): this {
-    this.fields[3] = this.createComponentsField([
-      identifier,
-      text,
-      codingSystem,
-    ]);
-    return this;
-  }
-
-  /**
    * Get the comment text from NTE-3
    */
   getComment(): string {

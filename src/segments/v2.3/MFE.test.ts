@@ -34,8 +34,4 @@ describe("MFE field positions", () => {
   test("MFE-4 Primary Key Value", () => {
     assertField(new MFE().primaryKeyValue(SENTINEL), 4);
   });
-
-  test("MFE-5 Primary Key Value Type", () => {
-    assertField(new MFE().primaryKeyValueType(SENTINEL), 5);
-  });
 });

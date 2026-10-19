@@ -60,12 +60,6 @@ export class MFE extends BaseSegment {
     return this;
   }
 
-  /** MFE-5 Primary Key Value Type (chainable). */
-  primaryKeyValueType(value: string): this {
-    this.fields[4] = this.createField(value);
-    return this;
-  }
-
   /** Get record level event code. */
   getRecordLevelEventCode(): string {
     return this.fields[0]?.components[0]?.subComponents[0] ?? "";
