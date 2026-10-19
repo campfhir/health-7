@@ -44,7 +44,7 @@ export class SPR extends BaseSegment {
   }
 
   /** SPR-4 Input parameter list (QIP, max 256, optional, repeating) (chainable). */
-  inputParameterList(values: readonly SegmentFieldValue[]): this {
+  inputParameterList(...values: SegmentFieldValue[]): this {
     this.fields[3] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }

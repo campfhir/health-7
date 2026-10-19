@@ -38,7 +38,7 @@ export class OM2 extends BaseSegment {
   }
 
   /** OM2-3 Range of Decimal Precision (NM, max 10, optional, repeating) (chainable). */
-  rangeOfDecimalPrecision(values: readonly SegmentFieldValue[]): this {
+  rangeOfDecimalPrecision(...values: SegmentFieldValue[]): this {
     this.fields[2] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
@@ -74,7 +74,7 @@ export class OM2 extends BaseSegment {
   }
 
   /** OM2-9 Delta Check Criteria (CM_DLT, max 200, optional, repeating) (chainable). */
-  deltaCheckCriteria(values: readonly SegmentFieldValue[]): this {
+  deltaCheckCriteria(...values: SegmentFieldValue[]): this {
     this.fields[8] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }

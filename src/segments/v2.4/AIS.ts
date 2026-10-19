@@ -22,8 +22,10 @@ export class AIS extends AIS_base {
    * @param code - AIS-11.1 Code
    * @param text - AIS-11.2 Text
    */
-  placerSupplementalInfo({ code, text }: { code: string; text?: string }): this {
-    this.fields[10] = this.createComponentsField([code, text]);
+  placerSupplementalInfo(...values: { code: string; text?: string }[]): this {
+    this.fields[10] = this.createRepeatingField(
+      values.map(({ code, text }) => this.createComponentsField([code, text])),
+    );
     return this;
   }
 
@@ -32,8 +34,10 @@ export class AIS extends AIS_base {
    * @param code - AIS-12.1 Code
    * @param text - AIS-12.2 Text
    */
-  fillerSupplementalInfo({ code, text }: { code: string; text?: string }): this {
-    this.fields[11] = this.createComponentsField([code, text]);
+  fillerSupplementalInfo(...values: { code: string; text?: string }[]): this {
+    this.fields[11] = this.createRepeatingField(
+      values.map(({ code, text }) => this.createComponentsField([code, text])),
+    );
     return this;
   }
 

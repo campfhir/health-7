@@ -40,7 +40,7 @@ export class BTS extends BaseSegment {
    * BTS-3 Batch Totals (chainable). Repeating numeric totals.
    * @param values - One entry per repetition
    */
-  batchTotals(values: readonly string[]): this {
+  batchTotals(...values: string[]): this {
     this.fields[2] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }

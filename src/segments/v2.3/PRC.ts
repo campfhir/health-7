@@ -32,31 +32,31 @@ export class PRC extends BaseSegment {
   }
 
   /** PRC-2 Facility ID (EI, max 60, optional, repeating) (chainable). */
-  facilityId(values: readonly SegmentFieldValue[]): this {
+  facilityId(...values: SegmentFieldValue[]): this {
     this.fields[1] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 
   /** PRC-3 Department (CE, max 30, optional, repeating) (chainable). */
-  department(values: readonly SegmentFieldValue[]): this {
+  department(...values: SegmentFieldValue[]): this {
     this.fields[2] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 
   /** PRC-4 Valid Patient Classes (ID, max 1, optional, repeating) (chainable). */
-  validPatientClasses(values: readonly SegmentFieldValue[]): this {
+  validPatientClasses(...values: SegmentFieldValue[]): this {
     this.fields[3] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 
   /** PRC-5 Price (CP, max 12, conditional, repeating) (chainable). */
-  price(values: readonly SegmentFieldValue[]): this {
+  price(...values: SegmentFieldValue[]): this {
     this.fields[4] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 
   /** PRC-6 Formula (ST, max 200, optional, repeating) (chainable). */
-  formula(values: readonly SegmentFieldValue[]): this {
+  formula(...values: SegmentFieldValue[]): this {
     this.fields[5] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
@@ -104,7 +104,7 @@ export class PRC extends BaseSegment {
   }
 
   /** PRC-14 Billing Category (CE, max 60, optional, repeating) (chainable). */
-  billingCategory(values: readonly SegmentFieldValue[]): this {
+  billingCategory(...values: SegmentFieldValue[]): this {
     this.fields[13] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }

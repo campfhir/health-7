@@ -12,7 +12,7 @@ describe("BTS field positions", () => {
   });
 
   test("BTS-3 Batch Totals repeat with the repetition separator", () => {
-    expect(new BTS().batchTotals(["10", "20"]).encode().split("|")[3]).toBe("10~20");
+    expect(new BTS().batchTotals("10", "20").encode().split("|")[3]).toBe("10~20");
   });
 });
 

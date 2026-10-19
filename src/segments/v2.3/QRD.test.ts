@@ -33,10 +33,10 @@ describe("QRD field positions", () => {
 
   test("QRD-8 Who Subject Filter repeats", () => {
     const parts = new QRD()
-      .whoSubjectFilter([
-        { id: "DOC1", familyName: "Smith", givenName: "John" },
-        { id: "DOC2" },
-      ])
+      .whoSubjectFilter(
+{ id: "DOC1", familyName: "Smith", givenName: "John" },
+        { id: "DOC2" }
+      )
       .encode()
       .split("|");
     expect(parts[8]).toBe("DOC1^Smith^John~DOC2");
@@ -44,7 +44,7 @@ describe("QRD field positions", () => {
 
   test("QRD-9 What Subject Filter repeats", () => {
     const parts = new QRD()
-      .whatSubjectFilter([{ code: "C1", text: "T1", codingSystem: "S1" }, { code: "C2" }])
+      .whatSubjectFilter({ code: "C1", text: "T1", codingSystem: "S1" }, { code: "C2" })
       .encode()
       .split("|");
     expect(parts[9]).toBe("C1^T1^S1~C2");
@@ -52,14 +52,14 @@ describe("QRD field positions", () => {
 
   test("QRD-10 What Department Data Code repeats", () => {
     const parts = new QRD()
-      .whatDepartmentDataCode([{ code: "D1", text: "DT", codingSystem: "DS" }])
+      .whatDepartmentDataCode({ code: "D1", text: "DT", codingSystem: "DS" })
       .encode()
       .split("|");
     expect(parts[10]).toBe("D1^DT^DS");
   });
 
   test("QRD-11 What Data Code Value Qualifier repeats", () => {
-    expect(new QRD().whatDataCodeValueQualifier(["A", "B"]).encode().split("|")[11]).toBe("A~B");
+    expect(new QRD().whatDataCodeValueQualifier("A", "B").encode().split("|")[11]).toBe("A~B");
   });
 
   test("QRD-12 Query Results Level", () => {

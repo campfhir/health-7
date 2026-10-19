@@ -50,7 +50,7 @@ export class MFA extends BaseSegment {
   }
 
   /** MFA-5 Primary Key Value (CE, max 60, required, repeating) (chainable). */
-  primaryKeyValue(values: readonly SegmentFieldValue[]): this {
+  primaryKeyValue(...values: SegmentFieldValue[]): this {
     this.fields[4] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }

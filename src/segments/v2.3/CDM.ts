@@ -32,7 +32,7 @@ export class CDM extends BaseSegment {
   }
 
   /** CDM-2 Charge Code Alias (CE, max 200, optional, repeating) (chainable). */
-  chargeCodeAlias(values: readonly SegmentFieldValue[]): this {
+  chargeCodeAlias(...values: SegmentFieldValue[]): this {
     this.fields[1] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
@@ -56,13 +56,13 @@ export class CDM extends BaseSegment {
   }
 
   /** CDM-6 Exploding Charges (CE, max 60, optional, repeating) (chainable). */
-  explodingCharges(values: readonly SegmentFieldValue[]): this {
+  explodingCharges(...values: SegmentFieldValue[]): this {
     this.fields[5] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 
   /** CDM-7 Procedure Code (CE, max 200, optional, repeating) (chainable). */
-  procedureCode(values: readonly SegmentFieldValue[]): this {
+  procedureCode(...values: SegmentFieldValue[]): this {
     this.fields[6] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
@@ -74,7 +74,7 @@ export class CDM extends BaseSegment {
   }
 
   /** CDM-9 Inventory Number (CE, max 60, optional, repeating) (chainable). */
-  inventoryNumber(values: readonly SegmentFieldValue[]): this {
+  inventoryNumber(...values: SegmentFieldValue[]): this {
     this.fields[8] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
@@ -86,7 +86,7 @@ export class CDM extends BaseSegment {
   }
 
   /** CDM-11 Contract Number (CK, max 200, optional, repeating) (chainable). */
-  contractNumber(values: readonly SegmentFieldValue[]): this {
+  contractNumber(...values: SegmentFieldValue[]): this {
     this.fields[10] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }

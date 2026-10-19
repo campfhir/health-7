@@ -56,7 +56,7 @@ export class VAR extends BaseSegment {
   }
 
   /** VAR-6 Variance Description (ST, max 512, optional, repeating) (chainable). */
-  varianceDescription(values: readonly SegmentFieldValue[]): this {
+  varianceDescription(...values: SegmentFieldValue[]): this {
     this.fields[5] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }

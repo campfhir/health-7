@@ -74,7 +74,7 @@ export class RXG extends BaseSegment {
   }
 
   /** RXG-9 Administration Notes (CE, max 200, optional, repeating) (chainable). */
-  administrationNotes(values: readonly SegmentFieldValue[]): this {
+  administrationNotes(...values: SegmentFieldValue[]): this {
     this.fields[8] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
@@ -134,25 +134,25 @@ export class RXG extends BaseSegment {
   }
 
   /** RXG-19 Substance Lot Number (ST, max 20, optional, repeating) (chainable). */
-  substanceLotNumber(values: readonly SegmentFieldValue[]): this {
+  substanceLotNumber(...values: SegmentFieldValue[]): this {
     this.fields[18] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 
   /** RXG-20 Substance Expiration Date (TS, max 26, optional, repeating) (chainable). */
-  substanceExpirationDate(values: readonly SegmentFieldValue[]): this {
+  substanceExpirationDate(...values: SegmentFieldValue[]): this {
     this.fields[19] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 
   /** RXG-21 Substance Manufacturer Name (CE, max 60, optional, repeating) (chainable). */
-  substanceManufacturerName(values: readonly SegmentFieldValue[]): this {
+  substanceManufacturerName(...values: SegmentFieldValue[]): this {
     this.fields[20] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 
   /** RXG-22 Indication (CE, max 200, optional, repeating) (chainable). */
-  indication(values: readonly SegmentFieldValue[]): this {
+  indication(...values: SegmentFieldValue[]): this {
     this.fields[21] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }

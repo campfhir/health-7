@@ -50,7 +50,7 @@ export class VTQ extends BaseSegment {
   }
 
   /** VTQ-5 Selection Criteria (QSC, max 256, optional, repeating) (chainable). */
-  selectionCriteria(values: readonly SegmentFieldValue[]): this {
+  selectionCriteria(...values: SegmentFieldValue[]): this {
     this.fields[4] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }

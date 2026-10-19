@@ -38,7 +38,7 @@ export class OM1 extends BaseSegment {
   }
 
   /** OM1-3 Permitted Data Types (ID, max 12, optional, repeating) (chainable). */
-  permittedDataTypes(values: readonly SegmentFieldValue[]): this {
+  permittedDataTypes(...values: SegmentFieldValue[]): this {
     this.fields[2] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
@@ -68,7 +68,7 @@ export class OM1 extends BaseSegment {
   }
 
   /** OM1-8 Other Names (ST, max 200, required, repeating) (chainable). */
-  otherNames(values: readonly SegmentFieldValue[]): this {
+  otherNames(...values: SegmentFieldValue[]): this {
     this.fields[7] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
@@ -98,7 +98,7 @@ export class OM1 extends BaseSegment {
   }
 
   /** OM1-13 Identity of Instrument Used to Perfrom this Study (CE, max 60, optional, repeating) (chainable). */
-  identityOfInstrumentUsedToPerfromThisStudy(values: readonly SegmentFieldValue[]): this {
+  identityOfInstrumentUsedToPerfromThisStudy(...values: SegmentFieldValue[]): this {
     this.fields[12] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
@@ -116,7 +116,7 @@ export class OM1 extends BaseSegment {
   }
 
   /** OM1-16 Observation Producing Department/Section (CE, max 1, optional, repeating) (chainable). */
-  observationProducingDepartmentSection(values: readonly SegmentFieldValue[]): this {
+  observationProducingDepartmentSection(...values: SegmentFieldValue[]): this {
     this.fields[15] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
@@ -170,7 +170,7 @@ export class OM1 extends BaseSegment {
   }
 
   /** OM1-25 Processing Priority (ID, max 40, optional, repeating) (chainable). */
-  processingPriority(values: readonly SegmentFieldValue[]): this {
+  processingPriority(...values: SegmentFieldValue[]): this {
     this.fields[24] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
@@ -182,7 +182,7 @@ export class OM1 extends BaseSegment {
   }
 
   /** OM1-27 Outside Site (CE, max 200, optional, repeating) (chainable). */
-  outsideSite(values: readonly SegmentFieldValue[]): this {
+  outsideSite(...values: SegmentFieldValue[]): this {
     this.fields[26] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
@@ -224,7 +224,7 @@ export class OM1 extends BaseSegment {
   }
 
   /** OM1-34 Reflex Tests/Observations (CE, max 200, optional, repeating) (chainable). */
-  reflexTestsObservations(values: readonly SegmentFieldValue[]): this {
+  reflexTestsObservations(...values: SegmentFieldValue[]): this {
     this.fields[33] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
@@ -260,7 +260,7 @@ export class OM1 extends BaseSegment {
   }
 
   /** OM1-40 Test/Observation Performance Schedule (ST, max 60, optional, repeating) (chainable). */
-  testObservationPerformanceSchedule(values: readonly SegmentFieldValue[]): this {
+  testObservationPerformanceSchedule(...values: SegmentFieldValue[]): this {
     this.fields[39] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }

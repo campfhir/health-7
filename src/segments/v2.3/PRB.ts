@@ -86,7 +86,7 @@ export class PRB extends BaseSegment {
   }
 
   /** PRB-11 Problem Management Discipline (CE, max 80, optional, repeating) (chainable). */
-  problemManagementDiscipline(values: readonly SegmentFieldValue[]): this {
+  problemManagementDiscipline(...values: SegmentFieldValue[]): this {
     this.fields[10] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }

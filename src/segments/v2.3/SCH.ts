@@ -1,6 +1,8 @@
 /**
  * SCH segment definition for HL7 v2.3.
  *
+ * position-tests: hand-written (repeating setters take spread arguments; see its test file)
+ *
  * @module
  */
 import { Err } from "../../utils/err.ts";
@@ -116,8 +118,8 @@ export class SCH extends BaseSegment {
   }
 
   /** SCH-11 Appointment Timing Quantity (chainable). */
-  appointmentTimingQuantity(value: string): this {
-    this.fields[10] = this.createField(value);
+  appointmentTimingQuantity(...values: string[]): this {
+    this.fields[10] = this.createRepeatingField(values.map((value) => this.createField(value)));
     return this;
   }
 
@@ -251,8 +253,8 @@ export class SCH extends BaseSegment {
   }
 
   /** SCH-21 Entered By Phone Number (chainable). */
-  enteredByPhoneNumber(value: string): this {
-    this.fields[20] = this.createField(value);
+  enteredByPhoneNumber(...values: string[]): this {
+    this.fields[20] = this.createRepeatingField(values.map((value) => this.createField(value)));
     return this;
   }
 

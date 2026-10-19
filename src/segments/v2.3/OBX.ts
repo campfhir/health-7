@@ -1,11 +1,13 @@
 /**
  * OBX segment definition for HL7 v2.3.
  *
+ * position-tests: hand-written (repeating setters take spread arguments; see its test file)
+ *
  * @module
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment } from "../../types/segment.ts";
+import { BaseSegment, type SegmentFieldValue } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 import {
@@ -58,8 +60,8 @@ export class OBX extends BaseSegment {
     return this;
   }
   /** OBX-5 Observation Value (chainable). */
-  observationValue(value: string | string[]): this {
-    this.fields[4] = this.createField(value);
+  observationValue(...values: SegmentFieldValue[]): this {
+    this.fields[4] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
   /**
@@ -82,8 +84,8 @@ export class OBX extends BaseSegment {
     return this;
   }
   /** OBX-8 Abnormal Flags (chainable). */
-  abnormalFlags(value: string): this {
-    this.fields[7] = this.createField(value);
+  abnormalFlags(...values: string[]): this {
+    this.fields[7] = this.createRepeatingField(values.map((value) => this.createField(value)));
     return this;
   }
   /** OBX-9 Probability (chainable). */
@@ -153,12 +155,12 @@ export class OBX extends BaseSegment {
    * @param text - OBX-17.2 Text
    * @param nameOfCodingSystem - OBX-17.3 Name of Coding System
    */
-  observationMethod({ identifier, text, nameOfCodingSystem }: { identifier?: string; text?: string; nameOfCodingSystem?: string }): this {
-    this.fields[16] = this.createComponentsField([
+  observationMethod(...values: { identifier?: string; text?: string; nameOfCodingSystem?: string }[]): this {
+    this.fields[16] = this.createRepeatingField(values.map(({ identifier, text, nameOfCodingSystem }) => this.createComponentsField([
       identifier,
       text,
       nameOfCodingSystem,
-    ]);
+    ])));
     return this;
   }
 

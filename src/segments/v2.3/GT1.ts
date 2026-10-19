@@ -1,6 +1,8 @@
 /**
  * GT1 segment definition for HL7 v2.3.
  *
+ * position-tests: hand-written (repeating setters take spread arguments; see its test file)
+ *
  * @module
  */
 import { Err } from "../../utils/err.ts";
@@ -40,8 +42,8 @@ export class GT1 extends BaseSegment {
    * @param id - GT1-2.1 ID Number
    * @param assigningAuthority - GT1-2.4 Assigning Authority
    */
-  guarantorNumber({ id, assigningAuthority }: { id: string; assigningAuthority?: string }): this {
-    this.fields[1] = this.createComponentsField([id, "", "", assigningAuthority || ""]);
+  guarantorNumber(...values: { id: string; assigningAuthority?: string }[]): this {
+    this.fields[1] = this.createRepeatingField(values.map(({ id, assigningAuthority }) => this.createComponentsField([id, "", "", assigningAuthority || ""])));
     return this;
   }
 
@@ -51,8 +53,8 @@ export class GT1 extends BaseSegment {
    * @param givenName - GT1-3.2 Given Name
    * @param middleName - GT1-3.3 Middle Name
    */
-  guarantorName({ familyName, givenName, middleName }: { familyName: string; givenName?: string; middleName?: string }): this {
-    this.fields[2] = this.createComponentsField([familyName, givenName || "", middleName || ""]);
+  guarantorName(...values: { familyName: string; givenName?: string; middleName?: string }[]): this {
+    this.fields[2] = this.createRepeatingField(values.map(({ familyName, givenName, middleName }) => this.createComponentsField([familyName, givenName || "", middleName || ""])));
     return this;
   }
 
@@ -61,8 +63,8 @@ export class GT1 extends BaseSegment {
    * @param familyName - GT1-4.1 Family Name
    * @param givenName - GT1-4.2 Given Name
    */
-  guarantorSpouseName({ familyName, givenName }: { familyName: string; givenName?: string }): this {
-    this.fields[3] = this.createComponentsField([familyName, givenName || ""]);
+  guarantorSpouseName(...values: { familyName: string; givenName?: string }[]): this {
+    this.fields[3] = this.createRepeatingField(values.map(({ familyName, givenName }) => this.createComponentsField([familyName, givenName || ""])));
     return this;
   }
 
@@ -74,20 +76,20 @@ export class GT1 extends BaseSegment {
    * @param zip - GT1-5.5 Zip
    * @param country - GT1-5.6 Country
    */
-  guarantorAddress({ street, city, state, zip, country }: { street: string; city?: string; state?: string; zip?: string; country?: string }): this {
-    this.fields[4] = this.createComponentsField([street, "", city || "", state || "", zip || "", country || ""]);
+  guarantorAddress(...values: { street: string; city?: string; state?: string; zip?: string; country?: string }[]): this {
+    this.fields[4] = this.createRepeatingField(values.map(({ street, city, state, zip, country }) => this.createComponentsField([street, "", city || "", state || "", zip || "", country || ""])));
     return this;
   }
 
   /** GT1-6 Guarantor Phone Number - Home (chainable). */
-  guarantorPhoneHome(value: string): this {
-    this.fields[5] = this.createField(value);
+  guarantorPhoneHome(...values: string[]): this {
+    this.fields[5] = this.createRepeatingField(values.map((value) => this.createField(value)));
     return this;
   }
 
   /** GT1-7 Guarantor Phone Number - Business (chainable). */
-  guarantorPhoneBusiness(value: string): this {
-    this.fields[6] = this.createField(value);
+  guarantorPhoneBusiness(...values: string[]): this {
+    this.fields[6] = this.createRepeatingField(values.map((value) => this.createField(value)));
     return this;
   }
 
@@ -159,8 +161,8 @@ export class GT1 extends BaseSegment {
   }
 
   /** GT1-16 Guarantor Employer Name (chainable). */
-  guarantorEmployerName(value: string): this {
-    this.fields[15] = this.createField(value);
+  guarantorEmployerName(...values: string[]): this {
+    this.fields[15] = this.createRepeatingField(values.map((value) => this.createField(value)));
     return this;
   }
 
@@ -171,20 +173,20 @@ export class GT1 extends BaseSegment {
    * @param state - GT1-17.4 State
    * @param zip - GT1-17.5 Zip
    */
-  guarantorEmployerAddress({ street, city, state, zip }: { street: string; city?: string; state?: string; zip?: string }): this {
-    this.fields[16] = this.createComponentsField([street, "", city || "", state || "", zip || ""]);
+  guarantorEmployerAddress(...values: { street: string; city?: string; state?: string; zip?: string }[]): this {
+    this.fields[16] = this.createRepeatingField(values.map(({ street, city, state, zip }) => this.createComponentsField([street, "", city || "", state || "", zip || ""])));
     return this;
   }
 
   /** GT1-18 Guarantor Employer Phone Number (chainable). */
-  guarantorEmployerPhone(value: string): this {
-    this.fields[17] = this.createField(value);
+  guarantorEmployerPhone(...values: string[]): this {
+    this.fields[17] = this.createRepeatingField(values.map((value) => this.createField(value)));
     return this;
   }
 
   /** GT1-19 Guarantor Employee ID Number (chainable). */
-  guarantorEmployeeId(value: string): this {
-    this.fields[18] = this.createField(value);
+  guarantorEmployeeId(...values: string[]): this {
+    this.fields[18] = this.createRepeatingField(values.map((value) => this.createField(value)));
     return this;
   }
 
@@ -200,12 +202,12 @@ export class GT1 extends BaseSegment {
    * @param organizationNameTypeCode - GT1-21.2 Organization Name Type Code
    * @param idNumber - GT1-21.3 ID Number
    */
-  guarantorOrganizationName({ organizationName, organizationNameTypeCode, idNumber }: { organizationName: string; organizationNameTypeCode?: string; idNumber?: string }): this {
-    this.fields[20] = this.createComponentsField([
+  guarantorOrganizationName(...values: { organizationName: string; organizationNameTypeCode?: string; idNumber?: string }[]): this {
+    this.fields[20] = this.createRepeatingField(values.map(({ organizationName, organizationNameTypeCode, idNumber }) => this.createComponentsField([
       organizationName,
       organizationNameTypeCode,
       idNumber,
-    ]);
+    ])));
     return this;
   }
 
@@ -279,14 +281,14 @@ export class GT1 extends BaseSegment {
    * @param assigningAuthority - GT1-29.4 Assigning Authority
    * @param identifierTypeCode - GT1-29.5 Identifier Type Code
    */
-  guarantorEmployerId({ id, assigningAuthority, identifierTypeCode }: { id: string; assigningAuthority?: string; identifierTypeCode?: string }): this {
-    this.fields[28] = this.createComponentsField([
+  guarantorEmployerId(...values: { id: string; assigningAuthority?: string; identifierTypeCode?: string }[]): this {
+    this.fields[28] = this.createRepeatingField(values.map(({ id, assigningAuthority, identifierTypeCode }) => this.createComponentsField([
       id,
       undefined,
       undefined,
       assigningAuthority,
       identifierTypeCode,
-    ]);
+    ])));
     return this;
   }
 
@@ -436,20 +438,20 @@ export class GT1 extends BaseSegment {
    * @param suffix - GT1-45.4 Suffix
    * @param prefix - GT1-45.5 Prefix
    */
-  contactPersonName({ familyName, givenName, middleName, suffix, prefix }: { familyName: string; givenName?: string; middleName?: string; suffix?: string; prefix?: string }): this {
-    this.fields[44] = this.createComponentsField([
+  contactPersonName(...values: { familyName: string; givenName?: string; middleName?: string; suffix?: string; prefix?: string }[]): this {
+    this.fields[44] = this.createRepeatingField(values.map(({ familyName, givenName, middleName, suffix, prefix }) => this.createComponentsField([
       familyName,
       givenName,
       middleName,
       suffix,
       prefix,
-    ]);
+    ])));
     return this;
   }
 
   /** GT1-46 Contact Person's Telephone Number (chainable). */
-  contactPersonTelephone(value: string): this {
-    this.fields[45] = this.createField(value);
+  contactPersonTelephone(...values: string[]): this {
+    this.fields[45] = this.createRepeatingField(values.map((value) => this.createField(value)));
     return this;
   }
 
@@ -492,12 +494,12 @@ export class GT1 extends BaseSegment {
    * @param organizationNameTypeCode - GT1-51.2 Organization Name Type Code
    * @param idNumber - GT1-51.3 ID Number
    */
-  guarantorEmployerOrganizationName({ organizationName, organizationNameTypeCode, idNumber }: { organizationName: string; organizationNameTypeCode?: string; idNumber?: string }): this {
-    this.fields[50] = this.createComponentsField([
+  guarantorEmployerOrganizationName(...values: { organizationName: string; organizationNameTypeCode?: string; idNumber?: string }[]): this {
+    this.fields[50] = this.createRepeatingField(values.map(({ organizationName, organizationNameTypeCode, idNumber }) => this.createComponentsField([
       organizationName,
       organizationNameTypeCode,
       idNumber,
-    ]);
+    ])));
     return this;
   }
 

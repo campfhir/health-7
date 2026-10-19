@@ -68,7 +68,7 @@ export class TXA extends BaseSegment {
   }
 
   /** TXA-8 Edit Date/Time (TS, max 26, optional, repeating) (chainable). */
-  editDateTime(values: readonly SegmentFieldValue[]): this {
+  editDateTime(...values: SegmentFieldValue[]): this {
     this.fields[7] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
@@ -80,7 +80,7 @@ export class TXA extends BaseSegment {
   }
 
   /** TXA-10 Assigned Document Authenticator (XCN, max 60, optional, repeating) (chainable). */
-  assignedDocumentAuthenticator(values: readonly SegmentFieldValue[]): this {
+  assignedDocumentAuthenticator(...values: SegmentFieldValue[]): this {
     this.fields[9] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
@@ -104,7 +104,7 @@ export class TXA extends BaseSegment {
   }
 
   /** TXA-14 Placer Order Number (EI, max 22, optional, repeating) (chainable). */
-  placerOrderNumber(values: readonly SegmentFieldValue[]): this {
+  placerOrderNumber(...values: SegmentFieldValue[]): this {
     this.fields[13] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
@@ -122,7 +122,7 @@ export class TXA extends BaseSegment {
   }
 
   /** TXA-17 Document Completion Status (ID, max 2, required, repeating) (chainable). */
-  documentCompletionStatus(values: readonly SegmentFieldValue[]): this {
+  documentCompletionStatus(...values: SegmentFieldValue[]): this {
     this.fields[16] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
@@ -152,13 +152,13 @@ export class TXA extends BaseSegment {
   }
 
   /** TXA-22 Authentication Person, Time Stamp (PPN, max 60, conditional, repeating) (chainable). */
-  authenticationPersonTimeStamp(values: readonly SegmentFieldValue[]): this {
+  authenticationPersonTimeStamp(...values: SegmentFieldValue[]): this {
     this.fields[21] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 
   /** TXA-23 Distributed Copies (XCN, max 60, optional, repeating) (chainable). */
-  distributedCopies(values: readonly SegmentFieldValue[]): this {
+  distributedCopies(...values: SegmentFieldValue[]): this {
     this.fields[22] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }

@@ -1,6 +1,8 @@
 /**
  * MSH segment definition for HL7 v2.3.
  *
+ * position-tests: hand-written (repeating setters take spread arguments; see its test file)
+ *
  * @module
  */
 import { Err } from "../../utils/err.ts";
@@ -148,8 +150,8 @@ export class MSH extends BaseSegment {
   }
 
   /** MSH-18 Character Set (chainable). */
-  characterSet(value: string): this {
-    this.fields[16] = this.createField(value);
+  characterSet(...values: string[]): this {
+    this.fields[16] = this.createRepeatingField(values.map((value) => this.createField(value)));
     return this;
   }
 

@@ -1,6 +1,8 @@
 /**
  * PV2 segment definition for HL7 v2.3.
  *
+ * position-tests: hand-written (repeating setters take spread arguments; see its test file)
+ *
  * @module
  */
 import { Err } from "../../utils/err.ts";
@@ -91,8 +93,8 @@ export class PV2 extends BaseSegment {
   }
 
   /** PV2-5 Patient Valuables (chainable). */
-  patientValuables(value: string): this {
-    this.fields[4] = this.createField(value);
+  patientValuables(...values: string[]): this {
+    this.fields[4] = this.createRepeatingField(values.map((value) => this.createField(value)));
     return this;
   }
 
@@ -243,8 +245,8 @@ export class PV2 extends BaseSegment {
    * PV2-23 Clinic Organization Name (chainable).
    * @param organizationName - PV2-23.1 Organization Name
    */
-  clinicOrganizationName(organizationName: string): this {
-    this.fields[22] = this.createComponentsField([organizationName]);
+  clinicOrganizationName(...values: string[]): this {
+    this.fields[22] = this.createRepeatingField(values.map((organizationName) => this.createComponentsField([organizationName])));
     return this;
   }
 

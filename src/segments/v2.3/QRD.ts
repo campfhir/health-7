@@ -99,7 +99,7 @@ export class QRD extends BaseSegment {
    * QRD-8 Who Subject Filter (chainable, repeating).
    * @param persons - One XCN entry per repetition
    */
-  whoSubjectFilter(persons: readonly QrdPerson[]): this {
+  whoSubjectFilter(...persons: QrdPerson[]): this {
     this.fields[7] = this.createRepeatingField(
       persons.map((p) => this.createComponentsField([p.id, p.familyName, p.givenName])),
     );
@@ -110,7 +110,7 @@ export class QRD extends BaseSegment {
    * QRD-9 What Subject Filter (chainable, repeating).
    * @param codes - One CE entry per repetition
    */
-  whatSubjectFilter(codes: readonly QrdCodedElement[]): this {
+  whatSubjectFilter(...codes: QrdCodedElement[]): this {
     this.fields[8] = this.createRepeatingField(
       codes.map((c) => this.createComponentsField([c.code, c.text, c.codingSystem])),
     );
@@ -121,7 +121,7 @@ export class QRD extends BaseSegment {
    * QRD-10 What Department Data Code (chainable, repeating).
    * @param codes - One CE entry per repetition
    */
-  whatDepartmentDataCode(codes: readonly QrdCodedElement[]): this {
+  whatDepartmentDataCode(...codes: QrdCodedElement[]): this {
     this.fields[9] = this.createRepeatingField(
       codes.map((c) => this.createComponentsField([c.code, c.text, c.codingSystem])),
     );
@@ -133,7 +133,7 @@ export class QRD extends BaseSegment {
    * Each value is written as a single component; the CM composite layout is not yet modelled.
    * @param values - One entry per repetition
    */
-  whatDataCodeValueQualifier(values: readonly string[]): this {
+  whatDataCodeValueQualifier(...values: string[]): this {
     this.fields[10] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }

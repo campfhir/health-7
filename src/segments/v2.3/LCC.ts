@@ -38,13 +38,13 @@ export class LCC extends BaseSegment {
   }
 
   /** LCC-3 Accommodation Type (CE, max 60, optional, repeating) (chainable). */
-  accommodationType(values: readonly SegmentFieldValue[]): this {
+  accommodationType(...values: SegmentFieldValue[]): this {
     this.fields[2] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 
   /** LCC-4 Charge Code (CE, max 60, required, repeating) (chainable). */
-  chargeCode(values: readonly SegmentFieldValue[]): this {
+  chargeCode(...values: SegmentFieldValue[]): this {
     this.fields[3] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }

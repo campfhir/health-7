@@ -26,7 +26,7 @@ export class URS extends BaseSegment {
   }
 
   /** URS-1 R/U Where Subject Definition (ST, max 20, required, repeating) (chainable). */
-  rUWhereSubjectDefinition(values: readonly SegmentFieldValue[]): this {
+  rUWhereSubjectDefinition(...values: SegmentFieldValue[]): this {
     this.fields[0] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
@@ -44,31 +44,31 @@ export class URS extends BaseSegment {
   }
 
   /** URS-4 R/U What User Qualifier (ST, max 20, optional, repeating) (chainable). */
-  rUWhatUserQualifier(values: readonly SegmentFieldValue[]): this {
+  rUWhatUserQualifier(...values: SegmentFieldValue[]): this {
     this.fields[3] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 
   /** URS-5 R/U Other Results Subject Definition (ST, max 20, optional, repeating) (chainable). */
-  rUOtherResultsSubjectDefinition(values: readonly SegmentFieldValue[]): this {
+  rUOtherResultsSubjectDefinition(...values: SegmentFieldValue[]): this {
     this.fields[4] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 
   /** URS-6 R/U Which Date/Time Qualifier (ID, max 12, optional, repeating) (chainable). */
-  rUWhichDateTimeQualifier(values: readonly SegmentFieldValue[]): this {
+  rUWhichDateTimeQualifier(...values: SegmentFieldValue[]): this {
     this.fields[5] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 
   /** URS-7 R/U Which Date/Time Status Qualifier (ID, max 12, optional, repeating) (chainable). */
-  rUWhichDateTimeStatusQualifier(values: readonly SegmentFieldValue[]): this {
+  rUWhichDateTimeStatusQualifier(...values: SegmentFieldValue[]): this {
     this.fields[6] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 
   /** URS-8 R/U Date/Time Selection Qualifier (ID, max 12, optional, repeating) (chainable). */
-  rUDateTimeSelectionQualifier(values: readonly SegmentFieldValue[]): this {
+  rUDateTimeSelectionQualifier(...values: SegmentFieldValue[]): this {
     this.fields[7] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }

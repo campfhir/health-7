@@ -92,7 +92,7 @@ export class PCR extends BaseSegment {
   }
 
   /** PCR-12 Product Serial/Lot Number (ST, max 30, optional, repeating) (chainable). */
-  productSerialLotNumber(values: readonly SegmentFieldValue[]): this {
+  productSerialLotNumber(...values: SegmentFieldValue[]): this {
     this.fields[11] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
@@ -146,19 +146,19 @@ export class PCR extends BaseSegment {
   }
 
   /** PCR-21 Action Taken In Response To The Event (ID, max 2, optional, repeating) (chainable). */
-  actionTakenInResponseToTheEvent(values: readonly SegmentFieldValue[]): this {
+  actionTakenInResponseToTheEvent(...values: SegmentFieldValue[]): this {
     this.fields[20] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 
   /** PCR-22 Event Causality Observations (ID, max 2, optional, repeating) (chainable). */
-  eventCausalityObservations(values: readonly SegmentFieldValue[]): this {
+  eventCausalityObservations(...values: SegmentFieldValue[]): this {
     this.fields[21] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 
   /** PCR-23 Indirect Exposure Mechanism (ID, max 1, optional, repeating) (chainable). */
-  indirectExposureMechanism(values: readonly SegmentFieldValue[]): this {
+  indirectExposureMechanism(...values: SegmentFieldValue[]): this {
     this.fields[22] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }

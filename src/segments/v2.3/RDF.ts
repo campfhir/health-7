@@ -32,7 +32,7 @@ export class RDF extends BaseSegment {
   }
 
   /** RDF-2 Column Description (RCD, max 40, required, repeating) (chainable). */
-  columnDescription(values: readonly SegmentFieldValue[]): this {
+  columnDescription(...values: SegmentFieldValue[]): this {
     this.fields[1] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }

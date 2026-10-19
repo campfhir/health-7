@@ -86,19 +86,19 @@ export class CSR extends BaseSegment {
   }
 
   /** CSR-11 Study Randomization Date/time (TS, max 26, optional, repeating) (chainable). */
-  studyRandomizationDateTime(values: readonly SegmentFieldValue[]): this {
+  studyRandomizationDateTime(...values: SegmentFieldValue[]): this {
     this.fields[10] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 
   /** CSR-12 Study Randomized Arm (CE, max 200, optional, repeating) (chainable). */
-  studyRandomizedArm(values: readonly SegmentFieldValue[]): this {
+  studyRandomizedArm(...values: SegmentFieldValue[]): this {
     this.fields[11] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 
   /** CSR-13 Stratum for Study Randomization (CE, max 200, optional, repeating) (chainable). */
-  stratumForStudyRandomization(values: readonly SegmentFieldValue[]): this {
+  stratumForStudyRandomization(...values: SegmentFieldValue[]): this {
     this.fields[12] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }

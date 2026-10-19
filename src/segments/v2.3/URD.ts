@@ -38,25 +38,25 @@ export class URD extends BaseSegment {
   }
 
   /** URD-3 R/U Who Subject Definition (XCN, max 60, required, repeating) (chainable). */
-  rUWhoSubjectDefinition(values: readonly SegmentFieldValue[]): this {
+  rUWhoSubjectDefinition(...values: SegmentFieldValue[]): this {
     this.fields[2] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 
   /** URD-4 R/U What Subject Definition (CE, max 60, optional, repeating) (chainable). */
-  rUWhatSubjectDefinition(values: readonly SegmentFieldValue[]): this {
+  rUWhatSubjectDefinition(...values: SegmentFieldValue[]): this {
     this.fields[3] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 
   /** URD-5 R/U What Department Code (CE, max 60, optional, repeating) (chainable). */
-  rUWhatDepartmentCode(values: readonly SegmentFieldValue[]): this {
+  rUWhatDepartmentCode(...values: SegmentFieldValue[]): this {
     this.fields[4] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 
   /** URD-6 R/U Display/Print Locations (ST, max 20, optional, repeating) (chainable). */
-  rUDisplayPrintLocations(values: readonly SegmentFieldValue[]): this {
+  rUDisplayPrintLocations(...values: SegmentFieldValue[]): this {
     this.fields[5] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }

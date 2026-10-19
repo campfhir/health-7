@@ -26,19 +26,19 @@ export class APR extends BaseSegment {
   }
 
   /** APR-1 Time Selection Criteria (SCV, max 80, optional, repeating) (chainable). */
-  timeSelectionCriteria(values: readonly SegmentFieldValue[]): this {
+  timeSelectionCriteria(...values: SegmentFieldValue[]): this {
     this.fields[0] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 
   /** APR-2 Resource Selection Criteria (SCV, max 80, optional, repeating) (chainable). */
-  resourceSelectionCriteria(values: readonly SegmentFieldValue[]): this {
+  resourceSelectionCriteria(...values: SegmentFieldValue[]): this {
     this.fields[1] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 
   /** APR-3 Location Selection Criteria (SCV, max 80, optional, repeating) (chainable). */
-  locationSelectionCriteria(values: readonly SegmentFieldValue[]): this {
+  locationSelectionCriteria(...values: SegmentFieldValue[]): this {
     this.fields[2] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
@@ -50,7 +50,7 @@ export class APR extends BaseSegment {
   }
 
   /** APR-5 Filler Override Criteria (SCV, max 80, optional, repeating) (chainable). */
-  fillerOverrideCriteria(values: readonly SegmentFieldValue[]): this {
+  fillerOverrideCriteria(...values: SegmentFieldValue[]): this {
     this.fields[4] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }

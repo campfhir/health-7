@@ -26,7 +26,7 @@ export class FAC extends BaseSegment {
   }
 
   /** FAC-1 Facility ID (EI, max 20, required, repeating) (chainable). */
-  facilityId(values: readonly SegmentFieldValue[]): this {
+  facilityId(...values: SegmentFieldValue[]): this {
     this.fields[0] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
@@ -50,25 +50,25 @@ export class FAC extends BaseSegment {
   }
 
   /** FAC-5 Contact Person (XCN, max 60, optional, repeating) (chainable). */
-  contactPerson(values: readonly SegmentFieldValue[]): this {
+  contactPerson(...values: SegmentFieldValue[]): this {
     this.fields[4] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 
   /** FAC-6 Contact Title (ST, max 60, optional, repeating) (chainable). */
-  contactTitle(values: readonly SegmentFieldValue[]): this {
+  contactTitle(...values: SegmentFieldValue[]): this {
     this.fields[5] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 
   /** FAC-7 Contact Address (XAD, max 200, optional, repeating) (chainable). */
-  contactAddress(values: readonly SegmentFieldValue[]): this {
+  contactAddress(...values: SegmentFieldValue[]): this {
     this.fields[6] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 
   /** FAC-8 Contact Telecommunication (XTN, max 44, optional, repeating) (chainable). */
-  contactTelecommunication(values: readonly SegmentFieldValue[]): this {
+  contactTelecommunication(...values: SegmentFieldValue[]): this {
     this.fields[7] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }

@@ -1,6 +1,8 @@
 /**
  * PR1 segment definition for HL7 v2.3.
  *
+ * position-tests: hand-written (repeating setters take spread arguments; see its test file)
+ *
  * @module
  */
 import { Err } from "../../utils/err.ts";
@@ -86,9 +88,10 @@ export class PR1 extends BaseSegment {
    * @param familyName - PR1-8.2 Family Name
    * @param givenName - PR1-8.3 Given Name
    */
-  anesthesiologist({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
-    const components = [id, familyName || "", givenName || ""];
-    this.fields[7] = this.createField(components);
+  anesthesiologist(...values: { id: string; familyName?: string; givenName?: string }[]): this {
+    this.fields[7] = this.createRepeatingField(
+      values.map(({ id, familyName, givenName }) => this.createField([id, familyName || "", givenName || ""])),
+    );
     return this;
   }
 
@@ -110,9 +113,10 @@ export class PR1 extends BaseSegment {
    * @param familyName - PR1-11.2 Family Name
    * @param givenName - PR1-11.3 Given Name
    */
-  surgeon({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
-    const components = [id, familyName || "", givenName || ""];
-    this.fields[10] = this.createField(components);
+  surgeon(...values: { id: string; familyName?: string; givenName?: string }[]): this {
+    this.fields[10] = this.createRepeatingField(
+      values.map(({ id, familyName, givenName }) => this.createField([id, familyName || "", givenName || ""])),
+    );
     return this;
   }
 
@@ -122,9 +126,10 @@ export class PR1 extends BaseSegment {
    * @param familyName - PR1-12.2 Family Name
    * @param givenName - PR1-12.3 Given Name
    */
-  procedurePractitioner({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
-    const components = [id, familyName || "", givenName || ""];
-    this.fields[11] = this.createField(components);
+  procedurePractitioner(...values: { id: string; familyName?: string; givenName?: string }[]): this {
+    this.fields[11] = this.createRepeatingField(
+      values.map(({ id, familyName, givenName }) => this.createField([id, familyName || "", givenName || ""])),
+    );
     return this;
   }
 

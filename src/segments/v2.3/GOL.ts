@@ -122,7 +122,7 @@ export class GOL extends BaseSegment {
   }
 
   /** GOL-17 Goal Evaluation Comment (ST, max 300, optional, repeating) (chainable). */
-  goalEvaluationComment(values: readonly SegmentFieldValue[]): this {
+  goalEvaluationComment(...values: SegmentFieldValue[]): this {
     this.fields[16] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
@@ -140,13 +140,13 @@ export class GOL extends BaseSegment {
   }
 
   /** GOL-20 Goal Target Type (CE, max 80, optional, repeating) (chainable). */
-  goalTargetType(values: readonly SegmentFieldValue[]): this {
+  goalTargetType(...values: SegmentFieldValue[]): this {
     this.fields[19] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 
   /** GOL-21 Goal Target Name (XPN, max 80, optional, repeating) (chainable). */
-  goalTargetName(values: readonly SegmentFieldValue[]): this {
+  goalTargetName(...values: SegmentFieldValue[]): this {
     this.fields[20] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }

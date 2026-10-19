@@ -42,7 +42,7 @@ describe("PRA field positions", () => {
   });
 
   test("PRA-7 Privileges repeats", () => {
-    const parts = new PRA().privileges(["A^B", "C"]).encode().split("|");
+    const parts = new PRA().privileges("A^B", "C").encode().split("|");
     expect(parts[7]).toBe("A^B~C");
   });
 });

@@ -69,6 +69,6 @@ describe("generated v2.3 segments", () => {
   });
 
   test("repeating fields write one repetition per entry", () => {
-    expect(new segments.CM0().alternateStudyId(["A^B", "C"]).encode().split("|")[3]).toBe("A^B~C");
+    expect(new segments.CM0().alternateStudyId("A^B", "C").encode().split("|")[3]).toBe("A^B~C");
   });
 });

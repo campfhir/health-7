@@ -38,7 +38,7 @@ export class LOC extends BaseSegment {
   }
 
   /** LOC-3 Location Type (IS, max 2, required, repeating) (chainable). */
-  locationType(values: readonly SegmentFieldValue[]): this {
+  locationType(...values: SegmentFieldValue[]): this {
     this.fields[2] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
@@ -56,19 +56,19 @@ export class LOC extends BaseSegment {
   }
 
   /** LOC-6 Location Phone (XTN, max 40, optional, repeating) (chainable). */
-  locationPhone(values: readonly SegmentFieldValue[]): this {
+  locationPhone(...values: SegmentFieldValue[]): this {
     this.fields[5] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 
   /** LOC-7 License Number (CE, max 60, optional, repeating) (chainable). */
-  licenseNumber(values: readonly SegmentFieldValue[]): this {
+  licenseNumber(...values: SegmentFieldValue[]): this {
     this.fields[6] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 
   /** LOC-8 Location Equipment (ID, max 3, optional, repeating) (chainable). */
-  locationEquipment(values: readonly SegmentFieldValue[]): this {
+  locationEquipment(...values: SegmentFieldValue[]): this {
     this.fields[7] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }

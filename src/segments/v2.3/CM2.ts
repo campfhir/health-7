@@ -44,7 +44,7 @@ export class CM2 extends BaseSegment {
   }
 
   /** CM2-4 Events Scheduled This Time Point (CE, max 60, required, repeating) (chainable). */
-  eventsScheduledThisTimePoint(values: readonly SegmentFieldValue[]): this {
+  eventsScheduledThisTimePoint(...values: SegmentFieldValue[]): this {
     this.fields[3] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }

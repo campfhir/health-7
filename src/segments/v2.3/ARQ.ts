@@ -86,7 +86,7 @@ export class ARQ extends BaseSegment {
   }
 
   /** ARQ-11 Requested Start Date/Time Range (DR, max 53, optional, repeating) (chainable). */
-  requestedStartDateTimeRange(values: readonly SegmentFieldValue[]): this {
+  requestedStartDateTimeRange(...values: SegmentFieldValue[]): this {
     this.fields[10] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
@@ -140,7 +140,7 @@ export class ARQ extends BaseSegment {
   }
 
   /** ARQ-20 Entered By Phone Number (XTN, max 40, optional, repeating) (chainable). */
-  enteredByPhoneNumber(values: readonly SegmentFieldValue[]): this {
+  enteredByPhoneNumber(...values: SegmentFieldValue[]): this {
     this.fields[19] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }

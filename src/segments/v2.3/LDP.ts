@@ -38,19 +38,19 @@ export class LDP extends BaseSegment {
   }
 
   /** LDP-3 Location Service (IS, max 3, optional, repeating) (chainable). */
-  locationService(values: readonly SegmentFieldValue[]): this {
+  locationService(...values: SegmentFieldValue[]): this {
     this.fields[2] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 
   /** LDP-4 Speciality Type (CE, max 60, optional, repeating) (chainable). */
-  specialityType(values: readonly SegmentFieldValue[]): this {
+  specialityType(...values: SegmentFieldValue[]): this {
     this.fields[3] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 
   /** LDP-5 Valid Patient Classes (ID, max 1, optional, repeating) (chainable). */
-  validPatientClasses(values: readonly SegmentFieldValue[]): this {
+  validPatientClasses(...values: SegmentFieldValue[]): this {
     this.fields[4] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
@@ -80,7 +80,7 @@ export class LDP extends BaseSegment {
   }
 
   /** LDP-10 Visiting Hours (VH, max 80, optional, repeating) (chainable). */
-  visitingHours(values: readonly SegmentFieldValue[]): this {
+  visitingHours(...values: SegmentFieldValue[]): this {
     this.fields[9] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }

@@ -33,7 +33,7 @@ export class QRF extends BaseSegment {
    * QRF-1 Where Subject Filter (chainable, repeating).
    * @param values - One entry per repetition
    */
-  whereSubjectFilter(values: readonly string[]): this {
+  whereSubjectFilter(...values: string[]): this {
     this.fields[0] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
@@ -60,7 +60,7 @@ export class QRF extends BaseSegment {
    * QRF-4 What User Qualifier (chainable, repeating).
    * @param values - One entry per repetition
    */
-  whatUserQualifier(values: readonly string[]): this {
+  whatUserQualifier(...values: string[]): this {
     this.fields[3] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
@@ -69,7 +69,7 @@ export class QRF extends BaseSegment {
    * QRF-5 Other QRY Subject Filter (chainable, repeating).
    * @param values - One entry per repetition
    */
-  otherQrySubjectFilter(values: readonly string[]): this {
+  otherQrySubjectFilter(...values: string[]): this {
     this.fields[4] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
@@ -78,7 +78,7 @@ export class QRF extends BaseSegment {
    * QRF-6 Which Date/Time Qualifier (chainable, repeating).
    * @param values - One entry per repetition
    */
-  whichDateTimeQualifier(values: readonly string[]): this {
+  whichDateTimeQualifier(...values: string[]): this {
     this.fields[5] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
@@ -87,7 +87,7 @@ export class QRF extends BaseSegment {
    * QRF-7 Which Date/Time Status Qualifier (chainable, repeating).
    * @param values - One entry per repetition
    */
-  whichDateTimeStatusQualifier(values: readonly string[]): this {
+  whichDateTimeStatusQualifier(...values: string[]): this {
     this.fields[6] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
@@ -96,7 +96,7 @@ export class QRF extends BaseSegment {
    * QRF-8 Date/Time Selection Qualifier (chainable, repeating).
    * @param values - One entry per repetition
    */
-  dateTimeSelectionQualifier(values: readonly string[]): this {
+  dateTimeSelectionQualifier(...values: string[]): this {
     this.fields[7] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
@@ -106,7 +106,7 @@ export class QRF extends BaseSegment {
    * Components are written in TQ order; the TQ layout is not yet modelled as named parameters.
    * @param components - TQ components, in order
    */
-  whenQuantityTimingQualifier(components: readonly string[]): this {
+  whenQuantityTimingQualifier(...components: string[]): this {
     this.fields[8] = this.createComponentsField(components);
     return this;
   }

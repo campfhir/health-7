@@ -1,6 +1,8 @@
 /**
  * NTE segment definition for HL7 v2.3.
  *
+ * position-tests: hand-written (repeating setters take spread arguments; see its test file)
+ *
  * @module
  */
 import { Err } from "../../utils/err.ts";
@@ -37,8 +39,8 @@ export class NTE extends BaseSegment {
   }
 
   /** NTE-3 Comment (chainable). */
-  comment(text: string): this {
-    this.fields[2] = this.createField(text);
+  comment(...values: string[]): this {
+    this.fields[2] = this.createRepeatingField(values.map((text) => this.createField(text)));
     return this;
   }
 

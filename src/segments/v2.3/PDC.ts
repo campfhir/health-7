@@ -56,7 +56,7 @@ export class PDC extends BaseSegment {
   }
 
   /** PDC-6 Model Identifier (ST, max 60, optional, repeating) (chainable). */
-  modelIdentifier(values: readonly SegmentFieldValue[]): this {
+  modelIdentifier(...values: SegmentFieldValue[]): this {
     this.fields[5] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
@@ -68,7 +68,7 @@ export class PDC extends BaseSegment {
   }
 
   /** PDC-8 Other Identifier (ST, max 60, optional, repeating) (chainable). */
-  otherIdentifier(values: readonly SegmentFieldValue[]): this {
+  otherIdentifier(...values: SegmentFieldValue[]): this {
     this.fields[7] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }

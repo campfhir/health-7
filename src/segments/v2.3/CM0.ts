@@ -38,7 +38,7 @@ export class CM0 extends BaseSegment {
   }
 
   /** CM0-3 Alternate Study ID (CE, max 60, optional, repeating) (chainable). */
-  alternateStudyId(values: readonly SegmentFieldValue[]): this {
+  alternateStudyId(...values: SegmentFieldValue[]): this {
     this.fields[2] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }

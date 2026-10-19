@@ -1,6 +1,8 @@
 /**
  * MFE segment definition for HL7 v2.3.
  *
+ * position-tests: hand-written (repeating setters take spread arguments; see its test file)
+ *
  * @module
  */
 import { Err } from "../../utils/err.ts";
@@ -55,8 +57,8 @@ export class MFE extends BaseSegment {
   }
 
   /** MFE-4 Primary Key Value (chainable). */
-  primaryKeyValue(value: string): this {
-    this.fields[3] = this.createField(value);
+  primaryKeyValue(...values: string[]): this {
+    this.fields[3] = this.createRepeatingField(values.map((value) => this.createField(value)));
     return this;
   }
 

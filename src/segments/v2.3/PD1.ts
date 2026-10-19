@@ -1,6 +1,8 @@
 /**
  * PD1 segment definition for HL7 v2.3.
  *
+ * position-tests: hand-written (repeating setters take spread arguments; see its test file)
+ *
  * @module
  */
 import { Err } from "../../utils/err.ts";
@@ -45,12 +47,12 @@ export class PD1 extends BaseSegment {
    * @param idNumber - PD1-3.2 ID Number
    * @param checkDigit - PD1-3.3 Check Digit
    */
-  patientPrimaryFacility({ organizationName, idNumber, checkDigit }: { organizationName: string; idNumber?: string; checkDigit?: string }): this {
-    this.fields[2] = this.createComponentsField([
+  patientPrimaryFacility(...values: { organizationName: string; idNumber?: string; checkDigit?: string }[]): this {
+    this.fields[2] = this.createRepeatingField(values.map(({ organizationName, idNumber, checkDigit }) => this.createComponentsField([
       organizationName,
       idNumber,
       checkDigit,
-    ]);
+    ])));
     return this;
   }
 
@@ -61,13 +63,13 @@ export class PD1 extends BaseSegment {
    * @param givenName - PD1-4.3 Given Name
    * @param middleName - PD1-4.4 Middle Name
    */
-  patientPrimaryCareProvider({ id, familyName, givenName, middleName }: { id: string; familyName: string; givenName?: string; middleName?: string }): this {
-    this.fields[3] = this.createComponentsField([
+  patientPrimaryCareProvider(...values: { id: string; familyName: string; givenName?: string; middleName?: string }[]): this {
+    this.fields[3] = this.createRepeatingField(values.map(({ id, familyName, givenName, middleName }) => this.createComponentsField([
       id,
       familyName,
       givenName || "",
       middleName || "",
-    ]);
+    ])));
     return this;
   }
 
@@ -106,13 +108,13 @@ export class PD1 extends BaseSegment {
    * @param id - PD1-10.1 ID Number
    * @param assigningAuthority - PD1-10.4 Assigning Authority
    */
-  duplicatePatient({ id, assigningAuthority }: { id: string; assigningAuthority?: string }): this {
-    this.fields[9] = this.createComponentsField([
+  duplicatePatient(...values: { id: string; assigningAuthority?: string }[]): this {
+    this.fields[9] = this.createRepeatingField(values.map(({ id, assigningAuthority }) => this.createComponentsField([
       id,
       "",
       "",
       assigningAuthority,
-    ]);
+    ])));
     return this;
   }
 

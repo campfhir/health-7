@@ -1,6 +1,8 @@
 /**
  * RXE segment definition for HL7 v2.3.
  *
+ * position-tests: hand-written (repeating setters take spread arguments; see its test file)
+ *
  * @module
  */
 import { Err } from "../../utils/err.ts";
@@ -80,8 +82,8 @@ export class RXE extends BaseSegment {
    * @param code - RXE-7.1 Code
    * @param text - RXE-7.2 Text
    */
-  providerAdminInstructions({ code, text }: { code: string; text?: string }): this {
-    this.fields[6] = this.createComponentsField([code, text]);
+  providerAdminInstructions(...values: { code: string; text?: string }[]): this {
+    this.fields[6] = this.createRepeatingField(values.map(({ code, text }) => this.createComponentsField([code, text])));
     return this;
   }
 
@@ -209,8 +211,8 @@ export class RXE extends BaseSegment {
    * @param text - RXE-21.2 Text
    * @param codingSystem - RXE-21.3 Name of Coding System
    */
-  specialDispensingInstructions({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
-    this.fields[20] = this.createComponentsField([code, text, codingSystem]);
+  specialDispensingInstructions(...values: { code: string; text?: string; codingSystem?: string }[]): this {
+    this.fields[20] = this.createRepeatingField(values.map(({ code, text, codingSystem }) => this.createComponentsField([code, text, codingSystem])));
     return this;
   }
 

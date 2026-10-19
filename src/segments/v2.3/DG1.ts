@@ -1,6 +1,8 @@
 /**
  * DG1 segment definition for HL7 v2.3.
  *
+ * position-tests: hand-written (repeating setters take spread arguments; see its test file)
+ *
  * @module
  */
 import { Err } from "../../utils/err.ts";
@@ -134,9 +136,10 @@ export class DG1 extends BaseSegment {
    * @param familyName - DG1-16.2 Family Name
    * @param givenName - DG1-16.3 Given Name
    */
-  diagnosingClinician({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
-    const components = [id, familyName || "", givenName || ""];
-    this.fields[15] = this.createField(components);
+  diagnosingClinician(...values: { id: string; familyName?: string; givenName?: string }[]): this {
+    this.fields[15] = this.createRepeatingField(
+      values.map(({ id, familyName, givenName }) => this.createField([id, familyName || "", givenName || ""])),
+    );
     return this;
   }
 

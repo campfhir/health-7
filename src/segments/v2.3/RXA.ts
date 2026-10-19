@@ -152,12 +152,15 @@ export class RXA extends BaseSegment {
   }
 
   /** RXA-16 Substance Expiration Date (chainable). */
-  substanceExpirationDate(value: string, format?: never): this;
-  /** RXA-16 Substance Expiration Date (chainable). */
-  substanceExpirationDate(value: Date, format?: HL7DateLayout): this;
-  substanceExpirationDate(value: string | Date, format?: HL7DateLayout): this {
-    this.fields[15] = this.createField(
-      formatHL7Date(value, format ?? DateLayout),
+  substanceExpirationDate(...values: (string | Date | { value: string | Date; format?: HL7DateLayout })[]): this {
+    this.fields[15] = this.createRepeatingField(
+      values.map((v) =>
+        this.createField(
+          v instanceof Date || typeof v === "string"
+            ? formatHL7Date(v, DateLayout)
+            : formatHL7Date(v.value, v.format ?? DateLayout),
+        ),
+      ),
     );
     return this;
   }

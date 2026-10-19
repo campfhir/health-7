@@ -38,7 +38,7 @@ export class ERQ extends BaseSegment {
   }
 
   /** ERQ-3 Input parameter list (QIP, max 256, optional, repeating) (chainable). */
-  inputParameterList(values: readonly SegmentFieldValue[]): this {
+  inputParameterList(...values: SegmentFieldValue[]): this {
     this.fields[2] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }

@@ -44,7 +44,7 @@ export class RF1 extends BaseSegment {
   }
 
   /** RF1-4 Referral Disposition (CE, max 200, optional, repeating) (chainable). */
-  referralDisposition(values: readonly SegmentFieldValue[]): this {
+  referralDisposition(...values: SegmentFieldValue[]): this {
     this.fields[3] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
@@ -80,13 +80,13 @@ export class RF1 extends BaseSegment {
   }
 
   /** RF1-10 Referral Reason (CE, max 200, optional, repeating) (chainable). */
-  referralReason(values: readonly SegmentFieldValue[]): this {
+  referralReason(...values: SegmentFieldValue[]): this {
     this.fields[9] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 
   /** RF1-11 External Referral Identifier (EI, max 30, optional, repeating) (chainable). */
-  externalReferralIdentifier(values: readonly SegmentFieldValue[]): this {
+  externalReferralIdentifier(...values: SegmentFieldValue[]): this {
     this.fields[10] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }

@@ -85,7 +85,7 @@ function setterFor(code: string, f: SpecField, method: string): string {
   const doc = `  /** ${code}-${f.seq} ${plainName(f.name)} (${f.type}, max ${f.length}, ${OPT[f.opt] ?? f.opt}${repeat}) (chainable). */`;
   if (isRepeating(f)) {
     return `${doc}
-  ${method}(values: readonly SegmentFieldValue[]): this {
+  ${method}(...values: SegmentFieldValue[]): this {
     this.fields[${index}] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }`;

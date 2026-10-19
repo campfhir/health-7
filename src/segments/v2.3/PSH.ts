@@ -98,13 +98,13 @@ export class PSH extends BaseSegment {
   }
 
   /** PSH-13 Number of Product Experience Reports Filed by Facility (NM, max 2, optional, repeating) (chainable). */
-  numberOfProductExperienceReportsFiledByFacility(values: readonly SegmentFieldValue[]): this {
+  numberOfProductExperienceReportsFiledByFacility(...values: SegmentFieldValue[]): this {
     this.fields[12] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 
   /** PSH-14 Number of Product Experience Reports Filed by Distributor (NM, max 2, optional, repeating) (chainable). */
-  numberOfProductExperienceReportsFiledByDistributor(values: readonly SegmentFieldValue[]): this {
+  numberOfProductExperienceReportsFiledByDistributor(...values: SegmentFieldValue[]): this {
     this.fields[13] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }

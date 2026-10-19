@@ -1,6 +1,8 @@
 /**
  * ODT segment definition for HL7 v2.3.
  *
+ * position-tests: hand-written (repeating setters take spread arguments; see its test file)
+ *
  * @module
  */
 import { Err } from "../../utils/err.ts";
@@ -46,8 +48,8 @@ export class ODT extends BaseSegment {
    * @param alternateText - ODT-2.5 Alternate Text
    * @param nameOfAlternateCodingSystem - ODT-2.6 Name of Alternate Coding System
    */
-  servicePeriod({ identifier, text, nameOfCodingSystem, alternateIdentifier, alternateText, nameOfAlternateCodingSystem }: { identifier: string; text?: string; nameOfCodingSystem?: string; alternateIdentifier?: string; alternateText?: string; nameOfAlternateCodingSystem?: string }): this {
-    this.fields[1] = this.createComponentsField([identifier, text, nameOfCodingSystem, alternateIdentifier, alternateText, nameOfAlternateCodingSystem]);
+  servicePeriod(...values: { identifier: string; text?: string; nameOfCodingSystem?: string; alternateIdentifier?: string; alternateText?: string; nameOfAlternateCodingSystem?: string }[]): this {
+    this.fields[1] = this.createRepeatingField(values.map(({ identifier, text, nameOfCodingSystem, alternateIdentifier, alternateText, nameOfAlternateCodingSystem }) => this.createComponentsField([identifier, text, nameOfCodingSystem, alternateIdentifier, alternateText, nameOfAlternateCodingSystem])));
     return this;
   }
 

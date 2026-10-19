@@ -32,7 +32,7 @@ export class OM5 extends BaseSegment {
   }
 
   /** OM5-2 Test/Observations Included w/an Ordered Test Battery (CE, max 200, optional, repeating) (chainable). */
-  testObservationsIncludedWAnOrderedTestBattery(values: readonly SegmentFieldValue[]): this {
+  testObservationsIncludedWAnOrderedTestBattery(...values: SegmentFieldValue[]): this {
     this.fields[1] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }

@@ -32,19 +32,19 @@ export class PES extends BaseSegment {
   }
 
   /** PES-2 Sender Individual Name (XCN, max 60, optional, repeating) (chainable). */
-  senderIndividualName(values: readonly SegmentFieldValue[]): this {
+  senderIndividualName(...values: SegmentFieldValue[]): this {
     this.fields[1] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 
   /** PES-3 Sender Address (XAD, max 200, optional, repeating) (chainable). */
-  senderAddress(values: readonly SegmentFieldValue[]): this {
+  senderAddress(...values: SegmentFieldValue[]): this {
     this.fields[2] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 
   /** PES-4 Sender Telephone (XTN, max 44, optional, repeating) (chainable). */
-  senderTelephone(values: readonly SegmentFieldValue[]): this {
+  senderTelephone(...values: SegmentFieldValue[]): this {
     this.fields[3] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
@@ -62,7 +62,7 @@ export class PES extends BaseSegment {
   }
 
   /** PES-7 Sender Event Description (FT, max 600, optional, repeating) (chainable). */
-  senderEventDescription(values: readonly SegmentFieldValue[]): this {
+  senderEventDescription(...values: SegmentFieldValue[]): this {
     this.fields[6] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
@@ -86,7 +86,7 @@ export class PES extends BaseSegment {
   }
 
   /** PES-11 Event Report Timing/Type (ID, max 3, optional, repeating) (chainable). */
-  eventReportTimingType(values: readonly SegmentFieldValue[]): this {
+  eventReportTimingType(...values: SegmentFieldValue[]): this {
     this.fields[10] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
@@ -98,7 +98,7 @@ export class PES extends BaseSegment {
   }
 
   /** PES-13 Event Reported To (ID, max 1, optional, repeating) (chainable). */
-  eventReportedTo(values: readonly SegmentFieldValue[]): this {
+  eventReportedTo(...values: SegmentFieldValue[]): this {
     this.fields[12] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }

@@ -98,7 +98,7 @@ export class OM4 extends BaseSegment {
   }
 
   /** OM4-13 Specimen Priorities (ID, max 1, optional, repeating) (chainable). */
-  specimenPriorities(values: readonly SegmentFieldValue[]): this {
+  specimenPriorities(...values: SegmentFieldValue[]): this {
     this.fields[12] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }

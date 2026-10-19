@@ -38,7 +38,7 @@ export class CSS extends BaseSegment {
   }
 
   /** CSS-3 Study Quality Control Codes (CE, max 60, optional, repeating) (chainable). */
-  studyQualityControlCodes(values: readonly SegmentFieldValue[]): this {
+  studyQualityControlCodes(...values: SegmentFieldValue[]): this {
     this.fields[2] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
