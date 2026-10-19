@@ -54,7 +54,7 @@ export class AIP extends BaseSegment {
   }
 
   /**
-   * AIP-4 Resource Type (chainable).
+   * AIP-4 Resource Role (chainable).
    * @param code - AIP-4.1 Code
    * @param text - AIP-4.2 Text
    * @param codingSystem - AIP-4.3 Coding System

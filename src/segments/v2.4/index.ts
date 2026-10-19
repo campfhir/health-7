@@ -4,6 +4,7 @@
  * @module
  */
 export * from "./ACC.ts";
+export * from "./ADD.ts";
 export * from "./AIG.ts";
 export * from "./AIL.ts";
 export * from "./AIP.ts";

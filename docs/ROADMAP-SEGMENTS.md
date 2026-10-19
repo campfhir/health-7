@@ -24,7 +24,7 @@ Legend: ✅ built · ⬜ not started · ⚠️ needs audit
 
 ## Built (v2.3)
 
-ACC, AIG, AIL, AIP, AIS, AL1, BHS, BLG, BTS, CTD, CTI, DB1, DG1, DRG, DSC, DSP, ERR, EVN, FHS,
+ACC, ADD, AIG, AIL, AIP, AIS, AL1, BHS, BLG, BTS, CTD, CTI, DB1, DG1, DRG, DSC, DSP, ERR, EVN, FHS,
 FT1, FTS, GT1, IN1, IN2, IN3, MFE, MFI, MRG, MSA, MSH, NK1, NTE, OBR, OBX, ODS, ODT, ORC, PD1,
 PID, PR1, PRA, PV1, PV2, QAK, QRD, QRF, RGS, ROL, RQ1, RQD, RXA, RXD, RXE, RXO, RXR, SCH, STF,
 UB1, UB2
@@ -38,6 +38,9 @@ segment is `git mv` into the introducing version directory, adding it to that ve
 
 ### Unverified details in built segments
 
+- `AIG-5` (Resource Group) repeats in the Caristix v2.3 table (repeat ∞) but is single-valued in `AIG`, `AIP` and `AIS`-style setters; changing it means a breaking signature change.
+- `AIP-4` is named "Resource Role" in the Caristix table; the setter is still `resourceType()` for API compatibility.
+- `AL1-2` is named "Allergy Type" in the Caristix table; the setter is `allergenTypeCode()`.
 - `QRD-11` (What Data Code Value Qualifier) is typed `CM_VR` on hl7.eu. It is written as
   repeating single components until the CM composite layout is modelled.
 - `QRF-9` (When Quantity/Timing Qualifier) is typed `TQ`. It takes positional components and
@@ -52,7 +55,6 @@ Take them one group at a time, and split each into one PR per segment.
 ### Batch / file / query / generic
 | Segment | Name |
 |---|---|
-| ⬜ ADD | Addendum |
 | ⬜ ARQ | Appointment Request |
 | ⬜ APR | Appointment Preferences |
 | ⬜ AUT | Authorization Information |
