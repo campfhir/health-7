@@ -7,7 +7,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment } from "../../types/segment.ts";
+import { BaseSegment, type Repeated, repetitions } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 
@@ -40,8 +40,8 @@ export class BTS extends BaseSegment {
    * BTS-3 Batch Totals (chainable). Repeating numeric totals.
    * @param values - One entry per repetition
    */
-  batchTotals(...values: string[]): this {
-    this.fields[2] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  batchTotals(...values: Repeated<string>[]): this {
+    this.fields[2] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 

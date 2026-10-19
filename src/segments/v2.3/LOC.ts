@@ -9,7 +9,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment, type SegmentFieldValue } from "../../types/segment.ts";
+import { BaseSegment, repetitions, type Repeated, type SegmentFieldValue } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 
@@ -38,8 +38,8 @@ export class LOC extends BaseSegment {
   }
 
   /** LOC-3 Location Type (IS, max 2, required, repeating) (chainable). */
-  locationType(...values: SegmentFieldValue[]): this {
-    this.fields[2] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  locationType(...values: Repeated<string>[]): this {
+    this.fields[2] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
@@ -56,20 +56,20 @@ export class LOC extends BaseSegment {
   }
 
   /** LOC-6 Location Phone (XTN, max 40, optional, repeating) (chainable). */
-  locationPhone(...values: SegmentFieldValue[]): this {
-    this.fields[5] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  locationPhone(...values: Repeated<string>[]): this {
+    this.fields[5] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** LOC-7 License Number (CE, max 60, optional, repeating) (chainable). */
-  licenseNumber(...values: SegmentFieldValue[]): this {
-    this.fields[6] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  licenseNumber(...values: Repeated<string>[]): this {
+    this.fields[6] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** LOC-8 Location Equipment (ID, max 3, optional, repeating) (chainable). */
-  locationEquipment(...values: SegmentFieldValue[]): this {
-    this.fields[7] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  locationEquipment(...values: Repeated<string>[]): this {
+    this.fields[7] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 

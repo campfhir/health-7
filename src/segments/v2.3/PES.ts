@@ -9,7 +9,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment, type SegmentFieldValue } from "../../types/segment.ts";
+import { BaseSegment, repetitions, type Repeated, type SegmentFieldValue } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 
@@ -32,20 +32,20 @@ export class PES extends BaseSegment {
   }
 
   /** PES-2 Sender Individual Name (XCN, max 60, optional, repeating) (chainable). */
-  senderIndividualName(...values: SegmentFieldValue[]): this {
-    this.fields[1] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  senderIndividualName(...values: Repeated<string>[]): this {
+    this.fields[1] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** PES-3 Sender Address (XAD, max 200, optional, repeating) (chainable). */
-  senderAddress(...values: SegmentFieldValue[]): this {
-    this.fields[2] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  senderAddress(...values: Repeated<string>[]): this {
+    this.fields[2] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** PES-4 Sender Telephone (XTN, max 44, optional, repeating) (chainable). */
-  senderTelephone(...values: SegmentFieldValue[]): this {
-    this.fields[3] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  senderTelephone(...values: Repeated<string>[]): this {
+    this.fields[3] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
@@ -62,8 +62,8 @@ export class PES extends BaseSegment {
   }
 
   /** PES-7 Sender Event Description (FT, max 600, optional, repeating) (chainable). */
-  senderEventDescription(...values: SegmentFieldValue[]): this {
-    this.fields[6] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  senderEventDescription(...values: Repeated<string>[]): this {
+    this.fields[6] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
@@ -86,8 +86,8 @@ export class PES extends BaseSegment {
   }
 
   /** PES-11 Event Report Timing/Type (ID, max 3, optional, repeating) (chainable). */
-  eventReportTimingType(...values: SegmentFieldValue[]): this {
-    this.fields[10] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  eventReportTimingType(...values: Repeated<string>[]): this {
+    this.fields[10] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
@@ -98,8 +98,8 @@ export class PES extends BaseSegment {
   }
 
   /** PES-13 Event Reported To (ID, max 1, optional, repeating) (chainable). */
-  eventReportedTo(...values: SegmentFieldValue[]): this {
-    this.fields[12] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  eventReportedTo(...values: Repeated<string>[]): this {
+    this.fields[12] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 

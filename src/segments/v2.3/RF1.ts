@@ -9,7 +9,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment, type SegmentFieldValue } from "../../types/segment.ts";
+import { BaseSegment, repetitions, type Repeated, type SegmentFieldValue } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 
@@ -44,8 +44,8 @@ export class RF1 extends BaseSegment {
   }
 
   /** RF1-4 Referral Disposition (CE, max 200, optional, repeating) (chainable). */
-  referralDisposition(...values: SegmentFieldValue[]): this {
-    this.fields[3] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  referralDisposition(...values: Repeated<string>[]): this {
+    this.fields[3] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
@@ -80,14 +80,14 @@ export class RF1 extends BaseSegment {
   }
 
   /** RF1-10 Referral Reason (CE, max 200, optional, repeating) (chainable). */
-  referralReason(...values: SegmentFieldValue[]): this {
-    this.fields[9] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  referralReason(...values: Repeated<string>[]): this {
+    this.fields[9] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** RF1-11 External Referral Identifier (EI, max 30, optional, repeating) (chainable). */
-  externalReferralIdentifier(...values: SegmentFieldValue[]): this {
-    this.fields[10] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  externalReferralIdentifier(...values: Repeated<string>[]): this {
+    this.fields[10] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 

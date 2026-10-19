@@ -9,7 +9,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment, type SegmentFieldValue } from "../../types/segment.ts";
+import { BaseSegment, repetitions, type Repeated, type SegmentFieldValue } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 
@@ -38,8 +38,8 @@ export class OM2 extends BaseSegment {
   }
 
   /** OM2-3 Range of Decimal Precision (NM, max 10, optional, repeating) (chainable). */
-  rangeOfDecimalPrecision(...values: SegmentFieldValue[]): this {
-    this.fields[2] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  rangeOfDecimalPrecision(...values: Repeated<string>[]): this {
+    this.fields[2] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
@@ -74,8 +74,8 @@ export class OM2 extends BaseSegment {
   }
 
   /** OM2-9 Delta Check Criteria (CM_DLT, max 200, optional, repeating) (chainable). */
-  deltaCheckCriteria(...values: SegmentFieldValue[]): this {
-    this.fields[8] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  deltaCheckCriteria(...values: Repeated<string>[]): this {
+    this.fields[8] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 

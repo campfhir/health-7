@@ -7,7 +7,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment } from "../../types/segment.ts";
+import { BaseSegment, type Repeated, repetitions } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 import {
@@ -136,9 +136,9 @@ export class DG1 extends BaseSegment {
    * @param familyName - DG1-16.2 Family Name
    * @param givenName - DG1-16.3 Given Name
    */
-  diagnosingClinician(...values: { id: string; familyName?: string; givenName?: string }[]): this {
+  diagnosingClinician(...values: Repeated<{ id: string; familyName?: string; givenName?: string }>[]): this {
     this.fields[15] = this.createRepeatingField(
-      values.map(({ id, familyName, givenName }) => this.createField([id, familyName || "", givenName || ""])),
+      repetitions(values).map(({ id, familyName, givenName }) => this.createField([id, familyName || "", givenName || ""])),
     );
     return this;
   }

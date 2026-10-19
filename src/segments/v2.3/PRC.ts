@@ -9,7 +9,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment, type SegmentFieldValue } from "../../types/segment.ts";
+import { BaseSegment, repetitions, type Repeated, type SegmentFieldValue } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 
@@ -32,32 +32,32 @@ export class PRC extends BaseSegment {
   }
 
   /** PRC-2 Facility ID (EI, max 60, optional, repeating) (chainable). */
-  facilityId(...values: SegmentFieldValue[]): this {
-    this.fields[1] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  facilityId(...values: Repeated<string>[]): this {
+    this.fields[1] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** PRC-3 Department (CE, max 30, optional, repeating) (chainable). */
-  department(...values: SegmentFieldValue[]): this {
-    this.fields[2] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  department(...values: Repeated<string>[]): this {
+    this.fields[2] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** PRC-4 Valid Patient Classes (ID, max 1, optional, repeating) (chainable). */
-  validPatientClasses(...values: SegmentFieldValue[]): this {
-    this.fields[3] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  validPatientClasses(...values: Repeated<string>[]): this {
+    this.fields[3] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** PRC-5 Price (CP, max 12, conditional, repeating) (chainable). */
-  price(...values: SegmentFieldValue[]): this {
-    this.fields[4] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  price(...values: Repeated<string>[]): this {
+    this.fields[4] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** PRC-6 Formula (ST, max 200, optional, repeating) (chainable). */
-  formula(...values: SegmentFieldValue[]): this {
-    this.fields[5] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  formula(...values: Repeated<string>[]): this {
+    this.fields[5] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
@@ -104,8 +104,8 @@ export class PRC extends BaseSegment {
   }
 
   /** PRC-14 Billing Category (CE, max 60, optional, repeating) (chainable). */
-  billingCategory(...values: SegmentFieldValue[]): this {
-    this.fields[13] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  billingCategory(...values: Repeated<string>[]): this {
+    this.fields[13] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 

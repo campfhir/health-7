@@ -9,7 +9,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment, type SegmentFieldValue } from "../../types/segment.ts";
+import { BaseSegment, repetitions, type Repeated, type SegmentFieldValue } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 
@@ -26,14 +26,14 @@ export class PRD extends BaseSegment {
   }
 
   /** PRD-1 Role (CE, max 200, required, repeating) (chainable). */
-  role(...values: SegmentFieldValue[]): this {
-    this.fields[0] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  role(...values: Repeated<string>[]): this {
+    this.fields[0] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** PRD-2 Provider Name (XPN, max 106, optional, repeating) (chainable). */
-  providerName(...values: SegmentFieldValue[]): this {
-    this.fields[1] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  providerName(...values: Repeated<string>[]): this {
+    this.fields[1] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
@@ -50,8 +50,8 @@ export class PRD extends BaseSegment {
   }
 
   /** PRD-5 Provider Communication Information (XTN, max 100, optional, repeating) (chainable). */
-  providerCommunicationInformation(...values: SegmentFieldValue[]): this {
-    this.fields[4] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  providerCommunicationInformation(...values: Repeated<string>[]): this {
+    this.fields[4] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
@@ -62,8 +62,8 @@ export class PRD extends BaseSegment {
   }
 
   /** PRD-7 Provider Identifiers (CM_PI, max 100, optional, repeating) (chainable). */
-  providerIdentifiers(...values: SegmentFieldValue[]): this {
-    this.fields[6] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  providerIdentifiers(...values: Repeated<string>[]): this {
+    this.fields[6] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 

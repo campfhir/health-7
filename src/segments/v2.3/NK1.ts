@@ -6,7 +6,7 @@
  * @module
  */
 import { Err } from "../../utils/err.ts";
-import { BaseSegment } from "../../types/segment.ts";
+import { BaseSegment, type Repeated, repetitions } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 import type { Result } from "../../types/result.ts";
@@ -40,8 +40,8 @@ export class NK1 extends BaseSegment {
    * @param suffix - NK1-2.4 Suffix
    * @param prefix - NK1-2.5 Prefix
    */
-  setName(...values: { familyName: string; givenName?: string; middleName?: string; suffix?: string; prefix?: string }[]): this {
-    this.fields[1] = this.createRepeatingField(values.map(({ familyName, givenName, middleName, suffix, prefix }) => this.createComponentsField([
+  setName(...values: Repeated<{ familyName: string; givenName?: string; middleName?: string; suffix?: string; prefix?: string }>[]): this {
+    this.fields[1] = this.createRepeatingField(repetitions(values).map(({ familyName, givenName, middleName, suffix, prefix }) => this.createComponentsField([
       familyName,
       givenName || "",
       middleName || "",
@@ -70,8 +70,8 @@ export class NK1 extends BaseSegment {
    * @param zip - NK1-4.5 Zip
    * @param country - NK1-4.6 Country
    */
-  address(...values: { street: string; city?: string; state?: string; zip?: string; country?: string }[]): this {
-    this.fields[3] = this.createRepeatingField(values.map(({ street, city, state, zip, country }) => this.createComponentsField([
+  address(...values: Repeated<{ street: string; city?: string; state?: string; zip?: string; country?: string }>[]): this {
+    this.fields[3] = this.createRepeatingField(repetitions(values).map(({ street, city, state, zip, country }) => this.createComponentsField([
       street,
       "",
       city || "",
@@ -87,14 +87,14 @@ export class NK1 extends BaseSegment {
    * @param number - NK1-5.1 Number
    * @param use - NK1-5.2 Use
    */
-  phoneNumber(...values: { number: string; use?: string }[]): this {
-    this.fields[4] = this.createRepeatingField(values.map(({ number, use }) => this.createComponentsField([number, use])));
+  phoneNumber(...values: Repeated<{ number: string; use?: string }>[]): this {
+    this.fields[4] = this.createRepeatingField(repetitions(values).map(({ number, use }) => this.createComponentsField([number, use])));
     return this;
   }
 
   /** NK1-6 Business Phone Number (chainable). */
-  businessPhoneNumber(...values: string[]): this {
-    this.fields[5] = this.createRepeatingField(values.map((number) => this.createField(number)));
+  businessPhoneNumber(...values: Repeated<string>[]): this {
+    this.fields[5] = this.createRepeatingField(repetitions(values).map((number) => this.createField(number)));
     return this;
   }
 
@@ -160,8 +160,8 @@ export class NK1 extends BaseSegment {
   }
 
   /** NK1-13 Organization Name (chainable). */
-  organizationName(...values: string[]): this {
-    this.fields[12] = this.createRepeatingField(values.map((name) => this.createField(name)));
+  organizationName(...values: Repeated<string>[]): this {
+    this.fields[12] = this.createRepeatingField(repetitions(values).map((name) => this.createField(name)));
     return this;
   }
 
@@ -169,9 +169,9 @@ export class NK1 extends BaseSegment {
    * NK1-14 Marital Status (CE, repeating) (chainable). One argument per repetition.
    * @param values - Each entry is one repetition; NK1-14.1 Identifier, NK1-14.2 Text, NK1-14.3 Name of Coding System
    */
-  maritalStatus(...values: { code: string; text?: string; codingSystem?: string }[]): this {
+  maritalStatus(...values: Repeated<{ code: string; text?: string; codingSystem?: string }>[]): this {
     this.fields[13] = this.createRepeatingField(
-      values.map(({ code, text, codingSystem }) => this.createComponentsField([code, text, codingSystem])),
+      repetitions(values).map(({ code, text, codingSystem }) => this.createComponentsField([code, text, codingSystem])),
     );
     return this;
   }
@@ -189,14 +189,14 @@ export class NK1 extends BaseSegment {
   }
 
   /** NK1-17 Living Dependency (chainable). */
-  livingDependency(...values: string[]): this {
-    this.fields[16] = this.createRepeatingField(values.map((value) => this.createField(value)));
+  livingDependency(...values: Repeated<string>[]): this {
+    this.fields[16] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
 
   /** NK1-18 Ambulatory Status (chainable). */
-  ambulatoryStatus(...values: string[]): this {
-    this.fields[17] = this.createRepeatingField(values.map((value) => this.createField(value)));
+  ambulatoryStatus(...values: Repeated<string>[]): this {
+    this.fields[17] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
 
@@ -206,8 +206,8 @@ export class NK1 extends BaseSegment {
    * @param text - NK1-19.2 Text
    * @param codingSystem - NK1-19.3 Name of Coding System
    */
-  citizenship(...values: { code: string; text?: string; codingSystem?: string }[]): this {
-    this.fields[18] = this.createRepeatingField(values.map(({ code, text, codingSystem }) => this.createComponentsField([code, text, codingSystem])));
+  citizenship(...values: Repeated<{ code: string; text?: string; codingSystem?: string }>[]): this {
+    this.fields[18] = this.createRepeatingField(repetitions(values).map(({ code, text, codingSystem }) => this.createComponentsField([code, text, codingSystem])));
     return this;
   }
 
@@ -309,8 +309,8 @@ export class NK1 extends BaseSegment {
    * @param text - NK1-29.2 Text
    * @param codingSystem - NK1-29.3 Name of Coding System
    */
-  contactReason(...values: { code: string; text?: string; codingSystem?: string }[]): this {
-    this.fields[28] = this.createRepeatingField(values.map(({ code, text, codingSystem }) => this.createComponentsField([code, text, codingSystem])));
+  contactReason(...values: Repeated<{ code: string; text?: string; codingSystem?: string }>[]): this {
+    this.fields[28] = this.createRepeatingField(repetitions(values).map(({ code, text, codingSystem }) => this.createComponentsField([code, text, codingSystem])));
     return this;
   }
 
@@ -322,8 +322,8 @@ export class NK1 extends BaseSegment {
    * @param suffix - NK1-30.4 Suffix
    * @param prefix - NK1-30.5 Prefix
    */
-  contactPersonName(...values: { familyName: string; givenName?: string; middleName?: string; suffix?: string; prefix?: string }[]): this {
-    this.fields[29] = this.createRepeatingField(values.map(({ familyName, givenName, middleName, suffix, prefix }) => this.createComponentsField([
+  contactPersonName(...values: Repeated<{ familyName: string; givenName?: string; middleName?: string; suffix?: string; prefix?: string }>[]): this {
+    this.fields[29] = this.createRepeatingField(repetitions(values).map(({ familyName, givenName, middleName, suffix, prefix }) => this.createComponentsField([
       familyName,
       givenName,
       middleName,
@@ -334,8 +334,8 @@ export class NK1 extends BaseSegment {
   }
 
   /** NK1-31 Contact Person's Telephone Number (chainable). */
-  contactPersonTelephoneNumber(...values: string[]): this {
-    this.fields[30] = this.createRepeatingField(values.map((value) => this.createField(value)));
+  contactPersonTelephoneNumber(...values: Repeated<string>[]): this {
+    this.fields[30] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
 
@@ -348,8 +348,8 @@ export class NK1 extends BaseSegment {
    * @param zip - NK1-32.5 Zip or Postal Code
    * @param country - NK1-32.6 Country
    */
-  contactPersonAddress(...values: { street: string; otherDesignation?: string; city?: string; state?: string; zip?: string; country?: string }[]): this {
-    this.fields[31] = this.createRepeatingField(values.map(({ street, otherDesignation, city, state, zip, country }) => this.createComponentsField([
+  contactPersonAddress(...values: Repeated<{ street: string; otherDesignation?: string; city?: string; state?: string; zip?: string; country?: string }>[]): this {
+    this.fields[31] = this.createRepeatingField(repetitions(values).map(({ street, otherDesignation, city, state, zip, country }) => this.createComponentsField([
       street,
       otherDesignation,
       city,
@@ -366,8 +366,8 @@ export class NK1 extends BaseSegment {
    * @param assigningAuthority - NK1-33.4 Assigning Authority
    * @param identifierTypeCode - NK1-33.5 Identifier Type Code
    */
-  associatedPartysIdentifiers(...values: { id: string; assigningAuthority?: string; identifierTypeCode?: string }[]): this {
-    this.fields[32] = this.createRepeatingField(values.map(({ id, assigningAuthority, identifierTypeCode }) => this.createComponentsField([
+  associatedPartysIdentifiers(...values: Repeated<{ id: string; assigningAuthority?: string; identifierTypeCode?: string }>[]): this {
+    this.fields[32] = this.createRepeatingField(repetitions(values).map(({ id, assigningAuthority, identifierTypeCode }) => this.createComponentsField([
       id,
       undefined,
       undefined,

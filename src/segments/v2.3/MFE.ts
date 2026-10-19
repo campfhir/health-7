@@ -7,7 +7,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment } from "../../types/segment.ts";
+import { BaseSegment, type Repeated, repetitions } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 import {
@@ -57,8 +57,8 @@ export class MFE extends BaseSegment {
   }
 
   /** MFE-4 Primary Key Value (chainable). */
-  primaryKeyValue(...values: string[]): this {
-    this.fields[3] = this.createRepeatingField(values.map((value) => this.createField(value)));
+  primaryKeyValue(...values: Repeated<string>[]): this {
+    this.fields[3] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
 

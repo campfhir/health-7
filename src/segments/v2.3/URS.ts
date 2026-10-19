@@ -9,7 +9,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment, type SegmentFieldValue } from "../../types/segment.ts";
+import { BaseSegment, repetitions, type Repeated, type SegmentFieldValue } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 
@@ -26,8 +26,8 @@ export class URS extends BaseSegment {
   }
 
   /** URS-1 R/U Where Subject Definition (ST, max 20, required, repeating) (chainable). */
-  rUWhereSubjectDefinition(...values: SegmentFieldValue[]): this {
-    this.fields[0] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  rUWhereSubjectDefinition(...values: Repeated<string>[]): this {
+    this.fields[0] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
@@ -44,32 +44,32 @@ export class URS extends BaseSegment {
   }
 
   /** URS-4 R/U What User Qualifier (ST, max 20, optional, repeating) (chainable). */
-  rUWhatUserQualifier(...values: SegmentFieldValue[]): this {
-    this.fields[3] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  rUWhatUserQualifier(...values: Repeated<string>[]): this {
+    this.fields[3] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** URS-5 R/U Other Results Subject Definition (ST, max 20, optional, repeating) (chainable). */
-  rUOtherResultsSubjectDefinition(...values: SegmentFieldValue[]): this {
-    this.fields[4] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  rUOtherResultsSubjectDefinition(...values: Repeated<string>[]): this {
+    this.fields[4] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** URS-6 R/U Which Date/Time Qualifier (ID, max 12, optional, repeating) (chainable). */
-  rUWhichDateTimeQualifier(...values: SegmentFieldValue[]): this {
-    this.fields[5] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  rUWhichDateTimeQualifier(...values: Repeated<string>[]): this {
+    this.fields[5] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** URS-7 R/U Which Date/Time Status Qualifier (ID, max 12, optional, repeating) (chainable). */
-  rUWhichDateTimeStatusQualifier(...values: SegmentFieldValue[]): this {
-    this.fields[6] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  rUWhichDateTimeStatusQualifier(...values: Repeated<string>[]): this {
+    this.fields[6] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** URS-8 R/U Date/Time Selection Qualifier (ID, max 12, optional, repeating) (chainable). */
-  rUDateTimeSelectionQualifier(...values: SegmentFieldValue[]): this {
-    this.fields[7] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  rUDateTimeSelectionQualifier(...values: Repeated<string>[]): this {
+    this.fields[7] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 

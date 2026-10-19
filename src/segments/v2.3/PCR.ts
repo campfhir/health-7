@@ -9,7 +9,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment, type SegmentFieldValue } from "../../types/segment.ts";
+import { BaseSegment, repetitions, type Repeated, type SegmentFieldValue } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 
@@ -92,8 +92,8 @@ export class PCR extends BaseSegment {
   }
 
   /** PCR-12 Product Serial/Lot Number (ST, max 30, optional, repeating) (chainable). */
-  productSerialLotNumber(...values: SegmentFieldValue[]): this {
-    this.fields[11] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  productSerialLotNumber(...values: Repeated<string>[]): this {
+    this.fields[11] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
@@ -146,20 +146,20 @@ export class PCR extends BaseSegment {
   }
 
   /** PCR-21 Action Taken In Response To The Event (ID, max 2, optional, repeating) (chainable). */
-  actionTakenInResponseToTheEvent(...values: SegmentFieldValue[]): this {
-    this.fields[20] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  actionTakenInResponseToTheEvent(...values: Repeated<string>[]): this {
+    this.fields[20] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** PCR-22 Event Causality Observations (ID, max 2, optional, repeating) (chainable). */
-  eventCausalityObservations(...values: SegmentFieldValue[]): this {
-    this.fields[21] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  eventCausalityObservations(...values: Repeated<string>[]): this {
+    this.fields[21] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** PCR-23 Indirect Exposure Mechanism (ID, max 1, optional, repeating) (chainable). */
-  indirectExposureMechanism(...values: SegmentFieldValue[]): this {
-    this.fields[22] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  indirectExposureMechanism(...values: Repeated<string>[]): this {
+    this.fields[22] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 

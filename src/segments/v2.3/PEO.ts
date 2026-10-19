@@ -9,7 +9,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment, type SegmentFieldValue } from "../../types/segment.ts";
+import { BaseSegment, repetitions, type Repeated, type SegmentFieldValue } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 
@@ -26,14 +26,14 @@ export class PEO extends BaseSegment {
   }
 
   /** PEO-1 Event Identifiers Used (CE, max 60, optional, repeating) (chainable). */
-  eventIdentifiersUsed(...values: SegmentFieldValue[]): this {
-    this.fields[0] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  eventIdentifiersUsed(...values: Repeated<string>[]): this {
+    this.fields[0] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** PEO-2 Event Symptom/Diagnosis Code (CE, max 60, optional, repeating) (chainable). */
-  eventSymptomDiagnosisCode(...values: SegmentFieldValue[]): this {
-    this.fields[1] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  eventSymptomDiagnosisCode(...values: Repeated<string>[]): this {
+    this.fields[1] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
@@ -68,8 +68,8 @@ export class PEO extends BaseSegment {
   }
 
   /** PEO-8 Event Qualification (ID, max 1, optional, repeating) (chainable). */
-  eventQualification(...values: SegmentFieldValue[]): this {
-    this.fields[7] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  eventQualification(...values: Repeated<string>[]): this {
+    this.fields[7] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
@@ -86,8 +86,8 @@ export class PEO extends BaseSegment {
   }
 
   /** PEO-11 Event Outcome (ID, max 1, optional, repeating) (chainable). */
-  eventOutcome(...values: SegmentFieldValue[]): this {
-    this.fields[10] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  eventOutcome(...values: Repeated<string>[]): this {
+    this.fields[10] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
@@ -98,38 +98,38 @@ export class PEO extends BaseSegment {
   }
 
   /** PEO-13 Event Description From Others (FT, max 600, optional, repeating) (chainable). */
-  eventDescriptionFromOthers(...values: SegmentFieldValue[]): this {
-    this.fields[12] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  eventDescriptionFromOthers(...values: Repeated<string>[]): this {
+    this.fields[12] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** PEO-14 Event From Original Reporter (FT, max 600, optional, repeating) (chainable). */
-  eventFromOriginalReporter(...values: SegmentFieldValue[]): this {
-    this.fields[13] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  eventFromOriginalReporter(...values: Repeated<string>[]): this {
+    this.fields[13] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** PEO-15 Event Description From Patient (FT, max 600, optional, repeating) (chainable). */
-  eventDescriptionFromPatient(...values: SegmentFieldValue[]): this {
-    this.fields[14] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  eventDescriptionFromPatient(...values: Repeated<string>[]): this {
+    this.fields[14] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** PEO-16 Event Description From Practitioner (FT, max 600, optional, repeating) (chainable). */
-  eventDescriptionFromPractitioner(...values: SegmentFieldValue[]): this {
-    this.fields[15] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  eventDescriptionFromPractitioner(...values: Repeated<string>[]): this {
+    this.fields[15] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** PEO-17 Event Description From Autopsy (FT, max 600, optional, repeating) (chainable). */
-  eventDescriptionFromAutopsy(...values: SegmentFieldValue[]): this {
-    this.fields[16] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  eventDescriptionFromAutopsy(...values: Repeated<string>[]): this {
+    this.fields[16] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** PEO-18 Cause Of Death (CE, max 60, optional, repeating) (chainable). */
-  causeOfDeath(...values: SegmentFieldValue[]): this {
-    this.fields[17] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  causeOfDeath(...values: Repeated<string>[]): this {
+    this.fields[17] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
@@ -140,14 +140,14 @@ export class PEO extends BaseSegment {
   }
 
   /** PEO-20 Primary Observer Address (XAD, max 106, optional, repeating) (chainable). */
-  primaryObserverAddress(...values: SegmentFieldValue[]): this {
-    this.fields[19] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  primaryObserverAddress(...values: Repeated<string>[]): this {
+    this.fields[19] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** PEO-21 Primary Observer Telephone (XTN, max 40, optional, repeating) (chainable). */
-  primaryObserverTelephone(...values: SegmentFieldValue[]): this {
-    this.fields[20] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  primaryObserverTelephone(...values: Repeated<string>[]): this {
+    this.fields[20] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 

@@ -7,7 +7,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment, type SegmentFieldValue } from "../../types/segment.ts";
+import { BaseSegment, type Repeated, repetitions } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 
@@ -48,16 +48,16 @@ export class PRA extends BaseSegment {
    * @param identifier - PRA-2.1 Identifier
    * @param text - PRA-2.2 Text
    */
-  practitionerGroup(...values: { identifier: string; text?: string }[]): this {
+  practitionerGroup(...values: Repeated<{ identifier: string; text?: string }>[]): this {
     this.fields[1] = this.createRepeatingField(
-      values.map(({ identifier, text }) => (text ? this.createField([identifier, text]) : this.createField(identifier))),
+      repetitions(values).map(({ identifier, text }) => (text ? this.createField([identifier, text]) : this.createField(identifier))),
     );
     return this;
   }
 
   /** PRA-3 Practitioner Category (chainable). */
-  practitionerCategory(...values: string[]): this {
-    this.fields[2] = this.createRepeatingField(values.map((value) => this.createField(value)));
+  practitionerCategory(...values: Repeated<string>[]): this {
+    this.fields[2] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
 
@@ -74,9 +74,9 @@ export class PRA extends BaseSegment {
    * @param eligibleOrCertified - PRA-5.3 Eligible Or Certified
    * @param dateOfCertification - PRA-5.4 Date Of Certification
    */
-  specialty(...values: { specialtyName: string; governingBoard?: string; eligibleOrCertified?: string; dateOfCertification?: string }[]): this {
+  specialty(...values: Repeated<{ specialtyName: string; governingBoard?: string; eligibleOrCertified?: string; dateOfCertification?: string }>[]): this {
     this.fields[4] = this.createRepeatingField(
-      values.map(({ specialtyName, governingBoard, eligibleOrCertified, dateOfCertification }) =>
+      repetitions(values).map(({ specialtyName, governingBoard, eligibleOrCertified, dateOfCertification }) =>
         this.createField([specialtyName, governingBoard ?? "", eligibleOrCertified ?? "", dateOfCertification ?? ""]),
       ),
     );
@@ -90,9 +90,9 @@ export class PRA extends BaseSegment {
    * @param stateOrQualifying - PRA-6.3 State Or Qualifying
    * @param expireDate - PRA-6.4 Expire Date
    */
-  practitionerIdNumbers(...values: { idNumber: string; typeOfIdNumber?: string; stateOrQualifying?: string; expireDate?: string }[]): this {
+  practitionerIdNumbers(...values: Repeated<{ idNumber: string; typeOfIdNumber?: string; stateOrQualifying?: string; expireDate?: string }>[]): this {
     this.fields[5] = this.createRepeatingField(
-      values.map(({ idNumber, typeOfIdNumber, stateOrQualifying, expireDate }) =>
+      repetitions(values).map(({ idNumber, typeOfIdNumber, stateOrQualifying, expireDate }) =>
         this.createField([idNumber, typeOfIdNumber ?? "", stateOrQualifying ?? "", expireDate ?? ""]),
       ),
     );
@@ -103,8 +103,8 @@ export class PRA extends BaseSegment {
    * PRA-7 Privileges (CM_PIP, repeating) (chainable).
    * Each entry is one repetition in raw HL7 form.
    */
-  privileges(...values: SegmentFieldValue[]): this {
-    this.fields[6] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  privileges(...values: Repeated<string>[]): this {
+    this.fields[6] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 

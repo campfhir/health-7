@@ -7,7 +7,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment, type SegmentFieldValue } from "../../types/segment.ts";
+import { BaseSegment, type Repeated, repetitions } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 import {
@@ -60,8 +60,8 @@ export class OBX extends BaseSegment {
     return this;
   }
   /** OBX-5 Observation Value (chainable). */
-  observationValue(...values: SegmentFieldValue[]): this {
-    this.fields[4] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  observationValue(...values: Repeated<string>[]): this {
+    this.fields[4] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
   /**
@@ -84,8 +84,8 @@ export class OBX extends BaseSegment {
     return this;
   }
   /** OBX-8 Abnormal Flags (chainable). */
-  abnormalFlags(...values: string[]): this {
-    this.fields[7] = this.createRepeatingField(values.map((value) => this.createField(value)));
+  abnormalFlags(...values: Repeated<string>[]): this {
+    this.fields[7] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
   /** OBX-9 Probability (chainable). */
@@ -155,8 +155,8 @@ export class OBX extends BaseSegment {
    * @param text - OBX-17.2 Text
    * @param nameOfCodingSystem - OBX-17.3 Name of Coding System
    */
-  observationMethod(...values: { identifier?: string; text?: string; nameOfCodingSystem?: string }[]): this {
-    this.fields[16] = this.createRepeatingField(values.map(({ identifier, text, nameOfCodingSystem }) => this.createComponentsField([
+  observationMethod(...values: Repeated<{ identifier?: string; text?: string; nameOfCodingSystem?: string }>[]): this {
+    this.fields[16] = this.createRepeatingField(repetitions(values).map(({ identifier, text, nameOfCodingSystem }) => this.createComponentsField([
       identifier,
       text,
       nameOfCodingSystem,

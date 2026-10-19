@@ -7,7 +7,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment } from "../../types/segment.ts";
+import { BaseSegment, type Repeated, repetitions } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 import {
@@ -100,9 +100,9 @@ export class RXA extends BaseSegment {
   /**
    * RXA-9 Administration Notes (CE, repeating) (chainable). One argument per repetition.
    */
-  administrationNotes(...values: CodedInput[]): this {
+  administrationNotes(...values: Repeated<CodedInput>[]): this {
     this.fields[8] = this.createRepeatingField(
-      values.map((v) => this.createField(components(codedParts(v, 6)))),
+      repetitions(values).map((v) => this.createField(components(codedParts(v, 6)))),
     );
     return this;
   }
@@ -146,15 +146,15 @@ export class RXA extends BaseSegment {
   }
 
   /** RXA-15 Substance Lot Number (ST, repeating) (chainable). One argument per repetition. */
-  substanceLotNumber(...values: string[]): this {
-    this.fields[14] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  substanceLotNumber(...values: Repeated<string>[]): this {
+    this.fields[14] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** RXA-16 Substance Expiration Date (chainable). */
-  substanceExpirationDate(...values: (string | Date | { value: string | Date; format?: HL7DateLayout })[]): this {
+  substanceExpirationDate(...values: Repeated<(string | Date | { value: string | Date; format?: HL7DateLayout })>[]): this {
     this.fields[15] = this.createRepeatingField(
-      values.map((v) =>
+      repetitions(values).map((v) =>
         this.createField(
           v instanceof Date || typeof v === "string"
             ? formatHL7Date(v, DateLayout)
@@ -168,9 +168,9 @@ export class RXA extends BaseSegment {
   /**
    * RXA-16 Substance Expiration Date, all repetitions (chainable). Dates are formatted with the date layout.
    */
-  substanceExpirationDates(...values: (string | Date)[]): this {
+  substanceExpirationDates(...values: Repeated<(string | Date)>[]): this {
     this.fields[15] = this.createRepeatingField(
-      values.map((v) => this.createField(formatHL7Date(v, DateLayout))),
+      repetitions(values).map((v) => this.createField(formatHL7Date(v, DateLayout))),
     );
     return this;
   }
@@ -178,9 +178,9 @@ export class RXA extends BaseSegment {
   /**
    * RXA-17 Substance Manufacturer Name (CE, repeating) (chainable). One argument per repetition.
    */
-  substanceManufacturerName(...values: CodedInput[]): this {
+  substanceManufacturerName(...values: Repeated<CodedInput>[]): this {
     this.fields[16] = this.createRepeatingField(
-      values.map((v) => this.createField(components(codedParts(v, 6)))),
+      repetitions(values).map((v) => this.createField(components(codedParts(v, 6)))),
     );
     return this;
   }
@@ -188,9 +188,9 @@ export class RXA extends BaseSegment {
   /**
    * RXA-18 Substance/Treatment Refusal Reason (CE, repeating) (chainable). One argument per repetition.
    */
-  substanceRefusalReason(...values: CodedInput[]): this {
+  substanceRefusalReason(...values: Repeated<CodedInput>[]): this {
     this.fields[17] = this.createRepeatingField(
-      values.map((v) => this.createField(components(codedParts(v, 6)))),
+      repetitions(values).map((v) => this.createField(components(codedParts(v, 6)))),
     );
     return this;
   }
@@ -198,9 +198,9 @@ export class RXA extends BaseSegment {
   /**
    * RXA-19 Indication (CE, repeating) (chainable). One argument per repetition.
    */
-  indication(...values: CodedInput[]): this {
+  indication(...values: Repeated<CodedInput>[]): this {
     this.fields[18] = this.createRepeatingField(
-      values.map((v) => this.createField(components(codedParts(v, 6)))),
+      repetitions(values).map((v) => this.createField(components(codedParts(v, 6)))),
     );
     return this;
   }

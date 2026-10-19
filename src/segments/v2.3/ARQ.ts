@@ -9,7 +9,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment, type SegmentFieldValue } from "../../types/segment.ts";
+import { BaseSegment, repetitions, type Repeated, type SegmentFieldValue } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 
@@ -86,8 +86,8 @@ export class ARQ extends BaseSegment {
   }
 
   /** ARQ-11 Requested Start Date/Time Range (DR, max 53, optional, repeating) (chainable). */
-  requestedStartDateTimeRange(...values: SegmentFieldValue[]): this {
-    this.fields[10] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  requestedStartDateTimeRange(...values: Repeated<string>[]): this {
+    this.fields[10] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
@@ -140,8 +140,8 @@ export class ARQ extends BaseSegment {
   }
 
   /** ARQ-20 Entered By Phone Number (XTN, max 40, optional, repeating) (chainable). */
-  enteredByPhoneNumber(...values: SegmentFieldValue[]): this {
-    this.fields[19] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  enteredByPhoneNumber(...values: Repeated<string>[]): this {
+    this.fields[19] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 

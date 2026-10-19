@@ -7,7 +7,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment } from "../../types/segment.ts";
+import { BaseSegment, type Repeated, repetitions } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 
@@ -118,8 +118,8 @@ export class SCH extends BaseSegment {
   }
 
   /** SCH-11 Appointment Timing Quantity (chainable). */
-  appointmentTimingQuantity(...values: string[]): this {
-    this.fields[10] = this.createRepeatingField(values.map((value) => this.createField(value)));
+  appointmentTimingQuantity(...values: Repeated<string>[]): this {
+    this.fields[10] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
 
@@ -253,8 +253,8 @@ export class SCH extends BaseSegment {
   }
 
   /** SCH-21 Entered By Phone Number (chainable). */
-  enteredByPhoneNumber(...values: string[]): this {
-    this.fields[20] = this.createRepeatingField(values.map((value) => this.createField(value)));
+  enteredByPhoneNumber(...values: Repeated<string>[]): this {
+    this.fields[20] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
 

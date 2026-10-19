@@ -9,7 +9,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment, type SegmentFieldValue } from "../../types/segment.ts";
+import { BaseSegment, repetitions, type Repeated, type SegmentFieldValue } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 
@@ -26,20 +26,20 @@ export class APR extends BaseSegment {
   }
 
   /** APR-1 Time Selection Criteria (SCV, max 80, optional, repeating) (chainable). */
-  timeSelectionCriteria(...values: SegmentFieldValue[]): this {
-    this.fields[0] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  timeSelectionCriteria(...values: Repeated<string>[]): this {
+    this.fields[0] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** APR-2 Resource Selection Criteria (SCV, max 80, optional, repeating) (chainable). */
-  resourceSelectionCriteria(...values: SegmentFieldValue[]): this {
-    this.fields[1] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  resourceSelectionCriteria(...values: Repeated<string>[]): this {
+    this.fields[1] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** APR-3 Location Selection Criteria (SCV, max 80, optional, repeating) (chainable). */
-  locationSelectionCriteria(...values: SegmentFieldValue[]): this {
-    this.fields[2] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  locationSelectionCriteria(...values: Repeated<string>[]): this {
+    this.fields[2] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
@@ -50,8 +50,8 @@ export class APR extends BaseSegment {
   }
 
   /** APR-5 Filler Override Criteria (SCV, max 80, optional, repeating) (chainable). */
-  fillerOverrideCriteria(...values: SegmentFieldValue[]): this {
-    this.fields[4] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  fillerOverrideCriteria(...values: Repeated<string>[]): this {
+    this.fields[4] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 

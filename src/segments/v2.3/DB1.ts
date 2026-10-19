@@ -7,7 +7,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment } from "../../types/segment.ts";
+import { BaseSegment, type Repeated, repetitions } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 import { components, cxParts, type CX } from "../../utils/composites.ts";
@@ -46,9 +46,9 @@ export class DB1 extends BaseSegment {
    * DB1-3 Disabled Person Identifier (CX, repeating) (chainable).
    * A string is used verbatim as the raw field text.
    */
-  disabledPersonIdentifier(...values: (CX | string)[]): this {
+  disabledPersonIdentifier(...values: Repeated<(CX | string)>[]): this {
     this.fields[2] = this.createRepeatingField(
-      values.map((v) => this.createField(typeof v === "string" ? v : components(cxParts(v)))),
+      repetitions(values).map((v) => this.createField(typeof v === "string" ? v : components(cxParts(v)))),
     );
     return this;
   }

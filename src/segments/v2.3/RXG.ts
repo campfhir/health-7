@@ -9,7 +9,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment, type SegmentFieldValue } from "../../types/segment.ts";
+import { BaseSegment, repetitions, type Repeated, type SegmentFieldValue } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 
@@ -74,8 +74,8 @@ export class RXG extends BaseSegment {
   }
 
   /** RXG-9 Administration Notes (CE, max 200, optional, repeating) (chainable). */
-  administrationNotes(...values: SegmentFieldValue[]): this {
-    this.fields[8] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  administrationNotes(...values: Repeated<string>[]): this {
+    this.fields[8] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
@@ -134,26 +134,26 @@ export class RXG extends BaseSegment {
   }
 
   /** RXG-19 Substance Lot Number (ST, max 20, optional, repeating) (chainable). */
-  substanceLotNumber(...values: SegmentFieldValue[]): this {
-    this.fields[18] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  substanceLotNumber(...values: Repeated<string>[]): this {
+    this.fields[18] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** RXG-20 Substance Expiration Date (TS, max 26, optional, repeating) (chainable). */
-  substanceExpirationDate(...values: SegmentFieldValue[]): this {
-    this.fields[19] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  substanceExpirationDate(...values: Repeated<string>[]): this {
+    this.fields[19] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** RXG-21 Substance Manufacturer Name (CE, max 60, optional, repeating) (chainable). */
-  substanceManufacturerName(...values: SegmentFieldValue[]): this {
-    this.fields[20] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  substanceManufacturerName(...values: Repeated<string>[]): this {
+    this.fields[20] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** RXG-22 Indication (CE, max 200, optional, repeating) (chainable). */
-  indication(...values: SegmentFieldValue[]): this {
-    this.fields[21] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  indication(...values: Repeated<string>[]): this {
+    this.fields[21] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 

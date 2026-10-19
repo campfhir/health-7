@@ -9,7 +9,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment, type SegmentFieldValue } from "../../types/segment.ts";
+import { BaseSegment, repetitions, type Repeated, type SegmentFieldValue } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 
@@ -26,8 +26,8 @@ export class FAC extends BaseSegment {
   }
 
   /** FAC-1 Facility ID (EI, max 20, required, repeating) (chainable). */
-  facilityId(...values: SegmentFieldValue[]): this {
-    this.fields[0] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  facilityId(...values: Repeated<string>[]): this {
+    this.fields[0] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
@@ -50,26 +50,26 @@ export class FAC extends BaseSegment {
   }
 
   /** FAC-5 Contact Person (XCN, max 60, optional, repeating) (chainable). */
-  contactPerson(...values: SegmentFieldValue[]): this {
-    this.fields[4] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  contactPerson(...values: Repeated<string>[]): this {
+    this.fields[4] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** FAC-6 Contact Title (ST, max 60, optional, repeating) (chainable). */
-  contactTitle(...values: SegmentFieldValue[]): this {
-    this.fields[5] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  contactTitle(...values: Repeated<string>[]): this {
+    this.fields[5] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** FAC-7 Contact Address (XAD, max 200, optional, repeating) (chainable). */
-  contactAddress(...values: SegmentFieldValue[]): this {
-    this.fields[6] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  contactAddress(...values: Repeated<string>[]): this {
+    this.fields[6] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** FAC-8 Contact Telecommunication (XTN, max 44, optional, repeating) (chainable). */
-  contactTelecommunication(...values: SegmentFieldValue[]): this {
-    this.fields[7] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  contactTelecommunication(...values: Repeated<string>[]): this {
+    this.fields[7] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 

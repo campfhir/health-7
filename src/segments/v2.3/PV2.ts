@@ -7,7 +7,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment } from "../../types/segment.ts";
+import { BaseSegment, type Repeated, repetitions } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 import {
@@ -93,8 +93,8 @@ export class PV2 extends BaseSegment {
   }
 
   /** PV2-5 Patient Valuables (chainable). */
-  patientValuables(...values: string[]): this {
-    this.fields[4] = this.createRepeatingField(values.map((value) => this.createField(value)));
+  patientValuables(...values: Repeated<string>[]): this {
+    this.fields[4] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
 
@@ -245,8 +245,8 @@ export class PV2 extends BaseSegment {
    * PV2-23 Clinic Organization Name (chainable).
    * @param organizationName - PV2-23.1 Organization Name
    */
-  clinicOrganizationName(...values: string[]): this {
-    this.fields[22] = this.createRepeatingField(values.map((organizationName) => this.createComponentsField([organizationName])));
+  clinicOrganizationName(...values: Repeated<string>[]): this {
+    this.fields[22] = this.createRepeatingField(repetitions(values).map((organizationName) => this.createComponentsField([organizationName])));
     return this;
   }
 

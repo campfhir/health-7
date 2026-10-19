@@ -9,7 +9,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment, type SegmentFieldValue } from "../../types/segment.ts";
+import { BaseSegment, repetitions, type Repeated, type SegmentFieldValue } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 
@@ -32,8 +32,8 @@ export class CDM extends BaseSegment {
   }
 
   /** CDM-2 Charge Code Alias (CE, max 200, optional, repeating) (chainable). */
-  chargeCodeAlias(...values: SegmentFieldValue[]): this {
-    this.fields[1] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  chargeCodeAlias(...values: Repeated<string>[]): this {
+    this.fields[1] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
@@ -56,14 +56,14 @@ export class CDM extends BaseSegment {
   }
 
   /** CDM-6 Exploding Charges (CE, max 60, optional, repeating) (chainable). */
-  explodingCharges(...values: SegmentFieldValue[]): this {
-    this.fields[5] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  explodingCharges(...values: Repeated<string>[]): this {
+    this.fields[5] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** CDM-7 Procedure Code (CE, max 200, optional, repeating) (chainable). */
-  procedureCode(...values: SegmentFieldValue[]): this {
-    this.fields[6] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  procedureCode(...values: Repeated<string>[]): this {
+    this.fields[6] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
@@ -74,8 +74,8 @@ export class CDM extends BaseSegment {
   }
 
   /** CDM-9 Inventory Number (CE, max 60, optional, repeating) (chainable). */
-  inventoryNumber(...values: SegmentFieldValue[]): this {
-    this.fields[8] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  inventoryNumber(...values: Repeated<string>[]): this {
+    this.fields[8] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
@@ -86,8 +86,8 @@ export class CDM extends BaseSegment {
   }
 
   /** CDM-11 Contract Number (CK, max 200, optional, repeating) (chainable). */
-  contractNumber(...values: SegmentFieldValue[]): this {
-    this.fields[10] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  contractNumber(...values: Repeated<string>[]): this {
+    this.fields[10] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 

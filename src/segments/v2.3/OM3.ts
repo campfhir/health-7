@@ -9,7 +9,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment, type SegmentFieldValue } from "../../types/segment.ts";
+import { BaseSegment, repetitions, type Repeated, type SegmentFieldValue } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 
@@ -44,8 +44,8 @@ export class OM3 extends BaseSegment {
   }
 
   /** OM3-4 Normal Text/Codes for Categorical Observations (CE, max 200, optional, repeating) (chainable). */
-  normalTextCodesForCategoricalObservations(...values: SegmentFieldValue[]): this {
-    this.fields[3] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  normalTextCodesForCategoricalObservations(...values: Repeated<string>[]): this {
+    this.fields[3] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 

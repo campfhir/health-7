@@ -7,7 +7,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment } from "../../types/segment.ts";
+import { BaseSegment, type Repeated, repetitions } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 import {
@@ -97,8 +97,8 @@ export class RXD extends BaseSegment {
   }
 
   /** RXD-9 Dispense Notes (chainable). */
-  dispenseNotes(...values: string[]): this {
-    this.fields[8] = this.createRepeatingField(values.map((value) => this.createField(value)));
+  dispenseNotes(...values: Repeated<string>[]): this {
+    this.fields[8] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
 
@@ -158,8 +158,8 @@ export class RXD extends BaseSegment {
    * @param text - RXD-15.2 Text
    * @param codingSystem - RXD-15.3 Name of Coding System
    */
-  specialDispensingInstructions(...values: { code: string; text?: string; codingSystem?: string }[]): this {
-    this.fields[14] = this.createRepeatingField(values.map(({ code, text, codingSystem }) => this.createComponentsField([code, text, codingSystem])));
+  specialDispensingInstructions(...values: Repeated<{ code: string; text?: string; codingSystem?: string }>[]): this {
+    this.fields[14] = this.createRepeatingField(repetitions(values).map(({ code, text, codingSystem }) => this.createComponentsField([code, text, codingSystem])));
     return this;
   }
 
@@ -181,15 +181,15 @@ export class RXD extends BaseSegment {
   }
 
   /** RXD-18 Substance Lot Number (chainable). */
-  substanceLotNumber(...values: string[]): this {
-    this.fields[17] = this.createRepeatingField(values.map((value) => this.createField(value)));
+  substanceLotNumber(...values: Repeated<string>[]): this {
+    this.fields[17] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
 
   /** RXD-19 Substance Expiration Date (chainable). */
-  substanceExpirationDate(...values: (string | Date | { value: string | Date; format?: HL7DateLayout })[]): this {
+  substanceExpirationDate(...values: Repeated<(string | Date | { value: string | Date; format?: HL7DateLayout })>[]): this {
     this.fields[18] = this.createRepeatingField(
-      values.map((v) =>
+      repetitions(values).map((v) =>
         this.createField(
           v instanceof Date || typeof v === "string"
             ? formatHL7Date(v, DateLayout)
@@ -205,8 +205,8 @@ export class RXD extends BaseSegment {
    * @param code - RXD-20.1 Code
    * @param text - RXD-20.2 Text
    */
-  substanceManufacturerName(...values: { code: string; text?: string }[]): this {
-    this.fields[19] = this.createRepeatingField(values.map(({ code, text }) => this.createComponentsField([code, text])));
+  substanceManufacturerName(...values: Repeated<{ code: string; text?: string }>[]): this {
+    this.fields[19] = this.createRepeatingField(repetitions(values).map(({ code, text }) => this.createComponentsField([code, text])));
     return this;
   }
 

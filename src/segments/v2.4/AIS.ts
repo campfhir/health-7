@@ -6,6 +6,7 @@
  * @module
  */
 import { Err } from "../../utils/err.ts";
+import { type Repeated, repetitions } from "../../types/segment.ts";
 import type { Result } from "../../types/result.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
@@ -22,9 +23,9 @@ export class AIS extends AIS_base {
    * @param code - AIS-11.1 Code
    * @param text - AIS-11.2 Text
    */
-  placerSupplementalInfo(...values: { code: string; text?: string }[]): this {
+  placerSupplementalInfo(...values: Repeated<{ code: string; text?: string }>[]): this {
     this.fields[10] = this.createRepeatingField(
-      values.map(({ code, text }) => this.createComponentsField([code, text])),
+      repetitions(values).map(({ code, text }) => this.createComponentsField([code, text])),
     );
     return this;
   }
@@ -34,9 +35,9 @@ export class AIS extends AIS_base {
    * @param code - AIS-12.1 Code
    * @param text - AIS-12.2 Text
    */
-  fillerSupplementalInfo(...values: { code: string; text?: string }[]): this {
+  fillerSupplementalInfo(...values: Repeated<{ code: string; text?: string }>[]): this {
     this.fields[11] = this.createRepeatingField(
-      values.map(({ code, text }) => this.createComponentsField([code, text])),
+      repetitions(values).map(({ code, text }) => this.createComponentsField([code, text])),
     );
     return this;
   }

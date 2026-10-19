@@ -5,7 +5,7 @@
  * tables). Every file that already exists in src/segments/v2.3/ is left alone, so a segment
  * can be replaced by a hand-written class at any time and the generator will not touch it again.
  *
- * Generated setters take raw HL7 values (SegmentFieldValue). Repeating fields take an array with
+ * Generated setters take raw HL7 values (SegmentFieldValue). Repeating fields take one argument per repetition (or an array of them).
  * one entry per repetition. Composite and coded types are not modelled beyond that; they can be
  * given hand-written helpers later.
  *
@@ -85,8 +85,8 @@ function setterFor(code: string, f: SpecField, method: string): string {
   const doc = `  /** ${code}-${f.seq} ${plainName(f.name)} (${f.type}, max ${f.length}, ${OPT[f.opt] ?? f.opt}${repeat}) (chainable). */`;
   if (isRepeating(f)) {
     return `${doc}
-  ${method}(...values: SegmentFieldValue[]): this {
-    this.fields[${index}] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  ${method}(...values: Repeated<string>[]): this {
+    this.fields[${index}] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }`;
   }
@@ -99,6 +99,10 @@ function setterFor(code: string, f: SpecField, method: string): string {
 
 function classSource(code: string, seg: SpecSegment): string {
   const names = assignSetterNames(seg.fields);
+  const repeats = seg.fields.some(isRepeating);
+  const singles = seg.fields.some((f) => !isRepeating(f));
+  const imported = ["BaseSegment", ...(repeats ? ["repetitions", "type Repeated"] : []), ...(singles ? ["type SegmentFieldValue"] : [])];
+  const importNames = imported.slice(1).map((n) => `, ${n}`).join("");
   const setters = seg.fields.map((f) => setterFor(code, f, names.get(f.seq)!)).join("\n\n");
   return `/**
  * ${code} segment definition for HL7 v2.3.
@@ -111,7 +115,7 @@ function classSource(code: string, seg: SpecSegment): string {
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment, type SegmentFieldValue } from "../../types/segment.ts";
+import { BaseSegment${importNames} } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 

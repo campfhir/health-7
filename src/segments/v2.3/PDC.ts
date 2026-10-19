@@ -9,7 +9,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment, type SegmentFieldValue } from "../../types/segment.ts";
+import { BaseSegment, repetitions, type Repeated, type SegmentFieldValue } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 
@@ -56,8 +56,8 @@ export class PDC extends BaseSegment {
   }
 
   /** PDC-6 Model Identifier (ST, max 60, optional, repeating) (chainable). */
-  modelIdentifier(...values: SegmentFieldValue[]): this {
-    this.fields[5] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  modelIdentifier(...values: Repeated<string>[]): this {
+    this.fields[5] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
@@ -68,8 +68,8 @@ export class PDC extends BaseSegment {
   }
 
   /** PDC-8 Other Identifier (ST, max 60, optional, repeating) (chainable). */
-  otherIdentifier(...values: SegmentFieldValue[]): this {
-    this.fields[7] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  otherIdentifier(...values: Repeated<string>[]): this {
+    this.fields[7] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 

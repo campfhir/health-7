@@ -7,7 +7,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment } from "../../types/segment.ts";
+import { BaseSegment, type Repeated, repetitions } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 import {
@@ -75,8 +75,8 @@ export class AIG extends BaseSegment {
    * @param code - AIG-5.1 Code
    * @param text - AIG-5.2 Text
    */
-  resourceGroup(...values: { code: string; text?: string }[]): this {
-    this.fields[4] = this.createRepeatingField(values.map(({ code, text }) => this.createComponentsField([code, text])));
+  resourceGroup(...values: Repeated<{ code: string; text?: string }>[]): this {
+    this.fields[4] = this.createRepeatingField(repetitions(values).map(({ code, text }) => this.createComponentsField([code, text])));
     return this;
   }
 

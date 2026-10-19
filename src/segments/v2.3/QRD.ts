@@ -7,7 +7,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment } from "../../types/segment.ts";
+import { BaseSegment, type Repeated, repetitions } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 import {
@@ -133,8 +133,8 @@ export class QRD extends BaseSegment {
    * Each value is written as a single component; the CM composite layout is not yet modelled.
    * @param values - One entry per repetition
    */
-  whatDataCodeValueQualifier(...values: string[]): this {
-    this.fields[10] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  whatDataCodeValueQualifier(...values: Repeated<string>[]): this {
+    this.fields[10] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 

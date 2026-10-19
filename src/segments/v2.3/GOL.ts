@@ -9,7 +9,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment, type SegmentFieldValue } from "../../types/segment.ts";
+import { BaseSegment, repetitions, type Repeated, type SegmentFieldValue } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 
@@ -122,8 +122,8 @@ export class GOL extends BaseSegment {
   }
 
   /** GOL-17 Goal Evaluation Comment (ST, max 300, optional, repeating) (chainable). */
-  goalEvaluationComment(...values: SegmentFieldValue[]): this {
-    this.fields[16] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  goalEvaluationComment(...values: Repeated<string>[]): this {
+    this.fields[16] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
@@ -140,14 +140,14 @@ export class GOL extends BaseSegment {
   }
 
   /** GOL-20 Goal Target Type (CE, max 80, optional, repeating) (chainable). */
-  goalTargetType(...values: SegmentFieldValue[]): this {
-    this.fields[19] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  goalTargetType(...values: Repeated<string>[]): this {
+    this.fields[19] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** GOL-21 Goal Target Name (XPN, max 80, optional, repeating) (chainable). */
-  goalTargetName(...values: SegmentFieldValue[]): this {
-    this.fields[20] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  goalTargetName(...values: Repeated<string>[]): this {
+    this.fields[20] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 

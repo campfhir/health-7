@@ -7,7 +7,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment } from "../../types/segment.ts";
+import { BaseSegment, type Repeated, repetitions } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 import {
@@ -48,8 +48,8 @@ export class PID extends BaseSegment {
    * @param assigningAuthority - PID-3.4 Assigning Authority
    * @param identifierTypeCode - PID-3.5 Identifier Type Code
    */
-  patientIdentifierList(...values: { id: string; checkDigit?: string; checkDigitScheme?: string; assigningAuthority?: string; identifierTypeCode?: string }[]): this {
-    this.fields[2] = this.createRepeatingField(values.map(({ id, checkDigit, checkDigitScheme, assigningAuthority, identifierTypeCode }) => this.createComponentsField([
+  patientIdentifierList(...values: Repeated<{ id: string; checkDigit?: string; checkDigitScheme?: string; assigningAuthority?: string; identifierTypeCode?: string }>[]): this {
+    this.fields[2] = this.createRepeatingField(repetitions(values).map(({ id, checkDigit, checkDigitScheme, assigningAuthority, identifierTypeCode }) => this.createComponentsField([
       id,
       checkDigit,
       checkDigitScheme,
@@ -59,8 +59,8 @@ export class PID extends BaseSegment {
     return this;
   }
   /** PID-4 Alternate Patient ID (chainable). */
-  alternatePatientId(...values: string[]): this {
-    this.fields[3] = this.createRepeatingField(values.map((value) => this.createField(value)));
+  alternatePatientId(...values: Repeated<string>[]): this {
+    this.fields[3] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
   /**
@@ -71,8 +71,8 @@ export class PID extends BaseSegment {
    * @param suffix - PID-5.4 Suffix
    * @param prefix - PID-5.5 Prefix
    */
-  patientName(...values: { familyName: string; givenName?: string; middleName?: string; suffix?: string; prefix?: string }[]): this {
-    this.fields[4] = this.createRepeatingField(values.map(({ familyName, givenName, middleName, suffix, prefix }) => this.createComponentsField([
+  patientName(...values: Repeated<{ familyName: string; givenName?: string; middleName?: string; suffix?: string; prefix?: string }>[]): this {
+    this.fields[4] = this.createRepeatingField(repetitions(values).map(({ familyName, givenName, middleName, suffix, prefix }) => this.createComponentsField([
       familyName,
       givenName,
       middleName,
@@ -110,8 +110,8 @@ export class PID extends BaseSegment {
    * @param familyName - PID-9.1 Family Name
    * @param givenName - PID-9.2 Given Name
    */
-  patientAlias(...values: { familyName: string; givenName?: string }[]): this {
-    this.fields[8] = this.createRepeatingField(values.map(({ familyName, givenName }) => this.createComponentsField([familyName, givenName])));
+  patientAlias(...values: Repeated<{ familyName: string; givenName?: string }>[]): this {
+    this.fields[8] = this.createRepeatingField(repetitions(values).map(({ familyName, givenName }) => this.createComponentsField([familyName, givenName])));
     return this;
   }
   /** PID-10 Race (chainable). */
@@ -128,8 +128,8 @@ export class PID extends BaseSegment {
    * @param zip - PID-11.5 Zip
    * @param country - PID-11.6 Country
    */
-  patientAddress(...values: { streetAddress?: string; otherDesignation?: string; city?: string; state?: string; zip?: string; country?: string }[]): this {
-    this.fields[10] = this.createRepeatingField(values.map(({ streetAddress, otherDesignation, city, state, zip, country }) => this.createComponentsField([
+  patientAddress(...values: Repeated<{ streetAddress?: string; otherDesignation?: string; city?: string; state?: string; zip?: string; country?: string }>[]): this {
+    this.fields[10] = this.createRepeatingField(repetitions(values).map(({ streetAddress, otherDesignation, city, state, zip, country }) => this.createComponentsField([
       streetAddress,
       otherDesignation,
       city,
@@ -145,13 +145,13 @@ export class PID extends BaseSegment {
     return this;
   }
   /** PID-13 Phone Number Home (chainable). */
-  phoneNumberHome(...values: string[]): this {
-    this.fields[12] = this.createRepeatingField(values.map((value) => this.createField(value)));
+  phoneNumberHome(...values: Repeated<string>[]): this {
+    this.fields[12] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
   /** PID-14 Phone Number Business (chainable). */
-  phoneNumberBusiness(...values: string[]): this {
-    this.fields[13] = this.createRepeatingField(values.map((value) => this.createField(value)));
+  phoneNumberBusiness(...values: Repeated<string>[]): this {
+    this.fields[13] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
   /** PID-15 Primary Language (chainable). */
@@ -199,8 +199,8 @@ export class PID extends BaseSegment {
    * @param assigningAuthority - PID-21.4 Assigning Authority
    * @param identifierTypeCode - PID-21.5 Identifier Type Code
    */
-  mothersIdentifier(...values: { id: string; assigningAuthority?: string; identifierTypeCode?: string }[]): this {
-    this.fields[20] = this.createRepeatingField(values.map(({ id, assigningAuthority, identifierTypeCode }) => this.createComponentsField([
+  mothersIdentifier(...values: Repeated<{ id: string; assigningAuthority?: string; identifierTypeCode?: string }>[]): this {
+    this.fields[20] = this.createRepeatingField(repetitions(values).map(({ id, assigningAuthority, identifierTypeCode }) => this.createComponentsField([
       id,
       undefined,
       undefined,
@@ -240,8 +240,8 @@ export class PID extends BaseSegment {
    * @param text - PID-26.2 Text
    * @param codingSystem - PID-26.3 Name of Coding System
    */
-  citizenship(...values: { code: string; text?: string; codingSystem?: string }[]): this {
-    this.fields[25] = this.createRepeatingField(values.map(({ code, text, codingSystem }) => this.createComponentsField([code, text, codingSystem])));
+  citizenship(...values: Repeated<{ code: string; text?: string; codingSystem?: string }>[]): this {
+    this.fields[25] = this.createRepeatingField(repetitions(values).map(({ code, text, codingSystem }) => this.createComponentsField([code, text, codingSystem])));
     return this;
   }
   /**

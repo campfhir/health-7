@@ -7,7 +7,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment } from "../../types/segment.ts";
+import { BaseSegment, type Repeated, repetitions } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 import {
@@ -190,8 +190,8 @@ export class IN2 extends BaseSegment {
    * @param suffix - IN2-22.4 Suffix
    * @param prefix - IN2-22.5 Prefix
    */
-  specialCoverageApprovalName(...values: { familyName: string; givenName?: string; middleName?: string; suffix?: string; prefix?: string }[]): this {
-    this.fields[21] = this.createRepeatingField(values.map(({ familyName, givenName, middleName, suffix, prefix }) => this.createComponentsField([
+  specialCoverageApprovalName(...values: Repeated<{ familyName: string; givenName?: string; middleName?: string; suffix?: string; prefix?: string }>[]): this {
+    this.fields[21] = this.createRepeatingField(repetitions(values).map(({ familyName, givenName, middleName, suffix, prefix }) => this.createComponentsField([
       familyName,
       givenName,
       middleName,
@@ -208,8 +208,8 @@ export class IN2 extends BaseSegment {
   }
 
   /** IN2-24 Non-Covered Insurance Code (chainable). */
-  nonCoveredInsuranceCode(...values: string[]): this {
-    this.fields[23] = this.createRepeatingField(values.map((value) => this.createField(value)));
+  nonCoveredInsuranceCode(...values: Repeated<string>[]): this {
+    this.fields[23] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
 
@@ -259,8 +259,8 @@ export class IN2 extends BaseSegment {
    * @param amountType - IN2-28.2 Amount Type
    * @param coverageAmount - IN2-28.3 Coverage Amount
    */
-  roomCoverageTypeAmount(...values: { roomType: string; amountType?: string; coverageAmount?: string }[]): this {
-    this.fields[27] = this.createRepeatingField(values.map(({ roomType, amountType, coverageAmount }) => this.createComponentsField([
+  roomCoverageTypeAmount(...values: Repeated<{ roomType: string; amountType?: string; coverageAmount?: string }>[]): this {
+    this.fields[27] = this.createRepeatingField(repetitions(values).map(({ roomType, amountType, coverageAmount }) => this.createComponentsField([
       roomType,
       amountType,
       coverageAmount,
@@ -274,8 +274,8 @@ export class IN2 extends BaseSegment {
    * @param amountClass - IN2-29.2 Amount Class
    * @param amount - IN2-29.3 Amount
    */
-  policyTypeAmount(...values: { policyType: string; amountClass?: string; amount?: string }[]): this {
-    this.fields[28] = this.createRepeatingField(values.map(({ policyType, amountClass, amount }) => this.createComponentsField([
+  policyTypeAmount(...values: Repeated<{ policyType: string; amountClass?: string; amount?: string }>[]): this {
+    this.fields[28] = this.createRepeatingField(repetitions(values).map(({ policyType, amountClass, amount }) => this.createComponentsField([
       policyType,
       amountClass,
       amount,
@@ -419,8 +419,8 @@ export class IN2 extends BaseSegment {
    * @param text - IN2-43.2 Text
    * @param codingSystem - IN2-43.3 Name of Coding System
    */
-  maritalStatus(...values: { code: string; text?: string; codingSystem?: string }[]): this {
-    this.fields[42] = this.createRepeatingField(values.map(({ code, text, codingSystem }) => this.createComponentsField([code, text, codingSystem])));
+  maritalStatus(...values: Repeated<{ code: string; text?: string; codingSystem?: string }>[]): this {
+    this.fields[42] = this.createRepeatingField(repetitions(values).map(({ code, text, codingSystem }) => this.createComponentsField([code, text, codingSystem])));
     return this;
   }
 
@@ -466,8 +466,8 @@ export class IN2 extends BaseSegment {
    * @param suffix - IN2-49.4 Suffix
    * @param prefix - IN2-49.5 Prefix
    */
-  employerContactPersonName(...values: { familyName: string; givenName?: string; middleName?: string; suffix?: string; prefix?: string }[]): this {
-    this.fields[48] = this.createRepeatingField(values.map(({ familyName, givenName, middleName, suffix, prefix }) => this.createComponentsField([
+  employerContactPersonName(...values: Repeated<{ familyName: string; givenName?: string; middleName?: string; suffix?: string; prefix?: string }>[]): this {
+    this.fields[48] = this.createRepeatingField(repetitions(values).map(({ familyName, givenName, middleName, suffix, prefix }) => this.createComponentsField([
       familyName,
       givenName,
       middleName,
@@ -478,8 +478,8 @@ export class IN2 extends BaseSegment {
   }
 
   /** IN2-50 Employer Contact Person Phone Number (chainable). */
-  employerContactPersonPhoneNumber(...values: string[]): this {
-    this.fields[49] = this.createRepeatingField(values.map((value) => this.createField(value)));
+  employerContactPersonPhoneNumber(...values: Repeated<string>[]): this {
+    this.fields[49] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
 
@@ -497,8 +497,8 @@ export class IN2 extends BaseSegment {
    * @param suffix - IN2-52.4 Suffix
    * @param prefix - IN2-52.5 Prefix
    */
-  insuredsContactPersonName(...values: { familyName: string; givenName?: string; middleName?: string; suffix?: string; prefix?: string }[]): this {
-    this.fields[51] = this.createRepeatingField(values.map(({ familyName, givenName, middleName, suffix, prefix }) => this.createComponentsField([
+  insuredsContactPersonName(...values: Repeated<{ familyName: string; givenName?: string; middleName?: string; suffix?: string; prefix?: string }>[]): this {
+    this.fields[51] = this.createRepeatingField(repetitions(values).map(({ familyName, givenName, middleName, suffix, prefix }) => this.createComponentsField([
       familyName,
       givenName,
       middleName,
@@ -509,14 +509,14 @@ export class IN2 extends BaseSegment {
   }
 
   /** IN2-53 Insured's Contact Person Phone Number (chainable). */
-  insuredsContactPersonPhoneNumber(...values: string[]): this {
-    this.fields[52] = this.createRepeatingField(values.map((value) => this.createField(value)));
+  insuredsContactPersonPhoneNumber(...values: Repeated<string>[]): this {
+    this.fields[52] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
 
   /** IN2-54 Insured's Contact Person Reason (chainable). */
-  insuredsContactPersonReason(...values: string[]): this {
-    this.fields[53] = this.createRepeatingField(values.map((value) => this.createField(value)));
+  insuredsContactPersonReason(...values: Repeated<string>[]): this {
+    this.fields[53] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
 
@@ -532,9 +532,9 @@ export class IN2 extends BaseSegment {
   }
 
   /** IN2-56 Relationship to the Patient Stop Date (chainable). */
-  relationshipStopDate(...values: (string | Date | { value: string | Date; format?: HL7DateLayout })[]): this {
+  relationshipStopDate(...values: Repeated<(string | Date | { value: string | Date; format?: HL7DateLayout })>[]): this {
     this.fields[55] = this.createRepeatingField(
-      values.map((v) =>
+      repetitions(values).map((v) =>
         this.createField(
           v instanceof Date || typeof v === "string"
             ? formatHL7Date(v, DateLayout)
@@ -598,14 +598,14 @@ export class IN2 extends BaseSegment {
   }
 
   /** IN2-63 Insured's Phone Number - Home (chainable). */
-  insuredsPhoneNumberHome(...values: string[]): this {
-    this.fields[62] = this.createRepeatingField(values.map((value) => this.createField(value)));
+  insuredsPhoneNumberHome(...values: Repeated<string>[]): this {
+    this.fields[62] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
 
   /** IN2-64 Insured's Employer Phone Number (chainable). */
-  insuredsEmployerPhoneNumber(...values: string[]): this {
-    this.fields[63] = this.createRepeatingField(values.map((value) => this.createField(value)));
+  insuredsEmployerPhoneNumber(...values: Repeated<string>[]): this {
+    this.fields[63] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
 
@@ -644,8 +644,8 @@ export class IN2 extends BaseSegment {
    * @param organizationNameTypeCode - IN2-69.2 Organization Name Type Code
    * @param idNumber - IN2-69.3 ID Number
    */
-  insuredOrganizationNameAndId(...values: { organizationName: string; organizationNameTypeCode?: string; idNumber?: string }[]): this {
-    this.fields[68] = this.createRepeatingField(values.map(({ organizationName, organizationNameTypeCode, idNumber }) => this.createComponentsField([
+  insuredOrganizationNameAndId(...values: Repeated<{ organizationName: string; organizationNameTypeCode?: string; idNumber?: string }>[]): this {
+    this.fields[68] = this.createRepeatingField(repetitions(values).map(({ organizationName, organizationNameTypeCode, idNumber }) => this.createComponentsField([
       organizationName,
       organizationNameTypeCode,
       idNumber,
@@ -659,8 +659,8 @@ export class IN2 extends BaseSegment {
    * @param organizationNameTypeCode - IN2-70.2 Organization Name Type Code
    * @param idNumber - IN2-70.3 ID Number
    */
-  insuredEmployerOrganizationNameAndId(...values: { organizationName: string; organizationNameTypeCode?: string; idNumber?: string }[]): this {
-    this.fields[69] = this.createRepeatingField(values.map(({ organizationName, organizationNameTypeCode, idNumber }) => this.createComponentsField([
+  insuredEmployerOrganizationNameAndId(...values: Repeated<{ organizationName: string; organizationNameTypeCode?: string; idNumber?: string }>[]): this {
+    this.fields[69] = this.createRepeatingField(repetitions(values).map(({ organizationName, organizationNameTypeCode, idNumber }) => this.createComponentsField([
       organizationName,
       organizationNameTypeCode,
       idNumber,

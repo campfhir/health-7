@@ -9,7 +9,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment, type SegmentFieldValue } from "../../types/segment.ts";
+import { BaseSegment, repetitions, type Repeated, type SegmentFieldValue } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 
@@ -68,8 +68,8 @@ export class TXA extends BaseSegment {
   }
 
   /** TXA-8 Edit Date/Time (TS, max 26, optional, repeating) (chainable). */
-  editDateTime(...values: SegmentFieldValue[]): this {
-    this.fields[7] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  editDateTime(...values: Repeated<string>[]): this {
+    this.fields[7] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
@@ -80,8 +80,8 @@ export class TXA extends BaseSegment {
   }
 
   /** TXA-10 Assigned Document Authenticator (XCN, max 60, optional, repeating) (chainable). */
-  assignedDocumentAuthenticator(...values: SegmentFieldValue[]): this {
-    this.fields[9] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  assignedDocumentAuthenticator(...values: Repeated<string>[]): this {
+    this.fields[9] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
@@ -104,8 +104,8 @@ export class TXA extends BaseSegment {
   }
 
   /** TXA-14 Placer Order Number (EI, max 22, optional, repeating) (chainable). */
-  placerOrderNumber(...values: SegmentFieldValue[]): this {
-    this.fields[13] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  placerOrderNumber(...values: Repeated<string>[]): this {
+    this.fields[13] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
@@ -122,8 +122,8 @@ export class TXA extends BaseSegment {
   }
 
   /** TXA-17 Document Completion Status (ID, max 2, required, repeating) (chainable). */
-  documentCompletionStatus(...values: SegmentFieldValue[]): this {
-    this.fields[16] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  documentCompletionStatus(...values: Repeated<string>[]): this {
+    this.fields[16] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
@@ -152,14 +152,14 @@ export class TXA extends BaseSegment {
   }
 
   /** TXA-22 Authentication Person, Time Stamp (PPN, max 60, conditional, repeating) (chainable). */
-  authenticationPersonTimeStamp(...values: SegmentFieldValue[]): this {
-    this.fields[21] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  authenticationPersonTimeStamp(...values: Repeated<string>[]): this {
+    this.fields[21] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** TXA-23 Distributed Copies (XCN, max 60, optional, repeating) (chainable). */
-  distributedCopies(...values: SegmentFieldValue[]): this {
-    this.fields[22] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  distributedCopies(...values: Repeated<string>[]): this {
+    this.fields[22] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 

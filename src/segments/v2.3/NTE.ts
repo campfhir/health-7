@@ -7,7 +7,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment } from "../../types/segment.ts";
+import { BaseSegment, type Repeated, repetitions } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 
@@ -39,8 +39,8 @@ export class NTE extends BaseSegment {
   }
 
   /** NTE-3 Comment (chainable). */
-  comment(...values: string[]): this {
-    this.fields[2] = this.createRepeatingField(values.map((text) => this.createField(text)));
+  comment(...values: Repeated<string>[]): this {
+    this.fields[2] = this.createRepeatingField(repetitions(values).map((text) => this.createField(text)));
     return this;
   }
 

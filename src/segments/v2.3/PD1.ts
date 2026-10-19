@@ -7,7 +7,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment } from "../../types/segment.ts";
+import { BaseSegment, type Repeated, repetitions } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 
@@ -47,8 +47,8 @@ export class PD1 extends BaseSegment {
    * @param idNumber - PD1-3.2 ID Number
    * @param checkDigit - PD1-3.3 Check Digit
    */
-  patientPrimaryFacility(...values: { organizationName: string; idNumber?: string; checkDigit?: string }[]): this {
-    this.fields[2] = this.createRepeatingField(values.map(({ organizationName, idNumber, checkDigit }) => this.createComponentsField([
+  patientPrimaryFacility(...values: Repeated<{ organizationName: string; idNumber?: string; checkDigit?: string }>[]): this {
+    this.fields[2] = this.createRepeatingField(repetitions(values).map(({ organizationName, idNumber, checkDigit }) => this.createComponentsField([
       organizationName,
       idNumber,
       checkDigit,
@@ -63,8 +63,8 @@ export class PD1 extends BaseSegment {
    * @param givenName - PD1-4.3 Given Name
    * @param middleName - PD1-4.4 Middle Name
    */
-  patientPrimaryCareProvider(...values: { id: string; familyName: string; givenName?: string; middleName?: string }[]): this {
-    this.fields[3] = this.createRepeatingField(values.map(({ id, familyName, givenName, middleName }) => this.createComponentsField([
+  patientPrimaryCareProvider(...values: Repeated<{ id: string; familyName: string; givenName?: string; middleName?: string }>[]): this {
+    this.fields[3] = this.createRepeatingField(repetitions(values).map(({ id, familyName, givenName, middleName }) => this.createComponentsField([
       id,
       familyName,
       givenName || "",
@@ -108,8 +108,8 @@ export class PD1 extends BaseSegment {
    * @param id - PD1-10.1 ID Number
    * @param assigningAuthority - PD1-10.4 Assigning Authority
    */
-  duplicatePatient(...values: { id: string; assigningAuthority?: string }[]): this {
-    this.fields[9] = this.createRepeatingField(values.map(({ id, assigningAuthority }) => this.createComponentsField([
+  duplicatePatient(...values: Repeated<{ id: string; assigningAuthority?: string }>[]): this {
+    this.fields[9] = this.createRepeatingField(repetitions(values).map(({ id, assigningAuthority }) => this.createComponentsField([
       id,
       "",
       "",

@@ -9,7 +9,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment, type SegmentFieldValue } from "../../types/segment.ts";
+import { BaseSegment, repetitions, type Repeated, type SegmentFieldValue } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 
@@ -86,20 +86,20 @@ export class CSR extends BaseSegment {
   }
 
   /** CSR-11 Study Randomization Date/time (TS, max 26, optional, repeating) (chainable). */
-  studyRandomizationDateTime(...values: SegmentFieldValue[]): this {
-    this.fields[10] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  studyRandomizationDateTime(...values: Repeated<string>[]): this {
+    this.fields[10] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** CSR-12 Study Randomized Arm (CE, max 200, optional, repeating) (chainable). */
-  studyRandomizedArm(...values: SegmentFieldValue[]): this {
-    this.fields[11] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  studyRandomizedArm(...values: Repeated<string>[]): this {
+    this.fields[11] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** CSR-13 Stratum for Study Randomization (CE, max 200, optional, repeating) (chainable). */
-  stratumForStudyRandomization(...values: SegmentFieldValue[]): this {
-    this.fields[12] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  stratumForStudyRandomization(...values: Repeated<string>[]): this {
+    this.fields[12] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 

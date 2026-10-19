@@ -7,7 +7,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment } from "../../types/segment.ts";
+import { BaseSegment, type Repeated, repetitions } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 import {
@@ -88,9 +88,9 @@ export class PR1 extends BaseSegment {
    * @param familyName - PR1-8.2 Family Name
    * @param givenName - PR1-8.3 Given Name
    */
-  anesthesiologist(...values: { id: string; familyName?: string; givenName?: string }[]): this {
+  anesthesiologist(...values: Repeated<{ id: string; familyName?: string; givenName?: string }>[]): this {
     this.fields[7] = this.createRepeatingField(
-      values.map(({ id, familyName, givenName }) => this.createField([id, familyName || "", givenName || ""])),
+      repetitions(values).map(({ id, familyName, givenName }) => this.createField([id, familyName || "", givenName || ""])),
     );
     return this;
   }
@@ -113,9 +113,9 @@ export class PR1 extends BaseSegment {
    * @param familyName - PR1-11.2 Family Name
    * @param givenName - PR1-11.3 Given Name
    */
-  surgeon(...values: { id: string; familyName?: string; givenName?: string }[]): this {
+  surgeon(...values: Repeated<{ id: string; familyName?: string; givenName?: string }>[]): this {
     this.fields[10] = this.createRepeatingField(
-      values.map(({ id, familyName, givenName }) => this.createField([id, familyName || "", givenName || ""])),
+      repetitions(values).map(({ id, familyName, givenName }) => this.createField([id, familyName || "", givenName || ""])),
     );
     return this;
   }
@@ -126,9 +126,9 @@ export class PR1 extends BaseSegment {
    * @param familyName - PR1-12.2 Family Name
    * @param givenName - PR1-12.3 Given Name
    */
-  procedurePractitioner(...values: { id: string; familyName?: string; givenName?: string }[]): this {
+  procedurePractitioner(...values: Repeated<{ id: string; familyName?: string; givenName?: string }>[]): this {
     this.fields[11] = this.createRepeatingField(
-      values.map(({ id, familyName, givenName }) => this.createField([id, familyName || "", givenName || ""])),
+      repetitions(values).map(({ id, familyName, givenName }) => this.createField([id, familyName || "", givenName || ""])),
     );
     return this;
   }

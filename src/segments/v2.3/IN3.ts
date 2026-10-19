@@ -7,7 +7,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment } from "../../types/segment.ts";
+import { BaseSegment, type Repeated, repetitions } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 import {
@@ -49,8 +49,8 @@ export class IN3 extends BaseSegment {
    * @param familyName - IN3-3.2 Family Name
    * @param givenName - IN3-3.3 Given Name
    */
-  certifiedBy(...values: { id: string; familyName?: string; givenName?: string }[]): this {
-    this.fields[2] = this.createRepeatingField(values.map(({ id, familyName, givenName }) => this.createField([id, familyName || "", givenName || ""])));
+  certifiedBy(...values: Repeated<{ id: string; familyName?: string; givenName?: string }>[]): this {
+    this.fields[2] = this.createRepeatingField(repetitions(values).map(({ id, familyName, givenName }) => this.createField([id, familyName || "", givenName || ""])));
     return this;
   }
 
@@ -100,8 +100,8 @@ export class IN3 extends BaseSegment {
    * @param familyName - IN3-8.2 Family Name
    * @param givenName - IN3-8.3 Given Name
    */
-  operator(...values: { id: string; familyName?: string; givenName?: string }[]): this {
-    this.fields[7] = this.createRepeatingField(values.map(({ id, familyName, givenName }) => this.createField([id, familyName || "", givenName || ""])));
+  operator(...values: Repeated<{ id: string; familyName?: string; givenName?: string }>[]): this {
+    this.fields[7] = this.createRepeatingField(repetitions(values).map(({ id, familyName, givenName }) => this.createField([id, familyName || "", givenName || ""])));
     return this;
   }
 
@@ -163,8 +163,8 @@ export class IN3 extends BaseSegment {
    * @param familyName - IN3-14.2 Family Name
    * @param givenName - IN3-14.3 Given Name
    */
-  physicianReviewer(...values: { id: string; familyName?: string; givenName?: string }[]): this {
-    this.fields[13] = this.createRepeatingField(values.map(({ id, familyName, givenName }) => this.createField([id, familyName || "", givenName || ""])));
+  physicianReviewer(...values: Repeated<{ id: string; familyName?: string; givenName?: string }>[]): this {
+    this.fields[13] = this.createRepeatingField(repetitions(values).map(({ id, familyName, givenName }) => this.createField([id, familyName || "", givenName || ""])));
     return this;
   }
 
@@ -175,8 +175,8 @@ export class IN3 extends BaseSegment {
   }
 
   /** IN3-16 Certification Contact Phone Number (chainable). */
-  certificationContactPhone(...values: string[]): this {
-    this.fields[15] = this.createRepeatingField(values.map((value) => this.createField(value)));
+  certificationContactPhone(...values: Repeated<string>[]): this {
+    this.fields[15] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
 
@@ -201,14 +201,14 @@ export class IN3 extends BaseSegment {
   }
 
   /** IN3-19 Certification Agency Phone Number (chainable). */
-  certificationAgencyPhone(...values: string[]): this {
-    this.fields[18] = this.createRepeatingField(values.map((value) => this.createField(value)));
+  certificationAgencyPhone(...values: Repeated<string>[]): this {
+    this.fields[18] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
 
   /** IN3-20 Pre-Certification Required (chainable). */
-  preCertificationRequired(...values: string[]): this {
-    this.fields[19] = this.createRepeatingField(values.map((value) => this.createField(value)));
+  preCertificationRequired(...values: Repeated<string>[]): this {
+    this.fields[19] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
 
@@ -236,8 +236,8 @@ export class IN3 extends BaseSegment {
   }
 
   /** IN3-24 Second Opinion Documentation Received (chainable). */
-  secondOpinionDocumentationReceived(...values: string[]): this {
-    this.fields[23] = this.createRepeatingField(values.map((value) => this.createField(value)));
+  secondOpinionDocumentationReceived(...values: Repeated<string>[]): this {
+    this.fields[23] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
 
@@ -247,8 +247,8 @@ export class IN3 extends BaseSegment {
    * @param familyName - IN3-25.2 Family Name
    * @param givenName - IN3-25.3 Given Name
    */
-  secondOpinionPhysician(...values: { id: string; familyName?: string; givenName?: string }[]): this {
-    this.fields[24] = this.createRepeatingField(values.map(({ id, familyName, givenName }) => this.createField([id, familyName || "", givenName || ""])));
+  secondOpinionPhysician(...values: Repeated<{ id: string; familyName?: string; givenName?: string }>[]): this {
+    this.fields[24] = this.createRepeatingField(repetitions(values).map(({ id, familyName, givenName }) => this.createField([id, familyName || "", givenName || ""])));
     return this;
   }
 

@@ -9,7 +9,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment, type SegmentFieldValue } from "../../types/segment.ts";
+import { BaseSegment, repetitions, type Repeated, type SegmentFieldValue } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 
@@ -98,14 +98,14 @@ export class PSH extends BaseSegment {
   }
 
   /** PSH-13 Number of Product Experience Reports Filed by Facility (NM, max 2, optional, repeating) (chainable). */
-  numberOfProductExperienceReportsFiledByFacility(...values: SegmentFieldValue[]): this {
-    this.fields[12] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  numberOfProductExperienceReportsFiledByFacility(...values: Repeated<string>[]): this {
+    this.fields[12] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** PSH-14 Number of Product Experience Reports Filed by Distributor (NM, max 2, optional, repeating) (chainable). */
-  numberOfProductExperienceReportsFiledByDistributor(...values: SegmentFieldValue[]): this {
-    this.fields[13] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  numberOfProductExperienceReportsFiledByDistributor(...values: Repeated<string>[]): this {
+    this.fields[13] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
