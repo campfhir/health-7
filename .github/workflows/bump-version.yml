@@ -1,0 +1,71 @@
+name: Bump version
+
+# Run from the Actions tab ("Use workflow from" = the release branch, never main):
+# bumps package.json, commits to that branch and starts CI on the new commit. Merging the
+# branch to main then stages the release through the Publish workflow.
+on:
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: Kind of bump (0.x: use minor for a new feature release)
+        type: choice
+        options: [patch, minor, major]
+        default: minor
+      version:
+        description: Exact version (x.y.z); overrides the bump kind when set
+        type: string
+        required: false
+
+concurrency:
+  group: bump-version-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write   # push the bump commit
+  actions: write    # start CI on it (pushes made with GITHUB_TOKEN do not trigger workflows)
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Refuse to run on the default branch
+        if: github.ref_name == github.event.repository.default_branch
+        run: |
+          echo "::error::Run this from a release branch, not ${{ github.ref_name }}. Merge the branch afterwards to stage the release."
+          exit 1
+
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Bump package.json
+        id: bump
+        env:
+          BUMP: ${{ inputs.version != '' && inputs.version || inputs.bump }}
+        run: echo "version=$(node .github/scripts/bump-version.mjs "$BUMP")" >> "$GITHUB_OUTPUT"
+
+      - name: Warn if this version is already on npm
+        run: |
+          NAME=$(node -p "require('./package.json').name")
+          if npm view "$NAME@${{ steps.bump.outputs.version }}" version >/dev/null 2>&1; then
+            echo "::warning::$NAME@${{ steps.bump.outputs.version }} is already published on npm; Publish will skip it."
+          fi
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package.json
+          git commit -m "Bump version to ${{ steps.bump.outputs.version }}"
+          git push origin "HEAD:${{ github.ref_name }}"
+
+      - name: Start CI on the bump commit
+        # Needs workflow_dispatch in ci.yml on this branch (merge main into older branches first).
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run ci.yml --ref "${{ github.ref_name }}"
+
+      - name: Summary
+        run: echo "Bumped to ${{ steps.bump.outputs.version }} on ${{ github.ref_name }}" >> "$GITHUB_STEP_SUMMARY"
