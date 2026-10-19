@@ -10,11 +10,6 @@ import type { Result } from "../../types/result.ts";
 import { BaseSegment, type SegmentFieldValue } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
-import {
-  DateLayout,
-  formatHL7Date,
-  type HL7DateLayout,
-} from "../../utils/hl7DateUtils.ts";
 
 /**
  * PRA - Practitioner Detail Segment
@@ -116,17 +111,6 @@ export class PRA extends BaseSegment {
    */
   privileges(values: readonly SegmentFieldValue[]): this {
     this.fields[6] = this.createRepeatingField(values.map((v) => this.createField(v)));
-    return this;
-  }
-
-  /** PRA-8 Date Entered Practice (chainable). */
-  dateEnteredPractice(value: string, format?: never): this;
-  /** PRA-8 Date Entered Practice (chainable). */
-  dateEnteredPractice(value: Date, format?: HL7DateLayout): this;
-  dateEnteredPractice(value: string | Date, format?: HL7DateLayout): this {
-    this.fields[7] = this.createField(
-      formatHL7Date(value, format ?? DateLayout),
-    );
     return this;
   }
 

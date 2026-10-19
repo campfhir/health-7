@@ -45,8 +45,4 @@ describe("PRA field positions", () => {
     const parts = new PRA().privileges(["A^B", "C"]).encode().split("|");
     expect(parts[7]).toBe("A^B~C");
   });
-
-  test("PRA-8 Date Entered Practice", () => {
-    assertField(new PRA().dateEnteredPractice(SENTINEL), 8);
-  });
 });

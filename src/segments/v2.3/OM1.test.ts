@@ -59,6 +59,10 @@ describe("OM1 field positions", () => {
     assertField(new OM1().orderability(SENTINEL), 12);
   });
 
+  test("OM1-14 Coded Representation Of Method", () => {
+    assertField(new OM1().codedRepresentationOfMethod(SENTINEL), 14);
+  });
+
   test("OM1-15 Portable", () => {
     assertField(new OM1().portable(SENTINEL), 15);
   });

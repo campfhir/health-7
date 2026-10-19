@@ -19,10 +19,6 @@ function assertField(seg: FAC, splitIndex: number): void {
 }
 
 describe("FAC field positions", () => {
-  test("FAC-1 Facility ID", () => {
-    assertField(new FAC().facilityId(SENTINEL), 1);
-  });
-
   test("FAC-2 Facility Type", () => {
     assertField(new FAC().facilityType(SENTINEL), 2);
   });

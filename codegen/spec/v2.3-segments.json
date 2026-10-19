@@ -2305,7 +2305,7 @@
     "length": "20",
     "type": "EI",
     "opt": "R",
-    "rep": "-",
+    "rep": "∞",
     "table": ""
    },
    {
@@ -5063,7 +5063,7 @@
     "seq": 8,
     "name": "Location Equipment",
     "length": "3",
-    "type": "IS",
+    "type": "ID",
     "opt": "O",
     "rep": "∞",
     "table": "0261"
@@ -5213,7 +5213,7 @@
     "seq": 4,
     "name": "Primary Key Value",
     "length": "200",
-    "type": "VARIES",
+    "type": "CE",
     "opt": "R",
     "rep": "∞",
     "table": ""
@@ -5722,7 +5722,7 @@
     "length": "2",
     "type": "IS",
     "opt": "O",
-    "rep": "-",
+    "rep": "∞",
     "table": "0002"
    },
    {
@@ -6688,7 +6688,7 @@
     "length": "2",
     "type": "ID",
     "opt": "O",
-    "rep": "∞",
+    "rep": "-",
     "table": "0080"
    },
    {
@@ -6955,7 +6955,7 @@
     "length": "200",
     "type": "CE",
     "opt": "O",
-    "rep": "∞",
+    "rep": "-",
     "table": ""
    },
    {
@@ -7142,7 +7142,7 @@
     "seq": 35,
     "name": "Rules that Trigger Reflex Testing",
     "length": "80",
-    "type": "TX",
+    "type": "ST",
     "opt": "O",
     "rep": "-",
     "table": ""
@@ -9078,15 +9078,6 @@
     "type": "CM_PIP",
     "opt": "O",
     "rep": "∞",
-    "table": ""
-   },
-   {
-    "seq": 8,
-    "name": "Date Entered Practice",
-    "length": "8",
-    "type": "DT",
-    "opt": "O",
-    "rep": "-",
     "table": ""
    }
   ]
@@ -11936,7 +11927,7 @@
     "length": "200",
     "type": "CE",
     "opt": "O",
-    "rep": "∞",
+    "rep": "-",
     "table": ""
    },
    {
@@ -12085,7 +12076,7 @@
     "length": "200",
     "type": "CE",
     "opt": "O",
-    "rep": "∞",
+    "rep": "-",
     "table": ""
    },
    {
@@ -12702,7 +12693,7 @@
     "seq": 2,
     "name": "Staff ID Code",
     "length": "60",
-    "type": "CX",
+    "type": "CE",
     "opt": "O",
     "rep": "∞",
     "table": ""
@@ -12839,7 +12830,7 @@
     "length": "1",
     "type": "IS",
     "opt": "O",
-    "rep": "-",
+    "rep": "∞",
     "table": "0002"
    },
    {

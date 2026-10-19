@@ -63,6 +63,10 @@ describe("RXG field positions", () => {
     assertField(new RXG().needsHumanReview(SENTINEL), 12);
   });
 
+  test("RXG-13 Pharmacy Special Administration Instructions", () => {
+    assertField(new RXG().pharmacySpecialAdministrationInstructions(SENTINEL), 13);
+  });
+
   test("RXG-14 Give Per", () => {
     assertField(new RXG().givePer(SENTINEL), 14);
   });

@@ -67,7 +67,7 @@ export class LOC extends BaseSegment {
     return this;
   }
 
-  /** LOC-8 Location Equipment (IS, max 3, optional, repeating) (chainable). */
+  /** LOC-8 Location Equipment (ID, max 3, optional, repeating) (chainable). */
   locationEquipment(values: readonly SegmentFieldValue[]): this {
     this.fields[7] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;

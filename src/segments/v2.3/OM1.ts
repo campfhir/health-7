@@ -103,9 +103,9 @@ export class OM1 extends BaseSegment {
     return this;
   }
 
-  /** OM1-14 Coded Representation of Method (CE, max 200, optional, repeating) (chainable). */
-  codedRepresentationOfMethod(values: readonly SegmentFieldValue[]): this {
-    this.fields[13] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  /** OM1-14 Coded Representation of Method (CE, max 200, optional) (chainable). */
+  codedRepresentationOfMethod(value: SegmentFieldValue): this {
+    this.fields[13] = this.createField(value);
     return this;
   }
 
@@ -229,7 +229,7 @@ export class OM1 extends BaseSegment {
     return this;
   }
 
-  /** OM1-35 Rules that Trigger Reflex Testing (TX, max 80, optional) (chainable). */
+  /** OM1-35 Rules that Trigger Reflex Testing (ST, max 80, optional) (chainable). */
   rulesThatTriggerReflexTesting(value: SegmentFieldValue): this {
     this.fields[34] = this.createField(value);
     return this;

@@ -97,9 +97,9 @@ export class RXG extends BaseSegment {
     return this;
   }
 
-  /** RXG-13 Pharmacy Special Administration Instructions (CE, max 200, optional, repeating) (chainable). */
-  pharmacySpecialAdministrationInstructions(values: readonly SegmentFieldValue[]): this {
-    this.fields[12] = this.createRepeatingField(values.map((v) => this.createField(v)));
+  /** RXG-13 Pharmacy Special Administration Instructions (CE, max 200, optional) (chainable). */
+  pharmacySpecialAdministrationInstructions(value: SegmentFieldValue): this {
+    this.fields[12] = this.createField(value);
     return this;
   }
 

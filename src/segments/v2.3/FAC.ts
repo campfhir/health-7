@@ -25,9 +25,9 @@ export class FAC extends BaseSegment {
     this.fields = [];
   }
 
-  /** FAC-1 Facility ID (EI, max 20, required) (chainable). */
-  facilityId(value: SegmentFieldValue): this {
-    this.fields[0] = this.createField(value);
+  /** FAC-1 Facility ID (EI, max 20, required, repeating) (chainable). */
+  facilityId(values: readonly SegmentFieldValue[]): this {
+    this.fields[0] = this.createRepeatingField(values.map((v) => this.createField(v)));
     return this;
   }
 
