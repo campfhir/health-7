@@ -28,6 +28,9 @@ export interface Segment {
 }
 
 /** Base Segment. */
+/** A raw field value: a string, a list of components, or components with subcomponents. */
+export type SegmentFieldValue = string | string[] | string[][];
+
 export abstract class BaseSegment implements Segment {
   /** The HL7 segment identifier. */
   abstract name: string;
