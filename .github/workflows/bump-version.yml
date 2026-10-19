@@ -7,12 +7,12 @@ on:
   workflow_dispatch:
     inputs:
       bump:
-        description: Kind of bump (0.x: use minor for a new feature release)
+        description: "Kind of bump (in 0.x, minor is a feature release)"
         type: choice
         options: [patch, minor, major]
         default: minor
       version:
-        description: Exact version (x.y.z); overrides the bump kind when set
+        description: "Exact version (x.y.z); overrides the bump kind when set"
         type: string
         required: false
 
