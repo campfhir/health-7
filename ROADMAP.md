@@ -17,6 +17,7 @@ Detailed checklists:
 ## Release pipeline
 
 - Every PR and push to `main`: **lint, typecheck, test, build** (`.github/workflows/ci.yml`).
+- To prepare a release, run **Bump version** from the Actions tab with the release branch selected (minor for a feature release in 0.x, or an exact version). It commits the bump to that branch and starts CI on it; it refuses to run on `main`.
 - Merging to `main` **stages** the package version in `package.json` on npm if that version isn't
   already on the registry (`.github/workflows/publish.yml`, `npm stage publish`). A maintainer then
   approves it with 2FA (`npm stage approve <stage-id>` or the *Staged Packages* tab on npmjs.com)
