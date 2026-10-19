@@ -11208,7 +11208,7 @@
     "seq": 1,
     "name": "Give Sub-ID Counter",
     "length": "4",
-    "type": "NM",
+    "type": "ID",
     "opt": "R",
     "rep": "-",
     "table": ""
@@ -11966,7 +11966,7 @@
     "seq": 1,
     "name": "Give Sub-ID Counter",
     "length": "4",
-    "type": "NM",
+    "type": "ID",
     "opt": "R",
     "rep": "-",
     "table": ""

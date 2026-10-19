@@ -25,7 +25,7 @@ export class RXG extends BaseSegment {
     this.fields = [];
   }
 
-  /** RXG-1 Give Sub-ID Counter (NM, max 4, required) (chainable). */
+  /** RXG-1 Give Sub-ID Counter (ID, max 4, required) (chainable). */
   giveSubIdCounter(value: SegmentFieldValue): this {
     this.fields[0] = this.createField(value);
     return this;
