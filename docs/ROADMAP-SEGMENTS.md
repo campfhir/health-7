@@ -38,7 +38,7 @@ segment is `git mv` into the introducing version directory, adding it to that ve
 
 ### Unverified details in built segments
 
-- `AIG-5` (Resource Group) repeats in the Caristix v2.3 table (repeat ∞) but is single-valued in `AIG`, `AIP` and `AIS`-style setters; changing it means a breaking signature change.
+- `AIG-5` (Resource Group) repeats in the Caristix v2.3 table (repeat ∞) but `AIG.resourceGroup()` writes a single value; making it repeat is a breaking signature change.
 - `AIP-4` is named "Resource Role" in the Caristix table; the setter is still `resourceType()` for API compatibility.
 - `AL1-2` is named "Allergy Type" in the Caristix table; the setter is `allergenTypeCode()`.
 - `QRD-11` (What Data Code Value Qualifier) is typed `CM_VR` on hl7.eu. It is written as
