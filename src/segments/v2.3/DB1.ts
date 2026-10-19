@@ -1,6 +1,8 @@
 /**
  * DB1 segment definition for HL7 v2.3.
  *
+ * position-tests: hand-written (DB1-3 repeats; see DB1.test.ts)
+ *
  * @module
  */
 import { Err } from "../../utils/err.ts";
@@ -8,6 +10,7 @@ import type { Result } from "../../types/result.ts";
 import { BaseSegment } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
+import { components, cxParts, type CX } from "../../utils/composites.ts";
 import {
   DateLayout,
   formatHL7Date,
@@ -39,9 +42,14 @@ export class DB1 extends BaseSegment {
     return this;
   }
 
-  /** DB1-3 Disabled Person Identifier (chainable). */
-  disabledPersonIdentifier(value: string): this {
-    this.fields[2] = this.createField(value);
+  /**
+   * DB1-3 Disabled Person Identifier (CX, repeating) (chainable).
+   * A string is used verbatim as the raw field text.
+   */
+  disabledPersonIdentifier(...values: (CX | string)[]): this {
+    this.fields[2] = this.createRepeatingField(
+      values.map((v) => this.createField(typeof v === "string" ? v : components(cxParts(v)))),
+    );
     return this;
   }
 

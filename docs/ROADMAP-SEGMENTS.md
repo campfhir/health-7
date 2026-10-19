@@ -31,7 +31,7 @@ UB1, UB2
 
 Segments are placed in the version that introduced them: `SFT`, `SPM` and `TQ1` are in
 `segments/v2.5`; later versions re-export them. `ROL` and `DB1` both have v2.3 definitions, so
-they stay in `segments/v2.3`. (Version-specific fields are layered, not moved: `ROL` fields 9–12, `ACC` fields 7–10 and `PD1` fields 13–21 are v2.4 overrides in `segments/v2.4`; `ACC` field 11 is a v2.5 override. The v2.3 classes stop at the v2.3 field count. `DB1` was lightly revised and still needs its own pass.) Moving a
+they stay in `segments/v2.3`. (Version-specific fields are layered, not moved: `ROL` fields 9–12, `ACC` fields 7–10 and `PD1` fields 13–21 are v2.4 overrides in `segments/v2.4`; `ACC` field 11 is a v2.5 override. The v2.3 classes stop at the v2.3 field count. `DB1` has the same eight fields in v2.3, v2.4 and v2.5. Field 3 (CX) repeats in all three, and v2.3 now models that. v2.4 widens its maximum length to 250, which is not enforced, and hl7.eu names field 4 "Disability Indicator" in v2.4 and "Disabled Indicator" in v2.3 and v2.5.) Moving a
 segment is `git mv` into the introducing version directory, adding it to that version's
 `ownSegments` in `codegen/schemas/`, and running `pnpm codegen && pnpm barrels`.
 
