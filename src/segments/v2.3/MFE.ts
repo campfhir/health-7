@@ -1,11 +1,13 @@
 /**
  * MFE segment definition for HL7 v2.3.
  *
+ * position-tests: hand-written (repeating setters take spread arguments; see its test file)
+ *
  * @module
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment } from "../../types/segment.ts";
+import { BaseSegment, type Repeated, repetitions } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 import {
@@ -55,14 +57,8 @@ export class MFE extends BaseSegment {
   }
 
   /** MFE-4 Primary Key Value (chainable). */
-  primaryKeyValue(value: string): this {
-    this.fields[3] = this.createField(value);
-    return this;
-  }
-
-  /** MFE-5 Primary Key Value Type (chainable). */
-  primaryKeyValueType(value: string): this {
-    this.fields[4] = this.createField(value);
+  primaryKeyValue(...values: Repeated<string>[]): this {
+    this.fields[3] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
 

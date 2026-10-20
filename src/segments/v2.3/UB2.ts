@@ -1,11 +1,13 @@
 /**
  * UB2 segment definition for HL7 v2.3.
  *
+ * position-tests: hand-written (repeating setters take spread arguments; see its test file)
+ *
  * @module
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment } from "../../types/segment.ts";
+import { BaseSegment, type Repeated, repetitions } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 
@@ -35,8 +37,8 @@ export class UB2 extends BaseSegment {
   }
 
   /** UB2-3 Condition Code (chainable). */
-  conditionCode(value: string): this {
-    this.fields[2] = this.createField(value);
+  conditionCode(...values: Repeated<string>[]): this {
+    this.fields[2] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
 
@@ -57,8 +59,8 @@ export class UB2 extends BaseSegment {
    * @param code - UB2-6.1 Code
    * @param amount - UB2-6.2 Amount
    */
-  valueAmountCode({ code, amount }: { code: string; amount?: string }): this {
-    this.fields[5] = this.createField([code, amount || ""]);
+  valueAmountCode(...values: Repeated<{ code: string; amount?: string }>[]): this {
+    this.fields[5] = this.createRepeatingField(repetitions(values).map(({ code, amount }) => this.createField([code, amount || ""])));
     return this;
   }
 
@@ -67,8 +69,8 @@ export class UB2 extends BaseSegment {
    * @param code - UB2-7.1 Code
    * @param date - UB2-7.2 Date
    */
-  occurrenceCodeDate({ code, date }: { code: string; date?: string }): this {
-    this.fields[6] = this.createField([code, date || ""]);
+  occurrenceCodeDate(...values: Repeated<{ code: string; date?: string }>[]): this {
+    this.fields[6] = this.createRepeatingField(repetitions(values).map(({ code, date }) => this.createField([code, date || ""])));
     return this;
   }
 
@@ -78,20 +80,20 @@ export class UB2 extends BaseSegment {
    * @param startDate - UB2-8.2 Start Date
    * @param endDate - UB2-8.3 End Date
    */
-  occurrenceSpanCodeDates({ code, startDate, endDate }: { code: string; startDate?: string; endDate?: string }): this {
-    this.fields[7] = this.createField([code, startDate || "", endDate || ""]);
+  occurrenceSpanCodeDates(...values: Repeated<{ code: string; startDate?: string; endDate?: string }>[]): this {
+    this.fields[7] = this.createRepeatingField(repetitions(values).map(({ code, startDate, endDate }) => this.createField([code, startDate || "", endDate || ""])));
     return this;
   }
 
   /** UB2-9 UB92 Locator 2 (national) (chainable). */
-  ub92Locator2(value: string): this {
-    this.fields[8] = this.createField(value);
+  ub92Locator2(...values: Repeated<string>[]): this {
+    this.fields[8] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** UB2-10 UB92 Locator 11 (state) (chainable). */
-  ub92Locator11(value: string): this {
-    this.fields[9] = this.createField(value);
+  ub92Locator11(...values: Repeated<string>[]): this {
+    this.fields[9] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
@@ -102,20 +104,20 @@ export class UB2 extends BaseSegment {
   }
 
   /** UB2-12 Document Control Number (chainable). */
-  documentControlNumber(value: string): this {
-    this.fields[11] = this.createField(value);
+  documentControlNumber(...values: Repeated<string>[]): this {
+    this.fields[11] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
 
   /** UB2-13 UB92 Locator 49 (national) (chainable). */
-  ub92Locator49(value: string): this {
-    this.fields[12] = this.createField(value);
+  ub92Locator49(...values: Repeated<string>[]): this {
+    this.fields[12] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
   /** UB2-14 UB92 Locator 56 (state) (chainable). */
-  ub92Locator56(value: string): this {
-    this.fields[13] = this.createField(value);
+  ub92Locator56(...values: Repeated<string>[]): this {
+    this.fields[13] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 
@@ -126,8 +128,8 @@ export class UB2 extends BaseSegment {
   }
 
   /** UB2-16 UB92 Locator 78 (state) (chainable). */
-  ub92Locator78(value: string): this {
-    this.fields[15] = this.createField(value);
+  ub92Locator78(...values: Repeated<string>[]): this {
+    this.fields[15] = this.createRepeatingField(repetitions(values).map((v) => this.createField(v)));
     return this;
   }
 

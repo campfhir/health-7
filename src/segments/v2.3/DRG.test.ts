@@ -60,8 +60,4 @@ describe("DRG field positions", () => {
   test("DRG-10 Confidential Indicator", () => {
     assertField(new DRG().confidentialIndicator(SENTINEL), 10);
   });
-
-  test("DRG-11 Drg Transfer Type", () => {
-    assertField(new DRG().drgTransferType(SENTINEL), 11);
-  });
 });

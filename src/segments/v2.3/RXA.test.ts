@@ -98,4 +98,9 @@ describe("RXA composites", () => {
     expect(result.ok).toBe(true);
     if (result.ok) expect(result.val.encode()).toBe(wire);
   });
+
+  test("RXA-16 Substance Expiration Date repeats and accepts a format per entry", () => {
+    const parts = new RXA().substanceExpirationDate("20250101", { value: "20250102" }).encode().split("|");
+    expect(parts[16]).toBe("20250101~20250102");
+  });
 });

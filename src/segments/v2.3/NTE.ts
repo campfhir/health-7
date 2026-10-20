@@ -1,11 +1,13 @@
 /**
  * NTE segment definition for HL7 v2.3.
  *
+ * position-tests: hand-written (repeating setters take spread arguments; see its test file)
+ *
  * @module
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment } from "../../types/segment.ts";
+import { BaseSegment, type Repeated, repetitions } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 
@@ -37,23 +39,8 @@ export class NTE extends BaseSegment {
   }
 
   /** NTE-3 Comment (chainable). */
-  comment(text: string): this {
-    this.fields[2] = this.createField(text);
-    return this;
-  }
-
-  /**
-   * NTE-4 Comment Type (chainable).
-   * @param identifier - NTE-4.1 Identifier
-   * @param text - NTE-4.2 Text
-   * @param codingSystem - NTE-4.3 Coding System
-   */
-  commentType({ identifier, text, codingSystem }: { identifier: string; text?: string; codingSystem?: string }): this {
-    this.fields[3] = this.createComponentsField([
-      identifier,
-      text,
-      codingSystem,
-    ]);
+  comment(...values: Repeated<string>[]): this {
+    this.fields[2] = this.createRepeatingField(repetitions(values).map((text) => this.createField(text)));
     return this;
   }
 

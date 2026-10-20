@@ -1,11 +1,13 @@
 /**
  * RXE segment definition for HL7 v2.3.
  *
+ * position-tests: hand-written (repeating setters take spread arguments; see its test file)
+ *
  * @module
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment } from "../../types/segment.ts";
+import { BaseSegment, type Repeated, repetitions } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 import {
@@ -80,8 +82,8 @@ export class RXE extends BaseSegment {
    * @param code - RXE-7.1 Code
    * @param text - RXE-7.2 Text
    */
-  providerAdminInstructions({ code, text }: { code: string; text?: string }): this {
-    this.fields[6] = this.createComponentsField([code, text]);
+  providerAdminInstructions(...values: Repeated<{ code: string; text?: string }>[]): this {
+    this.fields[6] = this.createRepeatingField(repetitions(values).map(({ code, text }) => this.createComponentsField([code, text])));
     return this;
   }
 
@@ -209,8 +211,8 @@ export class RXE extends BaseSegment {
    * @param text - RXE-21.2 Text
    * @param codingSystem - RXE-21.3 Name of Coding System
    */
-  specialDispensingInstructions({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
-    this.fields[20] = this.createComponentsField([code, text, codingSystem]);
+  specialDispensingInstructions(...values: Repeated<{ code: string; text?: string; codingSystem?: string }>[]): this {
+    this.fields[20] = this.createRepeatingField(repetitions(values).map(({ code, text, codingSystem }) => this.createComponentsField([code, text, codingSystem])));
     return this;
   }
 

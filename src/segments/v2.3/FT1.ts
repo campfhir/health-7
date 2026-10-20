@@ -7,7 +7,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment } from "../../types/segment.ts";
+import { BaseSegment, type Repeated, repetitions } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 import { ceParts, components, cpParts, eiParts, plParts, xcnParts, type CE, type CP, type EI, type PL, type XCN } from "../../utils/composites.ts";
@@ -153,9 +153,9 @@ export class FT1 extends BaseSegment {
    * FT1-19 Diagnosis Code (chainable). The field repeats: pass one argument per repetition.
    * A string is used verbatim as the raw text of that repetition.
    */
-  diagnosisCode(...values: (CE | string)[]): this {
+  diagnosisCode(...values: Repeated<(CE | string)>[]): this {
     this.fields[18] = this.createRepeatingField(
-      values.map((v) => this.createField(typeof v === "string" ? v : components(ceParts(v)))),
+      repetitions(values).map((v) => this.createField(typeof v === "string" ? v : components(ceParts(v)))),
     );
     return this;
   }

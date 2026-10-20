@@ -1,11 +1,13 @@
 /**
  * STF segment definition for HL7 v2.3.
  *
+ * position-tests: hand-written (STF-14 or STF-17 repeats; see STF.test.ts)
+ * *
  * @module
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment } from "../../types/segment.ts";
+import { BaseSegment, type Repeated, repetitions } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 import {
@@ -47,8 +49,8 @@ export class STF extends BaseSegment {
   }
 
   /** STF-2 Staff Identifier List (chainable). */
-  staffIdentifierList(value: string): this {
-    this.fields[1] = this.createField(value);
+  staffIdentifierList(...values: Repeated<string>[]): this {
+    this.fields[1] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
 
@@ -73,8 +75,8 @@ export class STF extends BaseSegment {
   }
 
   /** STF-4 Staff Type (chainable). */
-  staffType(value: string): this {
-    this.fields[3] = this.createField(value);
+  staffType(...values: Repeated<string>[]): this {
+    this.fields[3] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
 
@@ -106,12 +108,10 @@ export class STF extends BaseSegment {
    * @param identifier - STF-8.1 Identifier
    * @param text - STF-8.2 Text
    */
-  department({ identifier, text }: { identifier: string; text?: string }): this {
-    if (text) {
-      this.fields[7] = this.createField([identifier, text]);
-    } else {
-      this.fields[7] = this.createField(identifier);
-    }
+  department(...values: Repeated<{ identifier: string; text?: string }>[]): this {
+    this.fields[7] = this.createRepeatingField(
+      repetitions(values).map(({ identifier, text }) => (text ? this.createField([identifier, text]) : this.createField(identifier))),
+    );
     return this;
   }
 
@@ -120,24 +120,22 @@ export class STF extends BaseSegment {
    * @param identifier - STF-9.1 Identifier
    * @param text - STF-9.2 Text
    */
-  hospitalService({ identifier, text }: { identifier: string; text?: string }): this {
-    if (text) {
-      this.fields[8] = this.createField([identifier, text]);
-    } else {
-      this.fields[8] = this.createField(identifier);
-    }
+  hospitalService(...values: Repeated<{ identifier: string; text?: string }>[]): this {
+    this.fields[8] = this.createRepeatingField(
+      repetitions(values).map(({ identifier, text }) => (text ? this.createField([identifier, text]) : this.createField(identifier))),
+    );
     return this;
   }
 
   /** STF-10 Phone (chainable). */
-  phone(value: string): this {
-    this.fields[9] = this.createField(value);
+  phone(...values: Repeated<string>[]): this {
+    this.fields[9] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
 
   /** STF-11 Office/Home Address (chainable). */
-  address(value: string): this {
-    this.fields[10] = this.createField(value);
+  address(...values: Repeated<string>[]): this {
+    this.fields[10] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
 
@@ -146,8 +144,8 @@ export class STF extends BaseSegment {
    * @param date - STF-12.1 Date
    * @param institutionName - STF-12.2 Institution Name
    */
-  institutionActivationDate({ date, institutionName }: { date: string; institutionName?: string }): this {
-    this.fields[11] = this.createComponentsField([date, institutionName]);
+  institutionActivationDate(...values: Repeated<{ date: string; institutionName?: string }>[]): this {
+    this.fields[11] = this.createRepeatingField(repetitions(values).map(({ date, institutionName }) => this.createComponentsField([date, institutionName])));
     return this;
   }
 
@@ -156,8 +154,8 @@ export class STF extends BaseSegment {
    * @param date - STF-13.1 Date
    * @param institutionName - STF-13.2 Institution Name
    */
-  institutionInactivationDate({ date, institutionName }: { date: string; institutionName?: string }): this {
-    this.fields[12] = this.createComponentsField([date, institutionName]);
+  institutionInactivationDate(...values: Repeated<{ date: string; institutionName?: string }>[]): this {
+    this.fields[12] = this.createRepeatingField(repetitions(values).map(({ date, institutionName }) => this.createComponentsField([date, institutionName])));
     return this;
   }
 
@@ -167,14 +165,14 @@ export class STF extends BaseSegment {
    * @param text - STF-14.2 Text
    * @param codingSystem - STF-14.3 Name of Coding System
    */
-  backupPersonId({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
-    this.fields[13] = this.createComponentsField([code, text, codingSystem]);
+  backupPersonId(...values: Repeated<{ code: string; text?: string; codingSystem?: string }>[]): this {
+    this.fields[13] = this.createRepeatingField(repetitions(values).map(({ code, text, codingSystem }) => this.createComponentsField([code, text, codingSystem])));
     return this;
   }
 
   /** STF-15 E-Mail Address (chainable). */
-  emailAddress(value: string): this {
-    this.fields[14] = this.createField(value);
+  emailAddress(...values: Repeated<string>[]): this {
+    this.fields[14] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
 
@@ -190,13 +188,13 @@ export class STF extends BaseSegment {
   }
 
   /**
-   * STF-17 Marital Status (chainable).
-   * @param code - STF-17.1 Identifier
-   * @param text - STF-17.2 Text
-   * @param codingSystem - STF-17.3 Name of Coding System
+   * STF-17 Marital Status (CE, repeating) (chainable). One argument per repetition.
+   * @param values - Each entry is one repetition; STF-17.1 Identifier, STF-17.2 Text, STF-17.3 Name of Coding System
    */
-  maritalStatus({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
-    this.fields[16] = this.createComponentsField([code, text, codingSystem]);
+  maritalStatus(...values: Repeated<{ code: string; text?: string; codingSystem?: string }>[]): this {
+    this.fields[16] = this.createRepeatingField(
+      repetitions(values).map(({ code, text, codingSystem }) => this.createComponentsField([code, text, codingSystem])),
+    );
     return this;
   }
 

@@ -1,11 +1,13 @@
 /**
  * ODS segment definition for HL7 v2.3.
  *
+ * position-tests: hand-written (repeating setters take spread arguments; see its test file)
+ *
  * @module
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment } from "../../types/segment.ts";
+import { BaseSegment, type Repeated, repetitions } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 
@@ -38,8 +40,8 @@ export class ODS extends BaseSegment {
    * @param alternateText - ODS-2.5 Alternate Text
    * @param nameOfAlternateCodingSystem - ODS-2.6 Name of Alternate Coding System
    */
-  servicePeriod({ identifier, text, nameOfCodingSystem, alternateIdentifier, alternateText, nameOfAlternateCodingSystem }: { identifier: string; text?: string; nameOfCodingSystem?: string; alternateIdentifier?: string; alternateText?: string; nameOfAlternateCodingSystem?: string }): this {
-    this.fields[1] = this.createComponentsField([identifier, text, nameOfCodingSystem, alternateIdentifier, alternateText, nameOfAlternateCodingSystem]);
+  servicePeriod(...values: Repeated<{ identifier: string; text?: string; nameOfCodingSystem?: string; alternateIdentifier?: string; alternateText?: string; nameOfAlternateCodingSystem?: string }>[]): this {
+    this.fields[1] = this.createRepeatingField(repetitions(values).map(({ identifier, text, nameOfCodingSystem, alternateIdentifier, alternateText, nameOfAlternateCodingSystem }) => this.createComponentsField([identifier, text, nameOfCodingSystem, alternateIdentifier, alternateText, nameOfAlternateCodingSystem])));
     return this;
   }
 
@@ -52,14 +54,14 @@ export class ODS extends BaseSegment {
    * @param alternateText - ODS-3.5 Alternate Text
    * @param nameOfAlternateCodingSystem - ODS-3.6 Name of Alternate Coding System
    */
-  dietSupplementOrPreferenceCode({ identifier, text, nameOfCodingSystem, alternateIdentifier, alternateText, nameOfAlternateCodingSystem }: { identifier: string; text?: string; nameOfCodingSystem?: string; alternateIdentifier?: string; alternateText?: string; nameOfAlternateCodingSystem?: string }): this {
-    this.fields[2] = this.createComponentsField([identifier, text, nameOfCodingSystem, alternateIdentifier, alternateText, nameOfAlternateCodingSystem]);
+  dietSupplementOrPreferenceCode(...values: Repeated<{ identifier: string; text?: string; nameOfCodingSystem?: string; alternateIdentifier?: string; alternateText?: string; nameOfAlternateCodingSystem?: string }>[]): this {
+    this.fields[2] = this.createRepeatingField(repetitions(values).map(({ identifier, text, nameOfCodingSystem, alternateIdentifier, alternateText, nameOfAlternateCodingSystem }) => this.createComponentsField([identifier, text, nameOfCodingSystem, alternateIdentifier, alternateText, nameOfAlternateCodingSystem])));
     return this;
   }
 
   /** ODS-4 Text Instruction (chainable). */
-  textInstruction(value: string): this {
-    this.fields[3] = this.createField(value);
+  textInstruction(...values: Repeated<string>[]): this {
+    this.fields[3] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
 

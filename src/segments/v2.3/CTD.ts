@@ -7,7 +7,7 @@
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment } from "../../types/segment.ts";
+import { BaseSegment, type Repeated, repetitions } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 import { ceParts, components, piParts, plParts, xadParts, xpnParts, xtnParts, type CE, type PI, type PL, type XAD, type XPN, type XTN } from "../../utils/composites.ts";
@@ -36,9 +36,9 @@ export class CTD extends BaseSegment {
    * CTD-2 Contact Name (chainable). The field repeats: pass one argument per repetition.
    * A string is used verbatim as the raw text of that repetition.
    */
-  contactName(...values: (XPN | string)[]): this {
+  contactName(...values: Repeated<(XPN | string)>[]): this {
     this.fields[1] = this.createRepeatingField(
-      values.map((v) => this.createField(typeof v === "string" ? v : components(xpnParts(v)))),
+      repetitions(values).map((v) => this.createField(typeof v === "string" ? v : components(xpnParts(v)))),
     );
     return this;
   }
@@ -47,9 +47,9 @@ export class CTD extends BaseSegment {
    * CTD-3 Contact Address (chainable). The field repeats: pass one argument per repetition.
    * A string is used verbatim as the raw text of that repetition.
    */
-  contactAddress(...values: (XAD | string)[]): this {
+  contactAddress(...values: Repeated<(XAD | string)>[]): this {
     this.fields[2] = this.createRepeatingField(
-      values.map((v) => this.createField(typeof v === "string" ? v : components(xadParts(v)))),
+      repetitions(values).map((v) => this.createField(typeof v === "string" ? v : components(xadParts(v)))),
     );
     return this;
   }
@@ -64,9 +64,9 @@ export class CTD extends BaseSegment {
    * CTD-5 Contact Communication Information (chainable). The field repeats: pass one argument per repetition.
    * A string is used verbatim as the raw text of that repetition.
    */
-  contactCommunicationInformation(...values: (XTN | string)[]): this {
+  contactCommunicationInformation(...values: Repeated<(XTN | string)>[]): this {
     this.fields[4] = this.createRepeatingField(
-      values.map((v) => this.createField(typeof v === "string" ? v : components(xtnParts(v)))),
+      repetitions(values).map((v) => this.createField(typeof v === "string" ? v : components(xtnParts(v)))),
     );
     return this;
   }
@@ -81,9 +81,9 @@ export class CTD extends BaseSegment {
    * CTD-7 Contact Identifiers (chainable). The field repeats: pass one argument per repetition.
    * A string is used verbatim as the raw text of that repetition.
    */
-  contactIdentifiers(...values: (PI | string)[]): this {
+  contactIdentifiers(...values: Repeated<(PI | string)>[]): this {
     this.fields[6] = this.createRepeatingField(
-      values.map((v) => this.createField(typeof v === "string" ? v : components(piParts(v)))),
+      repetitions(values).map((v) => this.createField(typeof v === "string" ? v : components(piParts(v)))),
     );
     return this;
   }

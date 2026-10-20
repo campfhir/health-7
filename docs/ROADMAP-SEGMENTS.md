@@ -4,121 +4,74 @@ Tracks which HL7 v2 segments have a hand-written class in `src/segments/<version
 The goal is **complete HL7 v2.3 coverage first**, then v2.5.1 parity, then later versions
 (see [ROADMAP.md](../ROADMAP.md)).
 
-> The "to build" lists come from the HL7 v2.3 segment dictionary (appendix A / chapter segment
-> tables) and were compiled from memory of the spec. **Verify field tables against the official
-> spec before implementing**, and correct this file in the same PR if something is wrong.
+## Source of truth
+
+The v2.3 segment list below comes from the HL7 v2.3 segment index on hl7.eu
+(`https://www.hl7.eu/HL7v2x/v23/hl7v23segm.htm`, read 2026-10-19). Field tables come from the
+per-segment pages on hl7.eu, e.g. `https://www.hl7.eu/HL7v2x/v23/hl7v23segmQRD.htm`. Caristix
+renders its pages client-side, so only hl7.eu was usable for field tables.
+
+Where a field table on hl7.eu gives no usage or repeat value, the field is implemented
+without a required flag and the gap is noted here. Those notes are unverified and should be
+confirmed before anything depends on them.
 
 Each segment needs: class with fluent setters + `encode()`, a parser, a co-located
-`<SEG>.test.ts` (including field-position tests — see `pnpm test:positions`), and an
-entry in the barrel (`pnpm barrels`).
+`<SEG>.test.ts` (including field-position tests), and an entry in the barrel (`pnpm barrels`).
+Segments that hand-write their field-position tests carry the `position-tests: hand-written`
+marker, so `pnpm test:positions` skips them.
 
 Legend: ✅ built · ⬜ not started · ⚠️ needs audit
 
 ## Built (v2.3)
 
-ACC, AIG, AIL, AIP, AIS, AL1, BLG, CTD, CTI, DB1, DG1, DRG, ERR, EVN, FT1, GT1, IN1, IN2, IN3, MFE, MFI, MRG,
-MSA, MSH, NK1, NTE, OBR, OBX, ODS, ODT, ORC, PD1, PID, PR1, PRA, PV1, PV2, RGS, ROL, RQ1, RQD, RXA, RXD, RXE, RXO,
-RXR, SCH, STF, UB1, UB2
+ACC, ADD, AIG, AIL, AIP, AIS, AL1, BHS, BLG, BTS, CTD, CTI, DB1, DG1, DRG, DSC, DSP, ERR, EVN, FHS,
+FT1, FTS, GT1, IN1, IN2, IN3, MFE, MFI, MRG, MSA, MSH, NK1, NTE, OBR, OBX, ODS, ODT, ORC, PD1,
+PID, PR1, PRA, PV1, PV2, QAK, QRD, QRF, RGS, ROL, RQ1, RQD, RXA, RXD, RXE, RXO, RXR, SCH, STF,
+UB1, UB2
 
 Segments are placed in the version that introduced them: `SFT`, `SPM` and `TQ1` are in
-`segments/v2.5` (plus `TQ2`); later versions re-export them. Checked against the Oemig HL7 database mirror
-(hl7.eu): `ROL` and `DB1` both have v2.3 definitions, so they stay in `segments/v2.3`. (`ROL` gained
-fields 9–12 in 2.4 and `DB1` was lightly revised — those are version-specific differences to
-implement, not reasons to move the segments.) Moving a segment is `git mv` into the introducing
-version directory, adding it to that version's `ownSegments` in `codegen/schemas/`, and running
-`pnpm codegen && pnpm barrels`.
+`segments/v2.5`; later versions re-export them. `ROL` and `DB1` both have v2.3 definitions, so
+they stay in `segments/v2.3`. (Version-specific fields are layered, not moved: `ROL` fields 9–12, `ACC` fields 7–10 and `PD1` fields 13–21 are v2.4 overrides in `segments/v2.4`; `ACC` field 11 is a v2.5 override. The v2.3 classes stop at the v2.3 field count. `DB1` has the same eight fields in v2.3, v2.4 and v2.5. Field 3 (CX) repeats in all three, and v2.3 now models that. v2.4 widens its maximum length to 250, which is not enforced, and hl7.eu names field 4 "Disability Indicator" in v2.4 and "Disabled Indicator" in v2.3 and v2.5.) Moving a
+segment is `git mv` into the introducing version directory, adding it to that version's
+`ownSegments` in `codegen/schemas/`, and running `pnpm codegen && pnpm barrels`.
 
-`RXA` and `RXR` were corrected in 0.9 (hl7.eu v2.3, v2.3.1, v2.4, v2.5, v2.5.1 segment pages): RXR-5 is v2.3.1 and RXR-6 is v2.5 (RXR is four fields in v2.3); RXA-23..26 are v2.5; RXA-10 repeats from v2.3.1; and the repeating and composite fields take every repetition and their full components.
+### Unverified details in built segments
 
-`ERR` was corrected in 0.9: the v2.3 segment has only ERR-1 (repeating), and ERR-2..12 live in `segments/v2.5` (checked against the hl7.eu v2.3, v2.3.1, v2.4, v2.5 and v2.5.1 segment pages).
+- `AIG-5` (Resource Group) repeats in the Caristix v2.3 table (repeat ∞) but `AIG.resourceGroup()` writes a single value; making it repeat is a breaking signature change.
+- `AIP-4` is named "Resource Role" in the Caristix table; the setter is still `resourceType()` for API compatibility.
+- `AL1-2` is named "Allergy Type" in the Caristix table; the setter is `allergenTypeCode()`.
+- `QRD-11` (What Data Code Value Qualifier) is typed `CM_VR` on hl7.eu. It is written as
+  repeating single components until the CM composite layout is modelled.
+- `QRF-9` (When Quantity/Timing Qualifier) is typed `TQ`. It takes positional components and
+  does not yet name them.
+- `QRD` and `QRF` usage flags are not stated on hl7.eu for several fields.
 
-## To build for v2.3
+## v2.3 coverage
 
-### Control / batch / query / generic
-| Segment | Name |
-|---|---|
-| ⬜ BHS | Batch Header |
-| ⬜ BTS | Batch Trailer |
-| ⬜ FHS | File Header |
-| ⬜ FTS | File Trailer |
-| ⬜ DSC | Continuation Pointer |
-| ⬜ DSP | Display Data |
-| ⬜ QRD | Original-Style Query Definition |
-| ⬜ QRF | Original-Style Query Filter |
-| ⬜ QAK | Query Acknowledgment |
-| ⬜ ERQ | Event Replay Query |
-| ⬜ URD | Results/Update Definition |
-| ⬜ URS | Unsolicited Selection |
+All 110 segments in the Caristix v2.3 crawl now have a class. The 60 segments that were already
+hand-written are in the built list above. The other 50 were generated by
+`codegen/generate-v23-segments.ts` from `codegen/spec/v2.3-segments.json`:
 
-### Patient administration / financial
-| Segment | Name |
-|---|---|
-| ⬜ ADD | Addendum |
-| ⬜ PCR | Possible Causal Relationship |
-| ⬜ PEO | Product Experience Observation |
-| ⬜ PES | Product Experience Sender |
-| ⬜ PSH | Product Summary Header |
-| ⬜ PDA | Patient Death and Autopsy |
-| ⬜ NPU | Bed Status Update |
+APR, ARQ, AUT, CDM, CM0, CM1, CM2, CSP, CSR, CSS, EQL, ERQ, FAC, GOL, LCC, LCH, LDP, LOC, LRL, MFA, NCK, NPU, NSC, NST, OM1, OM2, OM3, OM4, OM5, OM6, PCR, PDC, PEO, PES, PRB, PRC, PRD, PSH, PTH, RDF, RDT, RF1, RXC, RXG, SPR, TXA, URD, URS, VAR, VTQ
 
-### Orders / observations / pharmacy
-| Segment | Name |
-|---|---|
-| ⬜ RXC | Pharmacy Treatment Component Order |
-| ⬜ RXG | Pharmacy Treatment Give |
-| ⬜ OVR | Override |
-| ⬜ NCK | System Clock |
-| ⬜ NDS | Notification Detail |
-| ⬜ NSC | Application Status Change |
-| ⬜ NST | Application Control-Level Statistics |
-| ⬜ TXA | Transcription Document Header |
-| ⬜ RF1 | Referral Information |
-| ⬜ PRD | Provider Data |
-| ⬜ CSR | Clinical Study Registration |
-| ⬜ CSS | Clinical Study Data Schedule |
-| ⬜ VAR | Variance |
-| ⬜ GOL | Goal Detail |
-| ⬜ PRB | Problem Details |
-| ⬜ PTH | Pathway |
-| ⬜ ECD | Equipment Command |
-| ⬜ ECR | Equipment Command Response |
-| ⬜ EQU | Equipment Detail |
-| ⬜ SAC | Specimen Container Detail |
-| ⬜ INV | Inventory Detail |
-| ⬜ ISD | Interaction Status Detail |
-| ⬜ EDU | Student Institution |
-| ⬜ EQL / EQP | Embedded Query Language / Equipment Log Service |
+Generated classes are correct on field positions and repetition (the position and round-trip
+tests cover them), but their setters take raw HL7 values (`SegmentFieldValue`) and have no typed
+composite helpers. Each needs two things before it counts as done: a field-by-field review of
+types and usage against hl7.eu, and typed helpers where the segment is used in messages. Replace
+a generated file with a hand-written class and the generator will leave it alone.
 
-### Master files / scheduling support
-| Segment | Name |
-|---|---|
-| ⬜ CDM | Charge Description Master |
-| ⬜ PRC | Pricing |
-| ⬜ CM0 / CM1 / CM2 | Clinical Study Master, Phase Master, Schedule Master |
-| ⬜ OM1 – OM7 | Observation / Test master segments |
-| ⬜ LOC / LCH / LRL / LDP / LCC | Location master segments |
-| ⬜ MFA | Master File Acknowledgment |
-| ⬜ ORG | Practitioner Organization Unit |
-| ⬜ AFF | Professional Affiliation |
-| ⬜ LAN | Language Detail |
-| ⬜ CER | Certificate Detail |
-| ⬜ FAC | Facility |
-| ⬜ RDF / RDT | Table Row Definition / Data |
-| ⬜ RMI | Risk Management Incident |
-| ⬜ IPC | Imaging Procedure Control |
-
-> Items marked with `/` or ranges are grouped for brevity; split them into one checkbox/PR per
-> segment when picked up. Some of the segments above (e.g. AFF, LAN, CER, EQL) were added in 2.3.1
-> or later — confirm membership in the v2.3 dictionary before building.
+Caristix has not been checked field by field against hl7.eu for the generated segments. Treat the
+spec JSON as the Caristix source until that review is done.
 
 ## v2.5.1 parity
 v2.5.1 segments are generated as thin wrappers over the v2.3 base (`pnpm codegen`), so every
 v2.3 segment above must also be re-evaluated for v2.5.1 field changes. After v2.3 is complete,
-add the segments introduced after 2.3, e.g. `TQ2`, `PRT`, `QPD`, `RCP`, `QID`, `ARQ`, `APR`,
-`IAM`, `GP1`/`GP2`, `OH1`–`OH4`, `CNS`, `CSP` (verify against the 2.5.1 spec).
+add the segments introduced after 2.3, e.g. `TQ2`, `PRT`, `QPD`, `RCP`, `QID`, `IAM`,
+`GP1`/`GP2`, `OH1`–`OH4`, `CNS` (verify against the 2.5.1 spec). Segments on the v2.3 index above
+(`ARQ`, `APR`, `CSP`) stay in the v2.3 plan.
 
 ## Definition of done (per segment)
 1. Class + parser with all fields positioned per spec, including repeats and required flags.
-2. Field-position tests generated/updated (`pnpm test:positions`).
+2. Field-position tests (hand-written with the marker, or generated with `pnpm test:positions`).
 3. Round-trip test (encode → parse → encode).
 4. Barrel regenerated (`pnpm barrels`), `pnpm lint && pnpm typecheck && pnpm test` green.

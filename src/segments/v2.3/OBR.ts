@@ -1,11 +1,13 @@
 /**
  * OBR segment definition for HL7 v2.3.
  *
+ * position-tests: hand-written (repeating setters take spread arguments; see its test file)
+ *
  * @module
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment } from "../../types/segment.ts";
+import { BaseSegment, type Repeated, repetitions } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 import {
@@ -104,8 +106,8 @@ export class OBR extends BaseSegment {
    * @param familyName - OBR-10.2 Family Name
    * @param givenName - OBR-10.3 Given Name
    */
-  collectorIdentifier({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
-    this.fields[9] = this.createComponentsField([id, familyName, givenName]);
+  collectorIdentifier(...values: Repeated<{ id: string; familyName?: string; givenName?: string }>[]): this {
+    this.fields[9] = this.createRepeatingField(repetitions(values).map(({ id, familyName, givenName }) => this.createComponentsField([id, familyName, givenName])));
     return this;
   }
   /** OBR-11 Specimen Action Code (chainable). */
@@ -147,13 +149,13 @@ export class OBR extends BaseSegment {
    * @param familyName - OBR-16.2 Family Name
    * @param givenName - OBR-16.3 Given Name
    */
-  orderingProvider({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
-    this.fields[15] = this.createComponentsField([id, familyName, givenName]);
+  orderingProvider(...values: Repeated<{ id: string; familyName?: string; givenName?: string }>[]): this {
+    this.fields[15] = this.createRepeatingField(repetitions(values).map(({ id, familyName, givenName }) => this.createComponentsField([id, familyName, givenName])));
     return this;
   }
   /** OBR-17 Order Callback Phone Number (chainable). */
-  orderCallbackPhoneNumber(value: string): this {
-    this.fields[16] = this.createField(value);
+  orderCallbackPhoneNumber(...values: Repeated<string>[]): this {
+    this.fields[16] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
   /** OBR-18 Placer Field 1 (chainable). */
@@ -244,8 +246,8 @@ export class OBR extends BaseSegment {
    * @param familyName - OBR-28.2 Family Name
    * @param givenName - OBR-28.3 Given Name
    */
-  resultCopiesTo({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
-    this.fields[27] = this.createComponentsField([id, familyName, givenName]);
+  resultCopiesTo(...values: Repeated<{ id: string; familyName?: string; givenName?: string }>[]): this {
+    this.fields[27] = this.createRepeatingField(repetitions(values).map(({ id, familyName, givenName }) => this.createComponentsField([id, familyName, givenName])));
     return this;
   }
   /**
@@ -271,8 +273,8 @@ export class OBR extends BaseSegment {
    * @param text - OBR-31.2 Text
    * @param codingSystem - OBR-31.3 Name of Coding System
    */
-  reasonForStudy({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
-    this.fields[30] = this.createComponentsField([code, text, codingSystem]);
+  reasonForStudy(...values: Repeated<{ code: string; text?: string; codingSystem?: string }>[]): this {
+    this.fields[30] = this.createRepeatingField(repetitions(values).map(({ code, text, codingSystem }) => this.createComponentsField([code, text, codingSystem])));
     return this;
   }
   /**
@@ -295,12 +297,12 @@ export class OBR extends BaseSegment {
    * @param startDateTime - OBR-33.2 Start Date/Time
    * @param endDateTime - OBR-33.3 End Date/Time
    */
-  assistantResultInterpreter({ name, startDateTime, endDateTime }: { name: string; startDateTime?: string; endDateTime?: string }): this {
-    this.fields[32] = this.createComponentsField([
+  assistantResultInterpreter(...values: Repeated<{ name: string; startDateTime?: string; endDateTime?: string }>[]): this {
+    this.fields[32] = this.createRepeatingField(repetitions(values).map(({ name, startDateTime, endDateTime }) => this.createComponentsField([
       name,
       startDateTime,
       endDateTime,
-    ]);
+    ])));
     return this;
   }
   /**
@@ -309,12 +311,12 @@ export class OBR extends BaseSegment {
    * @param startDateTime - OBR-34.2 Start Date/Time
    * @param endDateTime - OBR-34.3 End Date/Time
    */
-  technician({ name, startDateTime, endDateTime }: { name: string; startDateTime?: string; endDateTime?: string }): this {
-    this.fields[33] = this.createComponentsField([
+  technician(...values: Repeated<{ name: string; startDateTime?: string; endDateTime?: string }>[]): this {
+    this.fields[33] = this.createRepeatingField(repetitions(values).map(({ name, startDateTime, endDateTime }) => this.createComponentsField([
       name,
       startDateTime,
       endDateTime,
-    ]);
+    ])));
     return this;
   }
   /**
@@ -323,12 +325,12 @@ export class OBR extends BaseSegment {
    * @param startDateTime - OBR-35.2 Start Date/Time
    * @param endDateTime - OBR-35.3 End Date/Time
    */
-  transcriptionist({ name, startDateTime, endDateTime }: { name: string; startDateTime?: string; endDateTime?: string }): this {
-    this.fields[34] = this.createComponentsField([
+  transcriptionist(...values: Repeated<{ name: string; startDateTime?: string; endDateTime?: string }>[]): this {
+    this.fields[34] = this.createRepeatingField(repetitions(values).map(({ name, startDateTime, endDateTime }) => this.createComponentsField([
       name,
       startDateTime,
       endDateTime,
-    ]);
+    ])));
     return this;
   }
   /** OBR-36 Scheduled Date Time (chainable). */
@@ -352,8 +354,8 @@ export class OBR extends BaseSegment {
    * @param text - OBR-38.2 Text
    * @param codingSystem - OBR-38.3 Name of Coding System
    */
-  transportLogisticsOfCollectedSample({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
-    this.fields[37] = this.createComponentsField([code, text, codingSystem]);
+  transportLogisticsOfCollectedSample(...values: Repeated<{ code: string; text?: string; codingSystem?: string }>[]): this {
+    this.fields[37] = this.createRepeatingField(repetitions(values).map(({ code, text, codingSystem }) => this.createComponentsField([code, text, codingSystem])));
     return this;
   }
   /**
@@ -362,8 +364,8 @@ export class OBR extends BaseSegment {
    * @param text - OBR-39.2 Text
    * @param codingSystem - OBR-39.3 Name of Coding System
    */
-  collectorsComment({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
-    this.fields[38] = this.createComponentsField([code, text, codingSystem]);
+  collectorsComment(...values: Repeated<{ code: string; text?: string; codingSystem?: string }>[]): this {
+    this.fields[38] = this.createRepeatingField(repetitions(values).map(({ code, text, codingSystem }) => this.createComponentsField([code, text, codingSystem])));
     return this;
   }
   /**
@@ -392,8 +394,8 @@ export class OBR extends BaseSegment {
    * @param text - OBR-43.2 Text
    * @param codingSystem - OBR-43.3 Name of Coding System
    */
-  plannedPatientTransportComment({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
-    this.fields[42] = this.createComponentsField([code, text, codingSystem]);
+  plannedPatientTransportComment(...values: Repeated<{ code: string; text?: string; codingSystem?: string }>[]): this {
+    this.fields[42] = this.createRepeatingField(repetitions(values).map(({ code, text, codingSystem }) => this.createComponentsField([code, text, codingSystem])));
     return this;
   }
 

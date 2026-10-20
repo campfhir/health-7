@@ -27,7 +27,7 @@ import type { CTI as CTI_251 } from "../../segments/v2.5.1/CTI.ts";
 import { type EncodingCharacters, DEFAULT_ENCODING } from "../../types/encoding.ts";
 
 /** OBXWithNotes — a data structure used to build an HL7 ORU^R01 (v2.5.1) message. */
-export interface OBXWithNotes<TOBX extends OBX = OBX_251, TNTE extends NTE = NTE_251> {
+export interface OBXWithNotes<TOBX extends OBX = OBX_251, TNTE extends NTELike = NTE_251> {
   /** The obx value. */
   obx: TOBX;
   /** The nte list value. */
@@ -39,7 +39,7 @@ export interface OrderObservation<
   TORC extends ORC = ORC_251,
   TOBR extends OBR = OBR_251,
   TOBX extends OBX = OBX_251,
-  TNTE extends NTE = NTE_251,
+  TNTE extends NTELike = NTE_251,
   TCTI extends CTI = CTI_251,
 > {
   /** The orc value. */
@@ -56,12 +56,18 @@ export interface OrderObservation<
   ctiList?: TCTI[];
 }
 
+/** The PD1 shape this builder needs: it only encodes the segment, so a v2.3 PD1 also fits. */
+type PD1Like = Pick<PD1, "encode">;
+
+/** The NTE shape this builder needs: it only encodes the segment, so a v2.3 NTE also fits. */
+type NTELike = Pick<NTE, "encode">;
+
 /** PatientResult — a data structure used to build an HL7 ORU^R01 (v2.5.1) message. */
 export interface PatientResult<
   TPID extends PID = PID_251,
-  TPD1 extends PD1 = PD1_251,
+  TPD1 extends PD1Like = PD1_251,
   TNK1 extends NK1 = NK1_251,
-  TNTE extends NTE = NTE_251,
+  TNTE extends NTELike = NTE_251,
   TPV1 extends PV1 = PV1_251,
   TORC extends ORC = ORC_251,
   TOBR extends OBR = OBR_251,
@@ -85,9 +91,9 @@ export interface PatientResult<
 export class ORU_R01<
   TMSH extends MSH = MSH_251,
   TPID extends PID = PID_251,
-  TPD1 extends PD1 = PD1_251,
+  TPD1 extends PD1Like = PD1_251,
   TNK1 extends NK1 = NK1_251,
-  TNTE extends NTE = NTE_251,
+  TNTE extends NTELike = NTE_251,
   TPV1 extends PV1 = PV1_251,
   TORC extends ORC = ORC_251,
   TOBR extends OBR = OBR_251,
@@ -245,9 +251,9 @@ export class ORU_R01<
 export function createORU_R01<
   TMSH extends MSH = MSH_251,
   TPID extends PID = PID_251,
-  TPD1 extends PD1 = PD1_251,
+  TPD1 extends PD1Like = PD1_251,
   TNK1 extends NK1 = NK1_251,
-  TNTE extends NTE = NTE_251,
+  TNTE extends NTELike = NTE_251,
   TPV1 extends PV1 = PV1_251,
   TORC extends ORC = ORC_251,
   TOBR extends OBR = OBR_251,

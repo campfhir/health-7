@@ -1,11 +1,13 @@
 /**
  * PV2 segment definition for HL7 v2.3.
  *
+ * position-tests: hand-written (repeating setters take spread arguments; see its test file)
+ *
  * @module
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment } from "../../types/segment.ts";
+import { BaseSegment, type Repeated, repetitions } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 import {
@@ -91,8 +93,8 @@ export class PV2 extends BaseSegment {
   }
 
   /** PV2-5 Patient Valuables (chainable). */
-  patientValuables(value: string): this {
-    this.fields[4] = this.createField(value);
+  patientValuables(...values: Repeated<string>[]): this {
+    this.fields[4] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
 
@@ -240,21 +242,11 @@ export class PV2 extends BaseSegment {
   }
 
   /**
-   * PV2-38 Mode of Arrival Code (chainable).
-   * @param code - PV2-38.1 Code
-   * @param text - PV2-38.2 Text
-   */
-  modeOfArrivalCode({ code, text }: { code: string; text?: string }): this {
-    this.fields[37] = this.createComponentsField([code, text || ""]);
-    return this;
-  }
-
-  /**
    * PV2-23 Clinic Organization Name (chainable).
    * @param organizationName - PV2-23.1 Organization Name
    */
-  clinicOrganizationName(organizationName: string): this {
-    this.fields[22] = this.createComponentsField([organizationName]);
+  clinicOrganizationName(...values: Repeated<string>[]): this {
+    this.fields[22] = this.createRepeatingField(repetitions(values).map((organizationName) => this.createComponentsField([organizationName])));
     return this;
   }
 

@@ -1,11 +1,13 @@
 /**
  * UB1 segment definition for HL7 v2.3.
  *
+ * position-tests: hand-written (repeating setters take spread arguments; see its test file)
+ *
  * @module
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment } from "../../types/segment.ts";
+import { BaseSegment, type Repeated, repetitions } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 import {
@@ -64,8 +66,8 @@ export class UB1 extends BaseSegment {
   }
 
   /** UB1-7 Condition Code (chainable). */
-  conditionCode(value: string): this {
-    this.fields[6] = this.createField(value);
+  conditionCode(...values: Repeated<string>[]): this {
+    this.fields[6] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
 
@@ -86,8 +88,8 @@ export class UB1 extends BaseSegment {
    * @param code - UB1-10.1 Code
    * @param amount - UB1-10.2 Amount
    */
-  valueAmountCode({ code, amount }: { code: string; amount?: string }): this {
-    this.fields[9] = this.createField([code, amount || ""]);
+  valueAmountCode(...values: Repeated<{ code: string; amount?: string }>[]): this {
+    this.fields[9] = this.createRepeatingField(repetitions(values).map(({ code, amount }) => this.createField([code, amount || ""])));
     return this;
   }
 
@@ -126,8 +128,8 @@ export class UB1 extends BaseSegment {
   }
 
   /** UB1-16 Occurrence (chainable). */
-  occurrence(value: string): this {
-    this.fields[15] = this.createField(value);
+  occurrence(...values: Repeated<string>[]): this {
+    this.fields[15] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
 

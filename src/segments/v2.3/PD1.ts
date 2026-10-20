@@ -1,11 +1,13 @@
 /**
  * PD1 segment definition for HL7 v2.3.
  *
+ * position-tests: hand-written (repeating setters take spread arguments; see its test file)
+ *
  * @module
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment } from "../../types/segment.ts";
+import { BaseSegment, type Repeated, repetitions } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 
@@ -45,12 +47,12 @@ export class PD1 extends BaseSegment {
    * @param idNumber - PD1-3.2 ID Number
    * @param checkDigit - PD1-3.3 Check Digit
    */
-  patientPrimaryFacility({ organizationName, idNumber, checkDigit }: { organizationName: string; idNumber?: string; checkDigit?: string }): this {
-    this.fields[2] = this.createComponentsField([
+  patientPrimaryFacility(...values: Repeated<{ organizationName: string; idNumber?: string; checkDigit?: string }>[]): this {
+    this.fields[2] = this.createRepeatingField(repetitions(values).map(({ organizationName, idNumber, checkDigit }) => this.createComponentsField([
       organizationName,
       idNumber,
       checkDigit,
-    ]);
+    ])));
     return this;
   }
 
@@ -61,13 +63,13 @@ export class PD1 extends BaseSegment {
    * @param givenName - PD1-4.3 Given Name
    * @param middleName - PD1-4.4 Middle Name
    */
-  patientPrimaryCareProvider({ id, familyName, givenName, middleName }: { id: string; familyName: string; givenName?: string; middleName?: string }): this {
-    this.fields[3] = this.createComponentsField([
+  patientPrimaryCareProvider(...values: Repeated<{ id: string; familyName: string; givenName?: string; middleName?: string }>[]): this {
+    this.fields[3] = this.createRepeatingField(repetitions(values).map(({ id, familyName, givenName, middleName }) => this.createComponentsField([
       id,
       familyName,
       givenName || "",
       middleName || "",
-    ]);
+    ])));
     return this;
   }
 
@@ -106,13 +108,13 @@ export class PD1 extends BaseSegment {
    * @param id - PD1-10.1 ID Number
    * @param assigningAuthority - PD1-10.4 Assigning Authority
    */
-  duplicatePatient({ id, assigningAuthority }: { id: string; assigningAuthority?: string }): this {
-    this.fields[9] = this.createComponentsField([
+  duplicatePatient(...values: Repeated<{ id: string; assigningAuthority?: string }>[]): this {
+    this.fields[9] = this.createRepeatingField(repetitions(values).map(({ id, assigningAuthority }) => this.createComponentsField([
       id,
       "",
       "",
       assigningAuthority,
-    ]);
+    ])));
     return this;
   }
 
@@ -130,65 +132,6 @@ export class PD1 extends BaseSegment {
   /** PD1-12 Protection Indicator (chainable). */
   protectionIndicator(indicator: string): this {
     this.fields[11] = this.createField(indicator);
-    return this;
-  }
-
-  /** PD1-13 Protection Indicator Effective Date (chainable). */
-  protectionIndicatorEffectiveDate(date: string): this {
-    this.fields[12] = this.createField(date);
-    return this;
-  }
-
-  /** PD1-14 Place of Worship (chainable). */
-  placeOfWorship(name: string): this {
-    this.fields[13] = this.createField(name);
-    return this;
-  }
-
-  /**
-   * PD1-15 Advance Directive Code (chainable).
-   * @param code - PD1-15.1 Code
-   * @param text - PD1-15.2 Text
-   * @param codingSystem - PD1-15.3 Coding System
-   */
-  advanceDirectiveCode({ code, text, codingSystem }: { code: string; text?: string; codingSystem?: string }): this {
-    this.fields[14] = this.createComponentsField([code, text, codingSystem]);
-    return this;
-  }
-
-  /** PD1-16 Immunization Registry Status (chainable). */
-  immunizationRegistryStatus(status: string): this {
-    this.fields[15] = this.createField(status);
-    return this;
-  }
-
-  /** PD1-17 Immunization Registry Status Effective Date (chainable). */
-  immunizationRegistryStatusEffectiveDate(date: string): this {
-    this.fields[16] = this.createField(date);
-    return this;
-  }
-
-  /** PD1-18 Publicity Code Effective Date (chainable). */
-  publicityCodeEffectiveDate(date: string): this {
-    this.fields[17] = this.createField(date);
-    return this;
-  }
-
-  /** PD1-19 Military Branch (chainable). */
-  militaryBranch(branch: string): this {
-    this.fields[18] = this.createField(branch);
-    return this;
-  }
-
-  /** PD1-20 Military Rank/Grade (chainable). */
-  militaryRankGrade(rank: string): this {
-    this.fields[19] = this.createField(rank);
-    return this;
-  }
-
-  /** PD1-21 Military Status (chainable). */
-  militaryStatus(status: string): this {
-    this.fields[20] = this.createField(status);
     return this;
   }
 

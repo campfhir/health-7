@@ -1,11 +1,13 @@
 /**
  * PV1 segment definition for HL7 v2.3.
  *
+ * position-tests: hand-written (repeating setters take spread arguments; see its test file)
+ *
  * @module
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment } from "../../types/segment.ts";
+import { BaseSegment, type Repeated, repetitions } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 import {
@@ -88,8 +90,8 @@ export class PV1 extends BaseSegment {
    * @param familyName - PV1-7.2 Family Name
    * @param givenName - PV1-7.3 Given Name
    */
-  attendingDoctor({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
-    this.fields[6] = this.createComponentsField([id, familyName, givenName]);
+  attendingDoctor(...values: Repeated<{ id: string; familyName?: string; givenName?: string }>[]): this {
+    this.fields[6] = this.createRepeatingField(repetitions(values).map(({ id, familyName, givenName }) => this.createComponentsField([id, familyName, givenName])));
     return this;
   }
   /**
@@ -98,8 +100,8 @@ export class PV1 extends BaseSegment {
    * @param familyName - PV1-8.2 Family Name
    * @param givenName - PV1-8.3 Given Name
    */
-  referringDoctor({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
-    this.fields[7] = this.createComponentsField([id, familyName, givenName]);
+  referringDoctor(...values: Repeated<{ id: string; familyName?: string; givenName?: string }>[]): this {
+    this.fields[7] = this.createRepeatingField(repetitions(values).map(({ id, familyName, givenName }) => this.createComponentsField([id, familyName, givenName])));
     return this;
   }
   /**
@@ -108,8 +110,8 @@ export class PV1 extends BaseSegment {
    * @param familyName - PV1-9.2 Family Name
    * @param givenName - PV1-9.3 Given Name
    */
-  consultingDoctor({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
-    this.fields[8] = this.createComponentsField([id, familyName, givenName]);
+  consultingDoctor(...values: Repeated<{ id: string; familyName?: string; givenName?: string }>[]): this {
+    this.fields[8] = this.createRepeatingField(repetitions(values).map(({ id, familyName, givenName }) => this.createComponentsField([id, familyName, givenName])));
     return this;
   }
   /** PV1-10 Hospital Service (chainable). */
@@ -143,8 +145,8 @@ export class PV1 extends BaseSegment {
     return this;
   }
   /** PV1-15 Ambulatory Status (chainable). */
-  ambulatoryStatus(value: string): this {
-    this.fields[14] = this.createField(value);
+  ambulatoryStatus(...values: Repeated<string>[]): this {
+    this.fields[14] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
   /** PV1-16 VIP Indicator (chainable). */
@@ -158,8 +160,8 @@ export class PV1 extends BaseSegment {
    * @param familyName - PV1-17.2 Family Name
    * @param givenName - PV1-17.3 Given Name
    */
-  admittingDoctor({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
-    this.fields[16] = this.createComponentsField([id, familyName, givenName]);
+  admittingDoctor(...values: Repeated<{ id: string; familyName?: string; givenName?: string }>[]): this {
+    this.fields[16] = this.createRepeatingField(repetitions(values).map(({ id, familyName, givenName }) => this.createComponentsField([id, familyName, givenName])));
     return this;
   }
   /** PV1-18 Patient Type (chainable). */
@@ -193,11 +195,11 @@ export class PV1 extends BaseSegment {
    * @param financialClassCode - PV1-20.1 Financial Class Code
    * @param effectiveDate - PV1-20.2 Effective Date
    */
-  financialClass({ financialClassCode, effectiveDate }: { financialClassCode: string; effectiveDate?: string }): this {
-    this.fields[19] = this.createComponentsField([
+  financialClass(...values: Repeated<{ financialClassCode: string; effectiveDate?: string }>[]): this {
+    this.fields[19] = this.createRepeatingField(repetitions(values).map(({ financialClassCode, effectiveDate }) => this.createComponentsField([
       financialClassCode,
       effectiveDate,
-    ]);
+    ])));
     return this;
   }
   /** PV1-21 Charge Price Indicator (chainable). */
@@ -216,23 +218,23 @@ export class PV1 extends BaseSegment {
     return this;
   }
   /** PV1-24 Contract Code (chainable). */
-  contractCode(value: string): this {
-    this.fields[23] = this.createField(value);
+  contractCode(...values: Repeated<string>[]): this {
+    this.fields[23] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
   /** PV1-25 Contract Effective Date (chainable). */
-  contractEffectiveDate(value: string): this {
-    this.fields[24] = this.createField(value);
+  contractEffectiveDate(...values: Repeated<string>[]): this {
+    this.fields[24] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
   /** PV1-26 Contract Amount (chainable). */
-  contractAmount(value: string): this {
-    this.fields[25] = this.createField(value);
+  contractAmount(...values: Repeated<string>[]): this {
+    this.fields[25] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
   /** PV1-27 Contract Period (chainable). */
-  contractPeriod(value: string): this {
-    this.fields[26] = this.createField(value);
+  contractPeriod(...values: Repeated<string>[]): this {
+    this.fields[26] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
   /** PV1-28 Interest Code (chainable). */
@@ -429,8 +431,8 @@ export class PV1 extends BaseSegment {
    * @param familyName - PV1-52.2 Family Name
    * @param givenName - PV1-52.3 Given Name
    */
-  otherHealthcareProvider({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
-    this.fields[51] = this.createComponentsField([id, familyName, givenName]);
+  otherHealthcareProvider(...values: Repeated<{ id: string; familyName?: string; givenName?: string }>[]): this {
+    this.fields[51] = this.createRepeatingField(repetitions(values).map(({ id, familyName, givenName }) => this.createComponentsField([id, familyName, givenName])));
     return this;
   }
 

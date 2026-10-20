@@ -1,11 +1,13 @@
 /**
  * MRG segment definition for HL7 v2.3.
  *
+ * position-tests: hand-written (repeating setters take spread arguments; see its test file)
+ *
  * @module
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment } from "../../types/segment.ts";
+import { BaseSegment, type Repeated, repetitions } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 
@@ -28,21 +30,19 @@ export class MRG extends BaseSegment {
    * @param assigningAuthority - MRG-1.4 Assigning Authority
    * @param identifierTypeCode - MRG-1.5 Identifier Type Code
    */
-  priorPatientId({ id, assigningAuthority, identifierTypeCode }: { id: string; assigningAuthority?: string; identifierTypeCode?: string }): this {
+  priorPatientId(...values: Repeated<{ id: string; assigningAuthority?: string; identifierTypeCode?: string }>[]): this {
     // CX: ID Number (.1), Assigning Authority (.4), Identifier Type Code (.5).
-    this.fields[0] = this.createComponentsField([
-      id,
-      undefined,
-      undefined,
-      assigningAuthority,
-      identifierTypeCode,
-    ]);
+    this.fields[0] = this.createRepeatingField(
+      repetitions(values).map(({ id, assigningAuthority, identifierTypeCode }) =>
+        this.createComponentsField([id, undefined, undefined, assigningAuthority, identifierTypeCode]),
+      ),
+    );
     return this;
   }
 
   /** MRG-2 Prior Alternate Patient ID (chainable). */
-  priorAlternatePatientId(value: string): this {
-    this.fields[1] = this.createField(value);
+  priorAlternatePatientId(...values: Repeated<string>[]): this {
+    this.fields[1] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
 

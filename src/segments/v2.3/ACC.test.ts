@@ -44,26 +44,4 @@ describe("ACC field positions", () => {
   test("ACC-6 Accident Death", () => {
     assertField(new ACC().accidentDeath(SENTINEL), 6);
   });
-
-  test("ACC-7 Entered By", () => {
-    const parts = new ACC().enteredBy({ id: "C1", familyName: "C2", givenName: "C3" }).encode().split("|");
-    expect(parts[7]).toBe("C1^C2^C3");
-  });
-
-  test("ACC-8 Accident Description", () => {
-    assertField(new ACC().accidentDescription(SENTINEL), 8);
-  });
-
-  test("ACC-9 Brought In By", () => {
-    assertField(new ACC().broughtInBy(SENTINEL), 9);
-  });
-
-  test("ACC-10 Police Notified", () => {
-    assertField(new ACC().policeNotified(SENTINEL), 10);
-  });
-
-  test("ACC-11 Accident Address", () => {
-    const parts = new ACC().accidentAddress({ street: "C1", city: "C2", state: "C3", zip: "C4" }).encode().split("|");
-    expect(parts[11]).toBe("C1^^C2^C3^C4");
-  });
 });

@@ -28,6 +28,20 @@ export interface Segment {
 }
 
 /** Base Segment. */
+/** A raw field value: a string, a list of components, or components with subcomponents. */
+export type SegmentFieldValue = string | string[] | string[][];
+
+/**
+ * A repeating field argument: one repetition, or an array of repetitions. Repeating setters take
+ * `...values: Repeated<T>[]`, so both `setter(a, b)` and `setter([a, b])` add two repetitions.
+ */
+export type Repeated<T> = T | readonly T[];
+
+/** Flattens repeating setter arguments into one list of repetitions. */
+export function repetitions<T>(values: readonly Repeated<T>[]): T[] {
+  return values.flatMap((v) => (Array.isArray(v) ? (v as readonly T[]) : [v as T]));
+}
+
 export abstract class BaseSegment implements Segment {
   /** The HL7 segment identifier. */
   abstract name: string;

@@ -1,11 +1,13 @@
 /**
  * DG1 segment definition for HL7 v2.3.
  *
+ * position-tests: hand-written (repeating setters take spread arguments; see its test file)
+ *
  * @module
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment } from "../../types/segment.ts";
+import { BaseSegment, type Repeated, repetitions } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 import {
@@ -134,9 +136,10 @@ export class DG1 extends BaseSegment {
    * @param familyName - DG1-16.2 Family Name
    * @param givenName - DG1-16.3 Given Name
    */
-  diagnosingClinician({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
-    const components = [id, familyName || "", givenName || ""];
-    this.fields[15] = this.createField(components);
+  diagnosingClinician(...values: Repeated<{ id: string; familyName?: string; givenName?: string }>[]): this {
+    this.fields[15] = this.createRepeatingField(
+      repetitions(values).map(({ id, familyName, givenName }) => this.createField([id, familyName || "", givenName || ""])),
+    );
     return this;
   }
 

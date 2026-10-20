@@ -1,11 +1,13 @@
 /**
  * MSH segment definition for HL7 v2.3.
  *
+ * position-tests: hand-written (repeating setters take spread arguments; see its test file)
+ *
  * @module
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment } from "../../types/segment.ts";
+import { BaseSegment, type Repeated, repetitions } from "../../types/segment.ts";
 import { DEFAULT_ENCODING, type EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 import {
@@ -148,8 +150,8 @@ export class MSH extends BaseSegment {
   }
 
   /** MSH-18 Character Set (chainable). */
-  characterSet(value: string): this {
-    this.fields[16] = this.createField(value);
+  characterSet(...values: Repeated<string>[]): this {
+    this.fields[16] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
 

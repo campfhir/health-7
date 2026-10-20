@@ -62,14 +62,4 @@ describe("AIS field positions", () => {
     const parts = new AIS().fillerStatusCode({ code: "C1", text: "C2" }).encode().split("|");
     expect(parts[10]).toBe("C1^C2");
   });
-
-  test("AIS-11 Placer Supplemental Info", () => {
-    const parts = new AIS().placerSupplementalInfo({ code: "C1", text: "C2" }).encode().split("|");
-    expect(parts[11]).toBe("C1^C2");
-  });
-
-  test("AIS-12 Filler Supplemental Info", () => {
-    const parts = new AIS().fillerSupplementalInfo({ code: "C1", text: "C2" }).encode().split("|");
-    expect(parts[12]).toBe("C1^C2");
-  });
 });

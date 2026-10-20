@@ -42,8 +42,4 @@ describe("EVN field positions", () => {
   test("EVN-6 Event Occurred", () => {
     assertField(new EVN().eventOccurred(SENTINEL), 6);
   });
-
-  test("EVN-7 Event Facility", () => {
-    assertField(new EVN().eventFacility({ namespaceId: SENTINEL, universalId: "", universalIdType: "" }), 7);
-  });
 });

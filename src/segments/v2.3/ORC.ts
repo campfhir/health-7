@@ -1,11 +1,13 @@
 /**
  * ORC segment definition for HL7 v2.3.
  *
+ * position-tests: hand-written (repeating setters take spread arguments; see its test file)
+ *
  * @module
  */
 import { Err } from "../../utils/err.ts";
 import type { Result } from "../../types/result.ts";
-import { BaseSegment } from "../../types/segment.ts";
+import { BaseSegment, type Repeated, repetitions } from "../../types/segment.ts";
 import type { EncodingCharacters } from "../../types/encoding.ts";
 import { ParserUtils } from "../../types/parser.ts";
 import { formatHL7Date, DateTimeLayout, type HL7DateTimeLayout } from "../../utils/hl7DateUtils.ts";
@@ -29,8 +31,8 @@ export class ORC extends BaseSegment {
   }
 
   /** ORC-2 Placer Order Number (chainable). */
-  placerOrderNumber(value: string): this {
-    this.fields[1] = this.createField(value);
+  placerOrderNumber(...values: Repeated<string>[]): this {
+    this.fields[1] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
 
@@ -109,8 +111,8 @@ export class ORC extends BaseSegment {
    * @param familyName - ORC-12.2 Family Name
    * @param givenName - ORC-12.3 Given Name
    */
-  orderingProvider({ id, familyName, givenName }: { id: string; familyName?: string; givenName?: string }): this {
-    this.fields[11] = this.createComponentsField([id, familyName, givenName]);
+  orderingProvider(...values: Repeated<{ id: string; familyName?: string; givenName?: string }>[]): this {
+    this.fields[11] = this.createRepeatingField(repetitions(values).map(({ id, familyName, givenName }) => this.createComponentsField([id, familyName, givenName])));
     return this;
   }
 
@@ -136,8 +138,8 @@ export class ORC extends BaseSegment {
   }
 
   /** ORC-14 Call Back Phone Number (chainable). */
-  callBackPhoneNumber(value: string): this {
-    this.fields[13] = this.createField(value);
+  callBackPhoneNumber(...values: Repeated<string>[]): this {
+    this.fields[13] = this.createRepeatingField(repetitions(values).map((value) => this.createField(value)));
     return this;
   }
 
