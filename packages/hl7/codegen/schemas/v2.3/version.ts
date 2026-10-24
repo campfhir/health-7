@@ -1,0 +1,146 @@
+import { VersionSchema } from "../../../src/types/schema";
+import { ACK_SCHEMA } from "./ACK";
+import { ORM_O01_SCHEMA } from "./ORM_O01";
+import { ORR_O02_SCHEMA } from "./ORR_O02";
+import { ORU_R01_SCHEMA } from "./ORU_R01";
+import { VXU_V04_SCHEMA } from "./VXU_V04";
+import { MFN_M02_SCHEMA } from "./MFN_M02";
+import { ADT_A28_SCHEMA } from "./ADT_A28";
+import { ADT_A17_SCHEMA } from "./ADT_A17";
+import { ADT_A24_SCHEMA } from "./ADT_A24";
+import {
+  ADT_A01_SCHEMA,
+  ADT_A02_SCHEMA,
+  ADT_A03_SCHEMA,
+  ADT_A04_SCHEMA,
+  ADT_A05_SCHEMA,
+  ADT_A06_SCHEMA,
+  ADT_A07_SCHEMA,
+  ADT_A08_SCHEMA,
+  ADT_A09_SCHEMA,
+  ADT_A10_SCHEMA,
+  ADT_A11_SCHEMA,
+  ADT_A12_SCHEMA,
+  ADT_A13_SCHEMA,
+  ADT_A14_SCHEMA,
+  ADT_A15_SCHEMA,
+  ADT_A16_SCHEMA,
+  ADT_A21_SCHEMA,
+  ADT_A22_SCHEMA,
+  ADT_A23_SCHEMA,
+  ADT_A25_SCHEMA,
+  ADT_A26_SCHEMA,
+  ADT_A27_SCHEMA,
+  ADT_A29_SCHEMA,
+  ADT_A31_SCHEMA,
+  ADT_A32_SCHEMA,
+  ADT_A33_SCHEMA,
+  ADT_A38_SCHEMA,
+} from "./ADT_A01";
+import {
+  ADT_A18_SCHEMA,
+  ADT_A30_SCHEMA,
+  ADT_A34_SCHEMA,
+  ADT_A35_SCHEMA,
+  ADT_A36_SCHEMA,
+  ADT_A37_SCHEMA,
+  ADT_A39_SCHEMA,
+  ADT_A40_SCHEMA,
+  ADT_A41_SCHEMA,
+  ADT_A42_SCHEMA,
+  ADT_A43_SCHEMA,
+  ADT_A44_SCHEMA,
+  ADT_A45_SCHEMA,
+  ADT_A46_SCHEMA,
+  ADT_A47_SCHEMA,
+  ADT_A48_SCHEMA,
+  ADT_A49_SCHEMA,
+  ADT_A50_SCHEMA,
+  ADT_A51_SCHEMA,
+} from "./ADT_A34";
+import {
+  SIU_S12_SCHEMA,
+  SIU_S13_SCHEMA,
+  SIU_S14_SCHEMA,
+  SIU_S15_SCHEMA,
+  SIU_S16_SCHEMA,
+  SIU_S17_SCHEMA,
+  SIU_S26_SCHEMA,
+} from "./SIU_S12";
+
+/**
+ * v2.3 is the base version — no baseVersion, no segment wrappers to generate.
+ * Codegen generates base parser stubs and builder stubs only.
+ */
+export const V2_3: VersionSchema = {
+  version: "v2.3",
+  segments: [],
+  messages: [
+    ACK_SCHEMA,
+    ORM_O01_SCHEMA,
+    ORR_O02_SCHEMA,
+    ORU_R01_SCHEMA,
+    VXU_V04_SCHEMA,
+    MFN_M02_SCHEMA,
+    // ADT
+    ADT_A01_SCHEMA,
+    ADT_A02_SCHEMA,
+    ADT_A03_SCHEMA,
+    ADT_A04_SCHEMA,
+    ADT_A05_SCHEMA,
+    ADT_A06_SCHEMA,
+    ADT_A07_SCHEMA,
+    ADT_A08_SCHEMA,
+    ADT_A09_SCHEMA,
+    ADT_A10_SCHEMA,
+    ADT_A11_SCHEMA,
+    ADT_A12_SCHEMA,
+    ADT_A13_SCHEMA,
+    ADT_A14_SCHEMA,
+    ADT_A15_SCHEMA,
+    ADT_A16_SCHEMA,
+    ADT_A21_SCHEMA,
+    ADT_A22_SCHEMA,
+    ADT_A23_SCHEMA,
+    ADT_A25_SCHEMA,
+    ADT_A26_SCHEMA,
+    ADT_A27_SCHEMA,
+    ADT_A28_SCHEMA,
+    ADT_A29_SCHEMA,
+    ADT_A31_SCHEMA,
+    ADT_A32_SCHEMA,
+    ADT_A33_SCHEMA,
+    ADT_A38_SCHEMA,
+    // ADT swap/link (two patient groups)
+    ADT_A17_SCHEMA,
+    ADT_A24_SCHEMA,
+    // ADT merge/move
+    ADT_A18_SCHEMA,
+    ADT_A30_SCHEMA,
+    ADT_A34_SCHEMA,
+    ADT_A35_SCHEMA,
+    ADT_A36_SCHEMA,
+    ADT_A37_SCHEMA,
+    ADT_A39_SCHEMA,
+    ADT_A40_SCHEMA,
+    ADT_A41_SCHEMA,
+    ADT_A42_SCHEMA,
+    ADT_A43_SCHEMA,
+    ADT_A44_SCHEMA,
+    ADT_A45_SCHEMA,
+    ADT_A46_SCHEMA,
+    ADT_A47_SCHEMA,
+    ADT_A48_SCHEMA,
+    ADT_A49_SCHEMA,
+    ADT_A50_SCHEMA,
+    ADT_A51_SCHEMA,
+    // SIU
+    SIU_S12_SCHEMA,
+    SIU_S13_SCHEMA,
+    SIU_S14_SCHEMA,
+    SIU_S15_SCHEMA,
+    SIU_S16_SCHEMA,
+    SIU_S17_SCHEMA,
+    SIU_S26_SCHEMA,
+  ],
+};

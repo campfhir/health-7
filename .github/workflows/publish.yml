@@ -1,8 +1,12 @@
 name: Publish
 
+# Stages every workspace package whose package.json version is not on npm yet. Each package is
+# verified (lint, typecheck, test, build, smoke test) and staged in its own job, so one package's
+# failure never blocks another. A maintainer then approves the staged version with 2FA.
 on:
   push:
     branches: [main]
+  workflow_dispatch:
 
 concurrency:
   group: publish
@@ -10,11 +14,33 @@ concurrency:
 
 permissions:
   contents: read
-  id-token: write   # npm trusted publishing (OIDC)
 
 jobs:
-  publish:
+  plan:
     runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.plan.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Find package versions that are not on npm yet
+        id: plan
+        run: node .github/scripts/unpublished.mjs >> "$GITHUB_OUTPUT"
+
+  publish:
+    needs: plan
+    if: needs.plan.outputs.matrix != '[]'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write   # npm trusted publishing (OIDC)
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJson(needs.plan.outputs.matrix) }}
+    name: publish ${{ matrix.name }}@${{ matrix.version }}
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -27,31 +53,18 @@ jobs:
       - run: npm install -g npm@latest
       - run: pnpm install --frozen-lockfile
 
-      - name: Check whether this version is already published
-        id: check
+      - name: Verify ${{ matrix.name }}
         run: |
-          NAME=$(node -p "require('./package.json').name")
-          VERSION=$(node -p "require('./package.json').version")
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-          if npm view "$NAME@$VERSION" version >/dev/null 2>&1; then
-            echo "$NAME@$VERSION already on npm; nothing to publish."
-            echo "publish=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "publish=true" >> "$GITHUB_OUTPUT"
-          fi
+          pnpm exec eslint "packages/${{ matrix.folder }}"
+          pnpm --filter "${{ matrix.name }}" typecheck
+          pnpm --filter "${{ matrix.name }}" test
+          pnpm --filter "${{ matrix.name }}" build
+          node .github/scripts/smoke-test.mjs "${{ matrix.folder }}"
 
-      - name: Verify
-        if: steps.check.outputs.publish == 'true'
-        run: |
-          pnpm lint
-          pnpm typecheck
-          pnpm test
-          pnpm build
-
-      - name: Stage release on npm
-        if: steps.check.outputs.publish == 'true'
-        # Authenticates via OIDC (npm trusted publisher, stage-publish permission).
-        # The version only goes live after a maintainer approves it with 2FA:
-        # `npm stage approve <stage-id>` or the Staged Packages tab on npmjs.com.
-        # Needs npm >= 11.15.0.
+      - name: Stage ${{ matrix.name }}@${{ matrix.version }} on npm
+        working-directory: packages/${{ matrix.folder }}
+        # Authenticates via OIDC: the package's npm trusted publisher must point at this
+        # repository (campfhir/kindling) and workflow file (publish.yml). The version only goes
+        # live after a maintainer approves it with 2FA: `npm stage approve <stage-id>` or the
+        # Staged Packages tab on npmjs.com. Needs npm >= 11.15.0.
         run: npm stage publish
