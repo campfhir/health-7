@@ -15,7 +15,7 @@ Legend: ✅ builder + parser exist · ⬜ not started
 
 | Family | Events | v2.3 | v2.5.1 |
 |---|---|---|---|
-| ADT | A01–A16, A18, A21–A23, A25–A31, A34–A45, A47 | ✅ | ✅ |
+| ADT | A01–A18, A21–A51 | ✅ | ✅ |
 | ORU | R01 | ✅ | ✅ |
 | ORU | R30, R31, R32 | n/a (2.5+) | ✅ |
 | MFN | M02 (staff/practitioner) | ✅ | ✅ |
@@ -30,17 +30,8 @@ Legend: ✅ builder + parser exist · ⬜ not started
 ### ADT gaps
 | Event | Description | Needs |
 |---|---|---|
-| ⬜ A17 | Swap patients | — |
 | ⬜ A19 | Patient query (QRY/ADR response) | QRD, QRF |
 | ⬜ A20 | Bed status update | NPU |
-| ⬜ A24 | Link patient information | — |
-| ⬜ A32 | Cancel patient arriving | — |
-| ⬜ A33 | Cancel patient departing | — |
-| ⬜ A46 | Change patient ID (external) | — |
-| ⬜ A48 | Change alternate patient ID | — |
-| ⬜ A49 | Change patient account number | — |
-| ⬜ A50 | Change visit number | — |
-| ⬜ A51 | Change alternate visit ID | — |
 
 ### Acknowledgments and queries (high priority — unblock everything else)
 | Message | Notes | Needs |
@@ -90,7 +81,14 @@ Done in 0.9: ACK, ORM^O01, ORR^O02 for v2.3 and v2.5.1 (`ORM`/`ORR` cover the OB
 
 VXU^V04 is also done for every version: v2.3 and v2.3.1 are identical, v2.4 adds `[{GT1}]`, and v2.5/v2.5.1 add `[{SFT}]`, a required `ORC` and the timing group (`TQ1`, `TQ2`).
 
-Suggested order: **remaining ADT → DFT/BAR → MDM → queries/MFN → the rest.**
+Done in 0.11: ADT A17, A24, A32, A33, A46, A48, A49, A50 and A51 for v2.3 and v2.5.1, structures
+checked on hl7-definition.caristix.com (and HAPI for A17/A24). `A17`/`A24` carry two patient
+groups (`patient1`/`patient2`). `A32`/`A33` reuse the `ADT_A01` builder and parser the way `A21`
+does; `A46`/`A48`/`A49` reuse `ADT_A34` (`MSH EVN PID [PD1] MRG`); `A50`/`A51` require `PV1` in the
+spec but, like `A18`, reuse `ADT_A34` where `PV1` is an option. The optional `[{SFT}]` that v2.5.1
+adds after `MSH` is not modelled, consistent with the other v2.5.1 ADT messages here.
+
+Suggested order: **remaining ADT (A19, A20) → DFT/BAR → MDM → queries/MFN → the rest.**
 
 ## v2.5.1 parity
 After v2.3 is complete, bring v2.5.1 to parity with the same messages, then add the 2.5.1 additions:

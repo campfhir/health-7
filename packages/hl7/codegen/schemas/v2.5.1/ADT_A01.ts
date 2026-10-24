@@ -24,6 +24,8 @@ import {
   ADT_A27_SCHEMA as A27_V23,
   ADT_A29_SCHEMA as A29_V23,
   ADT_A31_SCHEMA as A31_V23,
+  ADT_A32_SCHEMA as A32_V23,
+  ADT_A33_SCHEMA as A33_V23,
   ADT_A38_SCHEMA as A38_V23,
 } from "../v2.3/ADT_A01";
 
@@ -51,4 +53,6 @@ export const ADT_A26_SCHEMA: MessageSchema = { ...A26_V23, version: "2.5.1", bas
 export const ADT_A27_SCHEMA: MessageSchema = { ...A27_V23, version: "2.5.1", baseMessage: "ADT_A01" };
 export const ADT_A29_SCHEMA: MessageSchema = { ...A29_V23, version: "2.5.1", baseMessage: "ADT_A01" };
 export const ADT_A31_SCHEMA: MessageSchema = { ...A31_V23, version: "2.5.1", baseMessage: "ADT_A01" };
+export const ADT_A32_SCHEMA: MessageSchema = { ...A32_V23, version: "2.5.1", baseMessage: "ADT_A01" };
+export const ADT_A33_SCHEMA: MessageSchema = { ...A33_V23, version: "2.5.1", baseMessage: "ADT_A01" };
 export const ADT_A38_SCHEMA: MessageSchema = { ...A38_V23, version: "2.5.1", baseMessage: "ADT_A01" };

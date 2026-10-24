@@ -13,7 +13,12 @@ import {
   ADT_A43_SCHEMA as A43_V23,
   ADT_A44_SCHEMA as A44_V23,
   ADT_A45_SCHEMA as A45_V23,
+  ADT_A46_SCHEMA as A46_V23,
   ADT_A47_SCHEMA as A47_V23,
+  ADT_A48_SCHEMA as A48_V23,
+  ADT_A49_SCHEMA as A49_V23,
+  ADT_A50_SCHEMA as A50_V23,
+  ADT_A51_SCHEMA as A51_V23,
 } from "../v2.3/ADT_A34";
 
 export const ADT_A18_SCHEMA: MessageSchema = { ...A18_V23, version: "2.5.1", baseMessage: "ADT_A34" };
@@ -29,4 +34,9 @@ export const ADT_A42_SCHEMA: MessageSchema = { ...A42_V23, version: "2.5.1", bas
 export const ADT_A43_SCHEMA: MessageSchema = { ...A43_V23, version: "2.5.1", baseMessage: "ADT_A34" };
 export const ADT_A44_SCHEMA: MessageSchema = { ...A44_V23, version: "2.5.1", baseMessage: "ADT_A34" };
 export const ADT_A45_SCHEMA: MessageSchema = { ...A45_V23, version: "2.5.1", baseMessage: "ADT_A34" };
+export const ADT_A46_SCHEMA: MessageSchema = { ...A46_V23, version: "2.5.1", baseMessage: "ADT_A34" };
 export const ADT_A47_SCHEMA: MessageSchema = { ...A47_V23, version: "2.5.1", baseMessage: "ADT_A34" };
+export const ADT_A48_SCHEMA: MessageSchema = { ...A48_V23, version: "2.5.1", baseMessage: "ADT_A34" };
+export const ADT_A49_SCHEMA: MessageSchema = { ...A49_V23, version: "2.5.1", baseMessage: "ADT_A34" };
+export const ADT_A50_SCHEMA: MessageSchema = { ...A50_V23, version: "2.5.1", baseMessage: "ADT_A34" };
+export const ADT_A51_SCHEMA: MessageSchema = { ...A51_V23, version: "2.5.1", baseMessage: "ADT_A34" };

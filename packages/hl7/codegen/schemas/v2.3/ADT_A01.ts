@@ -33,4 +33,8 @@ export const ADT_A26_SCHEMA: MessageSchema = { ...ADT_A01_SCHEMA, triggerEvent: 
 export const ADT_A27_SCHEMA: MessageSchema = { ...ADT_A01_SCHEMA, triggerEvent: "A27", baseMessage: "ADT_A01" };
 export const ADT_A29_SCHEMA: MessageSchema = { ...ADT_A01_SCHEMA, triggerEvent: "A29", baseMessage: "ADT_A01" };
 export const ADT_A31_SCHEMA: MessageSchema = { ...ADT_A01_SCHEMA, triggerEvent: "A31", baseMessage: "ADT_A01" };
+// A32/A33 (cancel patient arriving/departing - tracking) have the A21 structure:
+// MSH EVN PID [PD1] PV1 [PV2] [{DB1}] [{OBX}] (hl7-definition.caristix.com, v2.3 ADT_A32/ADT_A33).
+export const ADT_A32_SCHEMA: MessageSchema = { ...ADT_A01_SCHEMA, triggerEvent: "A32", baseMessage: "ADT_A01" };
+export const ADT_A33_SCHEMA: MessageSchema = { ...ADT_A01_SCHEMA, triggerEvent: "A33", baseMessage: "ADT_A01" };
 export const ADT_A38_SCHEMA: MessageSchema = { ...ADT_A01_SCHEMA, triggerEvent: "A38", baseMessage: "ADT_A01" };

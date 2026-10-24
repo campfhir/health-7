@@ -30,4 +30,12 @@ export const ADT_A42_SCHEMA: MessageSchema = { ...ADT_A34_SCHEMA, triggerEvent: 
 export const ADT_A43_SCHEMA: MessageSchema = { ...ADT_A34_SCHEMA, triggerEvent: "A43", baseMessage: "ADT_A34" };
 export const ADT_A44_SCHEMA: MessageSchema = { ...ADT_A34_SCHEMA, triggerEvent: "A44", baseMessage: "ADT_A34" };
 export const ADT_A45_SCHEMA: MessageSchema = { ...ADT_A34_SCHEMA, triggerEvent: "A45", baseMessage: "ADT_A34" };
+export const ADT_A46_SCHEMA: MessageSchema = { ...ADT_A34_SCHEMA, triggerEvent: "A46", baseMessage: "ADT_A34" };
 export const ADT_A47_SCHEMA: MessageSchema = { ...ADT_A34_SCHEMA, triggerEvent: "A47", baseMessage: "ADT_A34" };
+export const ADT_A48_SCHEMA: MessageSchema = { ...ADT_A34_SCHEMA, triggerEvent: "A48", baseMessage: "ADT_A34" };
+export const ADT_A49_SCHEMA: MessageSchema = { ...ADT_A34_SCHEMA, triggerEvent: "A49", baseMessage: "ADT_A34" };
+// A50/A51 (change visit number / alternate visit ID) require PV1: MSH EVN PID [PD1] MRG PV1
+// (hl7-definition.caristix.com, v2.3 ADT_A50/ADT_A51). Like A18 they reuse the A34 builder,
+// which accepts PV1 as an option.
+export const ADT_A50_SCHEMA: MessageSchema = { ...ADT_A34_SCHEMA, triggerEvent: "A50", baseMessage: "ADT_A34" };
+export const ADT_A51_SCHEMA: MessageSchema = { ...ADT_A34_SCHEMA, triggerEvent: "A51", baseMessage: "ADT_A34" };

@@ -7,6 +7,8 @@ import { VXU_V04_SCHEMA } from "./VXU_V04";
 import { ORU_R30_SCHEMA, ORU_R31_SCHEMA, ORU_R32_SCHEMA } from "./ORU_R30";
 import { MFN_M02_SCHEMA } from "./MFN_M02";
 import { ADT_A28_SCHEMA } from "./ADT_A28";
+import { ADT_A17_SCHEMA } from "./ADT_A17";
+import { ADT_A24_SCHEMA } from "./ADT_A24";
 import {
   ADT_A01_SCHEMA,
   ADT_A02_SCHEMA,
@@ -32,6 +34,8 @@ import {
   ADT_A27_SCHEMA,
   ADT_A29_SCHEMA,
   ADT_A31_SCHEMA,
+  ADT_A32_SCHEMA,
+  ADT_A33_SCHEMA,
   ADT_A38_SCHEMA,
 } from "./ADT_A01";
 import {
@@ -48,7 +52,12 @@ import {
   ADT_A43_SCHEMA,
   ADT_A44_SCHEMA,
   ADT_A45_SCHEMA,
+  ADT_A46_SCHEMA,
   ADT_A47_SCHEMA,
+  ADT_A48_SCHEMA,
+  ADT_A49_SCHEMA,
+  ADT_A50_SCHEMA,
+  ADT_A51_SCHEMA,
 } from "./ADT_A34";
 import {
   SIU_S12_SCHEMA,
@@ -123,7 +132,12 @@ export const V2_5_1: VersionSchema = {
     ADT_A28_SCHEMA,
     ADT_A29_SCHEMA,
     ADT_A31_SCHEMA,
+    ADT_A32_SCHEMA,
+    ADT_A33_SCHEMA,
     ADT_A38_SCHEMA,
+    // ADT swap/link (two patient groups)
+    ADT_A17_SCHEMA,
+    ADT_A24_SCHEMA,
     // ADT merge/move
     ADT_A18_SCHEMA,
     ADT_A30_SCHEMA,
@@ -138,7 +152,12 @@ export const V2_5_1: VersionSchema = {
     ADT_A43_SCHEMA,
     ADT_A44_SCHEMA,
     ADT_A45_SCHEMA,
+    ADT_A46_SCHEMA,
     ADT_A47_SCHEMA,
+    ADT_A48_SCHEMA,
+    ADT_A49_SCHEMA,
+    ADT_A50_SCHEMA,
+    ADT_A51_SCHEMA,
     // SIU
     SIU_S12_SCHEMA,
     SIU_S13_SCHEMA,

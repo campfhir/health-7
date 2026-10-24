@@ -49,11 +49,11 @@ src/
 │   ├── testdata/             # 30 sample HL7 messages for integration tests
 │   │   ├── ORU_R01/          # 15 lab result messages
 │   │   └── ORU_R30/          # 15 point-of-care observation messages
-│   ├── v2.3/                 # 49 parsers (ADT A01-A47, ORU_R01, MFN_M02, SIU S12-S26)
-│   └── v2.5.1/               # 58 parsers (ADT A01-A47, ORU R01/R30/R31/R32, MFN_M02, SIU S12-S26)
+│   ├── v2.3/                 # 49 parsers (ADT A01-A51 except A19/A20, ORU_R01, MFN_M02, SIU S12-S26)
+│   └── v2.5.1/               # 58 parsers (ADT A01-A51 except A19/A20, ORU R01/R30/R31/R32, MFN_M02, SIU S12-S26)
 ├── builders/                 # Message builders by version
-│   ├── v2.3/                 # 53 builders (ADT A01-A47, ORU_R01, MFN_M02, SIU S12-S26)
-│   └── v2.5.1/               # 55 builders (ADT A01-A47, ORU R01/R30/R31/R32, MFN_M02, SIU S12-S26)
+│   ├── v2.3/                 # 53 builders (ADT A01-A51 except A19/A20, ORU_R01, MFN_M02, SIU S12-S26)
+│   └── v2.5.1/               # 55 builders (ADT A01-A51 except A19/A20, ORU R01/R30/R31/R32, MFN_M02, SIU S12-S26)
 ```
 
 ## Installation
