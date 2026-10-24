@@ -1,444 +1,62 @@
-# HL7v2 Message Builder & Parser
+# kindling
 
-A modular TypeScript library for building and parsing HL7v2 messages.
+Healthcare data parsers, builders and generators for TypeScript. One repository, several npm
+packages under the [`@campfhir`](https://www.npmjs.com/org/campfhir) organization, each published
+as its own bundle with its own version.
 
-## Features
+## Packages
 
-- **Fluent Interface**: Type-safe segment construction with fluent API
-- **Parser**: Parse HL7v2 message strings back into structured data
-- **Round-trip Support**: Build messages and parse them back with full fidelity
-- **Modular Architecture**: Organized by HL7 version for easy extension
-- **Version Support**: HL7 v2.3, v2.3.1, v2.4, v2.5 and v2.5.1 (see [Versions](#versions))
-- **Date Input**: Segment date methods accept `Date` objects with optional HL7 layout format, in addition to pre-formatted strings
-- **Value Extraction**: Path-based field/component extraction utility
-- **Custom Segments**: Build Z-segments and other custom segments with a simple field-setter API
-- **Message Editor**: Fluent API for inserting segments into, or updating field values in, any built message without modifying the builder
-- **Comprehensive Tests**: 609 tests across 25 test files, co-located with source (Go style)
+| Package | Folder | What it does | Status |
+|---|---|---|---|
+| [`@campfhir/hl7`](https://www.npmjs.com/package/@campfhir/hl7) | [`packages/hl7`](packages/hl7) | Build and parse HL7 v2 messages (v2.3, 2.3.1, 2.4, 2.5, 2.5.1) | published |
+| `@campfhir/x12` | `packages/x12` | X12 EDI transaction sets | planned |
+| `@campfhir/pdmp` | `packages/pdmp` | PDMP (prescription drug monitoring) reporting formats | planned |
+| `@campfhir/fhir-r4` | `packages/fhir-r4` | FHIR R4 resources | planned |
+| `@campfhir/fhir-r5` | `packages/fhir-r5` | FHIR R5 resources | planned |
 
-## Roadmap
+See [ROADMAP.md](ROADMAP.md) for where each package is heading.
 
-See [ROADMAP.md](ROADMAP.md) — HL7 v2.3 completion first, then v2.5.1 parity. Checklists of the
-remaining [segments](docs/ROADMAP-SEGMENTS.md) and [event types](docs/ROADMAP-EVENTS.md).
+## What every package shares
 
-## Project Structure
+- **A fluent, type-safe API.** Builders are chainable and typed against the standard; parsers
+  return structured data that round-trips back to the wire format.
+- **Zero runtime dependencies**, dual CJS/ESM builds, and support for Node.js, Bun, browsers and
+  edge runtimes.
+- **Versioned subpaths** when the standard has versions (`@campfhir/hl7/segments/v2.5.1`).
+- **Tests next to the code** (`*.test.ts`, Vitest), run on Node 20, 22 and 24 in CI.
+- **One toolchain.** Lint, TypeScript and build settings live at the repository root; each package
+  only adds its own `package.json`, `tsconfig.json`, `tsup.config.ts` and `vitest.config.ts`.
+
+## Repository layout
 
 ```
-src/
-├── index.ts                  # Core type exports
-├── types/                    # Version-agnostic core types
-│   ├── encoding.ts           # HL7 encoding characters
-│   ├── segment.ts            # Base segment types and classes
-│   ├── message.ts            # Message container
-│   ├── schema.ts             # Message schema definitions
-│   └── parser.ts             # Parser utilities and interfaces
-├── utils/
-│   ├── dateUtils.ts          # Go-style date formatting utility (standalone, publishable)
-│   ├── hl7DateUtils.ts       # HL7-specific date formatting wrapper and layout constants
-│   ├── ValueExtractor.ts     # Path-based value extraction utility
-│   ├── CustomSegment.ts      # Generic segment for Z-segments and custom use
-│   └── MessageEditor.ts      # Fluent segment insertion API
-├── segments/                 # Segment definitions by version
-│   ├── v2.3/                 # hand-written base segments
-│   ├── v2.3.1/               # re-exports of v2.3 (generated)
-│   ├── v2.4/                 # re-exports of v2.3.1 (generated)
-│   ├── v2.5/                 # re-exports + SFT, SPM, TQ1
-│   └── v2.5.1/               # extends v2.5 with 2.5.1-specific fields
-├── parsers/                  # Message parsers by version
-│   ├── testdata/             # 30 sample HL7 messages for integration tests
-│   │   ├── ORU_R01/          # 15 lab result messages
-│   │   └── ORU_R30/          # 15 point-of-care observation messages
-│   ├── v2.3/                 # 49 parsers (ADT A01-A47, ORU_R01, MFN_M02, SIU S12-S26)
-│   └── v2.5.1/               # 58 parsers (ADT A01-A47, ORU R01/R30/R31/R32, MFN_M02, SIU S12-S26)
-├── builders/                 # Message builders by version
-│   ├── v2.3/                 # 53 builders (ADT A01-A47, ORU_R01, MFN_M02, SIU S12-S26)
-│   └── v2.5.1/               # 55 builders (ADT A01-A47, ORU R01/R30/R31/R32, MFN_M02, SIU S12-S26)
+.
+├── packages/
+│   └── hl7/                 # @campfhir/hl7 — src/, codegen/, examples/, docs/, README.md
+├── .github/
+│   ├── workflows/           # ci.yml, publish.yml, bump-version.yml, tag-releases.yml
+│   └── scripts/             # release helpers (all workspace-aware)
+├── eslint.config.mjs        # shared lint config
+├── tsconfig.base.json       # shared compiler options; packages extend it
+├── pnpm-workspace.yaml      # packages/*
+└── package.json             # private root: fans scripts out to every package
 ```
 
-## Installation
+## Development
 
 ```bash
-npm install @campfhir/hl7
+pnpm install          # once, at the root
+pnpm lint             # eslint across every package
+pnpm typecheck        # tsc --noEmit in every package
+pnpm test             # vitest in every package
+pnpm build            # tsup in every package
+pnpm verify           # everything CI runs, in order
+
+pnpm --filter @campfhir/hl7 test   # one package (or `cd packages/hl7 && pnpm test`)
 ```
 
-To work on the library itself:
-
-```bash
-pnpm install
-pnpm run build
-```
-
-## Testing
-
-```bash
-pnpm test        # unit tests
-pnpm lint        # eslint
-pnpm typecheck   # tsc --noEmit
-```
-
-Tests use [Vitest](https://vitest.dev/) and run directly against TypeScript source via `tsx`.
-
-## Runtime support
-
-The package ships dual CJS/ESM builds with fully-specified import paths, so it
-runs on Node.js (CommonJS `require` and native ESM `import`), Bun, browsers, and
-Cloudflare Workers. There are no Node-only runtime dependencies. Other runtimes
-that can consume npm packages (for example Deno via the `npm:` specifier) should
-also work, but they are not an officially tested target.
-
-## Versions
-
-Every supported version has its own subpath (`segments/<version>`, `parsers/<version>`,
-`builders/<version>`). Versions that are structurally identical to their predecessor simply
-re-export it, so `segments/v2.4` `PID` *is* the v2.3 `PID` class. Segments are available from the
-version that introduced them:
-
-| Version | Based on | Notes |
-|---|---|---|
-| `v2.3` | — | Base implementation |
-| `v2.3.1` | v2.3 | Re-export |
-| `v2.4` | v2.3.1 | Re-export, except `ORM^O01` (adds `CTD` and `FT1`) |
-| `v2.5` | v2.4 | Re-export + `SFT` (Software), `SPM` (Specimen), `TQ1` (Timing/Quantity); `ERR` gains ERR-2..12; own `ACK` (`[{SFT}]`, repeating `ERR`) and `ORR^O02` (repeating `ERR`) |
-| `v2.5.1` | v2.5 | Version-specific fields and messages (e.g. `ORU_R30–R32`) |
-
-Version-specific differences in 2.3.1, 2.4 and 2.5 are filled in as they are implemented — see the
-[roadmap](ROADMAP.md).
-
-## Imports
-
-Core types, utilities, and the message editor are exported from the package root:
-
-```typescript
-import { BaseSegment, HL7Message, ParserUtils, extractValue, CustomSegment, MessageEditor } from '@campfhir/hl7';
-
-// Date formatting utility (Go-style layout strings)
-import { dateUtils, DateOnly, DateTime } from '@campfhir/hl7';
-```
-
-HL7-specific date helpers are imported directly:
-
-```typescript
-import { formatHL7Date, DateLayout, DateTimeLayout, TimeLayout } from '@campfhir/hl7/utils/hl7DateUtils';
-```
-
-Versioned segments can be imported as a group or individually:
-
-```typescript
-// All segments for a version
-import { MSH, PID, OBX } from '@campfhir/hl7/segments/v2.5.1';
-
-// Individual segment (also gives access to types)
-import { MSH } from '@campfhir/hl7/segments/v2.5.1/MSH';
-```
-
-Builders and parsers are imported individually or via the barrel (create*/parse* functions only):
-
-```typescript
-// Barrel — create*/parse* functions only
-import { createORU_R01 } from '@campfhir/hl7/builders/v2.5.1';
-import { parseORU_R01 } from '@campfhir/hl7/parsers/v2.5.1';
-
-// Per-file — includes types like PatientResult, OrderObservation
-import { createORU_R01, PatientResult } from '@campfhir/hl7/builders/v2.5.1/ORU_R01';
-import { parseORU_R01 } from '@campfhir/hl7/parsers/v2.5.1/ORU_R01_Parser';
-```
-
-## Usage Examples
-
-### Building an ORU^R01 Message
-
-```typescript
-import { MSH } from '@campfhir/hl7/segments/v2.5.1/MSH';
-import { PID } from '@campfhir/hl7/segments/v2.5.1/PID';
-import { PV1 } from '@campfhir/hl7/segments/v2.5.1/PV1';
-import { OBR } from '@campfhir/hl7/segments/v2.5.1/OBR';
-import { OBX } from '@campfhir/hl7/segments/v2.5.1/OBX';
-import { createORU_R01, PatientResult } from '@campfhir/hl7/builders/v2.5.1/ORU_R01';
-
-const msh = new MSH()
-  .sendingApplication('LAB')
-  .sendingFacility('General Hospital')
-  .receivingApplication('EMR')
-  .receivingFacility('Main Campus')
-  .dateTimeOfMessage('20250119120000')
-  .messageType({ messageCode: 'ORU', triggerEvent: 'R01', messageStructure: 'ORU_R01' })
-  .messageControlId('MSG00001')
-  .processingId('P')
-  .versionId('2.5.1');
-
-const pid = new PID()
-  .setId('1')
-  .patientIdentifierList({ id: '12345', checkDigit: '', checkDigitScheme: '', assigningAuthority: 'MRN', identifierTypeCode: 'MR' })
-  .patientName({ familyName: 'Doe', givenName: 'John', middleName: 'Q' })
-  .dateTimeOfBirth(new Date(1980, 0, 15))   // Date object — formatted as YYYYMMDD
-  // .dateTimeOfBirth('19800115')            // pre-formatted string also accepted
-  .administrativeSex('M');
-
-const pv1 = new PV1()
-  .setId('1')
-  .patientClass('I')
-  .assignedPatientLocation({ pointOfCare: 'ICU', room: '101', bed: 'A', facility: 'Main' })
-  .attendingDoctor({ id: '1234', familyName: 'Smith', givenName: 'Jane' });
-
-const obr = new OBR()
-  .setId('1')
-  .placerOrderNumber('ORD123456')
-  .fillerOrderNumber('LAB987654')
-  .universalServiceIdentifier({ identifier: 'CBC', text: 'Complete Blood Count', nameOfCodingSystem: 'LN' })
-  .observationDateTime('20250119120000')
-  .resultStatus('F');
-
-const obx = new OBX()
-  .setId('1')
-  .valueType('NM')
-  .observationIdentifier({ identifier: '718-7', text: 'Hemoglobin', nameOfCodingSystem: 'LN' })
-  .observationValue('15.5')
-  .units({ identifier: 'g/dL', text: 'grams per deciliter', nameOfCodingSystem: 'UCUM' })
-  .referenceRange('13.5-17.5')
-  .observationResultStatus('F');
-
-const patientResult: PatientResult = {
-  pid,
-  pv1,
-  orderObservations: [{ obr, obxList: [obx] }],
-};
-
-const message = createORU_R01(msh, [patientResult]);
-console.log(message.encode());
-```
-
-### Parsing an ORU^R01 Message
-
-```typescript
-import { parseORU_R01 } from '@campfhir/hl7/parsers/v2.5.1/ORU_R01_Parser';
-import { ParserUtils } from '@campfhir/hl7';
-
-const hl7String = `MSH|^~\\&|LAB|General Hospital|EMR|Main Campus|20250119120000||ORU^R01^ORU_R01|MSG00001|P|2.5.1
-PID|1||12345^^^MRN^MR||Doe^John^Q||19800115|M|||123 Main St^^Springfield^IL^62701^USA||555-1234
-PV1|1|I|ICU^101^A^Main||||1234^Smith^Jane
-OBR|1|ORD123456|LAB987654|CBC^Complete Blood Count^LN|||20250119120000|||||||||1234^Smith^Jane|||||||||F
-OBX|1|NM|718-7^Hemoglobin^LN|1|15.5|g/dL^grams per deciliter^UCUM|13.5-17.5||||F|||20250119120000`;
-
-const result = parseORU_R01(hl7String);
-
-if (result.success) {
-  const parsed = result.data!;
-
-  // Access MSH data
-  console.log('Sending App:', ParserUtils.getComponent(parsed.msh.fields[1], 0));
-
-  // Access patient data
-  const pidFields = parsed.patientResults[0].pid!.fields;
-  console.log('Patient Name:', ParserUtils.getComponent(pidFields[4], 0));
-
-  // Access observations
-  parsed.patientResults[0].orderObservations[0].obxList.forEach(obx => {
-    const name = ParserUtils.getComponent(obx.fields[2], 1);
-    const value = ParserUtils.getComponent(obx.fields[4], 0);
-    console.log(`${name}: ${value}`);
-  });
-
-  // Re-encode (round-trip)
-  console.log(parsed.message.encode());
-} else {
-  console.error('Parse error:', result.error);
-}
-```
-
-### Value Extraction
-
-Extract field values using a simple path syntax without fully parsing the message:
-
-```typescript
-import { extractValue } from '@campfhir/hl7';
-
-const message = `MSH|^~\\&|LAB|Hospital|EMR|Clinic|20250119120000||ORU^R01|MSG001|P|2.5.1
-PID|1||12345^^^MRN^MR||Doe^John^Q||19800115|M|||123 Main St^Apt 4^Springfield^IL^62701^USA`;
-
-extractValue('MSH-3', message);      // 'LAB'
-extractValue('PID-5.1', message);    // 'Doe'
-extractValue('PID-5.2', message);    // 'John'
-extractValue('PID-11.3', message);   // 'Springfield'
-extractValue('OBX-5', message);      // string[] — all OBX-5 values
-```
-
-**Path syntax**: `Segment[-FieldIndex[.ComponentIndex[.SubcomponentIndex]]]`
-
-### Date Formatting
-
-All segment methods that accept date/time values support both pre-formatted strings and `Date` objects. Strings pass through unchanged for backwards compatibility.
-
-```typescript
-import { DateLayout, DateTimeLayout, TimeLayout } from '@campfhir/hl7/utils/hl7DateUtils';
-
-// Date object — use layout aliases or Go-style layout strings
-pid.dateTimeOfBirth(new Date(1980, 0, 15));                  // default: YYYYMMDD → '19800115'
-pid.dateTimeOfBirth(new Date(1980, 0, 15), 'Date');          // alias → '19800115'
-pid.dateTimeOfBirth(new Date(1980, 0, 15), 'DateTime');      // alias → '19800115090503'
-obr.observationDateTime(new Date(), DateTimeLayout);         // constant → 'YYYYMMDDHHmmss'
-
-// Pre-formatted string — passes through unchanged
-pid.dateTimeOfBirth('19800115');
-```
-
-Layout aliases: `"Date"` → `YYYYMMDD`, `"DateTime"` → `YYYYMMDDHHmmss`, `"Time"` → `HHmmss`, `"TimeWithSeconds"` → `HHmmss.SSS`
-
-`dateUtils` (exported from package root) is a standalone Go-style date utility usable independently of the HL7 layer:
-
-```typescript
-import { dateUtils, DateOnly } from '@campfhir/hl7';
-
-dateUtils.format(new Date(), DateOnly);       // { ok: true, val: '20250119' }
-dateUtils.parse('20250119', DateOnly);        // { ok: true, val: Date }
-```
-
-### Custom Segments
-
-`CustomSegment` lets you build Z-segments or any non-standard segment without type safety restrictions. Fields use 1-based HL7 numbering.
-
-```typescript
-import { CustomSegment } from '@campfhir/hl7';
-
-const zpd = new CustomSegment('ZPD')
-  .setField(1, 'extra-patient-data')
-  .setField(2, ['comp1', 'comp2'])             // components
-  .setField(3, [['sub1a', 'sub1b'], ['sub2']]); // subcomponents
-
-zpd.encode(); // ZPD|extra-patient-data|comp1^comp2|sub1a&sub1b^sub2
-```
-
-### Message Editor
-
-`MessageEditor` lets you insert segments into, or update field values in, any built message without modifying the builder. All operations are applied at `encode()` time and can be freely chained.
-
-#### Inserting segments
-
-```typescript
-import { MessageEditor, CustomSegment } from '@campfhir/hl7';
-import { NTE } from '@campfhir/hl7/segments/v2.5.1';
-import { createORU_R01 } from '@campfhir/hl7/builders/v2.5.1/ORU_R01';
-
-const message = createORU_R01(msh, patientResults);
-
-const encoded = new MessageEditor(message)
-  // insert after last PID (default)
-  .insert(new CustomSegment('ZPD').setField(1, 'patient-extra'))
-  .after('PID').commit()
-
-  // insert a typed NTE after every OBX
-  .insert(new NTE().setId('1').comment('auto-note'))
-  .after('OBX').each().commit()
-
-  // insert before the 2nd OBR
-  .insert(new CustomSegment('ZOR').setField(1, 'order-extra'))
-  .before('OBR').nth(2).commit()
-
-  // append at end of message
-  .append(new CustomSegment('ZMH').setField(1, 'message-footer'))
-
-  .encode();
-```
-
-**Insertion modes** — chain before calling `commit()`:
-- `.last()` — target the last matching segment (default)
-- `.each()` — insert relative to every matching segment
-- `.nth(n)` — insert relative to the Nth matching segment
-
-#### Updating field values
-
-`update()` uses the same path syntax as `extractValue` to set a field, component, or subcomponent value. All occurrences of a repeating segment are updated. Invalid paths are silently ignored.
-
-```typescript
-// single update
-new MessageEditor(message)
-  .update('PID-5.1', 'Smith')
-  .encode();
-
-// bulk update
-new MessageEditor(message)
-  .update({
-    'MSH-3': 'NEW_LAB',
-    'PID-5.1': 'Smith',
-    'PID-3.4.1': 'GEN',   // subcomponent — assigning authority namespace
-  })
-  .encode();
-
-// chain updates with insertions
-new MessageEditor(message)
-  .update('PID-5.1', 'Smith')
-  .insert(new CustomSegment('ZPD').setField(1, 'extra'))
-  .after('PID').commit()
-  .encode();
-```
-
-**Path syntax**: `Segment-FieldIndex[.ComponentIndex[.SubcomponentIndex]]` — same as `extractValue`.
-
-### Examples
-
-```bash
-npx tsx examples/oru-example.ts                    # Build ORU^R01 message
-npx tsx examples/parser-example.ts                 # Parse and round-trip
-npx tsx examples/oru-r30-example.ts                # Build ORU^R30 (point-of-care)
-npx tsx examples/parse-modify-encode-example.ts    # Parse, modify, re-encode
-npx tsx examples/value-extractor-example.ts        # Value extraction
-npx tsx examples/automatic-setid-renumbering.ts    # SetID auto-renumbering
-```
-
-## Architecture
-
-### Fluent Interface
-
-Each segment uses a fluent builder pattern:
-
-```typescript
-const msh = new MSH()
-  .sendingApplication('APP')
-  .receivingApplication('SYS');
-```
-
-### Parser Architecture
-
-Parsers convert HL7 strings into structured segment objects. Each message parser orchestrates individual segment parsers to reconstruct the full message structure including groups (patient results, order observations):
-
-```typescript
-export class ORU_R01_Parser {
-  parse(input: string): Result<ParsedORU_R01> { ... }
-}
-
-// or use the convenience function:
-const result = parseORU_R01(hl7String);
-```
-
-### Version Organization
-
-Segments, builders, and parsers are organized by HL7 version (`v2.3`, `v2.5.1`), supporting:
-- Multiple versions simultaneously
-- Adding new versions without affecting existing code
-- Version-specific business logic
-
-## Extending the Library
-
-### Adding a New Segment
-
-1. Create a file in `src/segments/v2.5.1/<SEGMENT>.ts`
-2. Extend `BaseSegment` with typed setters/getters
-
-### Adding a New Message Type
-
-1. Create a builder in `src/builders/v2.5.1/<MSG_TYPE>.ts`
-2. Create a parser in `src/parsers/v2.5.1/<MSG_TYPE>_Parser.ts`
-
-### Adding a New HL7 Version
-
-1. Create `src/segments/v2.X/`, `src/builders/v2.X/`, `src/parsers/v2.X/`
-2. Implement version-specific segments, builders, and parsers
-
-## Design Decisions
-
-### Modular Architecture
-Small, focused files organized by version make the codebase easy to navigate, test, extend, and maintain at scale.
-
-### Type Safety
-TypeScript provides compile-time validation, better IDE support, and self-documenting interfaces.
+Adding a package, the release process and how publishing works are described in
+[CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 

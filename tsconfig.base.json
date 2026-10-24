@@ -4,8 +4,6 @@
     "module": "commonjs",
     "lib": ["ES2020", "ES2022.Error", "DOM"],
     "declaration": true,
-    "outDir": "./dist",
-    "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -14,7 +12,5 @@
     "resolveJsonModule": true,
     "allowImportingTsExtensions": true,
     "rewriteRelativeImportExtensions": true
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "examples"]
+  }
 }

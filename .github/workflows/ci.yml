@@ -13,6 +13,8 @@ concurrency:
 permissions:
   contents: read
 
+# Every job runs across the whole workspace (packages/*), so a new package is covered as soon
+# as it has the standard scripts (lint via the root eslint config, typecheck, test, build).
 jobs:
   lint-typecheck:
     runs-on: ubuntu-latest
@@ -56,9 +58,7 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
-      - name: Smoke-test built package (CJS and ESM)
-        run: |
-          node -e "require('./dist/index.js'); require('./dist/parsers/v2.3/index.js')"
-          node --input-type=module -e "import('./dist/index.mjs'); import('./dist/parsers/v2.5.1/index.mjs')"
-          node -e "for (const v of ['v2.3','v2.3.1','v2.4','v2.5','v2.5.1']) require('./dist/segments/'+v+'/index.js')"
-      - run: npm pack --dry-run
+      - name: Smoke-test every built entry point (CJS and ESM)
+        run: pnpm smoke
+      - name: Check what each package would publish
+        run: pnpm -r exec npm pack --dry-run
